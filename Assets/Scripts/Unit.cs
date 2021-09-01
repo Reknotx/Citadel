@@ -8,7 +8,7 @@ public class Unit : MonoBehaviour
     [SerializeField]
     private int _health;
 
-    public int Health
+    public virtual int Health
     {
         get;
         set;
@@ -18,6 +18,13 @@ public class Unit : MonoBehaviour
     [Range(0, 50f)]
     [Tooltip("This is the unit's speed.")]
     public float speed;
+
+
+    public virtual void Update()
+    {
+
+    }
+
 
     #region Player Actions
     public void movement()
