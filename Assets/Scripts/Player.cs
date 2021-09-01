@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Player : Unit
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public override int Health 
+    { 
+        get => base.Health; 
+        set => base.Health = value; 
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public override void Update()
     {
-        
+        base.Update();
     }
 }
