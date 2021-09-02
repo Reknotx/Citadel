@@ -17,23 +17,34 @@ public class MapGenerator : MonoBehaviour
 {
     #region Temporary Variables
     public GameObject basePrefab;
+    public GameObject[,] grid;
 
-    private int roomSize = 30;
+    private int roomSize = 25;
     public int gridSize = 6;
     #endregion
 
     public void Start()
     {
+        grid = new GameObject[gridSize,gridSize];
+
         SpawnMap();
     }
 
     public void SpawnMap()
     {
+
         for (int i = 0; i < gridSize; i++)
         {
+            GameObject row = Instantiate(new GameObject("Row " + i));
+            row.transform.parent = transform;
+
             for (int j = 0; j < gridSize; j++)
             {
                 GameObject temp = Instantiate(basePrefab, new Vector3(roomSize * j, roomSize * i), Quaternion.identity);
+                temp.name = "Room: (" + j + ", " + i + ")";
+                temp.GetComponent<Room>().gridPos = new Vector2(j, i);
+                temp.transform.parent = row.transform;
+                grid[j, i] = temp;
             }
         }
     }
