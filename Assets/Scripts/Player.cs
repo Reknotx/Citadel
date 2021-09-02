@@ -1,3 +1,12 @@
+/*
+ * Author: Hunter Lawrence-Emanuel
+ * Date: 9/1/2021
+ * 
+ * Brief:this script holds the specific 
+ * components/data of the player character 
+ */
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +30,8 @@ public class Player : Unit
         get => base.Health; 
         set => base.Health = value; 
     }
+
+   
     #endregion
 
 
@@ -73,6 +84,20 @@ public class Player : Unit
         else
         {
             isGrounded = false;
+        }
+
+
+        var roofCheck = transform.TransformDirection(Vector3.up);
+        Debug.DrawRay(transform.position, roofCheck * _Reach, Color.red);
+        if (Physics.Raycast(transform.position, roofCheck, out hit, _Reach) && hit.transform.tag == "platform")
+        {
+            throughPlatform = true;
+
+        }
+        else
+        {
+            throughPlatform = false;
+
         }
         #endregion
     }
