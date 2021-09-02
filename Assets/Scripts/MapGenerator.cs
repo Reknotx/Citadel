@@ -35,7 +35,7 @@ public class MapGenerator : MonoBehaviour
 
         for (int i = 0; i < gridSize; i++)
         {
-            GameObject row = Instantiate(new GameObject("Row " + i));
+            GameObject row = new GameObject("Row " + i);
             row.transform.parent = transform;
 
             for (int j = 0; j < gridSize; j++)
