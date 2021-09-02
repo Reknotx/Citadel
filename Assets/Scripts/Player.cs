@@ -11,7 +11,7 @@ public class Player : Unit
     private PlayerInputActions playerInputActions;
 
     ///<summary>This is the range of detection to the ground.</summary>
-    public float Reach = 1f;
+    private float _Reach = 1f;
     ///<summary>This tracks what the ground detection raycast hits.</summary>
     RaycastHit hit;
 
@@ -52,8 +52,8 @@ public class Player : Unit
         #region Ground/Platform detection
         ///<summary>This determines whether the unit is on a platform or not.</summary>
         var groundCheck = transform.TransformDirection(Vector3.down);
-        Debug.DrawRay(transform.position, groundCheck * Reach, Color.red);
-        if (Physics.Raycast(transform.position, groundCheck, out hit, Reach) && hit.transform.tag == "platform")
+        Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
+        if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "platform")
         {
             onPlatform = true;
             
@@ -65,8 +65,8 @@ public class Player : Unit
         }
 
         ///<summary>This determines whether the unit is on the ground or not.</summary>
-        Debug.DrawRay(transform.position, groundCheck * Reach, Color.red);
-        if (Physics.Raycast(transform.position, groundCheck, out hit, Reach) && hit.transform.tag == "ground")
+        Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
+        if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "ground")
         {
             isGrounded = true;
         }

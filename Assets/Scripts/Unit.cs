@@ -98,7 +98,6 @@ public class Unit : MonoBehaviour
 
 
     /// <summary> this allows units to drop through platforms </summary>
-    /// <returns>turns off the units collider, waits for a time then turns it back on</returns>
     public IEnumerator dropDown()
     {
         _collider.enabled = false;
