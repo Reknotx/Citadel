@@ -2,17 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomInfo : MonoBehaviour
+public class RoomInfo : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    ///Something to talk about is how we want room transitions to
+    ///occur. We need to code that ahead for data transfer
 }
