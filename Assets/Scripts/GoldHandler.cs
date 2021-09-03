@@ -13,7 +13,7 @@ using UnityEngine.UI;
 
 public class GoldHandler : MonoBehaviour
 {
-
+    
     public Text softGoldText;
     public Text hardGoldText;
 
@@ -22,9 +22,9 @@ public class GoldHandler : MonoBehaviour
 
     void Update()
     {
-        softGoldText.text = "" + (int)mySoftGold;
+        softGoldText.text = "Soft Gold: " + (int)mySoftGold;
 
-        hardGoldText.text = "" + (int)myHardGold;
+        hardGoldText.text = "Hard Gold: " + (int)myHardGold;
     }
 
     public void AddSoftGold(int softGold)
