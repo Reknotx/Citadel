@@ -27,14 +27,18 @@ public class LifeManaHandler : MonoBehaviour
     private float calculateLife;
     private float calculateMana;
 
-    
+    /// <summary>
+    /// Sets life and mana to their base values when the scene loads in.
+    /// </summary>
     void Start()
     {
         currentLife = myLife;
         currentMana = myMana;
     }
 
-    
+    /// <summary>
+    /// Updates the health and mana bars to their current state, depending on if spells have been cast or if the player has taken damage.
+    /// </summary>
     void Update()
     {
         calculateLife = currentLife / myLife;
@@ -46,11 +50,13 @@ public class LifeManaHandler : MonoBehaviour
         manaText.text = "" + (int)currentMana;
     }
 
+    /// <param name="damage">Amount of damage taken by the player</param>
     public void Damage(float damage)
     {
         currentLife -= damage;
     }
 
+    /// <param name="mana">Amount of mana lost by the player for casting a spell</param>
     public void ReduceMana(float mana)
     {
         currentMana -= mana;

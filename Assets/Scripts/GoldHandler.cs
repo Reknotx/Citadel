@@ -27,11 +27,13 @@ public class GoldHandler : MonoBehaviour
         hardGoldText.text = "Hard Gold: " + (int)myHardGold;
     }
 
+    /// <param name="softGold">Increase amount of soft gold by given integer</param>
     public void AddSoftGold(int softGold)
     {
         mySoftGold += softGold;
     }
 
+    /// <param name="hardGold">Increase amount of hard gold by given integer</param>
     public void AddHardGold(int hardGold)
     {
         myHardGold += hardGold;

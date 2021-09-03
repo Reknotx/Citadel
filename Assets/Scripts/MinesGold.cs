@@ -17,6 +17,9 @@ public class MinesGold : MonoBehaviour
 
     public GoldHandler gold;
 
+    /// <summary>
+    /// Multiplies the gold earned for clicking int he mine by the amount of miners the player has purchased.
+    /// </summary>
     public void GoldPerClick()
     {
         gold.AddHardGold(numOfMiners * baseGoldGain);
