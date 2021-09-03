@@ -32,4 +32,14 @@ public class SwordBehavior : MonoBehaviour
             heavyRenderer.enabled = false;
         }
     }
+
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            lightCollider.enabled = false;
+            heavyCollider.enabled = false;
+        }
+    }
 }

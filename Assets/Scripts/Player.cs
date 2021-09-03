@@ -16,6 +16,10 @@ public class Player : Unit
 {
 
     #region Player Stats
+
+    ///<summary>This is the units health.</summary>
+    public int myHealth;
+
     ///<summary>This is the players Input system.</summary>
     private PlayerInputActions playerInputActions;
 
@@ -24,12 +28,9 @@ public class Player : Unit
     ///<summary>This tracks what the ground detection raycast hits.</summary>
     RaycastHit hit;
 
-    ///<summary>This is the players actual health.</summary>
-    public override int Health 
-    { 
-        get => base.Health; 
-        set => base.Health = value; 
-    }
+    ///<summary>This tracks what direction the player is facing.</summary>
+    public bool facingRightLocal;
+   
 
    
     #endregion
@@ -50,7 +51,7 @@ public class Player : Unit
 
     public override void Update()
     {
-      
+        facingRightLocal = facingRight;
         base.Update();
 
         #region Player Movement
@@ -100,6 +101,18 @@ public class Player : Unit
 
         }
         #endregion
+    }
+
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            myHealth = myHealth - 1;
+           
+        }
+
+        
     }
 
 }

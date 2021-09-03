@@ -18,17 +18,6 @@ public class Unit : MonoBehaviour
 
     #region Base Stats
 
-    ///<summary>This is the unit's private health.</summary>
-    [SerializeField]
-    private int _health;
-
-    ///<summary>This is the unit's public health.</summary>
-    public virtual int Health
-    {
-        get;
-        set;
-    }
-
     ///<summary>This is the unit's speed.</summary>
     [Range(0, 5f)]
     [Tooltip("This is the unit's speed.")]
@@ -38,10 +27,13 @@ public class Unit : MonoBehaviour
     [SerializeField]
     protected Rigidbody _rigidBody;
 
-    ///<summary>This is the unit's private collider.</summary>
+    ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
     protected Collider _groundCollider;
 
+    ///<summary>This is the unit's collider that detects the ground.</summary>
+    [SerializeField]
+    protected Collider _hitboxCollider;
 
     ///<summary>This determines the unit's jump height.</summary>
     [Range(0, 8f)]
@@ -49,23 +41,35 @@ public class Unit : MonoBehaviour
     public float jumpFroce;
 
     ///<summary>This determines whether the unit is on the ground or not.</summary>
+   [HideInInspector]
     protected bool isGrounded;
 
     ///<summary>This determines whether the unit is on a platform or not.</summary>
+    [HideInInspector]
     protected bool onPlatform;
 
-    [SerializeField]
+    [HideInInspector]
     ///<summary>This determines whether the unit is going through a platform or not.</summary>
     protected bool throughPlatform;
 
     ///<summary>This determines if the unit just preformed a jump or not.</summary>
+    [HideInInspector]
     protected bool justJumped = false;
 
     ///<summary>This determines what direction the unit is facing.</summary>
-    protected bool facingRight;
+    [HideInInspector]
+    public bool facingRight;
+
+    ///<summary>This determines what direction the unit hit another unit.</summary>
+    [HideInInspector]
+    protected bool hitOnRight;
+
     ///<summary>This is the cool down between melee attacks for the unit .</summary>
+    [HideInInspector]
     protected float attackCoolDown =  1f;
+
     ///<summary>This trakcs when the unit can deal damage again.</summary>
+    [HideInInspector]
     protected float nextDamageEvent;
 
     ///<summary>This dis the units collider for their light attack.</summary>
@@ -83,11 +87,11 @@ public class Unit : MonoBehaviour
     [SerializeField]
     protected GameObject weaponLocationRight;
 
-
     #endregion
 
     public virtual void Update()
     {
+        ///<summary>this checks if the unit is trying to pass up through a platform and will assist.</summary>
         if (throughPlatform == true && justJumped == true)
         {
             StartCoroutine(dropDown());
@@ -145,8 +149,6 @@ public class Unit : MonoBehaviour
     }
 
     /// <summary> This is the attacking function /// </summary>
-    /// <param name="dmg">The amnt of dmg to target.</param>
-    /// <param name="target">The target of the attack.</param>
     public void lightAttack(InputAction.CallbackContext context)
     {
 
@@ -169,8 +171,7 @@ public class Unit : MonoBehaviour
     }
 
     /// <summary> This is the attacking function /// </summary>
-    /// <param name="dmg">The amnt of dmg to target.</param>
-    /// <param name="target">The target of the attack.</param>
+
     public void heavyAttack(InputAction.CallbackContext context)
     {
         if (Time.time >= nextDamageEvent)
@@ -193,7 +194,19 @@ public class Unit : MonoBehaviour
     }
     #endregion
 
+    #region Enemy Actions
 
+    ///<summary>this makes the unit move between points A and B.</summary>
+    public void patrolAB()
+    {
+        return;
+    }
+
+
+    #endregion
+
+
+    #region IEnumerator Coroutines
     /// <summary> this allows units to drop through platforms </summary>
     public IEnumerator dropDown()
     {
@@ -225,4 +238,13 @@ public class Unit : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         justJumped = false;
     }
+
+    public IEnumerator Stun()
+    {
+        
+        
+        yield return new WaitForSeconds(2f);
+
+    }
+    #endregion
 }
