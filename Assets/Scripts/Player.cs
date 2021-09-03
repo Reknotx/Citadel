@@ -4,6 +4,9 @@
  * 
  * Brief:this script holds the specific 
  * components/data of the player character 
+ * WASD = moving up,left,down and right respectively 
+ * left mouse button = light attack
+ * right mouse button = heavy attack
  */
 
 
