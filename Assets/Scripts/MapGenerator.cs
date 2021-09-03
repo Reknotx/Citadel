@@ -20,7 +20,9 @@ public class MapGenerator : MonoBehaviour
     public GameObject[,] grid;
 
     private int roomSize = 25;
-    public int gridSize = 6;
+
+    [Range(1, 15)]
+    public int gridSize = 7;
     #endregion
 
     public void Start()
