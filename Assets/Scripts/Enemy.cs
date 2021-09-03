@@ -119,18 +119,18 @@ public class Enemy : Unit
 
             if(hitOnRight == true)
             {
-                _rigidBody.AddForce(new Vector3(5, 0, 0) * 1f, ForceMode.Impulse);
-                StartCoroutine(Stun());
+                _rigidBody.AddForce(new Vector3(8, 0, 0) * 1f, ForceMode.Impulse);
+             
             }
             else
             {
-                _rigidBody.AddForce(new Vector3(-5, 0, 0) * 1f, ForceMode.Impulse);
-                StartCoroutine(Stun());
+                _rigidBody.AddForce(new Vector3(-8, 0, 0) * 1f, ForceMode.Impulse);
+               
             }
         }
         if (other.gameObject.tag == "Player")
         {
-
+            myHealth = myHealth - 1;
         }
     }
 

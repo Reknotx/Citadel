@@ -241,10 +241,14 @@ public class Unit : MonoBehaviour
 
     public IEnumerator Stun()
     {
-        
-        
         yield return new WaitForSeconds(2f);
+    }
 
+    public IEnumerator InvicibilityFrames()
+    {
+        _hitboxCollider.enabled = false;
+        yield return new WaitForSeconds(1f);
+        _hitboxCollider.enabled = true;
     }
     #endregion
 }
