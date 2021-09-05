@@ -6,14 +6,25 @@ public class Enemy : Unit
 {
     #region Enemy Stats
 
+            #region Enemy's Base Stats/Important Controls
     ///<summary>This is the units health.</summary>
     public int myHealth;
 
     ///<summary>This is the players Input system.</summary>
     private PlayerInputActions playerInputActions;
 
+            #endregion
+            #region Enemy's Ground/Directional Detection Stats
+
     ///<summary>This is the range of detection to the ground.</summary>
     private float _Reach = 1f;
+
+    ///<summary>This tracks what direction the enemy is facing.</summary>
+    [HideInInspector]
+    public bool facingRightLocal;
+
+            #endregion
+            #region Enemy's Player Detection Stats
 
     ///<summary>This is the range of detection to the player.</summary>
     [Range(0, 20)]
@@ -24,10 +35,7 @@ public class Enemy : Unit
     ///<summary>This targets the player for the Enemy.</summary>
     public GameObject player;
 
-    ///<summary>This tracks what direction the enemy is facing.</summary>
-    [HideInInspector]
-    public bool facingRightLocal;
-
+            #endregion
 
     #endregion
 
@@ -88,14 +96,14 @@ public class Enemy : Unit
     }
 
 
+    #region Collision Detection
     ///<summary>These track the collisions between the enemy and in-game objects .</summary>
     public void OnTriggerEnter(Collider other)
     {
         ///<summary>This triggers when the enemy is hit with the light attack.</summary>
         if (other.gameObject.tag=="swordLight")
         {
-            myHealth = myHealth - 1;
-            
+            myHealth = myHealth - player.GetComponent<Player>().lightAttackDamage;
             hitOnRight = player.GetComponent<Player>().facingRightLocal ;
 
             if (hitOnRight == true)
@@ -113,26 +121,26 @@ public class Enemy : Unit
         if (other.gameObject.tag == "swordHeavy")
         {
             
-            myHealth = myHealth - 3;
+            myHealth = myHealth - player.GetComponent<Player>().heavyAttackDamage;
             hitOnRight = player.GetComponent<Player>().facingRightLocal;
             
 
             if(hitOnRight == true)
             {
-                _rigidBody.AddForce(new Vector3(8, 0, 0) * 1f, ForceMode.Impulse);
+                _rigidBody.AddForce(new Vector3(player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
              
             }
             else
             {
-                _rigidBody.AddForce(new Vector3(-8, 0, 0) * 1f, ForceMode.Impulse);
+                _rigidBody.AddForce(new Vector3(-player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
                
             }
         }
         if (other.gameObject.tag == "Player")
         {
-            myHealth = myHealth - 1;
+            myHealth = myHealth - player.GetComponent<Player>().playerCollisionDamage; 
         }
     }
 
-    
+    #endregion
 }

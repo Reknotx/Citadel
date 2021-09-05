@@ -123,6 +123,36 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &294700017
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 294700018}
+  m_Layer: 0
+  m_Name: spellLocationCenter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &294700018
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294700017}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 695129693}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &473339018
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 488404068}
   m_Layer: 0
-  m_Name: swordLocationLeft
+  m_Name: meleeLocationLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -266,7 +296,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 695129693}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &508189867
 GameObject:
@@ -556,8 +586,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 473339021}
-  - {fileID: 1844569189}
   - {fileID: 488404068}
+  - {fileID: 294700018}
+  - {fileID: 1844569189}
   - {fileID: 736677195}
   - {fileID: 784215044}
   m_Father: {fileID: 0}
@@ -571,7 +602,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 695129689}
   serializedVersion: 2
-  m_Mass: 0.7
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
@@ -603,6 +634,9 @@ MonoBehaviour:
   weaponLocationRight: {fileID: 1844569188}
   myHealth: 5
   facingRightLocal: 0
+  knockbackForce: 5
+  lightAttackDamage: 1
+  heavyAttackDamage: 3
 --- !u!114 &695129696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,6 +742,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 726b3385-2b63-4be1-b644-25fd8ff7547d
     m_ActionName: PlayerControl/Heavy Attack[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2d06b76a-c763-4971-b69a-c83e6f3bbe55
+    m_ActionName: PlayerControl/Attack 3[/Mouse/middleButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControl
@@ -741,7 +779,7 @@ GameObject:
   - component: {fileID: 736677194}
   - component: {fileID: 736677192}
   m_Layer: 0
-  m_Name: swordLight
+  m_Name: meleeLight
   m_TagString: swordLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -837,7 +875,7 @@ Transform:
   m_LocalScale: {x: 0.77, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 695129693}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &784215043
 GameObject:
@@ -853,7 +891,7 @@ GameObject:
   - component: {fileID: 784215046}
   - component: {fileID: 784215045}
   m_Layer: 0
-  m_Name: swordHeavy
+  m_Name: meleeHeavy
   m_TagString: swordHeavy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -871,7 +909,7 @@ Transform:
   m_LocalScale: {x: 1, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 695129693}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &784215045
 MonoBehaviour:
@@ -1242,7 +1280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1844569189}
   m_Layer: 0
-  m_Name: swordLocationRight
+  m_Name: meleeLocationRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1260,7 +1298,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 695129693}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1944567585
 GameObject:

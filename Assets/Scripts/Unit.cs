@@ -18,10 +18,20 @@ public class Unit : MonoBehaviour
 
     #region Base Stats
 
+         #region Unit's Movement Stats 
+
     ///<summary>This is the unit's speed.</summary>
     [Range(0, 5f)]
     [Tooltip("This is the unit's speed.")]
     public float speed;
+
+    ///<summary>This determines the unit's jump height.</summary>
+    [Range(0, 8f)]
+    [Tooltip("This determines the unit's jump height.")]
+    public float jumpFroce;
+
+        #endregion
+         #region Unit's Attached Colliders/Gameobjects
 
     ///<summary>This is the unit's private rigidbody.</summary>
     [SerializeField]
@@ -35,13 +45,31 @@ public class Unit : MonoBehaviour
     [SerializeField]
     protected Collider _hitboxCollider;
 
-    ///<summary>This determines the unit's jump height.</summary>
-    [Range(0, 8f)]
-    [Tooltip("This determines the unit's jump height.")]
-    public float jumpFroce;
+    ///<summary>This dis the units collider for their light attack.</summary>
+    [SerializeField]
+    protected Collider _lightCollider;
+
+    ///<summary>This dis the units collider for their heavy attack.</summary>
+    [SerializeField]
+    protected Collider _heavyCollider;
+
+    ///<summary>This is the location spells will be cast on the left side of the unit.</summary>
+    [SerializeField]
+    protected GameObject spellLocationLeft;
+
+    ///<summary>this is the location spells will cast on the right side of the unit.</summary>
+    [SerializeField]
+    protected GameObject spellLocationRight;
+
+    ///<summary>This is the location spell will be cast from the center of the unit.</summary>
+    [SerializeField]
+    protected GameObject spellLocationCenter;
+
+            #endregion
+         #region Unit's bool determinates 
 
     ///<summary>This determines whether the unit is on the ground or not.</summary>
-   [HideInInspector]
+    [HideInInspector]
     protected bool isGrounded;
 
     ///<summary>This determines whether the unit is on a platform or not.</summary>
@@ -64,6 +92,9 @@ public class Unit : MonoBehaviour
     [HideInInspector]
     protected bool hitOnRight;
 
+            #endregion
+         #region Unit's Attacks
+
     ///<summary>This is the cool down between melee attacks for the unit .</summary>
     [HideInInspector]
     protected float attackCoolDown =  1f;
@@ -71,21 +102,7 @@ public class Unit : MonoBehaviour
     ///<summary>This trakcs when the unit can deal damage again.</summary>
     [HideInInspector]
     protected float nextDamageEvent;
-
-    ///<summary>This dis the units collider for their light attack.</summary>
-    [SerializeField]
-    protected Collider _lightCollider;
-
-    ///<summary>This dis the units collider for their heavy attack.</summary>
-    [SerializeField]
-    protected Collider _heavyCollider;
-
-    ///<summary>These are the location weapons will appear in when the unit attacks.</summary>
-    [SerializeField]
-    protected GameObject weaponLocationLeft;
-    ///<summary>These are the location weapons will appear in when the unit attacks.</summary>
-    [SerializeField]
-    protected GameObject weaponLocationRight;
+    #endregion
 
     #endregion
 
@@ -99,8 +116,10 @@ public class Unit : MonoBehaviour
         }
     }
 
-    //test
-    #region Player Actions
+    
+    #region Unit Actions
+
+        #region Player Movement Actions
     /// <summary>This moves the player from side to side on the x axis  /// </summary>
     /// <param name="context">this is the information returned when the input is registered</param>
     public void movement(InputAction.CallbackContext context)
@@ -148,6 +167,8 @@ public class Unit : MonoBehaviour
         }
     }
 
+        #endregion
+        #region Unit Melee Attacks
     /// <summary> This is the attacking function /// </summary>
     public void lightAttack(InputAction.CallbackContext context)
     {
@@ -192,9 +213,9 @@ public class Unit : MonoBehaviour
         
 
     }
-    #endregion
 
-    #region Enemy Actions
+        #endregion
+        #region Enemy Actions
 
     ///<summary>this makes the unit move between points A and B.</summary>
     public void patrolAB()
@@ -203,8 +224,9 @@ public class Unit : MonoBehaviour
     }
 
 
-    #endregion
+        #endregion
 
+    #endregion
 
     #region IEnumerator Coroutines
     /// <summary> this allows units to drop through platforms </summary>

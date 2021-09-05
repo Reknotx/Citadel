@@ -30,7 +30,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Light Attack",
+                    "name": "Attack 1",
                     "type": "Button",
                     "id": "af2278a4-f1c4-413f-ba70-f75d7ae2bba6",
                     "expectedControlType": "Button",
@@ -38,9 +38,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Heavy Attack",
+                    "name": "Attack 2",
                     "type": "Button",
                     "id": "726b3385-2b63-4be1-b644-25fd8ff7547d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Attack 3",
+                    "type": "Button",
+                    "id": "2d06b76a-c763-4971-b69a-c83e6f3bbe55",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -109,7 +117,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Light Attack",
+                    "action": "Attack 1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -120,7 +128,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Heavy Attack",
+                    "action": "Attack 2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3ad73d1d-9c50-4701-8e70-8dd4b2935464",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack 3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
