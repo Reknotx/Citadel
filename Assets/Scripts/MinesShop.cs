@@ -5,17 +5,37 @@ using UnityEngine;
 public class MinesShop : MonoBehaviour
 {
 
+    [SerializeField]
+    private GoldHandler gold;
+
+    [SerializeField]
+    private int baseMinerCost;
+    [SerializeField]
+    private int minerCostIncrease;
+
+    [SerializeField]
+    private int baseCartCost;
+    [SerializeField]
+    private int cartCostIncrease;
 
 
-    // Start is called before the first frame update
-    void Start()
+    public void PurchaseMiner()
     {
-        
+        if( (int)gold.myHardGold >= baseMinerCost)
+        {
+            gold.numOfMiners += 1;
+            gold.myHardGold -= baseMinerCost;
+            baseMinerCost += (minerCostIncrease * gold.numOfMiners);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void purchaseCart()
     {
-        
+        if ((int)gold.myHardGold >= baseCartCost)
+        {
+            gold.numOfCarts += 1;
+            gold.myHardGold -= baseCartCost;
+            baseCartCost += (cartCostIncrease * gold.numOfCarts);
+        }
     }
 }

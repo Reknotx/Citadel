@@ -2,7 +2,7 @@
  Author: Andrew Nave
  * Date: 9/03/2021
  * 
- * Brief: This script manages the clicekr button in the mine, 
+ * Brief: This script manages the clicker button in the mine, 
  * adding a proportional amount of gold depending on the number of miners the players has purchased.
  */
 

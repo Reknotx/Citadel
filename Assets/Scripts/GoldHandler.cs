@@ -26,14 +26,13 @@ public class GoldHandler : MonoBehaviour
     private Scene currentScene;
     public string castleSceneName;
     public string mainMenuName;
+    
+    public int numOfMiners;
+    public int baseGoldIncrease;
+    public int numOfCarts;
 
     [SerializeField]
-    private int numOfMiners;
-    public int baseGoldIncrease;
-    [SerializeField]
     private int minerIncrease;
-    [SerializeField]
-    private int numOfCarts;
     [SerializeField]
     private int cartIncrease;
 
