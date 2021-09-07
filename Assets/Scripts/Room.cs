@@ -1,0 +1,46 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Room : MonoBehaviour
+{
+    #region Fields
+    public Vector2 gridPos { get; set; } = Vector2.zero;
+
+    [Tooltip("The list of all enemies populating a room.")]
+    public List<GameObject> enemies = new List<GameObject>();
+
+    [Tooltip("The list of all inantimate objects populating a room.")]
+    public List<GameObject> inanimateObjs = new List<GameObject>();
+    #endregion
+
+    private void Start()
+    {
+        ///set enemies and inanimateObj to empty as all references will be
+        ///set on start.
+        
+    }
+
+
+
+
+
+    /// <summary> The function that will trigger when player enters the room. </summary>
+    /// <remarks>Basically this function is expected to activate when
+    /// the camera transition is finished. This function will activate enemies
+    /// and spawn in everything in the room.</remarks>
+    public void OnEnter()
+    {
+
+    }
+
+    /// <summary> The function that will trigger when player leaves the room. </summary>
+    /// <remarks>This function is expected to activate when the player leaves this
+    /// room and moves on to another one. This function will deactivate all enemies
+    /// and other objects that were in the game to avoid having everything
+    /// spawned at once.</remarks>
+    public void OnExit()
+    {
+        
+    }
+}
