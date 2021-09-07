@@ -10,21 +10,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GoldHandler : MonoBehaviour
 {
-    
     public Text softGoldText;
     public Text hardGoldText;
 
     public float mySoftGold;
     public float myHardGold;
 
+    public GameObject softGold;
+    public GameObject hardGold;
+
+    private Scene currentScene;
+    public string castleSceneName;
+
+    private void Start()
+    {
+        currentScene = SceneManager.GetActiveScene();
+    }
+
     void Update()
     {
         softGoldText.text = "Soft Gold: " + (int)mySoftGold;
 
         hardGoldText.text = "Hard Gold: " + (int)myHardGold;
+
+        if ( castleSceneName == currentScene.name )
+        {
+            hardGold.SetActive(false);
+            softGold.SetActive(true);
+        }
+        else
+        {
+            softGold.SetActive(false);
+            hardGold.SetActive(true);
+        }
     }
 
     /// <param name="softGold">Increase amount of soft gold by given integer</param>
