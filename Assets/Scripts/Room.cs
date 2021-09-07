@@ -5,7 +5,7 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     #region Fields
-    public Vector2 gridPos { get; set; } = Vector2.zero;
+    public Vector2 gridPos = Vector2.zero;
 
     [Tooltip("The list of all enemies populating a room.")]
     public List<GameObject> enemies = new List<GameObject>();
