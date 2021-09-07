@@ -92,7 +92,18 @@ public class Unit : MonoBehaviour
     [HideInInspector]
     protected bool hitOnRight;
 
-            #endregion
+    /// <summary>this determines if the unit can cast a spell or not</summary>
+    [HideInInspector]
+    protected bool canCast;
+
+    /// <summary> this determines if the unit is on fire or not </summary>
+    [SerializeField]
+    protected bool onFire;
+
+    /// <summary> this determines if the unit has recently taken ticking fire damage </summary>
+    [SerializeField]
+    protected bool fireDamageTaken;
+    #endregion
          #region Unit's Attacks
 
     ///<summary>This is the cool down between melee attacks for the unit .</summary>
@@ -111,8 +122,19 @@ public class Unit : MonoBehaviour
     [HideInInspector]
     protected float spellCastRate = 1f;
 
-    /// <summary></summary>
-    protected bool canCast;
+    /// <summary> this determines how long the unit will be on fire for</summary>
+    [HideInInspector]
+    protected float onFireDuration;
+
+    /// <summary> this determines how much damage per tick will be applied to the unit</summary>
+    [HideInInspector]
+    protected int onFireDamage;
+
+    /// <summary> this determines how quickly on fire damage will tick against health </summary>
+    protected float onFireDamageRate = 1f;
+
+    /// <summary> This determines the delay between taking on fire damage</summary>
+    protected float onFireDamageDelay = 2f;
     #endregion
 
 
@@ -127,103 +149,19 @@ public class Unit : MonoBehaviour
             _rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
         }
 
-        ///<summary>this sets the rate for how quickly players can cast spells </summary>
-        spellCastDelay -= Time.deltaTime * spellCastRate;
-        if (spellCastDelay <= 0)
-        {
-            canCast = true;
-            spellCastDelay = .7f;
-        }
 
+        ///<summary>this determines if the unit can take damage from a initially cast fire spell</summary>
+        onFireDamageDelay -= Time.deltaTime * onFireDamageRate;
+        if (onFireDamageDelay <= 0)
+        {
+            fireDamageTaken = false;
+            onFireDamageDelay = 2f;
+        }
     }
 
     
     #region Unit Actions
 
-        #region Player Movement Actions
-    /// <summary>This moves the player from side to side on the x axis  /// </summary>
-    /// <param name="context">this is the information returned when the input is registered</param>
-    public void movement(InputAction.CallbackContext context)
-    {
-        Vector2 inputVector = context.ReadValue<Vector2>();
-        //_rigidBody.AddForce(new Vector3(inputVector.x, 0, 0) * speed, ForceMode.Force);
-        _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
-        if(inputVector.x > 0)
-        {
-            facingRight = true;
-        }
-        if (inputVector.x < 0)
-        {
-            facingRight = false;
-        }
-    }
-
-    ///<summary>This triggers the unit to jump up.</summary>
-    public void Jump(InputAction.CallbackContext context)
-    {
-       // if(context.performed)
-      //  {
-            if(isGrounded==true)
-            {
-               
-                _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
-                StartCoroutine(Jumped());
-
-            }
-            if (onPlatform==true)
-            {
-                _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
-                StartCoroutine(Jumped());
-
-            }
-            
-        //}
-    }
-
-    ///<summary>This triggers the unit to drop down if they are on a platform.</summary>
-    public void Drop(InputAction.CallbackContext context)
-    {
-        if ( onPlatform == true)
-        {
-            StartCoroutine(dropDown()); 
-        }
-    }
-
-    #endregion
-        #region Player Spells
-
-    /// <summary> cast forth a fireball at  60 degree angle that will make a vertical wall of fire that damages passing enemies over time </summary>
-    public void fireWall()
-    {
-        if (canCast == true)
-        {
-            ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>
-            if (facingRight == true)
-            { 
-                
-                var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation); 
-               fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * 12 +fireWallSpell.transform.up * -2;
-                if(fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
-                {
-                    fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
-                }
-                canCast = false;
-            }
-            else
-            {
-                var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
-                fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * -12 + fireWallSpell.transform.up * -2;
-                if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
-                {
-                    fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
-                }
-                canCast = false;
-            }
-        }
-      
-        
-    }
-        #endregion
         #region Unit Melee Attacks
     /// <summary> This is the attacking function /// </summary>
     public void lightAttack(InputAction.CallbackContext context)
@@ -271,17 +209,7 @@ public class Unit : MonoBehaviour
     }
 
         #endregion
-        #region Enemy Actions
-
-    ///<summary>this makes the unit move between points A and B.</summary>
-    public void patrolAB()
-    {
-        return;
-    }
-
-
-    #endregion
-
+        
     #endregion
 
     #region IEnumerator Coroutines
@@ -327,6 +255,19 @@ public class Unit : MonoBehaviour
         _hitboxCollider.enabled = false;
         yield return new WaitForSeconds(1f);
         _hitboxCollider.enabled = true;
+    }
+
+    public IEnumerator onFireCoroutine ()
+    {
+        
+        onFire = true;
+        yield return new WaitForSeconds(onFireDuration);
+        onFire = false;
+    }
+
+    public IEnumerator waitOneSecond()
+    {
+        yield return new WaitForSeconds(1f);
     }
     #endregion
 }

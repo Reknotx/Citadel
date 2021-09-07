@@ -19,6 +19,8 @@ public class FireWallSpellScript : MonoBehaviour
 
     public int fireWallBurnDamage;
 
+    public float spellDuration;
+
         #endregion
         #region Fire Wall Colliders/Renderers
 
@@ -44,7 +46,7 @@ public class FireWallSpellScript : MonoBehaviour
             wallCollider.enabled = true;
             castRenderer.enabled = false;
             wallRenderer.enabled = true;
-            
+            StartCoroutine(SpellDuration());
         }
     }
 
@@ -76,4 +78,11 @@ public class FireWallSpellScript : MonoBehaviour
         }
     }
     #endregion
+
+    /// <summary> this destroys the spell object after the duration expires </summary>
+    IEnumerator SpellDuration()
+    {
+        yield return new WaitForSeconds(spellDuration);
+        Destroy(this.gameObject);
+    }
 }

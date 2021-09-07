@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7840584037457502919}
   m_Layer: 0
   m_Name: fireWall-Wall
-  m_TagString: FireWall-Wall
+  m_TagString: FireWallWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 1103918510936984277}
   m_Layer: 0
   m_Name: fireWall-Cast
-  m_TagString: FireWall-Cast
+  m_TagString: FireWallCast
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -220,7 +220,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireWallCollideDamage: 0
-  fireWallBurnDamage: 0
+  fireWallBurnDamage: 1
+  spellDuration: 8
   castCollider: {fileID: 1103918510936984279}
   castRenderer: {fileID: 1103918510936984272}
   wallCollider: {fileID: 1103918509092910008}

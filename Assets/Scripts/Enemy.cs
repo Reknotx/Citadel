@@ -16,7 +16,7 @@ public class Enemy : Unit
 
             #region Enemy's Base Stats/Important Controls
     ///<summary>This is the units health.</summary>
-    public int myHealth;
+    public double myHealth;
 
     ///<summary>This is the players Input system.</summary>
     private PlayerInputActions playerInputActions;
@@ -101,8 +101,26 @@ public class Enemy : Unit
 
         }
         #endregion
+
+        ///<summary> this damages the enemy over time if they are on fire</summary>
+        if (onFire == true)
+        {
+            myHealth -= onFireDamage * Time.deltaTime;
+            
+        }
     }
 
+
+    #region Enemy Actions
+
+    ///<summary>this makes the unit move between points A and B.</summary>
+    public void patrolAB()
+    {
+        return;
+    }
+
+
+    #endregion
 
     #region Collision Detection
     ///<summary>These track the collisions between the enemy and in-game objects .</summary>
@@ -151,11 +169,26 @@ public class Enemy : Unit
             myHealth = myHealth - player.GetComponent<Player>().playerCollisionDamage; 
         }
 
-        if (other.gameObject.tag == "fd")
+        if (other.gameObject.tag == "FireWallCast")
         {
+            if(fireDamageTaken == false)
+            {
+                myHealth -= other.GetComponent<FireWallSpellScript>().fireWallCollideDamage;
+                fireDamageTaken = true;
+            }
+        }
 
+        if (other.gameObject.tag == "FireWallWall")
+        {
+            if(onFire == false)
+            {
+                onFireDuration = 5f;
+                onFireDamage = 1;
+                StartCoroutine(onFireCoroutine());
+            }
         }
     }
 
     #endregion
+
 }
