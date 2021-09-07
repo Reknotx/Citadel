@@ -32,7 +32,7 @@ public class Player : Unit
             #region Player's Ground/Directional Detection Stats
 
     ///<summary>This is the range of detection to the ground.</summary>
-    private float _Reach = 1f;
+    private float _Reach = 2f;
 
     ///<summary>This tracks what the ground detection raycast hits.</summary>
     RaycastHit hit;
@@ -41,7 +41,7 @@ public class Player : Unit
     public bool facingRightLocal;
 
             #endregion
-            #region Player's Attack Stats
+            #region Player's Attack Stats/Spell Prefabs
 
     ///<summary>This determines how far the player will knock back an enemy with the heavy attack.</summary>
     public float knockbackForce;
@@ -55,6 +55,8 @@ public class Player : Unit
     ///<summary>This determines the damage the player deals to an enemy when they collide.</summary>
     public int playerCollisionDamage;
 
+    /// <summary>this is the physical gameobject that is cast during the firewall spell</summary>
+    public GameObject fireWall_prefab;
             #endregion
     #endregion
 
@@ -80,7 +82,7 @@ public class Player : Unit
         #region Player Movement Detection
         ///<summary>This moves the player constantly while the input is held.</summary>
         Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
-        _rigidBody.AddForce(new Vector3(inputVector.x, 0, 0) * speed, ForceMode.Force);
+        _rigidBody.AddForce(new Vector3(inputVector.x, 0, 0) * speed, ForceMode.Acceleration);
         #endregion
 
 

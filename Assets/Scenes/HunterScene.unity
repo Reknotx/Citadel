@@ -278,7 +278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 488404068}
   m_Layer: 0
-  m_Name: meleeLocationLeft
+  m_Name: spellLocationLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -387,7 +387,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 508189867}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.8800001, y: 0, z: 0}
+  m_LocalPosition: {x: 0.869, y: 0, z: 0}
   m_LocalScale: {x: 0.7427, y: 0.18259, z: 1}
   m_Children: []
   m_Father: {fileID: 927224783}
@@ -582,8 +582,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 695129689}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.57, y: 1.36, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 7.57, y: 2.05, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 473339021}
   - {fileID: 488404068}
@@ -609,7 +609,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &695129695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -622,21 +622,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bab5b1c800e967e40bb5417b637118fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1.54
+  speed: 2.85
+  jumpFroce: 2.3
   _rigidBody: {fileID: 695129694}
   _groundCollider: {fileID: 695129690}
   _hitboxCollider: {fileID: 695129697}
-  jumpFroce: 2.3
-  facingRight: 0
   _lightCollider: {fileID: 736677194}
   _heavyCollider: {fileID: 784215046}
-  weaponLocationLeft: {fileID: 488404067}
-  weaponLocationRight: {fileID: 1844569188}
+  spellLocationLeft: {fileID: 488404067}
+  spellLocationRight: {fileID: 1844569188}
+  spellLocationCenter: {fileID: 294700017}
+  facingRight: 0
   myHealth: 5
   facingRightLocal: 0
   knockbackForce: 5
   lightAttackDamage: 1
   heavyAttackDamage: 3
+  playerCollisionDamage: 0
+  fireWall_prefab: {fileID: 1103918510936984276, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
 --- !u!114 &695129696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -743,7 +746,19 @@ MonoBehaviour:
     m_ActionId: 726b3385-2b63-4be1-b644-25fd8ff7547d
     m_ActionName: PlayerControl/Heavy Attack[/Mouse/rightButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 695129695}
+        m_TargetAssemblyTypeName: Unit, Assembly-CSharp
+        m_MethodName: fireWall
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2d06b76a-c763-4971-b69a-c83e6f3bbe55
     m_ActionName: PlayerControl/Attack 3[/Mouse/middleButton]
   m_NeverAutoSwitchControlSchemes: 0
@@ -1097,7 +1112,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927224778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31.574, y: -2.41, z: -0.05}
+  m_LocalPosition: {x: 31.574, y: -3.27, z: -0.05}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 2102420454}
@@ -1120,18 +1135,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1.23
+  jumpFroce: 1.49
   _rigidBody: {fileID: 927224779}
   _groundCollider: {fileID: 927224780}
   _hitboxCollider: {fileID: 927224785}
-  jumpFroce: 1.49
-  facingRight: 0
   _lightCollider: {fileID: 1966404969}
   _heavyCollider: {fileID: 508189868}
-  weaponLocationLeft: {fileID: 1966404968}
-  weaponLocationRight: {fileID: 508189867}
+  spellLocationLeft: {fileID: 0}
+  spellLocationRight: {fileID: 0}
+  spellLocationCenter: {fileID: 0}
+  facingRight: 0
   myHealth: 5
-  player: {fileID: 695129689}
   facingRightLocal: 0
+  player: {fileID: 695129689}
 --- !u!65 &927224785
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1280,7 +1296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1844569189}
   m_Layer: 0
-  m_Name: meleeLocationRight
+  m_Name: spellLocationRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1389,7 +1405,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1944567585}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 24, y: -3.82, z: 0}
+  m_LocalPosition: {x: 24, y: -4.68, z: 0}
   m_LocalScale: {x: 2, y: 1, z: 20}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1484,7 +1500,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1966404968}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.88, y: 0, z: 0}
+  m_LocalPosition: {x: 0.86900055, y: 0, z: 0}
   m_LocalScale: {x: 0.7427, y: 0.18259, z: 1}
   m_Children: []
   m_Father: {fileID: 927224783}
@@ -1708,3 +1724,64 @@ Transform:
   m_Father: {fileID: 927224783}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1103918509096647780
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1103918510936984274, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103918510936984274, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103918510936984274, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103918510936984274, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103918510936984274, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103918510936984274, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103918510936984274, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103918510936984274, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103918510936984274, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103918510936984274, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103918510936984274, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103918510936984276, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
+      propertyPath: m_Name
+      value: fireWall-Cast
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103918510936984276, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}

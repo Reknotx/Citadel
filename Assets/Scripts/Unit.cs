@@ -102,7 +102,19 @@ public class Unit : MonoBehaviour
     ///<summary>This trakcs when the unit can deal damage again.</summary>
     [HideInInspector]
     protected float nextDamageEvent;
+
+    /// <summary> This is the time units must wait between casting spells </summary>
+    [HideInInspector]
+    protected float spellCastDelay;
+
+    /// <summary> This determines how fast a Unit can cast spells </summary>
+    [HideInInspector]
+    protected float spellCastRate = 1f;
+
+    /// <summary></summary>
+    protected bool canCast;
     #endregion
+
 
     #endregion
 
@@ -114,6 +126,15 @@ public class Unit : MonoBehaviour
             StartCoroutine(dropDown());
             _rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
         }
+
+        ///<summary>this sets the rate for how quickly players can cast spells </summary>
+        spellCastDelay -= Time.deltaTime * spellCastRate;
+        if (spellCastDelay <= 0)
+        {
+            canCast = true;
+            spellCastDelay = .7f;
+        }
+
     }
 
     
@@ -125,7 +146,8 @@ public class Unit : MonoBehaviour
     public void movement(InputAction.CallbackContext context)
     {
         Vector2 inputVector = context.ReadValue<Vector2>();
-        _rigidBody.AddForce(new Vector3(inputVector.x, 0, 0) * speed, ForceMode.Force);
+        //_rigidBody.AddForce(new Vector3(inputVector.x, 0, 0) * speed, ForceMode.Force);
+        _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
         if(inputVector.x > 0)
         {
             facingRight = true;
@@ -139,8 +161,8 @@ public class Unit : MonoBehaviour
     ///<summary>This triggers the unit to jump up.</summary>
     public void Jump(InputAction.CallbackContext context)
     {
-        if(context.performed)
-        {
+       // if(context.performed)
+      //  {
             if(isGrounded==true)
             {
                
@@ -155,7 +177,7 @@ public class Unit : MonoBehaviour
 
             }
             
-        }
+        //}
     }
 
     ///<summary>This triggers the unit to drop down if they are on a platform.</summary>
@@ -167,6 +189,40 @@ public class Unit : MonoBehaviour
         }
     }
 
+    #endregion
+        #region Player Spells
+
+    /// <summary> cast forth a fireball at  60 degree angle that will make a vertical wall of fire that damages passing enemies over time </summary>
+    public void fireWall()
+    {
+        if (canCast == true)
+        {
+            ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>
+            if (facingRight == true)
+            { 
+                
+                var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation); 
+               fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * 12 +fireWallSpell.transform.up * -2;
+                if(fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
+                {
+                    fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+                }
+                canCast = false;
+            }
+            else
+            {
+                var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
+                fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * -12 + fireWallSpell.transform.up * -2;
+                if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
+                {
+                    fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+                }
+                canCast = false;
+            }
+        }
+      
+        
+    }
         #endregion
         #region Unit Melee Attacks
     /// <summary> This is the attacking function /// </summary>
@@ -178,13 +234,13 @@ public class Unit : MonoBehaviour
             nextDamageEvent = Time.time + attackCoolDown;
             if (facingRight == true)
             {
-                _lightCollider.transform.position = weaponLocationRight.transform.position;
+                _lightCollider.transform.position = spellLocationRight.transform.position;
                 StartCoroutine(lightAttackCoroutine());
 
             }
             else
             {
-                _lightCollider.transform.position = weaponLocationLeft.transform.position;
+                _lightCollider.transform.position = spellLocationLeft.transform.position;
                 StartCoroutine(lightAttackCoroutine());
             }
         }
@@ -200,13 +256,13 @@ public class Unit : MonoBehaviour
             nextDamageEvent = Time.time + attackCoolDown;
             if (facingRight == true)
             {
-                _heavyCollider.transform.position = weaponLocationRight.transform.position;
+                _heavyCollider.transform.position = spellLocationRight.transform.position;
                 StartCoroutine(heavyAttackCoroutine());
 
             }
             else
             {
-                _heavyCollider.transform.position = weaponLocationLeft.transform.position;
+                _heavyCollider.transform.position = spellLocationLeft.transform.position;
                 StartCoroutine(heavyAttackCoroutine());
             }
         }
@@ -224,7 +280,7 @@ public class Unit : MonoBehaviour
     }
 
 
-        #endregion
+    #endregion
 
     #endregion
 
@@ -233,7 +289,7 @@ public class Unit : MonoBehaviour
     public IEnumerator dropDown()
     {
         _groundCollider.enabled = false;
-       yield return new WaitForSeconds(.5f);
+       yield return new WaitForSeconds(.7f);
         _groundCollider.enabled = true;
     }
 

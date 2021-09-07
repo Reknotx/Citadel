@@ -1,3 +1,11 @@
+/*
+ * Author: Hunter Lawrence-Emanuel
+ * Date: 9/1/2021
+ * 
+ * Brief:this script holds the stats and 
+ * controls for the enemies of the game
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -106,6 +114,7 @@ public class Enemy : Unit
             myHealth = myHealth - player.GetComponent<Player>().lightAttackDamage;
             hitOnRight = player.GetComponent<Player>().facingRightLocal ;
 
+            /*
             if (hitOnRight == true)
             {
                 _rigidBody.AddForce(new Vector3(1, 0, 0) * 1f, ForceMode.Impulse);
@@ -115,6 +124,7 @@ public class Enemy : Unit
             {
                 _rigidBody.AddForce(new Vector3(-1, 0, 0) * 1f, ForceMode.Impulse);
             }
+            */
         }
 
         ///<summary>This triggers when the enemy is hit with the heavy attack.</summary>
@@ -139,6 +149,11 @@ public class Enemy : Unit
         if (other.gameObject.tag == "Player")
         {
             myHealth = myHealth - player.GetComponent<Player>().playerCollisionDamage; 
+        }
+
+        if (other.gameObject.tag == "fd")
+        {
+
         }
     }
 
