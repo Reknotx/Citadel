@@ -19,6 +19,8 @@ public class MapGenerator : MonoBehaviour
     public GameObject basePrefab;
     public GameObject[,] grid;
 
+    public List<GameObject> spawnRoomTemplates = new List<GameObject>();
+
     private int roomSize = 25;
 
     [Range(1, 15)]
@@ -34,6 +36,12 @@ public class MapGenerator : MonoBehaviour
 
     public void SpawnMap()
     {
+        ///Spawn the spawn room
+        int SRY = Random.Range(0, gridSize) * roomSize;
+
+        GameObject spawnRoom = Instantiate(basePrefab, new Vector3(-25, SRY), Quaternion.identity);
+        spawnRoom.name = "Spawn Room";
+
 
         for (int i = 0; i < gridSize; i++)
         {
@@ -50,4 +58,6 @@ public class MapGenerator : MonoBehaviour
             }
         }
     }
+
+    
 }
