@@ -25,6 +25,13 @@ public class GoldHandler : MonoBehaviour
 
     private Scene currentScene;
     public string castleSceneName;
+    public string mainMenuName;
+
+    [SerializeField]
+    private int numOfMiners;
+    public float baseGoldIncrease;
+
+    private float elapsed = 0f;
 
     private void Start()
     {
@@ -47,6 +54,17 @@ public class GoldHandler : MonoBehaviour
             softGold.SetActive(false);
             hardGold.SetActive(true);
         }
+
+        elapsed += Time.deltaTime;
+        if (elapsed >= 1f)
+        {
+            if (!(mainMenuName == currentScene.name))
+            {
+                AddHardGold((int)baseGoldIncrease * numOfMiners);
+            }
+            elapsed = 0f;
+        }
+
     }
 
     /// <param name="softGold">Increase amount of soft gold by given integer</param>
