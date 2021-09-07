@@ -40,6 +40,9 @@ public class Unit : MonoBehaviour
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
     protected Collider _groundCollider;
+    ///<summary>This is the unit's collider that detects the ground.</summary>
+    [SerializeField]
+    protected Collider _platformCollider;
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
@@ -216,9 +219,11 @@ public class Unit : MonoBehaviour
     /// <summary> this allows units to drop through platforms </summary>
     public IEnumerator dropDown()
     {
+        _platformCollider.enabled = false;
         _groundCollider.enabled = false;
-       yield return new WaitForSeconds(.7f);
+        yield return new WaitForSeconds(.7f);
         _groundCollider.enabled = true;
+        _platformCollider.enabled = true;
     }
 
 

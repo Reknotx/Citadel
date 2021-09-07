@@ -233,7 +233,19 @@ public class Player : Unit
            
         }
 
+        if(other.gameObject.tag =="ground")
+        {
+            _groundCollider.enabled = true;
+        }
         
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "platform")
+        {
+            _groundCollider.enabled = true;
+        }
     }
 
     #endregion
