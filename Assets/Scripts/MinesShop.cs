@@ -1,3 +1,10 @@
+/* Author: Andrew Nave
+ * Date: 9/07/2021
+ *
+ * Brief: Tthis script allows the player to purchase miners and carts in the shop and increases the cost and flow of passive gold accordingly.
+ */
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
