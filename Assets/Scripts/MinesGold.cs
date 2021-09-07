@@ -14,14 +14,15 @@ public class MinesGold : MonoBehaviour
 {
     public int numOfMiners;
     public int baseGoldGain;
+    public float clickPercentage;
 
     public GoldHandler gold;
 
     /// <summary>
-    /// Multiplies the gold earned for clicking int he mine by the amount of miners the player has purchased.
+    /// Gives the player a percentage of their passive gold gain when they click int he mines.
     /// </summary>
     public void GoldPerClick()
     {
-        gold.AddHardGold(numOfMiners * baseGoldGain);
+        gold.AddHardGold((int)(gold.revenue * clickPercentage));
     }
 }
