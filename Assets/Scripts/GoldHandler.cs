@@ -29,7 +29,13 @@ public class GoldHandler : MonoBehaviour
 
     [SerializeField]
     private int numOfMiners;
-    public float baseGoldIncrease;
+    public int baseGoldIncrease;
+    [SerializeField]
+    private int minerIncrease;
+    [SerializeField]
+    private int numOfCarts;
+    [SerializeField]
+    private int cartIncrease;
 
     private float elapsed = 0f;
 
@@ -60,7 +66,7 @@ public class GoldHandler : MonoBehaviour
         {
             if (!(mainMenuName == currentScene.name))
             {
-                AddHardGold((int)baseGoldIncrease * numOfMiners);
+                AddHardGold(baseGoldIncrease + (numOfMiners * minerIncrease) + (numOfCarts * cartIncrease));
             }
             elapsed = 0f;
         }

@@ -436,6 +436,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 251344843}
   m_CullTransparentMesh: 1
+--- !u!1 &312785810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 312785811}
+  m_Layer: 0
+  m_Name: MinesShop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &312785811
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312785810}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 296.3784, y: 163.0602, z: 0}
+  m_LocalScale: {x: 0.7597341, y: 0.7597341, z: 0.7597341}
+  m_Children: []
+  m_Father: {fileID: 447683079}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &418435093
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,7 +579,10 @@ MonoBehaviour:
   castleSceneName: SampleScene
   mainMenuName: MainMenu
   numOfMiners: 1
-  baseGoldIncrease: 5
+  baseGoldIncrease: 0
+  minerIncrease: 2
+  numOfCarts: 0
+  cartIncrease: 5
 --- !u!4 &443644420
 Transform:
   m_ObjectHideFlags: 0
@@ -604,6 +637,7 @@ RectTransform:
   - {fileID: 1637832507}
   - {fileID: 620667388}
   - {fileID: 1522646614}
+  - {fileID: 312785811}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
