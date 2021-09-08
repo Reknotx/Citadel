@@ -9,14 +9,17 @@ public class Mine : MonoBehaviour
     private static int GoldGained = 0;
 
     public float speed = 1f;
-    public float baseTimeToComplete = 2;
+    public float baseTimeToComplete = 1;
     public int goldOnFill = 1;
 
     public Text goldText;
 
     private float _progress = 0f;
 
+
     public Image fillImage;
+
+    bool refill = true;
 
     public float Progress
     {
@@ -24,22 +27,56 @@ public class Mine : MonoBehaviour
 
         set
         {
-            _progress = Mathf.Clamp01(value);
+            _progress = Mathf.Clamp(value * baseTimeToComplete, 0, baseTimeToComplete);
 
-            if (_progress == 1f)
+            if (_progress >= baseTimeToComplete)
             {
                 ///Add gold
                 GoldGained += goldOnFill;
                 goldText.text = "Gold gained: " + GoldGained;
-                fillImage.fillAmount = _progress;
+                Progress = 0;
             }
 
         }
     }
 
-
-    private void Update()
+    public void FixedUpdate()
     {
-        Progress += Time.deltaTime * baseTimeToComplete * speed;
+        if (Progress == 0f && refill)
+        {
+            refill = false;
+            StartCoroutine(Lerp());
+        }
     }
+
+    IEnumerator Lerp()
+    {
+
+        bool lerping = true;
+        float timeStart = Time.time;
+
+        float p0 = 0f;
+        float p1 = 1;
+        float p01;
+
+
+        while (lerping)
+        {
+            float u = ((Time.time - timeStart) * speed) / baseTimeToComplete;
+            if (u >= 1)
+            {
+                u = 1;
+                lerping = false;
+            }
+            
+            p01 = (1 - u) * p0 + u * p1;
+
+            Progress = p01;
+            fillImage.fillAmount = p01;
+
+            yield return new WaitForFixedUpdate();
+        }
+        refill = true;
+    }
+
 }
