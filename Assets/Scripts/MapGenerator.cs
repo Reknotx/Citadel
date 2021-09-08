@@ -145,6 +145,12 @@ public class MapGenerator : MonoBehaviour
         Debug.Log(Vector3.Distance(SpawnRoomPos, BossRoomPos));
         #endregion
 
+        #region Spawning Shops
+
+
+
+        #endregion
+
         #region Spawning in normal rooms
 
         ///Spawning a row
@@ -175,11 +181,4 @@ public class MapGenerator : MonoBehaviour
 
         #endregion
     }
-
-
-    private void GetDistance()
-    {
-
-    }
-
 }
