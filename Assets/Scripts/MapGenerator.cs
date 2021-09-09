@@ -73,16 +73,15 @@ public class MapGenerator : MonoBehaviour
         columns = gridInfo.gridSize + 1;
         rows = gridInfo.gridSize;
 
-
         trueGridSize = new Vector2(gridInfo.gridSize + 1, gridInfo.gridSize);
 
         ///Initializing the concept grid.
         Debug.Log("Initializing the concept grid.");
         for (int y = 0; y < trueGridSize.y; y++)
         {
-            for (int x = 1; x < trueGridSize.x; x++)
+            for (int x = 0; x < trueGridSize.x; x++)
             {
-                conceptGrid[y, x] = new GridNode();
+                conceptGrid[y, x] = new GridNode(x, y);
             }
         }
 
@@ -207,8 +206,8 @@ public class MapGenerator : MonoBehaviour
         ///
         ///Time to adjust the Astar algorithm to utilize my internal class rather than the room class.
 
-        //CreatePath(AStar(conceptGrid[(int)SpawnRoomGridPos.y, (int)SpawnRoomGridPos.x],
-        //                 conceptGrid[(int)BossRoomGridPos.y, (int)BossRoomGridPos.x]));
+        CreatePath(AStar(conceptGrid[(int)SpawnRoomGridPos.y, (int)SpawnRoomGridPos.x],
+                         conceptGrid[(int)BossRoomGridPos.y, (int)BossRoomGridPos.x]));
 
 
         #region Spawn in rooms that will go on the path
@@ -258,7 +257,6 @@ public class MapGenerator : MonoBehaviour
 
     private void CreatePath(List<GridNode> path)
     {
-
         ///This is where we'll do the necessary actions on that critical path.
         ///As of right now I want this function to only work on the critical path.
         ///It will be edited and updated later in order to work with successful
@@ -268,6 +266,8 @@ public class MapGenerator : MonoBehaviour
         ///so that I can appropriately tell which rooms have what I need.
         ///For each grid spot I will need to make sure that the prefab matches
         ///EXACTLY what it is that is needed.
+
+        if (path == null) { Debug.LogError("Huh"); }
 
         for (int index = 0; index < path.Count; index++)
         {
@@ -287,20 +287,25 @@ public class MapGenerator : MonoBehaviour
         }
 
         ///Now spawn in the rooms
+        ///Logic notes for spawning.
+        ///1. Each room has a certain number of openings each side
+        ///2. Each door is located in one of three positions on each side.
+        ///3. Rooms must match their neighbors in terms of the positioning of their
+        ///doorways that lead to the neighboring rooms.
+        ///
+
+
+
         
-
-
-
-
 
         void DetermineDir(GridNode currNode, GridNode prevNode, bool onlyOneOpening = false)
         {
             int numOpenings = 1;
-            
-            if (onlyOneOpening == false)
-            {
-                numOpenings = Random.Range(1, 4);
-            }
+
+            //if (onlyOneOpening == false)
+            //{
+            //    numOpenings = Random.Range(1, 4);
+            //}
 
             if (currNode.gridPos.y > prevNode.gridPos.y)
             {
@@ -331,10 +336,11 @@ public class MapGenerator : MonoBehaviour
 
     }
 
-
     #region Grid concept Astar
     public List<GridNode> AStar(GridNode start, GridNode end)
     {
+        Debug.Log("Starting at " + start.gridPos.ToString());
+        Debug.Log("Looking for " + end.gridPos.ToString());
 
         List<GridNode> frontier = new List<GridNode>(0);
 
@@ -344,7 +350,7 @@ public class MapGenerator : MonoBehaviour
 
         foreach (GridNode node in conceptGrid)
         {
-            node.gCost = 0;
+            if (node != null) node.gCost = 0;
         }
 
         while (frontier.Count > 0)
@@ -365,12 +371,13 @@ public class MapGenerator : MonoBehaviour
 
             if (currNode == end)
             {
+                Debug.Log("We have found the end, time to retrace.");
                 return RetracePath(start, end);
             }
 
             foreach (GridNode neighbor in Neighbors(currNode))
             {
-                if (explored.Contains(neighbor)) continue;
+                if (explored.Contains(neighbor) || neighbor == null) continue;
 
                 int currCost = currNode.gCost;
 
@@ -383,6 +390,8 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
+
+        Debug.LogError("We shouldn't be getting here.");
         return null;
     }
 
@@ -548,6 +557,12 @@ public class GridNode
         openings.TopSide = topSide;
         openings.BottomSide = bottomSide;
 
+    }
+
+    public GridNode(int xCor, int yCor)
+    {
+        Initialization();
+        gridPos = new Vector2(xCor, yCor);
     }
 
     /// <summary> Little helper function for constructors that initializes the basic variables. </summary>
