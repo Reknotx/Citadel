@@ -293,10 +293,28 @@ public class MapGenerator : MonoBehaviour
         ///3. Rooms must match their neighbors in terms of the positioning of their
         ///doorways that lead to the neighboring rooms.
         ///
-
-
+        ///For the time being rooms will only have a max of one entrance on each side.
+        ///In the future there will be rooms that have multiple entrances on one side,
+        ///and will need to be updated appropriately.
+        ///
+        ///
 
         
+        foreach (GridNode node in path)
+        {
+            node.openings.ToString();
+        }
+
+        for (int index = 1; index < path.Count; index++)
+        {
+            foreach (GameObject obj in roomCont.RegularRooms)
+            {
+                Room room = obj.GetComponent<Room>();
+
+
+
+            }
+        }
 
         void DetermineDir(GridNode currNode, GridNode prevNode, bool onlyOneOpening = false)
         {
@@ -339,8 +357,8 @@ public class MapGenerator : MonoBehaviour
     #region Grid concept Astar
     public List<GridNode> AStar(GridNode start, GridNode end)
     {
-        Debug.Log("Starting at " + start.gridPos.ToString());
-        Debug.Log("Looking for " + end.gridPos.ToString());
+        //Debug.Log("Starting at " + start.gridPos.ToString());
+        //Debug.Log("Looking for " + end.gridPos.ToString());
 
         List<GridNode> frontier = new List<GridNode>(0);
 
@@ -371,7 +389,7 @@ public class MapGenerator : MonoBehaviour
 
             if (currNode == end)
             {
-                Debug.Log("We have found the end, time to retrace.");
+                //Debug.Log("We have found the end, time to retrace.");
                 return RetracePath(start, end);
             }
 
@@ -504,6 +522,12 @@ public class GridNode
 
         [Range(0, 3)]
         public int BottomSide;
+
+        public override string ToString()
+        {
+            Debug.LogFormat("Top: {0}, Bottom: {1}, Left: {2}, Right: {3}", TopSide, BottomSide, LeftSide, RightSide);
+            return "";
+        }
     }
 
     public enum RoomType
