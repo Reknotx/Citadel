@@ -13,18 +13,54 @@ using UnityEngine.UI;
 
 public class LifeManaHandler : MonoBehaviour
 {
-
+    /// <summary>
+    /// Image holding the UI for player's health bar
+    /// </summary>
     public Image healthBar;
+
+    /// <summary>
+    /// Image holding the UI for the player's mana bar
+    /// </summary>
     public Image manaBar;
+
+    /// <summary>
+    /// Text displayed in player's health bar
+    /// </summary>
     public Text healthText;
+
+    /// <summary>
+    /// Text displayed in player's mana bar
+    /// </summary>
     public Text manaText;
 
+    /// <summary>
+    /// The player's maximum health pool
+    /// </summary>
     public float myLife;
+
+    /// <summary>
+    /// The player's maximum mana pool
+    /// </summary>
     public float myMana;
 
+    /// <summary>
+    /// The amount of health the player currently has
+    /// </summary>
     private float currentLife;
+
+    /// <summary>
+    /// The amount of mana the player currently has
+    /// </summary>
     private float currentMana;
+
+    /// <summary>
+    /// value that holds the ratio of the player's max health vs. how much they currently have
+    /// </summary>
     private float calculateLife;
+
+    /// <summary>
+    /// value that holds the ratio of the player's max mana vs. how much they currently have
+    /// </summary>
     private float calculateMana;
 
     /// <summary>
@@ -41,10 +77,12 @@ public class LifeManaHandler : MonoBehaviour
     /// </summary>
     void Update()
     {
+        ///Calculate the player's current life and display the proper amount in UI
         calculateLife = currentLife / myLife;
         healthBar.fillAmount = Mathf.MoveTowards(healthBar.fillAmount, calculateLife, Time.deltaTime);
         healthText.text = "" + (int)currentLife;
 
+        ///Calculate the player's current mana and display the proper amount in UI
         calculateMana = currentMana / myMana;
         manaBar.fillAmount = Mathf.MoveTowards(manaBar.fillAmount, calculateMana, Time.deltaTime);
         manaText.text = "" + (int)currentMana;
