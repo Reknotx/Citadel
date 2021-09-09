@@ -33,8 +33,9 @@ public class Mine : MonoBehaviour
             {
                 ///Add gold
                 GoldGained += goldOnFill;
-                goldText.text = "Gold gained: " + GoldGained;
                 Progress = 0;
+                if (goldText != null)
+                    goldText.text = "Gold gained: " + GoldGained;
             }
 
         }
