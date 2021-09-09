@@ -307,13 +307,21 @@ public class MapGenerator : MonoBehaviour
 
         for (int index = 1; index < path.Count; index++)
         {
+            GridNode currNode = path[index];
+
+            List<Room> examinedRooms = new List<Room>();
+
             foreach (GameObject obj in roomCont.RegularRooms)
             {
                 Room room = obj.GetComponent<Room>();
 
-
+                RoomInfo tempInfo = room.roomInfo;
+                
+                
 
             }
+
+            examinedRooms.Clear();
         }
 
         void DetermineDir(GridNode currNode, GridNode prevNode, bool onlyOneOpening = false)
@@ -350,6 +358,11 @@ public class MapGenerator : MonoBehaviour
                 prevNode.openings.LeftSide = numOpenings;
                 currNode.openings.RightSide = numOpenings;
             }
+        }
+
+        bool CompareNodeToRoom(GridNode node, RoomInfo roomInfo)
+        {
+
         }
 
     }
