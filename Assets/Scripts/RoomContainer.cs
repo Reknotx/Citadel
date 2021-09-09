@@ -17,4 +17,5 @@ public class RoomContainer : ScriptableObject
     public List<GameObject> SpawnRooms = new List<GameObject>();
     public List<GameObject> ShopRooms = new List<GameObject>();
     public List<GameObject> RegularRooms = new List<GameObject>();
+    public GameObject filledRoom;
 }

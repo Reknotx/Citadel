@@ -23,7 +23,20 @@ public class Room : MonoBehaviour
     public List<GameObject> inanimateObjs = new List<GameObject>();
     
     public RoomInfo roomInfo;
+
+
     #endregion
+
+    #region Private
+
+
+    #endregion
+    #endregion
+
+
+    #region Properties
+
+
     #endregion
 
 

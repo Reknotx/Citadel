@@ -56,6 +56,65 @@ public class RoomInfo : ScriptableObject
     public List<DoorPositions> openDoors = new List<DoorPositions>(1);
 
     //public List<DoorPositions> doorPositions = new List<DoorPositions>();
+
+
+    public int CalcDoorsLeftSide()
+    {
+        int amnt = 0;
+
+        foreach (DoorPositions positions in openDoors)
+        {
+            if (positions == DoorPositions.LeftBottom
+                || positions == DoorPositions.LeftMiddle
+                || positions == DoorPositions.LeftTop)
+                amnt++;
+        }
+        return amnt;
+    }
+
+
+    public int CalcDoorsRightSide()
+    {
+        int amnt = 0;
+
+        foreach (DoorPositions positions in openDoors)
+        {
+            if (positions == DoorPositions.RightBottom
+                || positions == DoorPositions.RightMiddle
+                || positions == DoorPositions.RightTop)
+                amnt++;
+        }
+        return amnt;
+    }
+
+    public int CalcDoorsTopSide()
+    {
+        int amnt = 0;
+
+        foreach (DoorPositions positions in openDoors)
+        {
+            if (positions == DoorPositions.TopLeft
+                || positions == DoorPositions.TopMiddle
+                || positions == DoorPositions.TopRight)
+                amnt++;
+        }
+        return amnt;
+    }
+
+    public int CalcDoorsBottomSide()
+    {
+        int amnt = 0;
+
+        foreach (DoorPositions positions in openDoors)
+        {
+            if (positions == DoorPositions.BottomLeft
+                || positions == DoorPositions.BottomMiddle
+                || positions == DoorPositions.BottomRight)
+                amnt++;
+        }
+        return amnt;
+    }
+
 }
 
 #if UNITY_EDITOR
