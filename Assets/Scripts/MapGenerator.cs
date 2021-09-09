@@ -300,28 +300,50 @@ public class MapGenerator : MonoBehaviour
         ///
 
         
-        foreach (GridNode node in path)
-        {
-            node.openings.ToString();
-        }
+        //foreach (GridNode node in path)
+        //{
+        //    node.openings.ToString();
+        //}
 
+        ///Ok this needs to be redone, this isn't nice and just makes clutter.
         for (int index = 1; index < path.Count; index++)
         {
             GridNode currNode = path[index];
 
             List<Room> examinedRooms = new List<Room>();
 
-            foreach (GameObject obj in roomCont.RegularRooms)
+            GameObject roomObj = null;
+
+            do
             {
-                Room room = obj.GetComponent<Room>();
+                roomObj = roomCont.RegularRooms[Random.Range(0, roomCont.RegularRooms.Count)];
 
+                if (examinedRooms.Contains(roomObj.GetComponent<Room>()))
+                {
+                    roomObj = null;
+                    continue;
+                }
+
+                Room room = roomObj.GetComponent<Room>();
                 RoomInfo tempInfo = room.roomInfo;
-                
-                
 
-            }
+                if (CompareNodeToRoom(currNode, tempInfo))
+                {
+                    /// Spawn the room
+                    GameObject spawnedRoom = Instantiate(roomObj, new Vector3(currNode.gridPos.x * roomSize, currNode.gridPos.y), Quaternion.identity);
+                    
+                }
+                else
+                {
+                    ///Add to the examined rooms list and then continue.
+                    examinedRooms.Add(room);
+                    roomObj = null;
+                }
+
+            } while (roomObj == null);
 
             examinedRooms.Clear();
+
         }
 
         void DetermineDir(GridNode currNode, GridNode prevNode, bool onlyOneOpening = false)
@@ -362,8 +384,34 @@ public class MapGenerator : MonoBehaviour
 
         bool CompareNodeToRoom(GridNode node, RoomInfo roomInfo)
         {
+            if (node.openings.TotalOpenings() != roomInfo.numOpenings)
+            {
+                return false;
+            }
 
+            if(true)
+            {
+                ///Here we will compare the positioning of the entrances to
+                ///make sure that 
+            }
+
+            return true;
         }
+        
+
+        bool EnsureEntrancesLineUp(RoomInfo prevRoom, RoomInfo currRoom)
+        {
+            return true;
+        }
+
+    }
+
+    /// <summary> 
+    /// This function will spawn in the room, assign it to the grid, 
+    /// and assign the rest of the values. 
+    /// </summary>
+    public void SpawnRoom()
+    {
 
     }
 
@@ -540,6 +588,11 @@ public class GridNode
         {
             Debug.LogFormat("Top: {0}, Bottom: {1}, Left: {2}, Right: {3}", TopSide, BottomSide, LeftSide, RightSide);
             return "";
+        }
+
+        public int TotalOpenings()
+        {
+            return LeftSide + RightSide + TopSide + BottomSide;
         }
     }
 
