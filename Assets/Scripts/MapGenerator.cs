@@ -54,8 +54,8 @@ public class MapGenerator : MonoBehaviour
 
     public RoomContainer roomCont;
 
-    private Vector2 SpawnRoomPos;
-    private Vector2 BossRoomPos;
+    private Vector2 SpawnRoomPos, SpawnRoomGridPos;
+    private Vector2 BossRoomPos, BossRoomGridPos;
     private Vector2 trueGridSize;
 
     public GridInfo gridInfo = new GridInfo();
@@ -110,18 +110,20 @@ public class MapGenerator : MonoBehaviour
                                            Quaternion.identity);
 
         tempGridPos = new Vector2(0, SRY);
+        SpawnRoomGridPos = tempGridPos;
 
         spawnRoom.GetComponent<Room>().gridPos = tempGridPos;
+        spawnRoom.name = "Spawn Room";
+        
         SpawnRoomPos = spawnRoom.transform.position;
 
-        spawnRoom.name = "Spawn Room";
+
         grid[(int)tempGridPos.y, 0] = spawnRoom.GetComponent<Room>();
+        conceptGrid[(int)tempGridPos.y, 0] = new GridNode(GridNode.RoomType.Spawn);
 
         ///Add spawn room position to concept grid.
-        RoomInfo tempRoomInfo = spawnRoom.GetComponent<Room>().roomInfo;
+        //RoomInfo tempRoomInfo = spawnRoom.GetComponent<Room>().roomInfo;
 
-
-        conceptGrid[(int)tempGridPos.y, 0] = new GridNode(GridNode.RoomType.Spawn);
 
         //conceptGrid[(int)tempGridPos.y, 0] = new GridNode(GridNode.RoomType.Spawn,
         //                                                  tempRoomInfo.CalcDoorsLeftSide(),
@@ -153,19 +155,20 @@ public class MapGenerator : MonoBehaviour
 
 
         tempGridPos = new Vector2(BRPos.x / roomSize, BRPos.y / roomSize);
+        BossRoomGridPos = tempGridPos;
 
         bossRoom.GetComponent<Room>().gridPos = tempGridPos;
+        bossRoom.name = "Boss Room: " + tempGridPos;
 
         BossRoomPos = bossRoom.transform.position;
 
-        bossRoom.name = "Boss Room: " + tempGridPos;
-
         grid[(int)tempGridPos.y, (int)tempGridPos.x] = bossRoom.GetComponent<Room>();
+        
+        ///Add boss room to concept grid.
+        conceptGrid[(int)tempGridPos.y, (int)tempGridPos.x] = new GridNode(GridNode.RoomType.Boss);
 
         Debug.Log(Vector3.Distance(SpawnRoomPos, BossRoomPos));
 
-        ///Add boss room to concept grid.
-        conceptGrid[(int)tempGridPos.y, (int)tempGridPos.x] = new GridNode(GridNode.RoomType.Boss);
         //conceptGrid[(int)tempGridPos.y, (int)tempGridPos.x] = new GridNode(GridNode.RoomType.Boss,
         //                                                  tempRoomInfo.CalcDoorsLeftSide(),
         //                                                  tempRoomInfo.CalcDoorsRightSide(),
@@ -204,7 +207,14 @@ public class MapGenerator : MonoBehaviour
         ///
         ///Time to adjust the Astar algorithm to utilize my internal class rather than the room class.
 
+        //CreatePath(AStar(conceptGrid[(int)SpawnRoomGridPos.y, (int)SpawnRoomGridPos.x],
+        //                 conceptGrid[(int)BossRoomGridPos.y, (int)BossRoomGridPos.x]));
+
+
         #region Spawn in rooms that will go on the path
+
+
+
 
         #endregion
 
@@ -263,29 +273,59 @@ public class MapGenerator : MonoBehaviour
         {
             if (path[index].roomType == GridNode.RoomType.Spawn) continue;
 
-            ///we need to determine what direction the last room was in relation to the current room
-            ///the current room being the current index.
-            DetermineDir(path[index], path[index - 1]);
+            if (path[index - 1].roomType == GridNode.RoomType.Spawn)
+            {
+                ///perform the actions for the spawn room.
+                DetermineDir(path[index], path[index - 1], true);
+            }
+            else
+            {
+                ///we need to determine what direction the last room was in relation to the current room
+                ///the current room being the current index.
+                DetermineDir(path[index], path[index - 1]);
+            }
         }
 
+        ///Now spawn in the rooms
+        
 
-        void DetermineDir(GridNode currNode, GridNode prevNode)
+
+
+
+
+        void DetermineDir(GridNode currNode, GridNode prevNode, bool onlyOneOpening = false)
         {
+            int numOpenings = 1;
+            
+            if (onlyOneOpening == false)
+            {
+                numOpenings = Random.Range(1, 4);
+            }
+
             if (currNode.gridPos.y > prevNode.gridPos.y)
             {
                 ///curr node above prev node
+                prevNode.openings.TopSide = numOpenings;
+                currNode.openings.BottomSide = numOpenings;
+
             }
             else if (currNode.gridPos.y < prevNode.gridPos.y)
             {
                 ///curr node below prev node
+                prevNode.openings.BottomSide = numOpenings;
+                currNode.openings.TopSide = numOpenings;
             }
             else if (currNode.gridPos.x > prevNode.gridPos.x)
             {
                 ///curr node to right of prev node
+                prevNode.openings.RightSide = numOpenings;
+                currNode.openings.LeftSide = numOpenings;
             }
             else
             {
                 ///curr node to left of prev node
+                prevNode.openings.LeftSide = numOpenings;
+                currNode.openings.RightSide = numOpenings;
             }
         }
 
@@ -431,7 +471,8 @@ public class GridInfo
 
     public bool CheckSpawnBossDist(Vector2 SpawnRoomPos, Vector2 BRPos)
     {
-        return Vector3.Distance(SpawnRoomPos, BRPos) / 31 < minDistSTB;
+        Debug.Log("Dist of STB = " + Vector3.Distance(SpawnRoomPos, BRPos) / 31);
+        return Vector3.Distance(SpawnRoomPos, BRPos) / 31 > minDistSTB;
     }
 }
 
