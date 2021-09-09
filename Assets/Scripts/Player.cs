@@ -25,6 +25,9 @@ public class Player : Unit
     ///<summary>This is the units health.</summary>
     public int myHealth;
 
+    ///<summary>This is the units mana for magic casting.</summary>
+    public int myMana;
+
     ///<summary>This is the players Input system.</summary>
     private PlayerInputActions playerInputActions;
 
