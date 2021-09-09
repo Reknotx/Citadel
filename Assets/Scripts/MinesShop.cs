@@ -16,14 +16,14 @@ public class MinesShop : MonoBehaviour
     private GoldHandler gold;
 
     [SerializeField]
-    private int baseMinerCost;
+    private int baseMinerCost = 50;
     [SerializeField]
-    private int minerCostIncrease;
+    private int minerCostIncrease = 25;
 
     [SerializeField]
-    private int baseCartCost;
+    private int baseCartCost = 150;
     [SerializeField]
-    private int cartCostIncrease;
+    private int cartCostIncrease = 50;
 
 
     public void PurchaseMiner()
@@ -36,7 +36,7 @@ public class MinesShop : MonoBehaviour
         }
     }
 
-    public void purchaseCart()
+    public void PurchaseCart()
     {
         if ((int)gold.myHardGold >= baseCartCost)
         {
