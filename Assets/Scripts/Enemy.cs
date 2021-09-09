@@ -12,6 +12,13 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
+<<<<<<< HEAD
+
+    public 
+
+    // Start is called before the first frame update
+    void Start()
+=======
     #region Enemy Stats
 
             #region Enemy's Base Stats/Important Controls
@@ -115,6 +122,7 @@ public class Enemy : Unit
 
     ///<summary>this makes the unit move between points A and B.</summary>
     public void patrolAB()
+>>>>>>> HunterLE-ProgrammerBranch
     {
         return;
     }
