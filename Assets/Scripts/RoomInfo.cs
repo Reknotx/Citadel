@@ -149,6 +149,11 @@ public class RoomInfoEditor : Editor
             roomInfo.openDoors[index] = (DoorPositions)EditorGUILayout.EnumPopup("Door Position:", roomInfo.openDoors[index]);
         }
 
+        bool somethingChanged = EditorGUI.EndChangeCheck();
+
+        if (somethingChanged)
+            EditorUtility.SetDirty(roomInfo);
+
         serializedObject.ApplyModifiedProperties();
     }
 }
