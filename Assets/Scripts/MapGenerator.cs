@@ -226,31 +226,31 @@ public class MapGenerator : MonoBehaviour
 
         #region Spawning in normal rooms
 
-        ///Spawning a row
-        for (int y = 0; y < trueGridSize.y; y++)
-        {
+        /////Spawning a row
+        //for (int y = 0; y < trueGridSize.y; y++)
+        //{
 
-            GameObject row = new GameObject("Row " + y);
-            row.transform.parent = transform;
+        //    GameObject row = new GameObject("Row " + y);
+        //    row.transform.parent = transform;
 
-            ///Spawning in a column
-            for (int x = 1; x < trueGridSize.x; x++)
-            {
-                if (grid[y, x] != null) continue;
+        //    ///Spawning in a column
+        //    for (int x = 1; x < trueGridSize.x; x++)
+        //    {
+        //        if (grid[y, x] != null) continue;
 
-                GameObject temp = Instantiate(basePrefab,
-                                              new Vector3(roomSize * x, roomSize * y),
-                                              Quaternion.identity);
+        //        GameObject temp = Instantiate(basePrefab,
+        //                                      new Vector3(roomSize * x, roomSize * y),
+        //                                      Quaternion.identity);
 
-                temp.name = "Room: (" + x + ", " + y + ")";
+        //        temp.name = "Room: (" + x + ", " + y + ")";
                 
-                temp.GetComponent<Room>().gridPos = new Vector2(x, y);
+        //        temp.GetComponent<Room>().gridPos = new Vector2(x, y);
                 
-                temp.transform.parent = row.transform;
+        //        temp.transform.parent = row.transform;
                 
-                grid[y, x] = temp.GetComponent<Room>();
-            }
-        }
+        //        grid[y, x] = temp.GetComponent<Room>();
+        //    }
+        //}
 
         #endregion
     }
@@ -327,10 +327,18 @@ public class MapGenerator : MonoBehaviour
                 Room room = roomObj.GetComponent<Room>();
                 RoomInfo tempInfo = room.roomInfo;
 
-                if (CompareNodeToRoom(currNode, tempInfo))
+                if (currNode == null) Debug.LogError("Curr Node null");
+
+                if (tempInfo == null) Debug.LogError("Temp info null");
+
+                if (CompareNodeToRoom(currNode, tempInfo)
+                    //&& EnsureEntrancesLineUp(tempInfo, grid[(int)path[index - 1].gridPos.y,
+                    //                                        (int)path[index - 1].gridPos.x].roomInfo)
+                    )
+                    
                 {
                     /// Spawn the room
-                    GameObject spawnedRoom = Instantiate(roomObj, new Vector3(currNode.gridPos.x * roomSize, currNode.gridPos.y), Quaternion.identity);
+                    GameObject spawnedRoom = Instantiate(roomObj, new Vector3(currNode.gridPos.x * roomSize, currNode.gridPos.y * roomSize), Quaternion.identity);
                     
                 }
                 else
@@ -384,24 +392,127 @@ public class MapGenerator : MonoBehaviour
 
         bool CompareNodeToRoom(GridNode node, RoomInfo roomInfo)
         {
-            if (node.openings.TotalOpenings() != roomInfo.numOpenings)
+            if (node.openings.TotalOpenings() != roomInfo.numOpenings
+                && node.openings.RightSide != roomInfo.CalcDoorsRightSide()
+                && node.openings.LeftSide != roomInfo.CalcDoorsLeftSide()
+                && node.openings.TopSide != roomInfo.CalcDoorsTopSide()
+                && node.openings.BottomSide != roomInfo.CalcDoorsBottomSide())
             {
+                ///Here we will compare the number of the entrances to
+                ///make sure that the room being looked at matches the number
+                ///of entrances we need on each individual side.
+                ///
                 return false;
-            }
-
-            if(true)
-            {
-                ///Here we will compare the positioning of the entrances to
-                ///make sure that 
             }
 
             return true;
         }
         
 
-        bool EnsureEntrancesLineUp(RoomInfo prevRoom, RoomInfo currRoom)
+        bool EnsureEntrancesLineUp(RoomInfo currRoom, RoomInfo prevRoom)
         {
-            return true;
+            bool lineUp = false;
+            foreach (DoorPositions pos1 in currRoom.openDoors)
+            {
+                foreach (DoorPositions pos2 in prevRoom.openDoors)
+                {
+                    switch (pos1)
+                    {
+                        case DoorPositions.EMPTY:
+                            break;
+                        
+                        case DoorPositions.TopLeft:
+                            if (pos2 == DoorPositions.BottomLeft)
+                            {
+                                lineUp = true;
+                                //continue;
+                            }
+                            break;
+                        
+                        case DoorPositions.TopMiddle:
+                            if (pos2 == DoorPositions.BottomMiddle)
+                            {
+                                lineUp = true;
+                            }
+                            break;
+                        
+                        case DoorPositions.TopRight:
+                            if (pos2 == DoorPositions.BottomRight)
+                            {
+                                lineUp = true;
+                            }
+                            break;
+                        
+                        case DoorPositions.BottomLeft:
+                            if (pos2==DoorPositions.TopLeft)
+                            {
+                                lineUp = true;
+                            }
+                            break;
+                        
+                        case DoorPositions.BottomMiddle:
+                            if (pos2 == DoorPositions.TopMiddle)
+                            {
+                                lineUp = true;
+                            }
+                            break;
+                        
+                        case DoorPositions.BottomRight:
+                            if (pos2 == DoorPositions.TopRight)
+                            {
+                                lineUp = true;
+                            }
+                            break;
+                        
+                        case DoorPositions.LeftTop:
+                            if (pos2 == DoorPositions.RightTop)
+                            {
+                                lineUp = true;
+                            }
+                            break;
+                        
+                        case DoorPositions.LeftMiddle:
+                            if (pos2 == DoorPositions.RightMiddle)
+                            {
+                                lineUp = true;
+                            }
+                            break;
+                        
+                        case DoorPositions.LeftBottom:
+                            if (pos2 == DoorPositions.RightBottom)
+                            {
+                                lineUp = true;
+                            }
+                            break;
+                        
+                        case DoorPositions.RightTop:
+                            if (pos2 == DoorPositions.LeftTop)
+                            {
+                                lineUp = true;
+                            }
+                            break;
+                        
+                        case DoorPositions.RightMiddle:
+                            if (pos2 == DoorPositions.LeftMiddle)
+                            {
+                                lineUp = true;
+                            }
+                            break;
+                        
+                        case DoorPositions.RightBottom:
+                            if (pos2 == DoorPositions.LeftBottom)
+                            {
+                                lineUp = true;
+                            }
+                            break;
+                        
+                        default:
+                            break;
+                    }
+                }
+                if (!lineUp) break;
+            }
+            return lineUp;
         }
 
     }
