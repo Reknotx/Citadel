@@ -307,6 +307,7 @@ public class MapGenerator : MonoBehaviour
 
             GameObject roomObj = null;
 
+            //Debug.Log(GetPrevRoomDir(currNode.gridPos, path[index - 1].gridPos));
             do
             {
                 roomObj = roomCont.RegularRooms[Random.Range(0, roomCont.RegularRooms.Count)];
@@ -319,6 +320,11 @@ public class MapGenerator : MonoBehaviour
 
                 Room room = roomObj.GetComponent<Room>();
                 RoomInfo tempInfo = room.roomInfo;
+
+
+                if (tempInfo == null) Debug.LogError("tempInfo is null");
+
+                //if (grid[(int)path[index - 1].gridPos.y, (int)path[index - 1].gridPos.x] == null) Debug.LogError("This thing");
 
                 if (CompareNodeToRoom(currNode, tempInfo)
                     && EnsureEntrancesLineUp(tempInfo, grid[(int)path[index - 1].gridPos.y, (int)path[index - 1].gridPos.x].roomInfo, GetPrevRoomDir(currNode.gridPos, path[index - 1].gridPos))
@@ -345,7 +351,9 @@ public class MapGenerator : MonoBehaviour
 
             } while (roomObj == null);
 
+            Debug.Log(examinedRooms.Count);
             examinedRooms.Clear();
+            Debug.Log(examinedRooms.Count);
 
         }
 
@@ -400,7 +408,7 @@ public class MapGenerator : MonoBehaviour
                 ///Here we will compare the number of the entrances to
                 ///make sure that the room being looked at matches the number
                 ///of entrances we need on each individual side.
-                ///
+                //Debug.Log("Fail");
                 return false;
             }
 
@@ -417,6 +425,11 @@ public class MapGenerator : MonoBehaviour
         bool EnsureEntrancesLineUp(RoomInfo currRoom, RoomInfo prevRoom, Dir prevDir)
         {
             bool lineUp = false;
+
+            if (currRoom == null) Debug.LogError("CurrRoomInfo is null");
+
+            if (prevRoom == null) Debug.LogError("PrevRoomInfo is null");
+
             foreach (DoorPositions currPos in currRoom.openDoors)
             {
                 foreach (DoorPositions prevPos in prevRoom.openDoors)
@@ -505,6 +518,8 @@ public class MapGenerator : MonoBehaviour
                     }
                     else
                     {
+                        Debug.Log("Prev room above current");
+                        Debug.Log(prevPos.ToString());
                         ///Curr must have openings on top
                         switch (prevPos)
                         {
@@ -531,10 +546,9 @@ public class MapGenerator : MonoBehaviour
                         }
                     }
                     if (lineUp) break;
+                    Debug.Log(lineUp);
                 }
-                if (!lineUp) break;
             }
-            //Debug.Log(lineUp);
 
             return lineUp;
         }
