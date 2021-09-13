@@ -81,7 +81,7 @@ public class MapGenerator : MonoBehaviour
         {
             for (int x = 0; x < trueGridSize.x; x++)
             {
-                conceptGrid[y, x] = new GridNode(x, y);
+                conceptGrid[y, x] = new GridNode(new Vector2(x, y));
             }
         }
 
@@ -100,80 +100,52 @@ public class MapGenerator : MonoBehaviour
         ///     
         
         Vector2 tempGridPos;
+        RoomInfo tempRoomInfo;
 
         #region Spawning the spawn room
         int SRY = Random.Range(0, (int)trueGridSize.y);
 
-        GameObject spawnRoom = Instantiate(roomCont.SpawnRooms[Random.Range(0, roomCont.SpawnRooms.Count)],
-                                           new Vector3(0, SRY * roomSize),
-                                           Quaternion.identity);
-
-        tempGridPos = new Vector2(0, SRY);
-        SpawnRoomGridPos = tempGridPos;
-
-        spawnRoom.GetComponent<Room>().gridPos = tempGridPos;
-        spawnRoom.name = "Spawn Room";
+        GameObject spawnRoom = SpawnRoom(roomCont.SpawnRooms[Random.Range(0, roomCont.SpawnRooms.Count)], new Vector2(0, SRY), "Spawn Room");
+        SpawnRoomGridPos = new Vector2(0, SRY);
         
         SpawnRoomPos = spawnRoom.transform.position;
 
+        //conceptGrid[(int)tempGridPos.y, 0] = new GridNode(GridNode.RoomType.Spawn);
 
-        grid[(int)tempGridPos.y, 0] = spawnRoom.GetComponent<Room>();
-        conceptGrid[(int)tempGridPos.y, 0] = new GridNode(GridNode.RoomType.Spawn);
+        tempRoomInfo = spawnRoom.GetComponent<Room>().roomInfo;
 
-        ///Add spawn room position to concept grid.
-        //RoomInfo tempRoomInfo = spawnRoom.GetComponent<Room>().roomInfo;
-
-
-        //conceptGrid[(int)tempGridPos.y, 0] = new GridNode(GridNode.RoomType.Spawn,
-        //                                                  tempRoomInfo.CalcDoorsLeftSide(),
-        //                                                  tempRoomInfo.CalcDoorsRightSide(),
-        //                                                  tempRoomInfo.CalcDoorsTopSide(),
-        //                                                  tempRoomInfo.CalcDoorsBottomSide());
-
+        conceptGrid[(int)SpawnRoomGridPos.y, 0] = new GridNode(SpawnRoomGridPos,
+                                                               GridNode.RoomType.Spawn,
+                                                               tempRoomInfo.CalcDoorsLeftSide(),
+                                                               tempRoomInfo.CalcDoorsRightSide(),
+                                                               tempRoomInfo.CalcDoorsTopSide(),
+                                                               tempRoomInfo.CalcDoorsBottomSide());
         #endregion
 
         #region Spawning Boss Room
-
-        int BRGX;
-        int BRGY;
         Vector3 BRPos;
         do
         {
-            BRGX = Random.Range(1, (int)trueGridSize.x);
-            BRGY = Random.Range(0, (int)trueGridSize.y);
+            int BRGX = Random.Range(1, (int)trueGridSize.x);
+            int BRGY = Random.Range(0, (int)trueGridSize.y);
 
             BRPos = new Vector3(BRGX * roomSize, BRGY * roomSize);
 
-            Debug.Log(BRPos);
+            //Debug.Log(BRPos);
         } while (!gridInfo.CheckSpawnBossDist(SpawnRoomPos, BRPos));
-        
 
-        GameObject bossRoom = Instantiate(roomCont.BossRooms[Random.Range(0, roomCont.BossRooms.Count)],
-                                          BRPos,
-                                          Quaternion.identity);
+        BossRoomGridPos = new Vector2(BRPos.x / roomSize, BRPos.y / roomSize);
 
-
-        tempGridPos = new Vector2(BRPos.x / roomSize, BRPos.y / roomSize);
-        BossRoomGridPos = tempGridPos;
-
-        bossRoom.GetComponent<Room>().gridPos = tempGridPos;
-        bossRoom.name = "Boss Room: " + tempGridPos;
+        GameObject bossRoom = SpawnRoom(roomCont.BossRooms[Random.Range(0, roomCont.BossRooms.Count)], BossRoomGridPos, "Boss Room");
 
         BossRoomPos = bossRoom.transform.position;
-
-        grid[(int)tempGridPos.y, (int)tempGridPos.x] = bossRoom.GetComponent<Room>();
         
-        ///Add boss room to concept grid.
-        conceptGrid[(int)tempGridPos.y, (int)tempGridPos.x] = new GridNode(GridNode.RoomType.Boss);
-
-        Debug.Log(Vector3.Distance(SpawnRoomPos, BossRoomPos));
-
-        //conceptGrid[(int)tempGridPos.y, (int)tempGridPos.x] = new GridNode(GridNode.RoomType.Boss,
-        //                                                  tempRoomInfo.CalcDoorsLeftSide(),
-        //                                                  tempRoomInfo.CalcDoorsRightSide(),
-        //                                                  tempRoomInfo.CalcDoorsTopSide(),
-        //                                                  tempRoomInfo.CalcDoorsBottomSide());
-
+        conceptGrid[(int)BossRoomGridPos.y, (int)BossRoomGridPos.x] = new GridNode(BossRoomGridPos,
+                                                                                   GridNode.RoomType.Boss,
+                                                                                   tempRoomInfo.CalcDoorsLeftSide(),
+                                                                                   tempRoomInfo.CalcDoorsRightSide(),
+                                                                                   tempRoomInfo.CalcDoorsTopSide(),
+                                                                                   tempRoomInfo.CalcDoorsBottomSide());
         #endregion
 
         ///Need to write down notes on how to implement this randomness into generation. 
@@ -206,7 +178,7 @@ public class MapGenerator : MonoBehaviour
         ///
         ///Time to adjust the Astar algorithm to utilize my internal class rather than the room class.
 
-        CreatePath(AStar(conceptGrid[(int)SpawnRoomGridPos.y, (int)SpawnRoomGridPos.x],
+        CreatePath(AStar(conceptGrid[(int)SpawnRoomGridPos.y, 0],
                          conceptGrid[(int)BossRoomGridPos.y, (int)BossRoomGridPos.x]));
 
 
@@ -241,8 +213,6 @@ public class MapGenerator : MonoBehaviour
         //        GameObject temp = Instantiate(basePrefab,
         //                                      new Vector3(roomSize * x, roomSize * y),
         //                                      Quaternion.identity);
-
-        //        temp.name = "Room: (" + x + ", " + y + ")";
                 
         //        temp.GetComponent<Room>().gridPos = new Vector2(x, y);
                 
@@ -253,6 +223,36 @@ public class MapGenerator : MonoBehaviour
         //}
 
         #endregion
+    }
+
+    /// <summary> 
+    /// This function will spawn in the room, assign it to the grid, 
+    /// and assign the rest of the values. 
+    /// </summary>
+    public GameObject SpawnRoom(GameObject room, Vector2 gridCord, string name = "")
+    {
+        if (grid[(int)gridCord.y, (int)gridCord.x] != null) return null;
+
+        GameObject spawnedRoom = Instantiate(room, new Vector2(gridCord.x * roomSize, gridCord.y * roomSize), Quaternion.identity);
+
+        spawnedRoom.GetComponent<Room>().gridPos = gridCord;
+
+        grid[(int)gridCord.y, (int)gridCord.x] = spawnedRoom.GetComponent<Room>();
+
+        if (!name.Equals(""))
+        {
+            spawnedRoom.name = name + ": " + gridCord;
+        }
+
+        return spawnedRoom;
+    }
+
+    enum Dir
+    {
+        Top,
+        Below,
+        Left,
+        Right
     }
 
     private void CreatePath(List<GridNode> path)
@@ -297,16 +297,9 @@ public class MapGenerator : MonoBehaviour
         ///In the future there will be rooms that have multiple entrances on one side,
         ///and will need to be updated appropriately.
         ///
-        ///
-
-        
-        //foreach (GridNode node in path)
-        //{
-        //    node.openings.ToString();
-        //}
 
         ///Ok this needs to be redone, this isn't nice and just makes clutter.
-        for (int index = 1; index < path.Count; index++)
+        for (int index = 1; index < path.Count - 1; index++)
         {
             GridNode currNode = path[index];
 
@@ -314,6 +307,7 @@ public class MapGenerator : MonoBehaviour
 
             GameObject roomObj = null;
 
+            //Debug.Log(GetPrevRoomDir(currNode.gridPos, path[index - 1].gridPos));
             do
             {
                 roomObj = roomCont.RegularRooms[Random.Range(0, roomCont.RegularRooms.Count)];
@@ -327,19 +321,19 @@ public class MapGenerator : MonoBehaviour
                 Room room = roomObj.GetComponent<Room>();
                 RoomInfo tempInfo = room.roomInfo;
 
-                if (currNode == null) Debug.LogError("Curr Node null");
 
-                if (tempInfo == null) Debug.LogError("Temp info null");
+                if (tempInfo == null) Debug.LogError("tempInfo is null");
+
+                //if (grid[(int)path[index - 1].gridPos.y, (int)path[index - 1].gridPos.x] == null) Debug.LogError("This thing");
 
                 if (CompareNodeToRoom(currNode, tempInfo)
-                    //&& EnsureEntrancesLineUp(tempInfo, grid[(int)path[index - 1].gridPos.y,
-                    //                                        (int)path[index - 1].gridPos.x].roomInfo)
+                    && EnsureEntrancesLineUp(tempInfo, grid[(int)path[index - 1].gridPos.y, (int)path[index - 1].gridPos.x].roomInfo, GetPrevRoomDir(currNode.gridPos, path[index - 1].gridPos))
                     )
                     
                 {
                     /// Spawn the room
-                    GameObject spawnedRoom = Instantiate(roomObj, new Vector3(currNode.gridPos.x * roomSize, currNode.gridPos.y * roomSize), Quaternion.identity);
-                    
+                    GameObject spawnedRoom = SpawnRoom(roomObj, new Vector3(currNode.gridPos.x, currNode.gridPos.y), "Room");
+                    break;
                 }
                 else
                 {
@@ -348,12 +342,22 @@ public class MapGenerator : MonoBehaviour
                     roomObj = null;
                 }
 
+                if (examinedRooms.Count == roomCont.RegularRooms.Count)
+                {
+                    //Debug.Log(examinedRooms.Count);
+                    Debug.LogError("Ran out of rooms, about to enter infinite loop. Breaking from loop");
+                    break;
+                }
+
             } while (roomObj == null);
 
+            Debug.Log(examinedRooms.Count);
             examinedRooms.Clear();
+            Debug.Log(examinedRooms.Count);
 
         }
 
+        #region Helper Functions
         void DetermineDir(GridNode currNode, GridNode prevNode, bool onlyOneOpening = false)
         {
             int numOpenings = 1;
@@ -392,139 +396,193 @@ public class MapGenerator : MonoBehaviour
 
         bool CompareNodeToRoom(GridNode node, RoomInfo roomInfo)
         {
+            if (node == null) Debug.LogError("Help node null");
+            //node.openings.ToString();
+            //roomInfo.ToString();
             if (node.openings.TotalOpenings() != roomInfo.numOpenings
-                && node.openings.RightSide != roomInfo.CalcDoorsRightSide()
-                && node.openings.LeftSide != roomInfo.CalcDoorsLeftSide()
-                && node.openings.TopSide != roomInfo.CalcDoorsTopSide()
-                && node.openings.BottomSide != roomInfo.CalcDoorsBottomSide())
+                || node.openings.RightSide != roomInfo.CalcDoorsRightSide()
+                || node.openings.LeftSide != roomInfo.CalcDoorsLeftSide()
+                || node.openings.TopSide != roomInfo.CalcDoorsTopSide()
+                || node.openings.BottomSide != roomInfo.CalcDoorsBottomSide())
             {
                 ///Here we will compare the number of the entrances to
                 ///make sure that the room being looked at matches the number
                 ///of entrances we need on each individual side.
-                ///
+                //Debug.Log("Fail");
                 return false;
             }
+
 
             return true;
         }
         
+        ///I need to figure out the positioning of the previous room in relation
+        ///to the current room so I can limit the amount of doors I'm actually looking at 
+        ///to ensure they line up properly
+        ///
+        ///I also need to ensure that the room has doors al appropriate places
 
-        bool EnsureEntrancesLineUp(RoomInfo currRoom, RoomInfo prevRoom)
+        bool EnsureEntrancesLineUp(RoomInfo currRoom, RoomInfo prevRoom, Dir prevDir)
         {
             bool lineUp = false;
-            foreach (DoorPositions pos1 in currRoom.openDoors)
+
+            if (currRoom == null) Debug.LogError("CurrRoomInfo is null");
+
+            if (prevRoom == null) Debug.LogError("PrevRoomInfo is null");
+
+            foreach (DoorPositions currPos in currRoom.openDoors)
             {
-                foreach (DoorPositions pos2 in prevRoom.openDoors)
+                foreach (DoorPositions prevPos in prevRoom.openDoors)
                 {
-                    switch (pos1)
+
+                    if (prevDir == Dir.Left)
                     {
-                        case DoorPositions.EMPTY:
-                            break;
-                        
-                        case DoorPositions.TopLeft:
-                            if (pos2 == DoorPositions.BottomLeft)
-                            {
-                                lineUp = true;
-                                //continue;
-                            }
-                            break;
-                        
-                        case DoorPositions.TopMiddle:
-                            if (pos2 == DoorPositions.BottomMiddle)
-                            {
-                                lineUp = true;
-                            }
-                            break;
-                        
-                        case DoorPositions.TopRight:
-                            if (pos2 == DoorPositions.BottomRight)
-                            {
-                                lineUp = true;
-                            }
-                            break;
-                        
-                        case DoorPositions.BottomLeft:
-                            if (pos2==DoorPositions.TopLeft)
-                            {
-                                lineUp = true;
-                            }
-                            break;
-                        
-                        case DoorPositions.BottomMiddle:
-                            if (pos2 == DoorPositions.TopMiddle)
-                            {
-                                lineUp = true;
-                            }
-                            break;
-                        
-                        case DoorPositions.BottomRight:
-                            if (pos2 == DoorPositions.TopRight)
-                            {
-                                lineUp = true;
-                            }
-                            break;
-                        
-                        case DoorPositions.LeftTop:
-                            if (pos2 == DoorPositions.RightTop)
-                            {
-                                lineUp = true;
-                            }
-                            break;
-                        
-                        case DoorPositions.LeftMiddle:
-                            if (pos2 == DoorPositions.RightMiddle)
-                            {
-                                lineUp = true;
-                            }
-                            break;
-                        
-                        case DoorPositions.LeftBottom:
-                            if (pos2 == DoorPositions.RightBottom)
-                            {
-                                lineUp = true;
-                            }
-                            break;
-                        
-                        case DoorPositions.RightTop:
-                            if (pos2 == DoorPositions.LeftTop)
-                            {
-                                lineUp = true;
-                            }
-                            break;
-                        
-                        case DoorPositions.RightMiddle:
-                            if (pos2 == DoorPositions.LeftMiddle)
-                            {
-                                lineUp = true;
-                            }
-                            break;
-                        
-                        case DoorPositions.RightBottom:
-                            if (pos2 == DoorPositions.LeftBottom)
-                            {
-                                lineUp = true;
-                            }
-                            break;
-                        
-                        default:
-                            break;
+                        ///Curr must have openings on left
+                        switch (prevPos)
+                        {
+                            case DoorPositions.RightTop:
+                                if (currPos == DoorPositions.LeftTop)
+                                {
+                                    lineUp = true;
+                                }
+                                break;
+
+                            case DoorPositions.RightMiddle:
+                                if (currPos == DoorPositions.LeftMiddle)
+                                {
+                                    lineUp = true;
+                                }
+                                break;
+
+                            case DoorPositions.RightBottom:
+                                if (currPos == DoorPositions.LeftBottom)
+                                {
+                                    lineUp = true;
+                                }
+                                break;
+                        }
                     }
+                    else if (prevDir == Dir.Right)
+                    {
+                        ///Curr must have openings on right
+                        switch (prevPos)
+                        {
+                            case DoorPositions.LeftTop:
+                                if (currPos == DoorPositions.RightTop)
+                                {
+                                    lineUp = true;
+                                }
+                                break;
+
+                            case DoorPositions.LeftMiddle:
+                                if (currPos == DoorPositions.RightMiddle)
+                                {
+                                    lineUp = true;
+                                }
+                                break;
+
+                            case DoorPositions.LeftBottom:
+                                if (currPos == DoorPositions.RightBottom)
+                                {
+                                    lineUp = true;
+                                }
+                                break;
+                        }
+                    }
+                    else if (prevDir == Dir.Below)
+                    {
+                        ///Curr must have openings on bottom
+                        switch (prevPos)
+                        {
+                            case DoorPositions.TopLeft:
+                                if (currPos == DoorPositions.BottomLeft)
+                                {
+                                    lineUp = true;
+                                }
+                                break;
+
+                            case DoorPositions.TopMiddle:
+                                if (currPos == DoorPositions.BottomMiddle)
+                                {
+                                    lineUp = true;
+                                }
+                                break;
+
+                            case DoorPositions.TopRight:
+                                if (currPos == DoorPositions.BottomRight)
+                                {
+                                    lineUp = true;
+                                }
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("Prev room above current");
+                        Debug.Log(prevPos.ToString());
+                        ///Curr must have openings on top
+                        switch (prevPos)
+                        {
+                            case DoorPositions.BottomLeft:
+                                if (currPos == DoorPositions.TopLeft)
+                                {
+                                    lineUp = true;
+                                }
+                                break;
+
+                            case DoorPositions.BottomMiddle:
+                                if (currPos == DoorPositions.TopMiddle)
+                                {
+                                    lineUp = true;
+                                }
+                                break;
+
+                            case DoorPositions.BottomRight:
+                                if (currPos == DoorPositions.TopRight)
+                                {
+                                    lineUp = true;
+                                }
+                                break;
+                        }
+                    }
+                    if (lineUp) break;
+                    Debug.Log(lineUp);
                 }
-                if (!lineUp) break;
             }
+
             return lineUp;
         }
 
+        Dir GetPrevRoomDir(Vector2 currRoomPos, Vector2 prevRoomPos)
+        {
+            //Debug.Log(currRoomPos);
+            //Debug.Log(prevRoomPos);
+
+            if (currRoomPos.x > prevRoomPos.x)
+            {
+                ///Curr room to right of prev room so the prev room dir is left
+                return Dir.Left;
+            }
+            else if (currRoomPos.x < prevRoomPos.x)
+            {
+                return Dir.Right;
+            }
+            else if (currRoomPos.y > prevRoomPos.y)
+            {
+                return Dir.Below;
+            }
+            else
+            {
+                return Dir.Top;
+            }
+        }
+
+
+        #endregion
+
     }
 
-    /// <summary> 
-    /// This function will spawn in the room, assign it to the grid, 
-    /// and assign the rest of the values. 
-    /// </summary>
-    public void SpawnRoom()
-    {
 
-    }
 
     #region Grid concept Astar
     public List<GridNode> AStar(GridNode start, GridNode end)
@@ -537,6 +595,7 @@ public class MapGenerator : MonoBehaviour
         HashSet<GridNode> explored = new HashSet<GridNode>();
 
         frontier.Add(start);
+        //Debug.Log(start.gridPos);
 
         foreach (GridNode node in conceptGrid)
         {
@@ -670,7 +729,7 @@ public class GridInfo
 
     public bool CheckSpawnBossDist(Vector2 SpawnRoomPos, Vector2 BRPos)
     {
-        Debug.Log("Dist of STB = " + Vector3.Distance(SpawnRoomPos, BRPos) / 31);
+        //Debug.Log("Dist of STB = " + Vector3.Distance(SpawnRoomPos, BRPos) / 31);
         return Vector3.Distance(SpawnRoomPos, BRPos) / 31 > minDistSTB;
     }
 }
@@ -697,7 +756,7 @@ public class GridNode
 
         public override string ToString()
         {
-            Debug.LogFormat("Top: {0}, Bottom: {1}, Left: {2}, Right: {3}", TopSide, BottomSide, LeftSide, RightSide);
+            Debug.LogFormat("Node openings - Top: {0}, Bottom: {1}, Left: {2}, Right: {3}", TopSide, BottomSide, LeftSide, RightSide);
             return "";
         }
 
@@ -742,6 +801,11 @@ public class GridNode
         Initialization();
         this.roomType = roomType;
     }
+    public GridNode(Vector2 gridPos)
+    {
+        Initialization();
+        this.gridPos = gridPos;
+    }
 
     /// <summary> Construct that allows specificying room type as well as openings on the sides if known. </summary>
     /// <param name="roomType">The type of room that is placed on the grid.</param>
@@ -749,21 +813,16 @@ public class GridNode
     /// <param name="rightSide">Number of openings on the right side.</param>
     /// <param name="topSide">Number of openings on the top side.</param>
     /// <param name="bottomSide">Number of openings on the bottom side.</param>
-    public GridNode(RoomType roomType, int leftSide = 0, int rightSide = 0, int topSide = 0, int bottomSide = 0)
+    public GridNode(Vector2 gridPos, RoomType roomType, int leftSide = 0, int rightSide = 0, int topSide = 0, int bottomSide = 0)
     {
         Initialization();
+        this.gridPos = gridPos;
         this.roomType = roomType;
         openings.LeftSide = leftSide;
         openings.RightSide = rightSide;
         openings.TopSide = topSide;
         openings.BottomSide = bottomSide;
 
-    }
-
-    public GridNode(int xCor, int yCor)
-    {
-        Initialization();
-        gridPos = new Vector2(xCor, yCor);
     }
 
     /// <summary> Little helper function for constructors that initializes the basic variables. </summary>
