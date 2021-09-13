@@ -115,6 +115,12 @@ public class RoomInfo : ScriptableObject
         return amnt;
     }
 
+    public override string ToString()
+    {
+        Debug.LogFormat("Room openings - Top: {0}, Bottom: {1}, Left: {2}, Right: {3}", CalcDoorsTopSide(), CalcDoorsBottomSide(), CalcDoorsLeftSide(), CalcDoorsRightSide());
+        return "";
+    }
+
 }
 
 #if UNITY_EDITOR
