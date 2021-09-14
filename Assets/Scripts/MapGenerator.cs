@@ -320,6 +320,7 @@ public class MapGenerator : MonoBehaviour
 
                 Room room = roomObj.GetComponent<Room>();
                 RoomInfo tempInfo = room.roomInfo;
+                examinedRooms.Add(room);
 
 
                 if (tempInfo == null) Debug.LogError("tempInfo is null");
@@ -335,21 +336,20 @@ public class MapGenerator : MonoBehaviour
                     GameObject spawnedRoom = SpawnRoom(roomObj, new Vector3(currNode.gridPos.x, currNode.gridPos.y), "Room");
                     break;
                 }
-                else
-                {
-                    ///Add to the examined rooms list and then continue.
-                    examinedRooms.Add(room);
-                    roomObj = null;
-                }
+                //else
+                //{
+                //    ///Add to the examined rooms list and then continue.
+                //    examinedRooms.Add(room);
+                //    roomObj = null;
+                //}
 
                 if (examinedRooms.Count == roomCont.RegularRooms.Count)
                 {
                     //Debug.Log(examinedRooms.Count);
                     Debug.LogError("Ran out of rooms, about to enter infinite loop. Breaking from loop");
-                    break;
                 }
 
-            } while (roomObj == null);
+            } while (examinedRooms.Count != roomCont.RegularRooms.Count);
 
             examinedRooms.Clear();
         }
