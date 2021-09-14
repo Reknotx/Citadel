@@ -73,6 +73,9 @@ public class SceneManagerScript : MonoBehaviour
         inCampShop = true;
         campButtons.SetActive(false);
         campShopButtons.SetActive(true);
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<Player>().canMove = false;
     } 
     
     /// <summary> this takes the player to the mine scene </summary>
@@ -109,6 +112,9 @@ public class SceneManagerScript : MonoBehaviour
             campButtons.SetActive(true);
             campShopButtons.SetActive(false);
             inCampShop = false;
+
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.GetComponent<Player>().canMove = true;
         }
         else
         {

@@ -60,6 +60,13 @@ public class Player : Unit
 
     /// <summary>this is the physical gameobject that is cast during the firewall spell</summary>
     public GameObject fireWall_prefab;
+    #endregion
+            #region Bool Determinates 
+
+    /// <summary> determines if the player can move or not </summary>
+   //  [HideInInspector]
+    public bool canMove = true;  
+    
             #endregion
     #endregion
 
@@ -84,8 +91,12 @@ public class Player : Unit
 
         #region Player Movement Detection
         ///<summary>This moves the player constantly while the input is held.</summary>
-        Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
-        _rigidBody.AddForce(new Vector3(inputVector.x, 0, 0) * speed, ForceMode.Acceleration);
+        if (canMove == true)
+        {
+            Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
+            _rigidBody.AddForce(new Vector3(inputVector.x, 0, 0) * speed, ForceMode.Acceleration);
+        }
+        
         #endregion
 
         #region Ground/Platform detection
@@ -142,28 +153,28 @@ public class Player : Unit
 
 
     #region Player Movement Actions
-    /// <summary>This moves the player from side to side on the x axis  /// </summary>
-    /// <param name="context">this is the information returned when the input is registered</param>
+    /// <summary> This moves the player from side to side on the x axis  /// </summary>
     public void movement(InputAction.CallbackContext context)
     {
-        Vector2 inputVector = context.ReadValue<Vector2>();
-        //_rigidBody.AddForce(new Vector3(inputVector.x, 0, 0) * speed, ForceMode.Force);
-        _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
-        if (inputVector.x > 0)
+        if (canMove == true)
         {
-            facingRight = true;
-        }
-        if (inputVector.x < 0)
-        {
-            facingRight = false;
+            Vector2 inputVector = context.ReadValue<Vector2>();
+            _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
+            if (inputVector.x > 0)
+            {
+                facingRight = true;
+            }
+            if (inputVector.x < 0)
+            {
+                facingRight = false;
+            }
         }
     }
 
     ///<summary>This triggers the unit to jump up.</summary>
     public void Jump(InputAction.CallbackContext context)
     {
-        // if(context.performed)
-        //  {
+
         if (isGrounded == true)
         {
 
@@ -177,8 +188,6 @@ public class Player : Unit
             StartCoroutine(Jumped());
 
         }
-
-        //}
     }
 
     ///<summary>This triggers the unit to drop down if they are on a platform.</summary>
@@ -230,13 +239,38 @@ public class Player : Unit
     #region Collision Detection
     public void OnTriggerEnter(Collider other)
     {
+        #region Camp Collisions
+        if(other.gameObject.tag == "MineEntrance")
+        {
+            GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+            buttonController.GetComponent<SceneButtonControllerScript>().enterMineBTN.SetActive(true);
+        }
+
+        if (other.gameObject.tag == "CastleEntrance")
+        {
+            GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+            buttonController.GetComponent<SceneButtonControllerScript>().enterCastleBTN.SetActive(true);
+        }
+
+        if (other.gameObject.tag == "CampShopEntrance")
+        {
+            GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+            buttonController.GetComponent<SceneButtonControllerScript>().enterCampShopBTN.SetActive(true);
+        }
+
+        #endregion
+
+        #region Enemy Collisions
         if (other.gameObject.tag == "Enemy")
         {
             myHealth = myHealth - 1;
            
         }
+        #endregion
 
-        if(other.gameObject.tag =="ground")
+        #region ground/platform collisions
+
+        if (other.gameObject.tag =="ground")
         {
             _groundCollider.enabled = true;
         }
@@ -249,7 +283,28 @@ public class Player : Unit
         {
             _groundCollider.enabled = true;
         }
+
+        if (other.gameObject.tag == "MineEntrance")
+        {
+            GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+            buttonController.GetComponent<SceneButtonControllerScript>().enterMineBTN.SetActive(false);
+        }
+
+        if (other.gameObject.tag == "CastleEntrance")
+        {
+            GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+            buttonController.GetComponent<SceneButtonControllerScript>().enterCastleBTN.SetActive(false);
+        }
+
+        if (other.gameObject.tag == "CampShopEntrance")
+        {
+            GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+            buttonController.GetComponent<SceneButtonControllerScript>().enterCampShopBTN.SetActive(false);
+        }
     }
+    #endregion
+
+    
 
     #endregion
 
