@@ -11,7 +11,9 @@ using UnityEngine;
 
 public class ShopGoldSender : MonoBehaviour
 {
-
+    /// <summary>
+    /// Reference to GoldHandler
+    /// </summary>
     public GoldHandler gold;
 
     /// <summary>
