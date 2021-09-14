@@ -21,8 +21,12 @@ public class Enemy : Unit
     ///<summary>This is the players Input system.</summary>
     private PlayerInputActions playerInputActions;
 
-            #endregion
-            #region Enemy's Ground/Directional Detection Stats
+    ///<summary>This is the unit's private rigidbody.</summary>
+    [SerializeField]
+    protected Rigidbody _rigidBody;
+
+    #endregion
+    #region Enemy's Ground/Directional Detection Stats
 
     ///<summary>This is the range of detection to the ground.</summary>
     private float _Reach = 1f;
@@ -99,6 +103,13 @@ public class Enemy : Unit
         {
             throughPlatform = false;
 
+        }
+
+        ///<summary>this checks if the unit is trying to pass up through a platform and will assist.</summary>
+        if (throughPlatform == true && justJumped == true)
+        {
+            StartCoroutine(dropDown());
+            _rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
         }
         #endregion
 

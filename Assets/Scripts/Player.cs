@@ -17,10 +17,12 @@ using UnityEngine.InputSystem;
 
 public class Player : Unit
 {
+    
+
 
     #region Player Stats
 
-            #region Player's Base Stats/Important controls
+    #region Player's Base Stats/Important controls
 
     ///<summary>This is the units health.</summary>
     public int myHealth;
@@ -37,8 +39,12 @@ public class Player : Unit
     ///<summary>This is the players Input system.</summary>
     private PlayerInputActions playerInputActions;
 
-            #endregion
-            #region Player's Ground/Directional Detection Stats
+    ///<summary>This is the unit's private rigidbody.</summary>
+    [SerializeField]
+    public Rigidbody _rigidBody;
+
+    #endregion
+    #region Player's Ground/Directional Detection Stats
 
     ///<summary>This is the range of detection to the ground.</summary>
     private float _Reach = 2f;
@@ -83,6 +89,8 @@ public class Player : Unit
 
     private void Awake()
     {
+       
+
         #region Player Movement Important Connectors
         ///<summary>The following is used to track player inputs and controls.</summary>
         playerInputActions = new PlayerInputActions();
@@ -90,8 +98,10 @@ public class Player : Unit
         playerInputActions.PlayerControl.Jump.performed += Jump;
         playerInputActions.PlayerControl.Movement.performed += movement;
         playerInputActions.PlayerControl.Drop.performed += Drop;
-       
-      
+
+        
+
+
         #endregion
     }
 
@@ -151,6 +161,14 @@ public class Player : Unit
             throughPlatform = false;
 
         }
+
+
+        ///<summary>this checks if the unit is trying to pass up through a platform and will assist.</summary>
+        if (throughPlatform == true && justJumped == true)
+        {
+            StartCoroutine(dropDown());
+            _rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
+        }
         #endregion
 
         ///<summary>this sets the rate for how quickly players can cast spells </summary>
@@ -170,15 +188,18 @@ public class Player : Unit
     {
         if (canMove == true)
         {
-            Vector2 inputVector = context.ReadValue<Vector2>();
-            _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
-            if (inputVector.x > 0)
+            if (this != null)
             {
-                facingRight = true;
-            }
-            if (inputVector.x < 0)
-            {
-                facingRight = false;
+                Vector2 inputVector = context.ReadValue<Vector2>();
+                _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
+                if (inputVector.x > 0)
+                {
+                    facingRight = true;
+                }
+                if (inputVector.x < 0)
+                {
+                    facingRight = false;
+                }
             }
         }
     }
@@ -186,19 +207,21 @@ public class Player : Unit
     ///<summary>This triggers the unit to jump up.</summary>
     public void Jump(InputAction.CallbackContext context)
     {
-
-        if (isGrounded == true)
+        if (this != null)
         {
+            if (isGrounded == true)
+            {
 
-            _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
-            StartCoroutine(Jumped());
+                _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
+                StartCoroutine(Jumped());
 
-        }
-        if (onPlatform == true)
-        {
-            _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
-            StartCoroutine(Jumped());
+            }
+            if (onPlatform == true)
+            {
+                _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
+                StartCoroutine(Jumped());
 
+            }
         }
     }
 

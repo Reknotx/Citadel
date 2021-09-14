@@ -33,9 +33,7 @@ public class Unit : MonoBehaviour
         #endregion
          #region Unit's Attached Colliders/Gameobjects
 
-    ///<summary>This is the unit's private rigidbody.</summary>
-    [SerializeField]
-    protected Rigidbody _rigidBody;
+    
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
@@ -145,12 +143,7 @@ public class Unit : MonoBehaviour
 
     public virtual void Update()
     {
-        ///<summary>this checks if the unit is trying to pass up through a platform and will assist.</summary>
-        if (throughPlatform == true && justJumped == true)
-        {
-            StartCoroutine(dropDown());
-            _rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
-        }
+      
 
 
         ///<summary>this determines if the unit can take damage from a initially cast fire spell</summary>

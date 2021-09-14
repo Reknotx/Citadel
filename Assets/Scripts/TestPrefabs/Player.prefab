@@ -320,13 +320,17 @@ MonoBehaviour:
   onFire: 0
   fireDamageTaken: 0
   myHealth: 5
+  maxHealth: 0
   myMana: 0
+  maxMana: 0
   facingRightLocal: 0
   knockbackForce: 5
   lightAttackDamage: 1
   heavyAttackDamage: 3
   playerCollisionDamage: 0
   fireWall_prefab: {fileID: 1103918510936984276, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
+  canMove: 1
+  Interacting: 0
 --- !u!114 &6354622231324802169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,6 +452,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2d06b76a-c763-4971-b69a-c83e6f3bbe55
     m_ActionName: PlayerControl/Attack 3[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2220fc03-f45c-4321-970a-3215eb00f551
+    m_ActionName: PlayerControl/Interact[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControl
