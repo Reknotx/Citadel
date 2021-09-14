@@ -12,14 +12,19 @@ using UnityEngine;
 
 public class FireWallSpellScript : MonoBehaviour
 {
+
+    
+
     #region Fire Wall Stats
-        #region Fire Wall Base Stats
+    #region Fire Wall Base Stats
 
     public int fireWallCollideDamage;
 
     public int fireWallBurnDamage;
 
     public float spellDuration;
+
+
 
         #endregion
         #region Fire Wall Colliders/Renderers
@@ -65,6 +70,7 @@ public class FireWallSpellScript : MonoBehaviour
         if (other.gameObject.tag == "ground")
         {
             castRigidbody.velocity = new Vector3(0f, 0f, 0f);
+            
             changed = true;
 
         }
