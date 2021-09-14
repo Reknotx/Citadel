@@ -43,7 +43,14 @@ public class Enemy : Unit
     ///<summary>This targets the player for the Enemy.</summary>
     public GameObject player;
 
-            #endregion
+    #endregion
+
+    #endregion
+
+    #region Gold Handler
+
+    public GoldHandler gold;
+    public int goldPerKill = 100000;
 
     #endregion
 
@@ -108,6 +115,16 @@ public class Enemy : Unit
             myHealth -= onFireDamage * Time.deltaTime;
             
         }
+
+        #region On Death
+
+        if (myHealth <= 0)
+        {
+            Destroy(this.gameObject);
+            gold.AddSoftGold(goldPerKill);
+        }
+
+        #endregion
     }
 
 
