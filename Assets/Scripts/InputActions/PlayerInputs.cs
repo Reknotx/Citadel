@@ -43,6 +43,14 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""2220fc03-f45c-4321-970a-3215eb00f551"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""Attack 1"",
                     ""type"": ""Button"",
                     ""id"": ""af2278a4-f1c4-413f-ba70-f75d7ae2bba6"",
@@ -155,6 +163,17 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""action"": ""Attack 3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""833f1b6d-b570-4700-800a-37efc822c9a3"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -166,6 +185,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         m_PlayerControl_Jump = m_PlayerControl.FindAction("Jump", throwIfNotFound: true);
         m_PlayerControl_Drop = m_PlayerControl.FindAction("Drop", throwIfNotFound: true);
         m_PlayerControl_Movement = m_PlayerControl.FindAction("Movement", throwIfNotFound: true);
+        m_PlayerControl_Interact = m_PlayerControl.FindAction("Interact", throwIfNotFound: true);
         m_PlayerControl_Attack1 = m_PlayerControl.FindAction("Attack 1", throwIfNotFound: true);
         m_PlayerControl_Attack2 = m_PlayerControl.FindAction("Attack 2", throwIfNotFound: true);
         m_PlayerControl_Attack3 = m_PlayerControl.FindAction("Attack 3", throwIfNotFound: true);
@@ -221,6 +241,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerControl_Jump;
     private readonly InputAction m_PlayerControl_Drop;
     private readonly InputAction m_PlayerControl_Movement;
+    private readonly InputAction m_PlayerControl_Interact;
     private readonly InputAction m_PlayerControl_Attack1;
     private readonly InputAction m_PlayerControl_Attack2;
     private readonly InputAction m_PlayerControl_Attack3;
@@ -231,6 +252,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_PlayerControl_Jump;
         public InputAction @Drop => m_Wrapper.m_PlayerControl_Drop;
         public InputAction @Movement => m_Wrapper.m_PlayerControl_Movement;
+        public InputAction @Interact => m_Wrapper.m_PlayerControl_Interact;
         public InputAction @Attack1 => m_Wrapper.m_PlayerControl_Attack1;
         public InputAction @Attack2 => m_Wrapper.m_PlayerControl_Attack2;
         public InputAction @Attack3 => m_Wrapper.m_PlayerControl_Attack3;
@@ -252,6 +274,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @Movement.started -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnMovement;
+                @Interact.started -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnInteract;
                 @Attack1.started -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnAttack1;
                 @Attack1.performed -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnAttack1;
                 @Attack1.canceled -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnAttack1;
@@ -274,6 +299,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
                 @Attack1.started += instance.OnAttack1;
                 @Attack1.performed += instance.OnAttack1;
                 @Attack1.canceled += instance.OnAttack1;
@@ -292,6 +320,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnDrop(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
         void OnAttack1(InputAction.CallbackContext context);
         void OnAttack2(InputAction.CallbackContext context);
         void OnAttack3(InputAction.CallbackContext context);
