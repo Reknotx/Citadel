@@ -64,7 +64,7 @@ public class Player : Unit
             #region Bool Determinates 
 
     /// <summary> determines if the player can move or not </summary>
-   //  [HideInInspector]
+     [HideInInspector]
     public bool canMove = true;  
     
             #endregion
