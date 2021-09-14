@@ -25,8 +25,14 @@ public class Player : Unit
     ///<summary>This is the units health.</summary>
     public int myHealth;
 
+    ///<summary>This is the maximum units health.</summary>
+    public int maxHealth;
+
     ///<summary>This is the units mana for magic casting.</summary>
     public int myMana;
+
+    ///<summary>This is the units maximum mana for magic casting.</summary>
+    public int maxMana;
 
     ///<summary>This is the players Input system.</summary>
     private PlayerInputActions playerInputActions;
@@ -64,10 +70,14 @@ public class Player : Unit
             #region Bool Determinates 
 
     /// <summary> determines if the player can move or not </summary>
-     [HideInInspector]
-    public bool canMove = true;  
-    
-            #endregion
+        [HideInInspector]
+        public bool canMove = true;
+
+    /// <summary> determines if the player is trying to interact with things or not </summary>
+   // [HideInInspector]
+    public bool Interacting = false;
+
+    #endregion
     #endregion
 
 
@@ -80,7 +90,8 @@ public class Player : Unit
         playerInputActions.PlayerControl.Jump.performed += Jump;
         playerInputActions.PlayerControl.Movement.performed += movement;
         playerInputActions.PlayerControl.Drop.performed += Drop;
-       // playerInputActions.PlayerControl.Interact.performed += 
+       
+      
         #endregion
     }
 
@@ -200,6 +211,11 @@ public class Player : Unit
         }
     }
 
+    public void Interact(InputAction.CallbackContext context)
+    {
+        Interacting = true;
+    }
+
     #endregion
     #region Player Spells
 
@@ -238,25 +254,49 @@ public class Player : Unit
 
 
     #region Collision Detection
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerStay(Collider other)
     {
         #region Camp Collisions
         if(other.gameObject.tag == "MineEntrance")
         {
             GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
             buttonController.GetComponent<SceneButtonControllerScript>().enterMineBTN.SetActive(true);
+            if (Interacting == true)
+            {
+               
+                GameObject sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
+                sceneManager.GetComponent<SceneManagerScript>().goToMine();
+                Interacting = false;
+            }
         }
+
 
         if (other.gameObject.tag == "CastleEntrance")
         {
             GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
             buttonController.GetComponent<SceneButtonControllerScript>().enterCastleBTN.SetActive(true);
+
+            if (Interacting == true)
+            {
+
+                GameObject sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
+                sceneManager.GetComponent<SceneManagerScript>().goToCastle();
+                Interacting = false;
+            }
         }
 
         if (other.gameObject.tag == "CampShopEntrance")
         {
             GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
             buttonController.GetComponent<SceneButtonControllerScript>().enterCampShopBTN.SetActive(true);
+
+            if (Interacting == true)
+            {
+
+                GameObject sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
+                sceneManager.GetComponent<SceneManagerScript>().goToCampShop();
+                Interacting = false;
+            }
         }
 
         #endregion
@@ -264,7 +304,7 @@ public class Player : Unit
         #region Enemy Collisions
         if (other.gameObject.tag == "Enemy")
         {
-            myHealth = myHealth - 1;
+            myHealth--;
            
         }
         #endregion
