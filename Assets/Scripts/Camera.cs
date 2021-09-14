@@ -1,3 +1,11 @@
+/*
+ * Author: Hunter Lawrence-Emanuel
+ * Date: 9/1/2021
+ * 
+ * Brief:this script keeps the camera 
+ * correctly positioned relative to the player
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
