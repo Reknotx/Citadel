@@ -351,10 +351,7 @@ public class MapGenerator : MonoBehaviour
 
             } while (roomObj == null);
 
-            Debug.Log(examinedRooms.Count);
             examinedRooms.Clear();
-            Debug.Log(examinedRooms.Count);
-
         }
 
         #region Helper Functions
@@ -546,7 +543,6 @@ public class MapGenerator : MonoBehaviour
                         }
                     }
                     if (lineUp) break;
-                    Debug.Log(lineUp);
                 }
             }
 
@@ -582,20 +578,14 @@ public class MapGenerator : MonoBehaviour
 
     }
 
-
-
     #region Grid concept Astar
     public List<GridNode> AStar(GridNode start, GridNode end)
     {
-        //Debug.Log("Starting at " + start.gridPos.ToString());
-        //Debug.Log("Looking for " + end.gridPos.ToString());
-
         List<GridNode> frontier = new List<GridNode>(0);
 
         HashSet<GridNode> explored = new HashSet<GridNode>();
 
         frontier.Add(start);
-        //Debug.Log(start.gridPos);
 
         foreach (GridNode node in conceptGrid)
         {
@@ -695,16 +685,16 @@ public class MapGenerator : MonoBehaviour
         int gridPosY = (int)node.gridPos.y;
 
         ///Checking left
-        if (gridPosX > 0) neighbors.Add(conceptGrid[gridPosY, gridPosX - 1]);
+        if (gridPosX > 1) neighbors.Add(conceptGrid[gridPosY, gridPosX - 1]);
 
         ///Checking right
         if (gridPosX < columns - 1) neighbors.Add(conceptGrid[gridPosY, gridPosX + 1]);
 
         ///Checking up
-        if (gridPosY < rows - 1) neighbors.Add(conceptGrid[gridPosY + 1, gridPosX]);
+        if (gridPosY < rows - 1 && gridPosX != 0) neighbors.Add(conceptGrid[gridPosY + 1, gridPosX]);
 
         ///Checking down
-        if (gridPosY > 0) neighbors.Add(conceptGrid[gridPosY - 1, gridPosX]);
+        if (gridPosY > 0 && gridPosX != 0) neighbors.Add(conceptGrid[gridPosY - 1, gridPosX]);
 
         return neighbors;
     }
