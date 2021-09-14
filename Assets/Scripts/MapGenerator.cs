@@ -26,9 +26,6 @@ using UnityEngine;
 /// <summary> The map generator that spawns in the rooms in a 6x6 grid. </summary>
 public class MapGenerator : MonoBehaviour
 {
-    #region Temporary Variables
-    public GameObject basePrefab;
-
     /// <summary>
     /// Grid size is set as follows. 
     /// Max Y value will be set to gridSize.
@@ -50,10 +47,12 @@ public class MapGenerator : MonoBehaviour
     private int columns;
     
     private int rows;
-    #endregion
 
     public RoomContainer roomCont;
 
+    /// <summary>
+    /// 
+    /// </summary>
     private Vector2 SpawnRoomPos, SpawnRoomGridPos;
     private Vector2 BossRoomPos, BossRoomGridPos;
     private Vector2 trueGridSize;
@@ -106,12 +105,7 @@ public class MapGenerator : MonoBehaviour
         int SRY = Random.Range(0, (int)trueGridSize.y);
 
         GameObject spawnRoom = SpawnRoom(roomCont.SpawnRooms[Random.Range(0, roomCont.SpawnRooms.Count)], new Vector2(0, SRY), "Spawn Room");
-        SpawnRoomGridPos = new Vector2(0, SRY);
         
-        SpawnRoomPos = spawnRoom.transform.position;
-
-        //conceptGrid[(int)tempGridPos.y, 0] = new GridNode(GridNode.RoomType.Spawn);
-
         tempRoomInfo = spawnRoom.GetComponent<Room>().roomInfo;
 
         conceptGrid[(int)SpawnRoomGridPos.y, 0] = new GridNode(SpawnRoomGridPos,
@@ -130,8 +124,6 @@ public class MapGenerator : MonoBehaviour
             int BRGY = Random.Range(0, (int)trueGridSize.y);
 
             BRPos = new Vector3(BRGX * roomSize, BRGY * roomSize);
-
-            //Debug.Log(BRPos);
         } while (!gridInfo.CheckSpawnBossDist(SpawnRoomPos, BRPos));
 
         BossRoomGridPos = new Vector2(BRPos.x / roomSize, BRPos.y / roomSize);
@@ -196,31 +188,31 @@ public class MapGenerator : MonoBehaviour
 
         #endregion
 
-        #region Spawning in normal rooms
+        #region Spawning in filled rooms
 
-        /////Spawning a row
-        //for (int y = 0; y < trueGridSize.y; y++)
-        //{
+        ///Spawning a row
+        for (int y = 0; y < trueGridSize.y; y++)
+        {
 
-        //    GameObject row = new GameObject("Row " + y);
-        //    row.transform.parent = transform;
+            GameObject row = new GameObject("Row " + y);
+            row.transform.parent = transform;
 
-        //    ///Spawning in a column
-        //    for (int x = 1; x < trueGridSize.x; x++)
-        //    {
-        //        if (grid[y, x] != null) continue;
+            ///Spawning in a column
+            for (int x = 1; x < trueGridSize.x; x++)
+            {
+                if (grid[y, x] != null) continue;
 
-        //        GameObject temp = Instantiate(basePrefab,
-        //                                      new Vector3(roomSize * x, roomSize * y),
-        //                                      Quaternion.identity);
-                
-        //        temp.GetComponent<Room>().gridPos = new Vector2(x, y);
-                
-        //        temp.transform.parent = row.transform;
-                
-        //        grid[y, x] = temp.GetComponent<Room>();
-        //    }
-        //}
+                GameObject temp = Instantiate(roomCont.filledRoom,
+                                              new Vector3(roomSize * x, roomSize * y),
+                                              Quaternion.identity);
+
+                temp.GetComponent<Room>().gridPos = new Vector2(x, y);
+
+                temp.transform.parent = row.transform;
+
+                grid[y, x] = temp.GetComponent<Room>();
+            }
+        }
 
         #endregion
     }
@@ -229,6 +221,10 @@ public class MapGenerator : MonoBehaviour
     /// This function will spawn in the room, assign it to the grid, 
     /// and assign the rest of the values. 
     /// </summary>
+    /// <param name="room">The room prefab that will be spawned in on the map.</param>
+    /// <param name="gridCord">The grid coordinate for the <paramref name="room"/>.</param>
+    /// <param name="name">The name of the room that will be spawned. The rooms grid coords are also
+    /// included in the name automatically.</param>
     public GameObject SpawnRoom(GameObject room, Vector2 gridCord, string name = "")
     {
         if (grid[(int)gridCord.y, (int)gridCord.x] != null) return null;
@@ -242,11 +238,21 @@ public class MapGenerator : MonoBehaviour
         if (!name.Equals(""))
         {
             spawnedRoom.name = name + ": " + gridCord;
+            if (name.Equals("Spawn Room"))
+            {
+                SpawnRoomGridPos = gridCord;
+                SpawnRoomPos = spawnedRoom.transform.position;
+            }
+            else if (name.Equals("Boss Room"))
+            {
+
+            }
         }
 
         return spawnedRoom;
     }
 
+    /// <summary> A small directional enum for aiding the algorithm. </summary>
     enum Dir
     {
         Top,
@@ -255,8 +261,18 @@ public class MapGenerator : MonoBehaviour
         Right
     }
 
+    /// <summary>
+    /// Spawns the necessary rooms along a path by following the layout of the
+    /// conceptual grid.
+    /// </summary>
+    /// <param name="path">The list of nodes along a path on the grid.</param>
     private void CreatePath(List<GridNode> path)
     {
+        ///Future plans will be to change this up to include a varrying degree of lists
+        ///as the parameter rather than just one path as multiple paths will need to be
+        ///constructed. The algorithm should work just fine with the addition of multiple
+        ///paths and theoretically shouldn't be troubled by it.
+
         ///This is where we'll do the necessary actions on that critical path.
         ///As of right now I want this function to only work on the critical path.
         ///It will be edited and updated later in order to work with successful
@@ -299,53 +315,37 @@ public class MapGenerator : MonoBehaviour
         ///
 
         ///Ok this needs to be redone, this isn't nice and just makes clutter.
-        for (int index = 1; index < path.Count - 1; index++)
+        for (int pathIndex = 1; pathIndex < path.Count - 1; pathIndex++)
         {
-            GridNode currNode = path[index];
+            GridNode currNode = path[pathIndex];
 
             List<Room> examinedRooms = new List<Room>();
-
-            GameObject roomObj = null;
-
-            //Debug.Log(GetPrevRoomDir(currNode.gridPos, path[index - 1].gridPos));
             do
             {
-                roomObj = roomCont.RegularRooms[Random.Range(0, roomCont.RegularRooms.Count)];
+                int listIndex = Random.Range(0, roomCont.RegularRooms.Count);
 
-                if (examinedRooms.Contains(roomObj.GetComponent<Room>()))
+                if (examinedRooms.Contains(roomCont.RegularRooms[listIndex].GetComponent<Room>()))
                 {
-                    roomObj = null;
                     continue;
                 }
 
+                GameObject roomObj = roomCont.RegularRooms[listIndex];
                 Room room = roomObj.GetComponent<Room>();
                 RoomInfo tempInfo = room.roomInfo;
                 examinedRooms.Add(room);
 
-
-                if (tempInfo == null) Debug.LogError("tempInfo is null");
-
-                //if (grid[(int)path[index - 1].gridPos.y, (int)path[index - 1].gridPos.x] == null) Debug.LogError("This thing");
-
                 if (CompareNodeToRoom(currNode, tempInfo)
-                    && EnsureEntrancesLineUp(tempInfo, grid[(int)path[index - 1].gridPos.y, (int)path[index - 1].gridPos.x].roomInfo, GetPrevRoomDir(currNode.gridPos, path[index - 1].gridPos))
+                    && EnsureEntrancesLineUp(tempInfo, grid[(int)path[pathIndex - 1].gridPos.y, (int)path[pathIndex - 1].gridPos.x].roomInfo, GetPrevRoomDir(currNode.gridPos, path[pathIndex - 1].gridPos))
                     )
                     
                 {
                     /// Spawn the room
-                    GameObject spawnedRoom = SpawnRoom(roomObj, new Vector3(currNode.gridPos.x, currNode.gridPos.y), "Room");
+                    SpawnRoom(roomObj, new Vector3(currNode.gridPos.x, currNode.gridPos.y), "Room");
                     break;
                 }
-                //else
-                //{
-                //    ///Add to the examined rooms list and then continue.
-                //    examinedRooms.Add(room);
-                //    roomObj = null;
-                //}
 
                 if (examinedRooms.Count == roomCont.RegularRooms.Count)
                 {
-                    //Debug.Log(examinedRooms.Count);
                     Debug.LogError("Ran out of rooms, about to enter infinite loop. Breaking from loop");
                 }
 
