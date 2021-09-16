@@ -145,7 +145,7 @@ public class Enemy : Unit
         ///<summary>This triggers when the enemy is hit with the light attack.</summary>
         if (other.gameObject.tag=="swordLight")
         {
-            myHealth = myHealth - player.GetComponent<Player>().lightAttackDamage;
+            myHealth = myHealth - player.GetComponent<Player>().meleeAttackDamage;
             hitOnRight = player.GetComponent<Player>().facingRightLocal ;
 
             //if you turn on the bellow code, it will apply knockback to the light attack
@@ -166,7 +166,7 @@ public class Enemy : Unit
         if (other.gameObject.tag == "swordHeavy")
         {
             
-            myHealth = myHealth - player.GetComponent<Player>().heavyAttackDamage;
+            myHealth = myHealth - (player.GetComponent<Player>().meleeAttackDamage*2);
             hitOnRight = player.GetComponent<Player>().facingRightLocal;
             
 
