@@ -50,8 +50,8 @@ namespace ShopSystem
             get => _level;
             set
             {
-                _level = value;
-                //IncreaseCost
+                _level = (int)Mathf.Clamp01(value);
+                upgradeCost = Mathf.RoundToInt(upgradeCost * increaseValueBy);
             }
         }
     }
