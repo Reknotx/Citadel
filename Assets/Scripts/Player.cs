@@ -88,7 +88,6 @@ public class Player : Unit
         playerInputActions.PlayerControl.Jump.performed += Jump;
         playerInputActions.PlayerControl.Movement.performed += movement;
         playerInputActions.PlayerControl.Drop.performed += Drop;
-       // playerInputActions.PlayerControl.Interact.performed += 
         #endregion
     }
 
