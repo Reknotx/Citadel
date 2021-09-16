@@ -14,6 +14,8 @@ using UnityEngine.SceneManagement;
 
 public class GoldHandler : MonoBehaviour
 {
+    public static GoldHandler Instance;
+
     public Text softGoldText;
     public Text hardGoldText;
 
@@ -40,6 +42,16 @@ public class GoldHandler : MonoBehaviour
 
     private float elapsed = 0f;
 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(Instance.gameObject);
+        }
+        Instance = this;
+    }
+
+
     private void Start()
     {
         currentScene = SceneManager.GetActiveScene();
@@ -47,9 +59,9 @@ public class GoldHandler : MonoBehaviour
 
     void Update()
     {
-        softGoldText.text = "Soft Gold: " + (int)mySoftGold;
+        //softGoldText.text = "Soft Gold: " + (int)mySoftGold;
 
-        hardGoldText.text = "Hard Gold: " + (int)myHardGold;
+        //hardGoldText.text = "Hard Gold: " + (int)myHardGold;
 
         if ( castleSceneName == currentScene.name )
         {
@@ -58,8 +70,8 @@ public class GoldHandler : MonoBehaviour
         }
         else
         {
-            softGold.SetActive(false);
-            hardGold.SetActive(true);
+            //softGold.SetActive(false);
+            //hardGold.SetActive(true);
         }
 
         elapsed += Time.deltaTime;

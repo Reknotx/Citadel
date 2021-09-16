@@ -47,32 +47,32 @@ namespace ShopSystem
             switch (stat)
             {
                 case StatToIncrease.health:
-                    //GoldHandler.Instance.health += info.healthUpInfo.increaseValueBy;
+                    Player.Instance.myHealth += (int)info.healthUpInfo.increaseValueBy;
                     info.healthUpInfo.Level++;
                     break;
                 
                 case StatToIncrease.attackPwr:
-                    //GoldHandler.Instance.attackPwr += info.attackUpInfo.increaseValueBy;
+                    //Player.Instance.attackPwr += info.attackUpInfo.increaseValueBy;
                     info.attackUpInfo.Level++;
                     break;
                 
                 case StatToIncrease.attackRng:
-                    //GoldHandler.Instance.attackRng += info.attackRangeUpInfo.increaseValueBy;
+                    //Player.Instance.attackRng += info.attackRangeUpInfo.increaseValueBy;
                     info.attackRangeUpInfo.Level++;
                     break;
                 
                 case StatToIncrease.speed:
-                    //GoldHandler.Instance.speed += info.speedUpInfo.increaseValueBy;
+                    //Player.Instance.speed += info.speedUpInfo.increaseValueBy;
                     info.speedUpInfo.Level++;
                     break;
                 
                 case StatToIncrease.mana:
-                    //GoldHandler.Instance.mana += info.manaUpInfo.increaseValueBy;
+                    //Player.Instance.mana += info.manaUpInfo.increaseValueBy;
                     info.manaUpInfo.Level++;
                     break;
                 
                 case StatToIncrease.spellPotency:
-                    //GoldHandler.Instance.spellPotency += info.spellPotencyUpInfo.increaseValueBy; 
+                    //Player.Instance.spellPotency += info.spellPotencyUpInfo.increaseValueBy; 
                     info.spellPotencyUpInfo.Level++;
                     break;
                 
@@ -85,35 +85,35 @@ namespace ShopSystem
 
         public void CheckButtons()
         {
-            //if (GoldHandler.Instance.gold < info.healthUpInfo.upgradeCost)
-            //    healthUpButton.interactable = false;
-            //else
-            //    healthUpButton.interactable = true;
+            if (GoldHandler.Instance.myHardGold < info.healthUpInfo.upgradeCost)
+                healthUpButton.interactable = false;
+            else
+                healthUpButton.interactable = true;
 
-            //if (GoldHandler.Instance.gold < info.attackUpInfo.upgradeCost)
-            //    attackUpButton.interactable = false;
-            //else
-            //    attackUpButton.interactable = true;
+            if (GoldHandler.Instance.myHardGold < info.attackUpInfo.upgradeCost)
+                attackUpButton.interactable = false;
+            else
+                attackUpButton.interactable = true;
 
-            //if (GoldHandler.Instance.gold < info.attackRangeUpInfo.upgradeCost)
-            //    attackRangeUpButton.interactable = false;
-            //else
-            //    attackRangeUpButton.interactable = true;
+            if (GoldHandler.Instance.myHardGold < info.attackRangeUpInfo.upgradeCost)
+                attackRangeUpButton.interactable = false;
+            else
+                attackRangeUpButton.interactable = true;
 
-            //if (GoldHandler.Instance.gold < info.speedUpInfo.upgradeCost)
-            //    speedUpButton.interactable = false;
-            //else
-            //    speedUpButton.interactable = true;
+            if (GoldHandler.Instance.myHardGold < info.speedUpInfo.upgradeCost)
+                speedUpButton.interactable = false;
+            else
+                speedUpButton.interactable = true;
 
-            //if (GoldHandler.Instance.gold < info.manaUpInfo.upgradeCost)
-            //    manaUpButton.interactable = false;
-            //else
-            //    manaUpButton.interactable = true;
+            if (GoldHandler.Instance.myHardGold < info.manaUpInfo.upgradeCost)
+                manaUpButton.interactable = false;
+            else
+                manaUpButton.interactable = true;
 
-            //if (GoldHandler.Instance.gold < info.spellPotencyUpInfo.upgradeCost)
-            //    spellPotencyUpButton.interactable = false;
-            //else
-            //    spellPotencyUpButton.interactable = true;
+            if (GoldHandler.Instance.myHardGold < info.spellPotencyUpInfo.upgradeCost)
+                spellPotencyUpButton.interactable = false;
+            else
+                spellPotencyUpButton.interactable = true;
         }
     }
 }

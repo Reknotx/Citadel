@@ -18,6 +18,8 @@ using UnityEngine.InputSystem;
 public class Player : Unit
 {
 
+    public static Player Instance;
+
     #region Player Stats
 
             #region Player's Base Stats/Important controls
@@ -73,6 +75,12 @@ public class Player : Unit
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(Instance.gameObject);
+        }
+        Instance = this;
+
         #region Player Movement Important Connectors
         ///<summary>The following is used to track player inputs and controls.</summary>
         playerInputActions = new PlayerInputActions();
