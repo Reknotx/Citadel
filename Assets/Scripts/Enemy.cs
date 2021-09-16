@@ -120,7 +120,12 @@ public class Enemy : Unit
             
         }
     }
-
+    #region Interactions with the Player
+    public void Interact()
+    {
+        player.GetComponent<Player>().myHealth--;
+    }
+    #endregion
 
     #region Enemy Actions
 
@@ -143,6 +148,7 @@ public class Enemy : Unit
             myHealth = myHealth - player.GetComponent<Player>().lightAttackDamage;
             hitOnRight = player.GetComponent<Player>().facingRightLocal ;
 
+            //if you turn on the bellow code, it will apply knockback to the light attack
             /*
             if (hitOnRight == true)
             {

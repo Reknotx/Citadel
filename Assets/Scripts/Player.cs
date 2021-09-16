@@ -286,9 +286,8 @@ public class Player : Unit
             buttonController.GetComponent<SceneButtonControllerScript>().enterMineBTN.SetActive(true);
             if (Interacting == true)
             {
-               
-                GameObject sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
-                sceneManager.GetComponent<SceneManagerScript>().goToMine();
+
+                other.GetComponent<MineEntranceInteractScript>().Interact();
                 Interacting = false;
             }
         }
@@ -302,8 +301,7 @@ public class Player : Unit
             if (Interacting == true)
             {
 
-                GameObject sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
-                sceneManager.GetComponent<SceneManagerScript>().goToCastle();
+                other.GetComponent<CastleEntranceInteractScript>().Interact();
                 Interacting = false;
             }
         }
@@ -316,8 +314,7 @@ public class Player : Unit
             if (Interacting == true)
             {
 
-                GameObject sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
-                sceneManager.GetComponent<SceneManagerScript>().goToCampShop();
+                other.GetComponent<CampShopEntranceInteractScript>().Interact();
                 Interacting = false;
             }
         }
@@ -327,7 +324,7 @@ public class Player : Unit
         #region Enemy Collisions
         if (other.gameObject.tag == "Enemy")
         {
-            myHealth--;
+            other.GetComponent<Enemy>().Interact();
            
         }
         #endregion
@@ -341,13 +338,13 @@ public class Player : Unit
         
     }
 
-    public void OnTriggerExit(Collider other)
+   public void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "platform")
         {
             _groundCollider.enabled = true;
         }
-
+ 
         if (other.gameObject.tag == "MineEntrance")
         {
             GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
