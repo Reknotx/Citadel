@@ -49,7 +49,7 @@ namespace ShopSystem
             switch (stat)
             {
                 case StatToIncrease.health:
-                    Player.Instance.myHealth += (int)info.healthUpInfo.increaseValueBy;
+                    Player.Instance.maxHealth += (int)info.healthUpInfo.increaseValueBy;
                     goldSpent = info.healthUpInfo.upgradeCost;
                     info.healthUpInfo.Level++;
                     Debug.Log("Buying health upgrade");
