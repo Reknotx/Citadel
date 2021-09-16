@@ -17,9 +17,20 @@ namespace ShopSystem
         public ShopUpgradeItem spellPotencyUpInfo;
     }
 
+    public enum StatToIncrease
+    {
+        health,
+        attackPwr,
+        attackRng,
+        speed,
+        mana,
+        spellPotency
+    }
+
     [System.Serializable]
     public class ShopUpgradeItem
     {
+
         [Tooltip("The base cost value of an upgrade.")]
         public int upgradeCost;
 
@@ -31,6 +42,8 @@ namespace ShopSystem
 
         private int _level = 0;
 
+        public StatToIncrease statToIncrease;
+
         /// <summary> The current level of the upgrade. </summary>
         public int Level
         {
@@ -38,15 +51,9 @@ namespace ShopSystem
             set
             {
                 _level = value;
-                IncreaseCost();
+                //IncreaseCost
             }
         }
-
-        void IncreaseCost()
-        {
-            ///Increase the upgrade cost
-        }
-
     }
 
     //this will need to be updated to match more of the spell system
