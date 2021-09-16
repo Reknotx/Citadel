@@ -48,6 +48,7 @@ namespace ShopSystem
         public int Level
         {
             get => _level;
+
             set
             {
                 _level = (int)Mathf.Clamp01(value);

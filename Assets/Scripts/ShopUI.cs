@@ -56,14 +56,14 @@ namespace ShopSystem
                     break;
                 
                 case StatToIncrease.attackPwr:
-                    //Player.Instance.attackPwr += info.attackUpInfo.increaseValueBy;
+                    Player.Instance.meleeAttackDamage += (int)info.attackUpInfo.increaseValueBy;
                     goldSpent = info.attackUpInfo.upgradeCost;
                     info.attackUpInfo.Level++;
                     Debug.Log("Buying attack power upgrade");
                     break;
                 
                 case StatToIncrease.attackRng:
-                    //Player.Instance.attackRng += info.attackRangeUpInfo.increaseValueBy;
+                    Player.Instance.meleeAttackRange += info.attackRangeUpInfo.increaseValueBy;
                     goldSpent = info.attackRangeUpInfo.upgradeCost;
                     info.attackRangeUpInfo.Level++;
                     Debug.Log("Buying attack range upgrade");

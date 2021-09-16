@@ -31,7 +31,7 @@ public class SwordBehavior : MonoBehaviour
         if (lightCollider.enabled==true)
         {
             // lightCollider.gameObject.transform.localScale += new Vector3(player.GetComponent<Player>().meleeAttackRange, 0, 0);
-            lightCollider.gameObject.transform.localScale.x = player.GetComponent<Player>().meleeAttackRange;
+            //lightCollider.gameObject.transform.localScale.x = player.GetComponent<Player>().meleeAttackRange;
             lightRenderer.enabled = true;
         }
         else
