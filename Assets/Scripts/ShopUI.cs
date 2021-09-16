@@ -77,7 +77,7 @@ namespace ShopSystem
                     break;
                 
                 case StatToIncrease.mana:
-                    Player.Instance.myMana += (int)info.manaUpInfo.increaseValueBy;
+                    Player.Instance.maxMana += (int)info.manaUpInfo.increaseValueBy;
                     goldSpent = info.manaUpInfo.upgradeCost;
                     info.manaUpInfo.Level++;
                     Debug.Log("Buying mana upgrade");
