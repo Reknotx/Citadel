@@ -53,6 +53,7 @@ public class Player : Unit
     RaycastHit hit;
 
     ///<summary>This tracks what direction the player is facing.</summary>
+    [HideInInspector]
     public bool facingRightLocal;
 
             #endregion
@@ -80,7 +81,7 @@ public class Player : Unit
         public bool canMove = true;
 
     /// <summary> determines if the player is trying to interact with things or not </summary>
-   // [HideInInspector]
+    [HideInInspector]
     public bool Interacting = false;
 
     #endregion
@@ -119,6 +120,17 @@ public class Player : Unit
             _rigidBody.AddForce(new Vector3(inputVector.x, 0, 0) * speed, ForceMode.Acceleration);
         }
         
+        ///<summary>This stops the player from moving from side to side if canMove is off</summary>
+        if (canMove==false)
+        {
+            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX;
+        }
+        else
+        {
+            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+            
+        }
+
         #endregion
 
         #region Ground/Platform detection
@@ -178,6 +190,8 @@ public class Player : Unit
             canCast = true;
             spellCastDelay = 3f;
         }
+
+      
     }
 
 

@@ -98,11 +98,11 @@ public class Unit : MonoBehaviour
     protected bool canCast;
 
     /// <summary> this determines if the unit is on fire or not </summary>
-    [SerializeField]
+    [HideInInspector]
     protected bool onFire;
 
     /// <summary> this determines if the unit has recently taken ticking fire damage </summary>
-    [SerializeField]
+    [HideInInspector]
     protected bool fireDamageTaken;
     #endregion
          #region Unit's Attacks
