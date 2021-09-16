@@ -17,24 +17,36 @@ using UnityEngine.InputSystem;
 
 public class Player : Unit
 {
+    
+
 
     public static Player Instance;
 
     #region Player Stats
 
-            #region Player's Base Stats/Important controls
+    #region Player's Base Stats/Important controls
 
     ///<summary>This is the units health.</summary>
     public int myHealth;
 
+    ///<summary>This is the maximum units health.</summary>
+    public int maxHealth;
+
     ///<summary>This is the units mana for magic casting.</summary>
     public int myMana;
+
+    ///<summary>This is the units maximum mana for magic casting.</summary>
+    public int maxMana;
 
     ///<summary>This is the players Input system.</summary>
     private PlayerInputActions playerInputActions;
 
-            #endregion
-            #region Player's Ground/Directional Detection Stats
+    ///<summary>This is the unit's private rigidbody.</summary>
+    [SerializeField]
+    public Rigidbody _rigidBody;
+
+    #endregion
+    #region Player's Ground/Directional Detection Stats
 
     ///<summary>This is the range of detection to the ground.</summary>
     private float _Reach = 2f;
@@ -43,6 +55,7 @@ public class Player : Unit
     RaycastHit hit;
 
     ///<summary>This tracks what direction the player is facing.</summary>
+    [HideInInspector]
     public bool facingRightLocal;
 
             #endregion
@@ -52,10 +65,16 @@ public class Player : Unit
     public float knockbackForce;
 
     ///<summary>This determines the damage of the player's light attack.</summary>
-    public int lightAttackDamage;
+    //  public int lightAttackDamage;
 
     ///<summary>This determines the damage of the player's heavy attack.</summary>
-    public int heavyAttackDamage;
+    // public int heavyAttackDamage;
+
+    ///<summary>This determines the range of the player's melee attack.</summary>
+    public float meleeAttackRange = 1f;
+
+    ///<summary>This determines the damage of the player's melee attack.</summary>
+    public int meleeAttackDamage;
 
     ///<summary>This determines the damage the player deals to an enemy when they collide.</summary>
     public int playerCollisionDamage;
@@ -66,10 +85,14 @@ public class Player : Unit
             #region Bool Determinates 
 
     /// <summary> determines if the player can move or not </summary>
-     [HideInInspector]
-    public bool canMove = true;  
-    
-            #endregion
+        [HideInInspector]
+        public bool canMove = true;
+
+    /// <summary> determines if the player is trying to interact with things or not </summary>
+    [HideInInspector]
+    public bool Interacting = false;
+
+    #endregion
     #endregion
 
 
@@ -105,6 +128,17 @@ public class Player : Unit
             _rigidBody.AddForce(new Vector3(inputVector.x, 0, 0) * speed, ForceMode.Acceleration);
         }
         
+        ///<summary>This stops the player from moving from side to side if canMove is off</summary>
+        if (canMove==false)
+        {
+            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX;
+        }
+        else
+        {
+            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+            
+        }
+
         #endregion
 
         #region Ground/Platform detection
@@ -147,6 +181,14 @@ public class Player : Unit
             throughPlatform = false;
 
         }
+
+
+        ///<summary>this checks if the unit is trying to pass up through a platform and will assist.</summary>
+        if (throughPlatform == true && justJumped == true)
+        {
+            StartCoroutine(dropDown());
+            _rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
+        }
         #endregion
 
         ///<summary>this sets the rate for how quickly players can cast spells </summary>
@@ -156,6 +198,8 @@ public class Player : Unit
             canCast = true;
             spellCastDelay = 3f;
         }
+
+      
     }
 
 
@@ -166,15 +210,18 @@ public class Player : Unit
     {
         if (canMove == true)
         {
-            Vector2 inputVector = context.ReadValue<Vector2>();
-            _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
-            if (inputVector.x > 0)
+            if (this != null)
             {
-                facingRight = true;
-            }
-            if (inputVector.x < 0)
-            {
-                facingRight = false;
+                Vector2 inputVector = context.ReadValue<Vector2>();
+                _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
+                if (inputVector.x > 0)
+                {
+                    facingRight = true;
+                }
+                if (inputVector.x < 0)
+                {
+                    facingRight = false;
+                }
             }
         }
     }
@@ -182,19 +229,21 @@ public class Player : Unit
     ///<summary>This triggers the unit to jump up.</summary>
     public void Jump(InputAction.CallbackContext context)
     {
-
-        if (isGrounded == true)
+        if (this != null)
         {
+            if (isGrounded == true)
+            {
 
-            _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
-            StartCoroutine(Jumped());
+                _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
+                StartCoroutine(Jumped());
 
-        }
-        if (onPlatform == true)
-        {
-            _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
-            StartCoroutine(Jumped());
+            }
+            if (onPlatform == true)
+            {
+                _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
+                StartCoroutine(Jumped());
 
+            }
         }
     }
 
@@ -205,6 +254,11 @@ public class Player : Unit
         {
             StartCoroutine(dropDown());
         }
+    }
+
+    public void Interact(InputAction.CallbackContext context)
+    {
+        Interacting = true;
     }
 
     #endregion
@@ -245,25 +299,46 @@ public class Player : Unit
 
 
     #region Collision Detection
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerStay(Collider other)
     {
         #region Camp Collisions
         if(other.gameObject.tag == "MineEntrance")
         {
             GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
             buttonController.GetComponent<SceneButtonControllerScript>().enterMineBTN.SetActive(true);
+            if (Interacting == true)
+            {
+
+                other.GetComponent<MineEntranceInteractScript>().Interact();
+                Interacting = false;
+            }
         }
+
 
         if (other.gameObject.tag == "CastleEntrance")
         {
             GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
             buttonController.GetComponent<SceneButtonControllerScript>().enterCastleBTN.SetActive(true);
+
+            if (Interacting == true)
+            {
+
+                other.GetComponent<CastleEntranceInteractScript>().Interact();
+                Interacting = false;
+            }
         }
 
         if (other.gameObject.tag == "CampShopEntrance")
         {
             GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
             buttonController.GetComponent<SceneButtonControllerScript>().enterCampShopBTN.SetActive(true);
+
+            if (Interacting == true)
+            {
+
+                other.GetComponent<CampShopEntranceInteractScript>().Interact();
+                Interacting = false;
+            }
         }
 
         #endregion
@@ -271,7 +346,7 @@ public class Player : Unit
         #region Enemy Collisions
         if (other.gameObject.tag == "Enemy")
         {
-            myHealth = myHealth - 1;
+            other.GetComponent<Enemy>().Interact();
            
         }
         #endregion
@@ -285,13 +360,13 @@ public class Player : Unit
         
     }
 
-    public void OnTriggerExit(Collider other)
+   public void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "platform")
         {
             _groundCollider.enabled = true;
         }
-
+ 
         if (other.gameObject.tag == "MineEntrance")
         {
             GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");

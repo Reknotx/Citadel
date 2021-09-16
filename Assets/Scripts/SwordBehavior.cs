@@ -25,9 +25,13 @@ public class SwordBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
         #region switches renderer on and off depending on the collider being enabled 
         if (lightCollider.enabled==true)
         {
+            // lightCollider.gameObject.transform.localScale += new Vector3(player.GetComponent<Player>().meleeAttackRange, 0, 0);
+            lightCollider.gameObject.transform.localScale.x = player.GetComponent<Player>().meleeAttackRange;
             lightRenderer.enabled = true;
         }
         else
