@@ -47,32 +47,32 @@ namespace ShopSystem
             switch (stat)
             {
                 case StatToIncrease.health:
-                    //Player.Instance.health += info.healthUpInfo.increaseValueBy;
+                    //GoldHandler.Instance.health += info.healthUpInfo.increaseValueBy;
                     info.healthUpInfo.Level++;
                     break;
                 
                 case StatToIncrease.attackPwr:
-                    //Player.Instance.attackPwr += info.attackUpInfo.increaseValueBy;
+                    //GoldHandler.Instance.attackPwr += info.attackUpInfo.increaseValueBy;
                     info.attackUpInfo.Level++;
                     break;
                 
                 case StatToIncrease.attackRng:
-                    //Player.Instance.attackRng += info.attackRangeUpInfo.increaseValueBy;
+                    //GoldHandler.Instance.attackRng += info.attackRangeUpInfo.increaseValueBy;
                     info.attackRangeUpInfo.Level++;
                     break;
                 
                 case StatToIncrease.speed:
-                    //Player.Instance.speed += info.speedUpInfo.increaseValueBy;
+                    //GoldHandler.Instance.speed += info.speedUpInfo.increaseValueBy;
                     info.speedUpInfo.Level++;
                     break;
                 
                 case StatToIncrease.mana:
-                    //Player.Instance.mana += info.manaUpInfo.increaseValueBy;
+                    //GoldHandler.Instance.mana += info.manaUpInfo.increaseValueBy;
                     info.manaUpInfo.Level++;
                     break;
                 
                 case StatToIncrease.spellPotency:
-                    //Player.Instance.spellPotency += info.spellPotencyUpInfo.increaseValueBy; 
+                    //GoldHandler.Instance.spellPotency += info.spellPotencyUpInfo.increaseValueBy; 
                     info.spellPotencyUpInfo.Level++;
                     break;
                 
@@ -85,32 +85,32 @@ namespace ShopSystem
 
         public void CheckButtons()
         {
-            //if (Player.Instance.gold < info.healthUpInfo.upgradeCost)
+            //if (GoldHandler.Instance.gold < info.healthUpInfo.upgradeCost)
             //    healthUpButton.interactable = false;
             //else
             //    healthUpButton.interactable = true;
 
-            //if (Player.Instance.gold < info.attackUpInfo.upgradeCost)
+            //if (GoldHandler.Instance.gold < info.attackUpInfo.upgradeCost)
             //    attackUpButton.interactable = false;
             //else
             //    attackUpButton.interactable = true;
 
-            //if (Player.Instance.gold < info.attackRangeUpInfo.upgradeCost)
+            //if (GoldHandler.Instance.gold < info.attackRangeUpInfo.upgradeCost)
             //    attackRangeUpButton.interactable = false;
             //else
             //    attackRangeUpButton.interactable = true;
 
-            //if (Player.Instance.gold < info.speedUpInfo.upgradeCost)
+            //if (GoldHandler.Instance.gold < info.speedUpInfo.upgradeCost)
             //    speedUpButton.interactable = false;
             //else
             //    speedUpButton.interactable = true;
 
-            //if (Player.Instance.gold < info.manaUpInfo.upgradeCost)
+            //if (GoldHandler.Instance.gold < info.manaUpInfo.upgradeCost)
             //    manaUpButton.interactable = false;
             //else
             //    manaUpButton.interactable = true;
 
-            //if (Player.Instance.gold < info.spellPotencyUpInfo.upgradeCost)
+            //if (GoldHandler.Instance.gold < info.spellPotencyUpInfo.upgradeCost)
             //    spellPotencyUpButton.interactable = false;
             //else
             //    spellPotencyUpButton.interactable = true;
