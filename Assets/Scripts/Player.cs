@@ -25,16 +25,16 @@ public class Player : Unit
     #region Player's Base Stats/Important controls
 
     ///<summary>This is the units health.</summary>
-    public int myHealth;
+    public float myHealth;
 
     ///<summary>This is the maximum units health.</summary>
-    public int maxHealth;
+    public float maxHealth;
 
     ///<summary>This is the units mana for magic casting.</summary>
-    public int myMana;
+    public float myMana;
 
     ///<summary>This is the units maximum mana for magic casting.</summary>
-    public int maxMana;
+    public float maxMana;
 
     ///<summary>This is the players Input system.</summary>
     private PlayerInputActions playerInputActions;
@@ -400,6 +400,12 @@ public class Player : Unit
         {
             other.GetComponent<Enemy>().Interact();
            
+        }
+
+        if (other.gameObject.tag == "Trap")
+        {
+            other.GetComponent<TrapScript>().Interact();
+
         }
         #endregion
 
