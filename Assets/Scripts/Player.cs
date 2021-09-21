@@ -152,10 +152,7 @@ public class Player : Unit
             myMana = maxMana;
         }
 
-        if(myHealth <= 0)
-        {
-            ResetGame();
-        }
+        
  
 
       
