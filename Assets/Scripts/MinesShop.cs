@@ -21,7 +21,7 @@ public class MinesShop : MonoBehaviour
     /// Base cost for the miner
     /// </summary>
     [SerializeField]
-    private int baseMinerCost = 50;
+    public static int baseMinerCost = 50;
 
     /// <summary>
     /// Amount of gold that the cost of the miners increases by each time the player purchases one
@@ -33,7 +33,7 @@ public class MinesShop : MonoBehaviour
     /// Base cost of the mine cart
     /// </summary>
     [SerializeField]
-    private int baseCartCost = 150;
+    public static int baseCartCost = 150;
 
     /// <summary>
     /// Amount of gold that the cost of the mine carts increases by each time the player purchases one

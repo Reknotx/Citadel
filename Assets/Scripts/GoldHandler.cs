@@ -46,11 +46,17 @@ public class GoldHandler : MonoBehaviour
     /// <summary> number of miners the player currently owns </summary>
     public int numOfMiners;
 
+    public Text minerCostText;
+
     /// <summary> The base increase the player gets passively </summary>
     public int baseGoldIncrease;
 
     /// <summary> Number of minecarts the player currently owns </summary>
     public int numOfCarts;
+
+    public Text cartCostText;
+
+    public Text goldGainText;
 
     /// <summary> The increase in the player's revenue for every miner they own </summary>
     [SerializeField]
@@ -87,7 +93,11 @@ public class GoldHandler : MonoBehaviour
     {
         ///Updates soft and hard gold text object
         //softGoldText.text = "Soft Gold: " + (int)mySoftGold;
-        //hardGoldText.text = "Hard Gold: " + (int)myHardGold;
+        hardGoldText.text = "Hard Gold: " + (int)myHardGold;
+
+        minerCostText.text = "Purchase Miner: " + MinesShop.baseMinerCost;
+        cartCostText.text = "Purchase Cart: " + MinesShop.baseCartCost;
+        goldGainText.text = "Add " + revenue + " gold to your supply";
 
         ///Checks which scene is active and displays the correct gold value
         if ( castleSceneName == currentScene.name )
@@ -124,6 +134,6 @@ public class GoldHandler : MonoBehaviour
     /// <param name="hardGold">Increase amount of hard gold by given integer</param>
     public void AddHardGold(int hardGold)
     {
-        myHardGold += hardGold;
+        myHardGold += revenue;
     }
 }

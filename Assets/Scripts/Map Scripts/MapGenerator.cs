@@ -67,12 +67,12 @@ public class MapGenerator : MonoBehaviour
 
     public void Start()
     {
-        grid = new Room[gridInfo.gridSize, gridInfo.gridSize + 1];
-        conceptGrid = new GridNode[gridInfo.gridSize, gridInfo.gridSize + 1];
-        columns = gridInfo.gridSize + 1;
+        grid = new Room[gridInfo.gridSize, gridInfo.gridSize + 6];
+        conceptGrid = new GridNode[gridInfo.gridSize, gridInfo.gridSize + 6];
+        columns = gridInfo.gridSize + 6;
         rows = gridInfo.gridSize;
 
-        trueGridSize = new Vector2(gridInfo.gridSize + 1, gridInfo.gridSize);
+        trueGridSize = new Vector2(gridInfo.gridSize + 6, gridInfo.gridSize);
 
         ///Initializing the concept grid.
         Debug.Log("Initializing the concept grid.");
