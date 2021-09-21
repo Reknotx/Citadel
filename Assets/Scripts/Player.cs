@@ -31,6 +31,8 @@ public class Player : Unit
     ///<summary>This is the players Input system.</summary>
     private PlayerInputActions playerInputActions;
 
+    
+
             #endregion
             #region Player's Ground/Directional Detection Stats
 
@@ -60,14 +62,25 @@ public class Player : Unit
 
     /// <summary>this is the physical gameobject that is cast during the firewall spell</summary>
     public GameObject fireWall_prefab;
+
+    
+
     #endregion
             #region Bool Determinates 
 
     /// <summary> determines if the player can move or not </summary>
      [HideInInspector]
-    public bool canMove = true;  
-    
-            #endregion
+    public bool canMove = true;
+
+    #endregion
+    #endregion
+
+    #region Mana Handler
+    /// <summary>This is a reference to the UI controls for the player's health and mana.</summary>
+    public LifeManaHandler resource;
+
+    ///<summary>This is how many units of mana are consumed when a player casts the firewall spell</summary>
+    public float firewallCost = 20f;
     #endregion
 
 
@@ -207,6 +220,7 @@ public class Player : Unit
     {
         if (canCast == true)
         {
+            resource.ReduceMana(firewallCost);
             ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>
             if (facingRight == true)
             {
@@ -216,6 +230,7 @@ public class Player : Unit
                 if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
                 {
                     fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+                    
                 }
                 canCast = false;
             }
@@ -226,6 +241,7 @@ public class Player : Unit
                 if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
                 {
                     fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+                    
                 }
                 canCast = false;
             }

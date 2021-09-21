@@ -21,6 +21,11 @@ public class Enemy : Unit
     ///<summary>This is the players Input system.</summary>
     private PlayerInputActions playerInputActions;
 
+    
+    
+
+
+
             #endregion
             #region Enemy's Ground/Directional Detection Stats
 
@@ -43,7 +48,20 @@ public class Enemy : Unit
     ///<summary>This targets the player for the Enemy.</summary>
     public GameObject player;
 
-            #endregion
+    ///<summary>This is the distance the enemy must be within in order to move towards the player</summary>
+    public float followDistance;
+
+    ///<summary>This is the distance from the player the enemy wills top at</summary>
+    public float stoppingDistance;
+
+    #endregion
+
+    #endregion
+
+    #region Gold Handler
+
+    public GoldHandler gold;
+    public int goldPerKill = 100000;
 
     #endregion
 
@@ -52,6 +70,14 @@ public class Enemy : Unit
     {
 
         base.Update();
+
+        #region Enemy Movement
+        if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance) 
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        }
+
+        #endregion
 
 
         #region Player Detection
@@ -108,6 +134,16 @@ public class Enemy : Unit
             myHealth -= onFireDamage * Time.deltaTime;
             
         }
+
+        #region On Death
+
+        if (myHealth <= 0)
+        {
+            Destroy(this.gameObject);
+            gold.AddSoftGold(goldPerKill);
+        }
+
+        #endregion
     }
 
 
