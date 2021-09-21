@@ -69,6 +69,23 @@ public class GoldHandler : MonoBehaviour
     /// <summary> The player's current revenue (passively gained gold) </summary>
     public int revenue;
 
+    //Example of using a property to update the text instead
+    /*
+    private int _revenue = 0;
+
+    public int Revenue
+    {
+        get => _revenue;
+
+        set
+        {
+            _revenue = value;
+            if (goldGainText != null)
+                goldGainText.text = "Add " + _revenue + " gold to your supply";
+        }
+    }
+    */
+
     /// <summary> Variable to keep track of time passed for use with player's passive gold gain </summary>
     private float elapsed = 0f;
 
