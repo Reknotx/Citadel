@@ -10,12 +10,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class SceneManagerScript : MonoBehaviour
 {
     #region Bool Determinates 
-    
+    /// <summary> this keeps track of if the player is in the camp shop or not  </summary>
+    public bool inCampShop = false;
+
+    /// <summary> this keeps track of if the player is in the mine shop or not  </summary>
+    public bool inMineShop = false;
 
     /// <summary> this stores the ingame objects of the camp ui buttons  </summary>
     public GameObject campButtons;
@@ -34,41 +37,14 @@ public class SceneManagerScript : MonoBehaviour
     public string activeSceneName;
     #endregion
 
-    GameObject player;
-
-    private GameObject toMineShopBTN;
-
-    /* will make this a singleton
-    private static SceneManagerScript _instance;
-
-    public static SceneManagerScript Instance { get { return _instance; } }
-
-
-    private void Awake()
-    {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            _instance = this;
-        }
-    }
-    */
-
-    private void Awake()
-    {
-        GameObject player = GameObject.FindWithTag("Player");
-    }
 
     private void Update()
     {
         /// <summary> this tracks what the active scene name is  </summary>
         activeScene = SceneManager.GetActiveScene();
         activeSceneName = activeScene.name;
-        GameObject player = GameObject.FindWithTag("Player");
 
+      
     }
 
     #region button functions 
@@ -94,36 +70,24 @@ public class SceneManagerScript : MonoBehaviour
     /// <summary> this takes the player to the camp shop scene </summary>
     public void goToCampShop()
     {
-        GameObject player = GameObject.FindWithTag("Player");
-        player.GetComponent<Player>().inCampShop = true;
+        inCampShop = true;
         campButtons.SetActive(false);
         campShopButtons.SetActive(true);
 
-        
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<Player>().canMove = false;
     } 
     
     /// <summary> this takes the player to the mine scene </summary>
     public void goToMine()
     {
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player.GetComponent<Player>().inMine == false)
-        {
-            player.GetComponent<Player>().inMine = true;
-            campButtons.SetActive(false);
-            SceneManager.LoadSceneAsync(5, LoadSceneMode.Additive);
-
-            
-
-
-        }
-        
+        SceneManager.LoadScene(5);
     }
 
     /// <summary> this takes the player to the camp shop scene </summary>
     public void goToMineShop()
     {
-        player.GetComponent<Player>().inMineShop = true;
+        inMineShop = true;
         mineButtons.SetActive(false);
         mineShopButtons.SetActive(true);
     }
@@ -143,22 +107,18 @@ public class SceneManagerScript : MonoBehaviour
     /// <summary> this takes the player back to the camp scene </summary>
     public void backToCamp()
     {
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player.GetComponent<Player>().inCampShop == true)
+        if (inCampShop == true)
         {
             campButtons.SetActive(true);
             campShopButtons.SetActive(false);
-            player.GetComponent<Player>().inCampShop = false;
+            inCampShop = false;
 
-            //GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
             player.GetComponent<Player>().canMove = true;
         }
-        if (player.GetComponent<Player>().inMine == true)
+        else
         {
-            // SceneManager.LoadScene(3);
-            SceneManager.UnloadSceneAsync(5);
-            campButtons.SetActive(true);
-            player.GetComponent<Player>().inMine = false;
+            SceneManager.LoadScene(3);
         }
         
     }
@@ -166,11 +126,11 @@ public class SceneManagerScript : MonoBehaviour
     /// <summary> this takes the player back to the camp scene </summary>
     public void backToMine()
     {
-        if (player.GetComponent<Player>().inMineShop == true)
+        if (inMineShop == true)
         {
             mineButtons.SetActive(true);
             mineShopButtons.SetActive(false);
-            player.GetComponent<Player>().inMineShop = false;
+            inMineShop = false;
         }
        
 
@@ -181,9 +141,5 @@ public class SceneManagerScript : MonoBehaviour
     {
         Application.Quit();
     }
-
-
-  
-    
     #endregion
 }
