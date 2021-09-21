@@ -12,9 +12,17 @@ using UnityEngine;
 
 public class CampShopEntranceInteractScript : MonoBehaviour
 {
+    public GameObject shopUI;
+
     public void Interact()
     {
         GameObject sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
         sceneManager.GetComponent<SceneManagerScript>().goToCampShop();
     }
+
+    //public override void Interact()
+    //{
+    //    ///Turn on the shop
+    //    if (shopUI != null) shopUI.SetActive(true);
+    //}
 }
