@@ -17,24 +17,40 @@ using UnityEngine.InputSystem;
 
 public class Player : Unit
 {
+    
+
 
     #region Player Stats
 
-            #region Player's Base Stats/Important controls
+    #region Player's Base Stats/Important controls
 
     ///<summary>This is the units health.</summary>
-    public int myHealth;
+    public float myHealth;
+
+    ///<summary>This is the maximum units health.</summary>
+    public float maxHealth;
+
+    ///<summary>This is the  units starting health.</summary>
+    public float startingHealth;
 
     ///<summary>This is the units mana for magic casting.</summary>
-    public int myMana;
+    public float myMana;
+
+    ///<summary>This is the units maximum mana for magic casting.</summary>
+    public float maxMana;
+
+    ///<summary>This is the units starting .</summary>
+    public float startingMana;
 
     ///<summary>This is the players Input system.</summary>
     private PlayerInputActions playerInputActions;
 
-    
+    ///<summary>This is the unit's private rigidbody.</summary>
+    [SerializeField]
+    public Rigidbody _rigidBody;
 
-            #endregion
-            #region Player's Ground/Directional Detection Stats
+    #endregion
+    #region Player's Ground/Directional Detection Stats
 
     ///<summary>This is the range of detection to the ground.</summary>
     private float _Reach = 2f;
@@ -43,6 +59,7 @@ public class Player : Unit
     RaycastHit hit;
 
     ///<summary>This tracks what direction the player is facing.</summary>
+    [HideInInspector]
     public bool facingRightLocal;
 
             #endregion
@@ -51,48 +68,68 @@ public class Player : Unit
     ///<summary>This determines how far the player will knock back an enemy with the heavy attack.</summary>
     public float knockbackForce;
 
-    ///<summary>This determines the damage of the player's light attack.</summary>
-    public int lightAttackDamage;
+    ///<summary>This determines the range of the player's melee attack.</summary>
+    public float meleeAttackRange = 1f;
 
-    ///<summary>This determines the damage of the player's heavy attack.</summary>
-    public int heavyAttackDamage;
+    ///<summary>This determines the damage of the player's melee attack.</summary>
+    public int meleeAttackDamage;
 
     ///<summary>This determines the damage the player deals to an enemy when they collide.</summary>
     public int playerCollisionDamage;
 
     /// <summary>this is the physical gameobject that is cast during the firewall spell</summary>
     public GameObject fireWall_prefab;
-
-    
-
     #endregion
             #region Bool Determinates 
 
     /// <summary> determines if the player can move or not </summary>
-     [HideInInspector]
-    public bool canMove = true;
+        [HideInInspector]
+        public bool canMove = true;
+
+    /// <summary> determines if the player is trying to interact with things or not </summary>
+   // [HideInInspector]
+    public bool Interacting = false;
+
+    [HideInInspector]
+    public bool canInteract = true;
+
+
+
+
+    /// <summary> this keeps track of if the player is in the camp shop or not  </summary>
+    public bool inCampShop = false;
+
+    /// <summary> this keeps track of if the player is in the mine  or not  </summary>
+    public bool inMine = false;
+
+    /// <summary> this keeps track of if the player is in the mine shop or not  </summary>
+    public bool inMineShop = false;
 
     #endregion
+
+
+
+
     #endregion
 
-    #region Mana Handler
-    /// <summary>This is a reference to the UI controls for the player's health and mana.</summary>
-    public LifeManaHandler resource;
-
-    ///<summary>This is how many units of mana are consumed when a player casts the firewall spell</summary>
-    public float firewallCost = 20f;
-    #endregion
-
-
+    
     private void Awake()
     {
+
+      
+        
         #region Player Movement Important Connectors
-        ///<summary>The following is used to track player inputs and controls.</summary>
-        playerInputActions = new PlayerInputActions();
-        playerInputActions.PlayerControl.Enable();
-        playerInputActions.PlayerControl.Jump.performed += Jump;
-        playerInputActions.PlayerControl.Movement.performed += movement;
-        playerInputActions.PlayerControl.Drop.performed += Drop;
+         ///<summary>The following is used to track player inputs and controls.</summary>
+         playerInputActions = new PlayerInputActions();
+         playerInputActions.PlayerControl.Enable();
+         playerInputActions.PlayerControl.Jump.performed += Jump;
+         playerInputActions.PlayerControl.Movement.performed += movement;
+         playerInputActions.PlayerControl.Drop.performed += Drop;
+         
+
+        
+
+
         #endregion
     }
 
@@ -102,14 +139,42 @@ public class Player : Unit
         facingRightLocal = facingRight;
         base.Update();
 
+        #region Player Stat controls
+
+        if(myHealth >= maxHealth) 
+        {
+            myHealth = maxHealth;
+        }
+        
+
+        if (myMana >= maxMana)
+        {
+            myMana = maxMana;
+        }
+
+        
+ 
+
+      
+
+
+        #endregion
+
         #region Player Movement Detection
         ///<summary>This moves the player constantly while the input is held.</summary>
         if (canMove == true)
         {
             Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
             _rigidBody.AddForce(new Vector3(inputVector.x, 0, 0) * speed, ForceMode.Acceleration);
+             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+        }
+        else
+        {
+            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
         
+       
+
         #endregion
 
         #region Ground/Platform detection
@@ -152,6 +217,14 @@ public class Player : Unit
             throughPlatform = false;
 
         }
+
+
+        ///<summary>this checks if the unit is trying to pass up through a platform and will assist.</summary>
+        if (throughPlatform == true && justJumped == true)
+        {
+            StartCoroutine(dropDown());
+            _rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
+        }
         #endregion
 
         ///<summary>this sets the rate for how quickly players can cast spells </summary>
@@ -161,6 +234,22 @@ public class Player : Unit
             canCast = true;
             spellCastDelay = 3f;
         }
+
+      
+    }
+
+
+    public void ResetGame()
+    {
+        maxHealth = startingHealth;
+        myHealth = startingHealth;
+        maxMana = startingMana;
+        myMana = startingMana;
+        GetComponentInChildren<GoldHandler>().myHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
+        GetComponentInChildren<GoldHandler>().mySoftGold = GetComponentInChildren<GoldHandler>().startingSoftGold;
+        GameObject SceneManager = GameObject.FindGameObjectWithTag("SceneManager");
+        SceneManager.GetComponent<SceneManagerScript>().backToMainmenu();
+
     }
 
 
@@ -171,15 +260,18 @@ public class Player : Unit
     {
         if (canMove == true)
         {
-            Vector2 inputVector = context.ReadValue<Vector2>();
-            _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
-            if (inputVector.x > 0)
+            if (this != null)
             {
-                facingRight = true;
-            }
-            if (inputVector.x < 0)
-            {
-                facingRight = false;
+                Vector2 inputVector = context.ReadValue<Vector2>();
+                _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
+                if (inputVector.x > 0)
+                {
+                    facingRight = true;
+                }
+                if (inputVector.x < 0)
+                {
+                    facingRight = false;
+                }
             }
         }
     }
@@ -187,19 +279,21 @@ public class Player : Unit
     ///<summary>This triggers the unit to jump up.</summary>
     public void Jump(InputAction.CallbackContext context)
     {
-
-        if (isGrounded == true)
+        if (this != null)
         {
+            if (isGrounded == true)
+            {
 
-            _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
-            StartCoroutine(Jumped());
+                _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
+                StartCoroutine(Jumped());
 
-        }
-        if (onPlatform == true)
-        {
-            _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
-            StartCoroutine(Jumped());
+            }
+            if (onPlatform == true)
+            {
+                _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
+                StartCoroutine(Jumped());
 
+            }
         }
     }
 
@@ -212,6 +306,14 @@ public class Player : Unit
         }
     }
 
+    public void Interact(InputAction.CallbackContext context)
+    {
+        //StartCoroutine(InteractCoroutine());
+        Interacting = true;
+
+    }
+   
+
     #endregion
     #region Player Spells
 
@@ -220,7 +322,6 @@ public class Player : Unit
     {
         if (canCast == true)
         {
-            resource.ReduceMana(firewallCost);
             ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>
             if (facingRight == true)
             {
@@ -230,7 +331,6 @@ public class Player : Unit
                 if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
                 {
                     fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
-                    
                 }
                 canCast = false;
             }
@@ -241,7 +341,6 @@ public class Player : Unit
                 if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
                 {
                     fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
-                    
                 }
                 canCast = false;
             }
@@ -250,28 +349,103 @@ public class Player : Unit
 
     }
     #endregion
+    #region Unit Melee Attacks
+    /// <summary> This is the attacking function /// </summary>
+    public void lightAttack(InputAction.CallbackContext context)
+    {
+        _lightCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange, .3f, 1.5f);
+
+        if (Time.time >= nextDamageEvent)
+        {
+            nextDamageEvent = Time.time + attackCoolDown;
+            if (facingRight == true)
+            {
+                _lightCollider.transform.position = spellLocationRight.transform.position;
+                _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale/2);
+                StartCoroutine(lightAttackCoroutine());
+
+            }
+            else
+            {
+                _lightCollider.transform.position = spellLocationLeft.transform.position;
+                _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
+                StartCoroutine(lightAttackCoroutine());
+            }
+        }
+
+    }
+
+    /// <summary> This is the attacking function /// </summary>
+
+    public void heavyAttack(InputAction.CallbackContext context)
+    {
+        _heavyCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange, .3f, 1.5f);
+
+        if (Time.time >= nextDamageEvent)
+        {
+            nextDamageEvent = Time.time + attackCoolDown;
+            if (facingRight == true)
+            {
+                _heavyCollider.transform.position = spellLocationRight.transform.position;
+                _heavyCollider.transform.position = _heavyCollider.transform.position + (_heavyCollider.gameObject.transform.localScale / 2);
+                StartCoroutine(heavyAttackCoroutine());
+
+            }
+            else
+            {
+                _heavyCollider.transform.position = spellLocationLeft.transform.position;
+                _heavyCollider.transform.position = _heavyCollider.transform.position - (_heavyCollider.gameObject.transform.localScale / 2);
+                StartCoroutine(heavyAttackCoroutine());
+            }
+        }
+
+
+    }
+
+    #endregion
 
 
     #region Collision Detection
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerStay(Collider other)
     {
         #region Camp Collisions
         if(other.gameObject.tag == "MineEntrance")
         {
             GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
             buttonController.GetComponent<SceneButtonControllerScript>().enterMineBTN.SetActive(true);
+            if (Interacting == true)
+            {
+
+                other.GetComponent<MineEntranceInteractScript>().Interact();
+                Interacting = false;
+            }
         }
+
 
         if (other.gameObject.tag == "CastleEntrance")
         {
             GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
             buttonController.GetComponent<SceneButtonControllerScript>().enterCastleBTN.SetActive(true);
+
+            if (Interacting == true)
+            {
+
+                other.GetComponent<CastleEntranceInteractScript>().Interact();
+                Interacting = false;
+            }
         }
 
         if (other.gameObject.tag == "CampShopEntrance")
         {
             GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
             buttonController.GetComponent<SceneButtonControllerScript>().enterCampShopBTN.SetActive(true);
+
+            if (Interacting == true)
+            {
+
+                other.GetComponent<CampShopEntranceInteractScript>().Interact();
+                Interacting = false;
+            }
         }
 
         #endregion
@@ -279,8 +453,14 @@ public class Player : Unit
         #region Enemy Collisions
         if (other.gameObject.tag == "Enemy")
         {
-            myHealth = myHealth - 1;
+            other.GetComponent<Enemy>().Interact();
            
+        }
+
+        if (other.gameObject.tag == "Trap")
+        {
+            other.GetComponent<TrapScript>().Interact();
+
         }
         #endregion
 
@@ -293,13 +473,13 @@ public class Player : Unit
         
     }
 
-    public void OnTriggerExit(Collider other)
+   public void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "platform")
         {
             _groundCollider.enabled = true;
         }
-
+ 
         if (other.gameObject.tag == "MineEntrance")
         {
             GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
@@ -323,5 +503,12 @@ public class Player : Unit
     
 
     #endregion
+
+    public IEnumerator InteractCoroutine()
+    {
+        Interacting = true;
+        yield return new WaitForSeconds(.5f);
+        Interacting = false;
+    }
 
 }
