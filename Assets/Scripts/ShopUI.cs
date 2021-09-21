@@ -51,6 +51,11 @@ namespace ShopSystem
             CheckButtons();
         }
 
+        private void OnDisable()
+        {
+            Player.Instance.canMove = true;
+        }
+
         public void BuyStatIncrease(StatToIncrease stat)
         {
             int goldSpent = 0;
