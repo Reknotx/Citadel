@@ -110,11 +110,11 @@ public class GoldHandler : MonoBehaviour
     {
         ///Updates soft and hard gold text object
         //softGoldText.text = "Soft Gold: " + (int)mySoftGold;
-        hardGoldText.text = "Hard Gold: " + (int)myHardGold;
+        //hardGoldText.text = "Hard Gold: " + (int)myHardGold;
 
-        minerCostText.text = "Purchase Miner: " + MinesShop.baseMinerCost;
-        cartCostText.text = "Purchase Cart: " + MinesShop.baseCartCost;
-        goldGainText.text = "Add " + revenue + " gold to your supply";
+        //minerCostText.text = "Purchase Miner: " + MinesShop.baseMinerCost;
+        //cartCostText.text = "Purchase Cart: " + MinesShop.baseCartCost;
+        //goldGainText.text = "Add " + revenue + " gold to your supply";
 
         ///Checks which scene is active and displays the correct gold value
         if ( castleSceneName == currentScene.name )
