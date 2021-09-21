@@ -22,7 +22,7 @@ public class Player : Unit
 
     #region Player Stats
 
-    #region Player's Base Stats/Important controls
+            #region Player's Base Stats/Important controls
 
     ///<summary>This is the units health.</summary>
     public float myHealth;
@@ -50,7 +50,7 @@ public class Player : Unit
     public Rigidbody _rigidBody;
 
     #endregion
-    #region Player's Ground/Directional Detection Stats
+            #region Player's Ground/Directional Detection Stats
 
     ///<summary>This is the range of detection to the ground.</summary>
     private float _Reach = 2f;
@@ -152,7 +152,10 @@ public class Player : Unit
             myMana = maxMana;
         }
 
-        
+        if(myHealth <= 0)
+        {
+            ResetGame();
+        }
  
 
       
@@ -247,8 +250,10 @@ public class Player : Unit
         myMana = startingMana;
         GetComponentInChildren<GoldHandler>().myHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
         GetComponentInChildren<GoldHandler>().mySoftGold = GetComponentInChildren<GoldHandler>().startingSoftGold;
+        var goldTracker = GameObject.FindGameObjectWithTag("GoldTracker");
+        goldTracker.GetComponent<PlayerGoldTrackerScript>().playerDead = true;
         GameObject SceneManager = GameObject.FindGameObjectWithTag("SceneManager");
-        SceneManager.GetComponent<SceneManagerScript>().backToMainmenu();
+        SceneManager.GetComponent<SceneManagerScript>().goToCamp();
 
     }
 
@@ -504,11 +509,6 @@ public class Player : Unit
 
     #endregion
 
-    public IEnumerator InteractCoroutine()
-    {
-        Interacting = true;
-        yield return new WaitForSeconds(.5f);
-        Interacting = false;
-    }
+   
 
 }

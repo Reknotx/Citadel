@@ -35,12 +35,12 @@ public class GoldHandler : MonoBehaviour
     public float myHardGold;
 
     /// <summary>
-    /// player's current soft gold
+    /// player's starting soft gold
     /// </summary>
     public float startingSoftGold = 0f;
 
     /// <summary>
-    /// player's current hard gold
+    /// player's starting hard gold
     /// </summary>
     public float startingHardGold = 100f;
 
