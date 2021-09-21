@@ -154,9 +154,6 @@ public class Unit : MonoBehaviour
             onFireDamageDelay = 2f;
         }
     }
-
-<<<<<<< HEAD
-=======
     
     #region Unit Actions
 
@@ -209,7 +206,6 @@ public class Unit : MonoBehaviour
         #endregion
         
     #endregion
->>>>>>> parent of f485587 (Merge branch 'HunterLE-ProgrammerBranch' into Tyler-Branch)
 
     /*#region Unit Melee Attacks
     /// <summary> This is the attacking function /// </summary>
