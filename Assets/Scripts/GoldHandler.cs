@@ -14,105 +14,80 @@ using UnityEngine.SceneManagement;
 
 public class GoldHandler : MonoBehaviour
 {
-    /// <summary>
-    /// Text displayed for player's soft gold
-    /// </summary>
+    public static GoldHandler Instance;
+
+    /// <summary> Text displayed for player's soft gold </summary>
     public Text softGoldText;
 
-    /// <summary>
-    /// text displayed for players hard gold
-    /// </summary>
+    /// <summary> text displayed for players hard gold </summary>
     public Text hardGoldText;
 
-    /// <summary>
-    /// player's current soft gold
-    /// </summary>
+    /// <summary> player's current soft gold </summary>
     public float mySoftGold;
 
-    /// <summary>
-    /// player's current hard gold
-    /// </summary>
+    /// <summary> player's current hard gold </summary>
     public float myHardGold;
 
-    /// <summary>
-    /// GameObject that holds the UI element for soft gold
-    /// </summary>
+    /// <summary> GameObject that holds the UI element for soft gold </summary>
     public GameObject softGold;
 
-    /// <summary>
-    /// GameObject that holds the UI element for hard gold
-    /// </summary>
+    /// <summary> GameObject that holds the UI element for hard gold </summary>
     public GameObject hardGold;
 
-    /// <summary>
-    /// Reference to the current scene the player resides in
-    /// </summary>
+    /// <summary> Reference to the current scene the player resides in </summary>
     private Scene currentScene;
 
-    /// <summary>
-    /// name of the castle scene
-    /// </summary>
+    /// <summary> name of the castle scene </summary>
     public string castleSceneName;
 
-    /// <summary>
-    /// name of the main menu scene
-    /// </summary>
+    /// <summary> name of the main menu scene </summary>
     public string mainMenuName;
     
-    /// <summary>
-    /// number of miners the player currently owns
-    /// </summary>
+    /// <summary> number of miners the player currently owns </summary>
     public int numOfMiners;
 
-    /// <summary>
-    /// The base increase the player gets passively
-    /// </summary>
+    /// <summary> The base increase the player gets passively </summary>
     public int baseGoldIncrease;
 
-    /// <summary>
-    /// Number of minecarts the player currently owns
-    /// </summary>
+    /// <summary> Number of minecarts the player currently owns </summary>
     public int numOfCarts;
 
-    /// <summary>
-    /// The increase in the player's revenue for every miner they own
-    /// </summary>
+    /// <summary> The increase in the player's revenue for every miner they own </summary>
     [SerializeField]
     private int minerIncrease;
 
-    /// <summary>
-    /// The increase in the player's revenue for every mine cart they own
-    /// </summary>
+    /// <summary> The increase in the player's revenue for every mine cart they own </summary>
     [SerializeField]
     private int cartIncrease;
 
-    /// <summary>
-    /// The player's current revenue (passively gained gold)
-    /// </summary>
+    /// <summary> The player's current revenue (passively gained gold) </summary>
     public int revenue;
 
-    /// <summary>
-    /// Variable to keep track of time passed for use with player's passive gold gain
-    /// </summary>
+    /// <summary> Variable to keep track of time passed for use with player's passive gold gain </summary>
     private float elapsed = 0f;
 
-    /// <summary>
-    /// Start is called when the scene loads in
-    /// </summary>
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(Instance.gameObject);
+        }
+        Instance = this;
+    }
+
+
+    /// <summary> Start is called when the scene loads in </summary>
     private void Start()
     {
         currentScene = SceneManager.GetActiveScene();
     }
 
-    /// <summary>
-    /// Update is called every frame
-    /// </summary>
+    /// <summary> Update is called every frame </summary>
     void Update()
     {
         ///Updates soft and hard gold text object
-        softGoldText.text = "Soft Gold: " + (int)mySoftGold;
-
-        hardGoldText.text = "Hard Gold: " + (int)myHardGold;
+        //softGoldText.text = "Soft Gold: " + (int)mySoftGold;
+        //hardGoldText.text = "Hard Gold: " + (int)myHardGold;
 
         ///Checks which scene is active and displays the correct gold value
         if ( castleSceneName == currentScene.name )
@@ -122,8 +97,8 @@ public class GoldHandler : MonoBehaviour
         }
         else
         {
-            softGold.SetActive(false);
-            hardGold.SetActive(true);
+            //softGold.SetActive(false);
+            //hardGold.SetActive(true);
         }
 
         ///Keeps track of time elapsed and updates the players passive gold according to the interval. Gives passive gold based off the player's revenue
