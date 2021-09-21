@@ -127,9 +127,15 @@ public class GoldHandler : MonoBehaviour
     /// </summary>
     private float elapsed = 0f;
 
-    /// <summary>
-    /// Start is called when the scene loads in
-    /// </summary>
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+            Destroy(Instance.gameObject);
+
+        Instance = this;
+    }
+
+
     private void Start()
     {
         currentScene = SceneManager.GetActiveScene();
@@ -155,8 +161,8 @@ public class GoldHandler : MonoBehaviour
         }
         else
         {
-            softGold.SetActive(false);
-            hardGold.SetActive(true);
+            //softGold.SetActive(false);
+            //hardGold.SetActive(true);
         }
 
         ///Keeps track of time elapsed and updates the players passive gold according to the interval. Gives passive gold based off the player's revenue
