@@ -37,6 +37,6 @@ public class MinesGold : MonoBehaviour
     /// </summary>
     public void GoldPerClick()
     {
-        gold.AddHardGold((int)(gold.revenue * clickPercentage));
+        gold.AddHardGold(gold.revenue * clickPercentage);
     }
 }

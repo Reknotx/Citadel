@@ -14,14 +14,14 @@ public class MinesShop : MonoBehaviour
     /// <summary>
     /// This is the object which has access to the gold functions, used to reference the GoldHandler members and functions for updating gold
     /// </summary>
-    [SerializeField]
+    [SerializeField]    
     private GoldHandler gold;
 
     /// <summary>
     /// Base cost for the miner
     /// </summary>
     [SerializeField]
-    public static int baseMinerCost = 50;
+    private int baseMinerCost = 50;
 
     /// <summary>
     /// Amount of gold that the cost of the miners increases by each time the player purchases one
@@ -33,7 +33,7 @@ public class MinesShop : MonoBehaviour
     /// Base cost of the mine cart
     /// </summary>
     [SerializeField]
-    public static int baseCartCost = 150;
+    private int baseCartCost = 150;
 
     /// <summary>
     /// Amount of gold that the cost of the mine carts increases by each time the player purchases one
@@ -41,15 +41,15 @@ public class MinesShop : MonoBehaviour
     [SerializeField]
     private int cartCostIncrease = 50;
 
-    /// <summary>
-    /// Called when player purchases a miner, increases player's amount of miners, subtracts the current cost of the miners from the players current gold, and increases the cost of the next miner by the base cost.
-    /// </summary>
+  
+    
+
     public void PurchaseMiner()
     {
-        if( (int)gold.myHardGold >= baseMinerCost)
+        if( (int)gold.MyHardGold >= baseMinerCost)
         {
             gold.numOfMiners += 1;
-            gold.myHardGold -= baseMinerCost;
+            gold.MyHardGold -= baseMinerCost;
             baseMinerCost += (minerCostIncrease * gold.numOfMiners);
         }
     }
@@ -59,10 +59,10 @@ public class MinesShop : MonoBehaviour
     /// </summary>
     public void PurchaseCart()
     {
-        if ((int)gold.myHardGold >= baseCartCost)
+        if ((int)gold.MyHardGold >= baseCartCost)
         {
             gold.numOfCarts += 1;
-            gold.myHardGold -= baseCartCost;
+            gold.MyHardGold -= baseCartCost;
             baseCartCost += (cartCostIncrease * gold.numOfCarts);
         }
     }

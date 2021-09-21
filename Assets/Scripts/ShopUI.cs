@@ -108,14 +108,14 @@ namespace ShopSystem
                     break;
             }
 
-            GoldHandler.Instance.myHardGold -= goldSpent;
+            GoldHandler.Instance.MyHardGold -= goldSpent;
 
             CheckButtons();
         }
 
         public void CheckButtons()
         {
-            float hardGold = GoldHandler.Instance.myHardGold;
+            float hardGold = GoldHandler.Instance.MyHardGold;
 
             healthUpButton.interactable = hardGold > info.healthUpInfo.upgradeCost;
             attackUpButton.interactable = hardGold > info.attackUpInfo.upgradeCost;

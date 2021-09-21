@@ -17,8 +17,8 @@ using UnityEngine.InputSystem;
 
 public class Player : Unit
 {
-    
 
+    public static Player Instance;
 
     #region Player Stats
 
@@ -115,7 +115,11 @@ public class Player : Unit
     
     private void Awake()
     {
-
+        if (Instance != null && Instance != this)
+        {
+            Destroy(Instance.gameObject);
+        }
+        Instance = this;
       
         
         #region Player Movement Important Connectors
@@ -248,8 +252,8 @@ public class Player : Unit
         myHealth = startingHealth;
         maxMana = startingMana;
         myMana = startingMana;
-        GetComponentInChildren<GoldHandler>().myHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
-        GetComponentInChildren<GoldHandler>().mySoftGold = GetComponentInChildren<GoldHandler>().startingSoftGold;
+        GetComponentInChildren<GoldHandler>().MyHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
+        GetComponentInChildren<GoldHandler>().MySoftGold = GetComponentInChildren<GoldHandler>().startingSoftGold;
         var goldTracker = GameObject.FindGameObjectWithTag("GoldTracker");
         goldTracker.GetComponent<PlayerGoldTrackerScript>().playerDead = true;
         GameObject SceneManager = GameObject.FindGameObjectWithTag("SceneManager");
