@@ -400,7 +400,7 @@ public class Player : Unit
         #region Enemy Collisions
         if (other.gameObject.tag == "Enemy")
         {
-            other.GetComponent<Enemy>().Interact();
+            //other.GetComponent<Enemy>().Interact();
            
         }
 

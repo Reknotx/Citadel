@@ -165,7 +165,7 @@ public class Enemy : Unit
         ///<summary>This triggers when the enemy is hit with the light attack.</summary>
         if (other.gameObject.tag=="swordLight")
         {
-            myHealth = myHealth - player.GetComponent<Player>().lightAttackDamage;
+            //myHealth = myHealth - player.GetComponent<Player>().lightAttackDamage;
             hitOnRight = player.GetComponent<Player>().facingRightLocal ;
 
             /*
@@ -185,18 +185,18 @@ public class Enemy : Unit
         if (other.gameObject.tag == "swordHeavy")
         {
             
-            myHealth = myHealth - player.GetComponent<Player>().heavyAttackDamage;
+            //myHealth = myHealth - player.GetComponent<Player>().heavyAttackDamage;
             hitOnRight = player.GetComponent<Player>().facingRightLocal;
             
 
             if(hitOnRight == true)
             {
-                _rigidBody.AddForce(new Vector3(player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
+               // _rigidBody.AddForce(new Vector3(player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
              
             }
             else
             {
-                _rigidBody.AddForce(new Vector3(-player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
+              //  _rigidBody.AddForce(new Vector3(-player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
                
             }
         }
@@ -226,5 +226,6 @@ public class Enemy : Unit
     }
 
     #endregion
+
 
 }
