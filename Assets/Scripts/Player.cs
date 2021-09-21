@@ -87,7 +87,7 @@ public class Player : Unit
         public bool canMove = true;
 
     /// <summary> determines if the player is trying to interact with things or not </summary>
-    [HideInInspector]
+   // [HideInInspector]
     public bool Interacting = false;
 
 
@@ -104,13 +104,18 @@ public class Player : Unit
     public bool inMineShop = false;
 
     #endregion
+
+
+
+
     #endregion
 
 
     private void Awake()
     {
 
-       // DontDestroyOnLoad(this.gameObject);
+      
+        
         #region Player Movement Important Connectors
         ///<summary>The following is used to track player inputs and controls.</summary>
         playerInputActions = new PlayerInputActions();
@@ -148,7 +153,10 @@ public class Player : Unit
         {
             ResetGame();
         }
-       
+ 
+
+      
+
 
         #endregion
 
@@ -158,18 +166,14 @@ public class Player : Unit
         {
             Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
             _rigidBody.AddForce(new Vector3(inputVector.x, 0, 0) * speed, ForceMode.Acceleration);
-        }
-        
-        ///<summary>This stops the player from moving from side to side if canMove is off</summary>
-        if (canMove==false)
-        {
-            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX;
+             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
         }
         else
         {
-            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-            
+            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
+        
+       
 
         #endregion
 
@@ -306,6 +310,7 @@ public class Player : Unit
     {
         Interacting = true;
     }
+   
 
     #endregion
     #region Player Spells

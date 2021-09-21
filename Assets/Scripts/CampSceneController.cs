@@ -16,13 +16,15 @@ public class CampSceneController : MonoBehaviour
     {
         if(gameWasReset == true)
         {
-            gameWasReset = false;
+           
             respawnPlayer();
         }
     }
 
     public void respawnPlayer()
     {
+         gameWasReset = false;
         var Player = (GameObject)Instantiate(PlayerPrefab, playerSpawnPoint.position, playerSpawnPoint.rotation);
+
     }
 }

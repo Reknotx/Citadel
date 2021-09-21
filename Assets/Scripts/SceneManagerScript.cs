@@ -110,8 +110,9 @@ public class SceneManagerScript : MonoBehaviour
         if (player.GetComponent<Player>().inMine == false)
         {
             player.GetComponent<Player>().inMine = true;
-            campButtons.SetActive(false);
-            SceneManager.LoadSceneAsync(5, LoadSceneMode.Additive);
+        player.GetComponent<Player>().canMove = false;
+            //campButtons.SetActive(false);
+            SceneManager.LoadScene(5);
 
             
 
@@ -156,6 +157,7 @@ public class SceneManagerScript : MonoBehaviour
         if (player.GetComponent<Player>().inMine == true)
         {
             // SceneManager.LoadScene(3);
+            player.GetComponent<Player>().canMove = true;       
             SceneManager.UnloadSceneAsync(5);
             campButtons.SetActive(true);
             player.GetComponent<Player>().inMine = false;

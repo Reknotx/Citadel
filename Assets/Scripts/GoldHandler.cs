@@ -112,6 +112,8 @@ public class GoldHandler : MonoBehaviour
     private void Start()
     {
         currentScene = SceneManager.GetActiveScene();
+         DontDestroyOnLoad(this.gameObject);
+         
     }
 
     /// <summary>
@@ -119,6 +121,9 @@ public class GoldHandler : MonoBehaviour
     /// </summary>
     void Update()
     {
+        
+
+
         ///Updates soft and hard gold text object
         softGoldText.text = "Soft Gold: " + (int)mySoftGold;
 
