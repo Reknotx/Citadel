@@ -417,15 +417,10 @@ public class Player : Unit
         {
             _groundCollider.enabled = true;
         }
-
-        ///store reference
-        if (/*compare the layer &&*/ other.gameObject.GetComponent<Interactable>() != null) 
-            interact = other.gameObject.GetComponent<Interactable>();
+        
     }
 
-    Interactable interact;
-
-    public void OnTriggerExit(Collider other)
+   public void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "platform")
         {
@@ -436,12 +431,6 @@ public class Player : Unit
         {
             GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
             buttonController.GetComponent<SceneButtonControllerScript>().enterMineBTN.SetActive(false);
-        }
-
-        if (/*compare the layer &&*/ other.gameObject.GetComponent<Interactable>() != null /*&& other.gameObject.GetComponent<Interactable>() == reference */)
-        {
-            ///Remove reference
-            interact = null;
         }
 
         if (other.gameObject.tag == "CastleEntrance")

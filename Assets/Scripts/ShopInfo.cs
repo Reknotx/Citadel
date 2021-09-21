@@ -15,8 +15,6 @@ namespace ShopSystem
         public ShopUpgradeItem speedUpInfo;
         public ShopUpgradeItem manaUpInfo;
         public ShopUpgradeItem spellPotencyUpInfo;
-        [Space(10)]
-        public SpellItem fireWall;
     }
 
     public enum StatToIncrease
@@ -65,6 +63,5 @@ namespace ShopSystem
     public class SpellItem
     {
         public int baseSpellCost;
-        public GameObject spellPrefab;
     }
 }

@@ -15,7 +15,6 @@ namespace ShopSystem
         public Button speedUpButton;
         public Button manaUpButton;
         public Button spellPotencyUpButton;
-        public Button firewallSpellButton;
 
         List<Button> shopButtons;
 
@@ -36,8 +35,6 @@ namespace ShopSystem
             speedUpButton.onClick.AddListener(() => BuyStatIncrease(info.speedUpInfo.statToIncrease));
             manaUpButton.onClick.AddListener(() => BuyStatIncrease(info.manaUpInfo.statToIncrease));
             spellPotencyUpButton.onClick.AddListener(() => BuyStatIncrease(info.spellPotencyUpInfo.statToIncrease));
-
-            firewallSpellButton.onClick.AddListener(() => BuySpell());
         }
 
         private void OnEnable()
@@ -133,11 +130,6 @@ namespace ShopSystem
                 spellPotencyUpButton.interactable = false;
             else
                 spellPotencyUpButton.interactable = true;
-        }
-
-        public void BuySpell()
-        {
-            Player.Instance.fireWall_prefab = info.fireWall.spellPrefab;
         }
     }
 }
