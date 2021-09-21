@@ -27,16 +27,16 @@ public class Player : Unit
     #region Player's Base Stats/Important controls
 
     ///<summary>This is the units health.</summary>
-    public float myHealth;
+    public int myHealth;
 
     ///<summary>This is the maximum units health.</summary>
-    public float maxHealth;
+    public int maxHealth;
 
     ///<summary>This is the units mana for magic casting.</summary>
-    public float myMana;
+    public int myMana;
 
     ///<summary>This is the units maximum mana for magic casting.</summary>
-    public float maxMana;
+    public int maxMana;
 
     ///<summary>This is the players Input system.</summary>
     private PlayerInputActions playerInputActions;
@@ -296,60 +296,6 @@ public class Player : Unit
 
     }
     #endregion
-    #region Unit Melee Attacks
-    /// <summary> This is the attacking function /// </summary>
-    public void lightAttack(InputAction.CallbackContext context)
-    {
-        _lightCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange, .3f, 1.5f);
-
-        if (Time.time >= nextDamageEvent)
-        {
-            nextDamageEvent = Time.time + attackCoolDown;
-            if (facingRight == true)
-            {
-                _lightCollider.transform.position = spellLocationRight.transform.position;
-                _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale/2);
-                StartCoroutine(lightAttackCoroutine());
-
-            }
-            else
-            {
-                _lightCollider.transform.position = spellLocationLeft.transform.position;
-                _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
-                StartCoroutine(lightAttackCoroutine());
-            }
-        }
-
-    }
-
-    /// <summary> This is the attacking function /// </summary>
-
-    public void heavyAttack(InputAction.CallbackContext context)
-    {
-        _heavyCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange, .3f, 1.5f);
-
-        if (Time.time >= nextDamageEvent)
-        {
-            nextDamageEvent = Time.time + attackCoolDown;
-            if (facingRight == true)
-            {
-                _heavyCollider.transform.position = spellLocationRight.transform.position;
-                _heavyCollider.transform.position = _heavyCollider.transform.position + (_heavyCollider.gameObject.transform.localScale / 2);
-                StartCoroutine(heavyAttackCoroutine());
-
-            }
-            else
-            {
-                _heavyCollider.transform.position = spellLocationLeft.transform.position;
-                _heavyCollider.transform.position = _heavyCollider.transform.position - (_heavyCollider.gameObject.transform.localScale / 2);
-                StartCoroutine(heavyAttackCoroutine());
-            }
-        }
-
-
-    }
-
-    #endregion
 
 
     #region Collision Detection
@@ -402,12 +348,6 @@ public class Player : Unit
         {
             //other.GetComponent<Enemy>().Interact();
            
-        }
-
-        if (other.gameObject.tag == "Trap")
-        {
-            other.GetComponent<TrapScript>().Interact();
-
         }
         #endregion
 

@@ -1,37 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2239829514669081176
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1162997314471108679}
-  m_Layer: 0
-  m_Name: Melee weapons
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1162997314471108679
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2239829514669081176}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 0.6666667}
-  m_Children:
-  - {fileID: 6354622231282984786}
-  - {fileID: 6354622231330080285}
-  m_Father: {fileID: 6354622231324802116}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6354622230310489725
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,12 +57,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6354622231282984799}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.413}
-  m_LocalScale: {x: 1.1550001, y: 0.3, z: 1.5000002}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.774, y: 0.177, z: 0}
+  m_LocalScale: {x: 0.77, y: 0.2, z: 1}
   m_Children: []
-  m_Father: {fileID: 1162997314471108679}
-  m_RootOrder: 0
+  m_Father: {fileID: 6354622231324802116}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6354622231282984784
 MeshFilter:
@@ -213,7 +181,8 @@ Transform:
   - {fileID: 6354622232191868541}
   - {fileID: 6354622231981861355}
   - {fileID: 6354622230310489724}
-  - {fileID: 1162997314471108679}
+  - {fileID: 6354622231282984786}
+  - {fileID: 6354622231330080285}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -338,6 +307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2.85
   jumpFroce: 2.3
+  _rigidBody: {fileID: 6354622231324802119}
   _groundCollider: {fileID: 6354622231324802115}
   _platformCollider: {fileID: 6354622231324802171}
   _hitboxCollider: {fileID: 6354622231324802168}
@@ -347,15 +317,16 @@ MonoBehaviour:
   spellLocationRight: {fileID: 6354622230310489725}
   spellLocationCenter: {fileID: 6354622231981861352}
   facingRight: 0
+  onFire: 0
+  fireDamageTaken: 0
   myHealth: 5
   maxHealth: 0
   myMana: 0
   maxMana: 0
-  _rigidBody: {fileID: 6354622231324802119}
   facingRightLocal: 0
   knockbackForce: 5
-  meleeAttackRange: 1
-  meleeAttackDamage: 0
+  lightAttackDamage: 1
+  heavyAttackDamage: 3
   playerCollisionDamage: 0
   fireWall_prefab: {fileID: 1103918510936984276, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
   canMove: 1
@@ -518,11 +489,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6354622231330080282}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.41300002}
-  m_LocalScale: {x: 1.5, y: 0.3, z: 1.5}
+  m_LocalPosition: {x: 0.959, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 0.2, z: 1}
   m_Children: []
-  m_Father: {fileID: 1162997314471108679}
-  m_RootOrder: 1
+  m_Father: {fileID: 6354622231324802116}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6354622231330080273
 MeshFilter:

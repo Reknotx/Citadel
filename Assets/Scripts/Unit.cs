@@ -143,8 +143,8 @@ public class Unit : MonoBehaviour
 
     public virtual void Update()
     {
-        ///<summary>finds the player in the scene</summary>
-        
+      
+
 
         ///<summary>this determines if the unit can take damage from a initially cast fire spell</summary>
         onFireDamageDelay -= Time.deltaTime * onFireDamageRate;
@@ -155,6 +155,61 @@ public class Unit : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
+=======
+    
+    #region Unit Actions
+
+        #region Unit Melee Attacks
+    /// <summary> This is the attacking function /// </summary>
+    public void lightAttack(InputAction.CallbackContext context)
+    {
+
+        if (Time.time >= nextDamageEvent)
+        {
+            nextDamageEvent = Time.time + attackCoolDown;
+            if (facingRight == true)
+            {
+                _lightCollider.transform.position = spellLocationRight.transform.position;
+                StartCoroutine(lightAttackCoroutine());
+
+            }
+            else
+            {
+                _lightCollider.transform.position = spellLocationLeft.transform.position;
+                StartCoroutine(lightAttackCoroutine());
+            }
+        }
+        
+    }
+
+    /// <summary> This is the attacking function /// </summary>
+
+    public void heavyAttack(InputAction.CallbackContext context)
+    {
+        if (Time.time >= nextDamageEvent)
+        {
+            nextDamageEvent = Time.time + attackCoolDown;
+            if (facingRight == true)
+            {
+                _heavyCollider.transform.position = spellLocationRight.transform.position;
+                StartCoroutine(heavyAttackCoroutine());
+
+            }
+            else
+            {
+                _heavyCollider.transform.position = spellLocationLeft.transform.position;
+                StartCoroutine(heavyAttackCoroutine());
+            }
+        }
+        
+
+    }
+
+        #endregion
+        
+    #endregion
+>>>>>>> parent of f485587 (Merge branch 'HunterLE-ProgrammerBranch' into Tyler-Branch)
 
     /*#region Unit Melee Attacks
     /// <summary> This is the attacking function /// </summary>
