@@ -213,9 +213,7 @@ public class Unit : MonoBehaviour
         onFire = false;
     }
 
-    public IEnumerator waitOneSecond()
-    {
-        yield return new WaitForSeconds(1f);
-    }
+   
+     
     #endregion
 }

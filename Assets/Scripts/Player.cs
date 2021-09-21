@@ -90,6 +90,8 @@ public class Player : Unit
    // [HideInInspector]
     public bool Interacting = false;
 
+    [HideInInspector]
+    public bool canInteract = true;
 
 
 
@@ -110,19 +112,20 @@ public class Player : Unit
 
     #endregion
 
-
+    
     private void Awake()
     {
 
       
         
         #region Player Movement Important Connectors
-        ///<summary>The following is used to track player inputs and controls.</summary>
-        playerInputActions = new PlayerInputActions();
-        playerInputActions.PlayerControl.Enable();
-        playerInputActions.PlayerControl.Jump.performed += Jump;
-        playerInputActions.PlayerControl.Movement.performed += movement;
-        playerInputActions.PlayerControl.Drop.performed += Drop;
+         ///<summary>The following is used to track player inputs and controls.</summary>
+         playerInputActions = new PlayerInputActions();
+         playerInputActions.PlayerControl.Enable();
+         playerInputActions.PlayerControl.Jump.performed += Jump;
+         playerInputActions.PlayerControl.Movement.performed += movement;
+         playerInputActions.PlayerControl.Drop.performed += Drop;
+         
 
         
 
@@ -138,7 +141,7 @@ public class Player : Unit
 
         #region Player Stat controls
 
-        if(myHealth >= maxHealth)
+        if(myHealth >= maxHealth) 
         {
             myHealth = maxHealth;
         }
@@ -308,7 +311,9 @@ public class Player : Unit
 
     public void Interact(InputAction.CallbackContext context)
     {
+        //StartCoroutine(InteractCoroutine());
         Interacting = true;
+
     }
    
 
@@ -501,5 +506,12 @@ public class Player : Unit
     
 
     #endregion
+
+    public IEnumerator InteractCoroutine()
+    {
+        Interacting = true;
+        yield return new WaitForSeconds(.5f);
+        Interacting = false;
+    }
 
 }

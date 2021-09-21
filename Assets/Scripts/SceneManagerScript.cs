@@ -109,9 +109,9 @@ public class SceneManagerScript : MonoBehaviour
         GameObject player = GameObject.FindWithTag("Player");
         if (player.GetComponent<Player>().inMine == false)
         {
-            player.GetComponent<Player>().inMine = true;
-        player.GetComponent<Player>().canMove = false;
-            //campButtons.SetActive(false);
+            //player.GetComponent<Player>().inMine = true;
+       // player.GetComponent<Player>().canMove = false;
+            //campButtons.SetActive(false);wda
             SceneManager.LoadScene(5);
 
             
@@ -124,7 +124,7 @@ public class SceneManagerScript : MonoBehaviour
     /// <summary> this takes the player to the camp shop scene </summary>
     public void goToMineShop()
     {
-        player.GetComponent<Player>().inMineShop = true;
+        //player.GetComponent<Player>().inMineShop = true;
         mineButtons.SetActive(false);
         mineShopButtons.SetActive(true);
     }
@@ -157,10 +157,10 @@ public class SceneManagerScript : MonoBehaviour
         if (player.GetComponent<Player>().inMine == true)
         {
             // SceneManager.LoadScene(3);
-            player.GetComponent<Player>().canMove = true;       
-            SceneManager.UnloadSceneAsync(5);
+           // player.GetComponent<Player>().canMove = true;       
+            SceneManager.LoadScene(5);
             campButtons.SetActive(true);
-            player.GetComponent<Player>().inMine = false;
+           // player.GetComponent<Player>().inMine = false;
         }
         
     }
@@ -168,12 +168,11 @@ public class SceneManagerScript : MonoBehaviour
     /// <summary> this takes the player back to the camp scene </summary>
     public void backToMine()
     {
-        if (player.GetComponent<Player>().inMineShop == true)
-        {
+        
             mineButtons.SetActive(true);
             mineShopButtons.SetActive(false);
-            player.GetComponent<Player>().inMineShop = false;
-        }
+           // player.GetComponent<Player>().inMineShop = false;
+        
        
 
     }

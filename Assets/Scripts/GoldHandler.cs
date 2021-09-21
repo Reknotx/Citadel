@@ -106,13 +106,16 @@ public class GoldHandler : MonoBehaviour
     /// </summary>
     private float elapsed = 0f;
 
+
+    
+
     /// <summary>
     /// Start is called when the scene loads in
     /// </summary>
     private void Start()
     {
         currentScene = SceneManager.GetActiveScene();
-         DontDestroyOnLoad(this.gameObject);
+         
          
     }
 
@@ -122,7 +125,8 @@ public class GoldHandler : MonoBehaviour
     void Update()
     {
         
-
+        
+        
 
         ///Updates soft and hard gold text object
         softGoldText.text = "Soft Gold: " + (int)mySoftGold;
@@ -166,4 +170,6 @@ public class GoldHandler : MonoBehaviour
     {
         myHardGold += hardGold;
     }
+
+  
 }
