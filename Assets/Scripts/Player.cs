@@ -30,11 +30,17 @@ public class Player : Unit
     ///<summary>This is the maximum units health.</summary>
     public float maxHealth;
 
+    ///<summary>This is the  units starting health.</summary>
+    public float startingHealth;
+
     ///<summary>This is the units mana for magic casting.</summary>
     public float myMana;
 
     ///<summary>This is the units maximum mana for magic casting.</summary>
     public float maxMana;
+
+    ///<summary>This is the units starting .</summary>
+    public float startingMana;
 
     ///<summary>This is the players Input system.</summary>
     private PlayerInputActions playerInputActions;
@@ -62,12 +68,6 @@ public class Player : Unit
     ///<summary>This determines how far the player will knock back an enemy with the heavy attack.</summary>
     public float knockbackForce;
 
-    ///<summary>This determines the damage of the player's light attack.</summary>
-    //  public int lightAttackDamage;
-
-    ///<summary>This determines the damage of the player's heavy attack.</summary>
-    // public int heavyAttackDamage;
-
     ///<summary>This determines the range of the player's melee attack.</summary>
     public float meleeAttackRange = 1f;
 
@@ -90,14 +90,27 @@ public class Player : Unit
     [HideInInspector]
     public bool Interacting = false;
 
+
+
+
+
+    /// <summary> this keeps track of if the player is in the camp shop or not  </summary>
+    public bool inCampShop = false;
+
+    /// <summary> this keeps track of if the player is in the mine  or not  </summary>
+    public bool inMine = false;
+
+    /// <summary> this keeps track of if the player is in the mine shop or not  </summary>
+    public bool inMineShop = false;
+
     #endregion
     #endregion
 
 
     private void Awake()
     {
-       
 
+       // DontDestroyOnLoad(this.gameObject);
         #region Player Movement Important Connectors
         ///<summary>The following is used to track player inputs and controls.</summary>
         playerInputActions = new PlayerInputActions();
@@ -117,6 +130,27 @@ public class Player : Unit
     {
         facingRightLocal = facingRight;
         base.Update();
+
+        #region Player Stat controls
+
+        if(myHealth >= maxHealth)
+        {
+            myHealth = maxHealth;
+        }
+        
+
+        if (myMana >= maxMana)
+        {
+            myMana = maxMana;
+        }
+
+        if(myHealth <= 0)
+        {
+            ResetGame();
+        }
+       
+
+        #endregion
 
         #region Player Movement Detection
         ///<summary>This moves the player constantly while the input is held.</summary>
@@ -198,6 +232,20 @@ public class Player : Unit
         }
 
       
+    }
+
+
+    public void ResetGame()
+    {
+        maxHealth = startingHealth;
+        myHealth = startingHealth;
+        maxMana = startingMana;
+        myMana = startingMana;
+        GetComponentInChildren<GoldHandler>().myHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
+        GetComponentInChildren<GoldHandler>().mySoftGold = GetComponentInChildren<GoldHandler>().startingSoftGold;
+        GameObject SceneManager = GameObject.FindGameObjectWithTag("SceneManager");
+        SceneManager.GetComponent<SceneManagerScript>().backToMainmenu();
+
     }
 
 

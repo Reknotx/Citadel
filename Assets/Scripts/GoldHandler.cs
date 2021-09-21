@@ -35,6 +35,16 @@ public class GoldHandler : MonoBehaviour
     public float myHardGold;
 
     /// <summary>
+    /// player's current soft gold
+    /// </summary>
+    public float startingSoftGold = 0f;
+
+    /// <summary>
+    /// player's current hard gold
+    /// </summary>
+    public float startingHardGold = 100f;
+
+    /// <summary>
     /// GameObject that holds the UI element for soft gold
     /// </summary>
     public GameObject softGold;
