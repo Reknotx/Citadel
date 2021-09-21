@@ -14,7 +14,7 @@ public class MinesShop : MonoBehaviour
     /// <summary>
     /// This is the object which has access to the gold functions, used to reference the GoldHandler members and functions for updating gold
     /// </summary>
-    [SerializeField]
+    [SerializeField]    
     private GoldHandler gold;
 
     /// <summary>
@@ -41,9 +41,9 @@ public class MinesShop : MonoBehaviour
     [SerializeField]
     private int cartCostIncrease = 50;
 
-    /// <summary>
-    /// Called when player purchases a miner, increases player's amount of miners, subtracts the current cost of the miners from the players current gold, and increases the cost of the next miner by the base cost.
-    /// </summary>
+  
+    
+
     public void PurchaseMiner()
     {
         if( (int)gold.myHardGold >= baseMinerCost)

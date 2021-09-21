@@ -33,9 +33,7 @@ public class Unit : MonoBehaviour
         #endregion
          #region Unit's Attached Colliders/Gameobjects
 
-    ///<summary>This is the unit's private rigidbody.</summary>
-    [SerializeField]
-    protected Rigidbody _rigidBody;
+    
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
@@ -100,11 +98,11 @@ public class Unit : MonoBehaviour
     protected bool canCast;
 
     /// <summary> this determines if the unit is on fire or not </summary>
-    [SerializeField]
+    [HideInInspector]
     protected bool onFire;
 
     /// <summary> this determines if the unit has recently taken ticking fire damage </summary>
-    [SerializeField]
+    [HideInInspector]
     protected bool fireDamageTaken;
     #endregion
          #region Unit's Attacks
@@ -145,13 +143,8 @@ public class Unit : MonoBehaviour
 
     public virtual void Update()
     {
-        ///<summary>this checks if the unit is trying to pass up through a platform and will assist.</summary>
-        if (throughPlatform == true && justJumped == true)
-        {
-            StartCoroutine(dropDown());
-            _rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
-        }
-
+        ///<summary>finds the player in the scene</summary>
+        
 
         ///<summary>this determines if the unit can take damage from a initially cast fire spell</summary>
         onFireDamageDelay -= Time.deltaTime * onFireDamageRate;
@@ -163,57 +156,7 @@ public class Unit : MonoBehaviour
     }
 
     
-    #region Unit Actions
-
-        #region Unit Melee Attacks
-    /// <summary> This is the attacking function /// </summary>
-    public void lightAttack(InputAction.CallbackContext context)
-    {
-
-        if (Time.time >= nextDamageEvent)
-        {
-            nextDamageEvent = Time.time + attackCoolDown;
-            if (facingRight == true)
-            {
-                _lightCollider.transform.position = spellLocationRight.transform.position;
-                StartCoroutine(lightAttackCoroutine());
-
-            }
-            else
-            {
-                _lightCollider.transform.position = spellLocationLeft.transform.position;
-                StartCoroutine(lightAttackCoroutine());
-            }
-        }
-        
-    }
-
-    /// <summary> This is the attacking function /// </summary>
-
-    public void heavyAttack(InputAction.CallbackContext context)
-    {
-        if (Time.time >= nextDamageEvent)
-        {
-            nextDamageEvent = Time.time + attackCoolDown;
-            if (facingRight == true)
-            {
-                _heavyCollider.transform.position = spellLocationRight.transform.position;
-                StartCoroutine(heavyAttackCoroutine());
-
-            }
-            else
-            {
-                _heavyCollider.transform.position = spellLocationLeft.transform.position;
-                StartCoroutine(heavyAttackCoroutine());
-            }
-        }
-        
-
-    }
-
-        #endregion
-        
-    #endregion
+    
 
     #region IEnumerator Coroutines
     /// <summary> this allows units to drop through platforms </summary>
@@ -270,9 +213,7 @@ public class Unit : MonoBehaviour
         onFire = false;
     }
 
-    public IEnumerator waitOneSecond()
-    {
-        yield return new WaitForSeconds(1f);
-    }
+   
+     
     #endregion
 }

@@ -25,6 +25,8 @@ public class SwordBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
+
         #region switches renderer on and off depending on the collider being enabled 
         if (lightCollider.enabled==true)
         {

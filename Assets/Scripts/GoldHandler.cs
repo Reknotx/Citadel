@@ -35,6 +35,16 @@ public class GoldHandler : MonoBehaviour
     public float myHardGold;
 
     /// <summary>
+    /// player's current soft gold
+    /// </summary>
+    public float startingSoftGold = 0f;
+
+    /// <summary>
+    /// player's current hard gold
+    /// </summary>
+    public float startingHardGold = 100f;
+
+    /// <summary>
     /// GameObject that holds the UI element for soft gold
     /// </summary>
     public GameObject softGold;
@@ -96,12 +106,17 @@ public class GoldHandler : MonoBehaviour
     /// </summary>
     private float elapsed = 0f;
 
+
+    
+
     /// <summary>
     /// Start is called when the scene loads in
     /// </summary>
     private void Start()
     {
         currentScene = SceneManager.GetActiveScene();
+         
+         
     }
 
     /// <summary>
@@ -109,6 +124,10 @@ public class GoldHandler : MonoBehaviour
     /// </summary>
     void Update()
     {
+        
+        
+        
+
         ///Updates soft and hard gold text object
         softGoldText.text = "Soft Gold: " + (int)mySoftGold;
 
@@ -151,4 +170,6 @@ public class GoldHandler : MonoBehaviour
     {
         myHardGold += hardGold;
     }
+
+  
 }

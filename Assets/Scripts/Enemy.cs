@@ -21,13 +21,12 @@ public class Enemy : Unit
     ///<summary>This is the players Input system.</summary>
     private PlayerInputActions playerInputActions;
 
-    
-    
+    ///<summary>This is the unit's private rigidbody.</summary>
+    [SerializeField]
+    protected Rigidbody _rigidBody;
 
-
-
-            #endregion
-            #region Enemy's Ground/Directional Detection Stats
+    #endregion
+    #region Enemy's Ground/Directional Detection Stats
 
     ///<summary>This is the range of detection to the ground.</summary>
     private float _Reach = 1f;
@@ -48,20 +47,7 @@ public class Enemy : Unit
     ///<summary>This targets the player for the Enemy.</summary>
     public GameObject player;
 
-    ///<summary>This is the distance the enemy must be within in order to move towards the player</summary>
-    public float followDistance;
-
-    ///<summary>This is the distance from the player the enemy wills top at</summary>
-    public float stoppingDistance;
-
-    #endregion
-
-    #endregion
-
-    #region Gold Handler
-
-    public GoldHandler gold;
-    public int goldPerKill = 100000;
+            #endregion
 
     #endregion
 
@@ -70,14 +56,6 @@ public class Enemy : Unit
     {
 
         base.Update();
-
-        #region Enemy Movement
-        if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance) 
-        {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        }
-
-        #endregion
 
 
         #region Player Detection
@@ -126,6 +104,13 @@ public class Enemy : Unit
             throughPlatform = false;
 
         }
+
+        ///<summary>this checks if the unit is trying to pass up through a platform and will assist.</summary>
+        if (throughPlatform == true && justJumped == true)
+        {
+            StartCoroutine(dropDown());
+            _rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
+        }
         #endregion
 
         ///<summary> this damages the enemy over time if they are on fire</summary>
@@ -134,18 +119,13 @@ public class Enemy : Unit
             myHealth -= onFireDamage * Time.deltaTime;
             
         }
-
-        #region On Death
-
-        if (myHealth <= 0)
-        {
-            Destroy(this.gameObject);
-            gold.AddSoftGold(goldPerKill);
-        }
-
-        #endregion
     }
-
+    #region Interactions with the Player
+    public void Interact()
+    {
+        player.GetComponent<Player>().myHealth--;
+    }
+    #endregion
 
     #region Enemy Actions
 
@@ -165,9 +145,10 @@ public class Enemy : Unit
         ///<summary>This triggers when the enemy is hit with the light attack.</summary>
         if (other.gameObject.tag=="swordLight")
         {
-            myHealth = myHealth - player.GetComponent<Player>().lightAttackDamage;
+            myHealth = myHealth - player.GetComponent<Player>().meleeAttackDamage;
             hitOnRight = player.GetComponent<Player>().facingRightLocal ;
 
+            //if you turn on the bellow code, it will apply knockback to the light attack
             /*
             if (hitOnRight == true)
             {
@@ -185,7 +166,7 @@ public class Enemy : Unit
         if (other.gameObject.tag == "swordHeavy")
         {
             
-            myHealth = myHealth - player.GetComponent<Player>().heavyAttackDamage;
+            myHealth = myHealth - (player.GetComponent<Player>().meleeAttackDamage*2);
             hitOnRight = player.GetComponent<Player>().facingRightLocal;
             
 
