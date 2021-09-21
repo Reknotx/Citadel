@@ -14,9 +14,10 @@ using UnityEngine.SceneManagement;
 
 public class GoldHandler : MonoBehaviour
 {
-    /// <summary>
-    /// Text displayed for player's soft gold
-    /// </summary>
+    public static GoldHandler Instance;
+
+
+    /// <summary> Text displayed for player's soft gold </summary>
     public Text softGoldText;
 
     /// <summary>
