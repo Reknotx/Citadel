@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1020,18 +1020,6 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3817368751068355111, guid: 9d174a14e601edf4b9af522ace390c89, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3817368751068355111, guid: 9d174a14e601edf4b9af522ace390c89, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3817368751068355111, guid: 9d174a14e601edf4b9af522ace390c89, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3817368751068355111, guid: 9d174a14e601edf4b9af522ace390c89, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.37
       objectReference: {fileID: 0}
@@ -1075,42 +1063,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tent
       objectReference: {fileID: 0}
-    - target: {fileID: 4589682643182502045, guid: 9d174a14e601edf4b9af522ace390c89, type: 3}
-      propertyPath: m_TagString
-      value: CampShopEntrance
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d174a14e601edf4b9af522ace390c89, type: 3}
---- !u!1 &672323237 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4589682643182502045, guid: 9d174a14e601edf4b9af522ace390c89, type: 3}
-  m_PrefabInstance: {fileID: 672323236}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &672323238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 672323237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d1b619e39f12234d8103c740aacb4f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!65 &672323239
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 672323237}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.3864512, y: 2.0749302, z: 4.45}
-  m_Center: {x: 0.008552253, y: 1.0374632, z: 0.1581037}
 --- !u!1 &710604658
 GameObject:
   m_ObjectHideFlags: 0

@@ -108,12 +108,12 @@ public class GoldHandler : MonoBehaviour
     void Update()
     {
         ///Updates soft and hard gold text object
-        softGoldText.text = "Soft Gold: " + (int)mySoftGold;
-        hardGoldText.text = "Hard Gold: " + (int)myHardGold;
+        //softGoldText.text = "Soft Gold: " + (int)mySoftGold;
+        //hardGoldText.text = "Hard Gold: " + (int)myHardGold;
 
-        minerCostText.text = "Purchase Miner: " + MinesShop.baseMinerCost;
-        cartCostText.text = "Purchase Cart: " + MinesShop.baseCartCost;
-        goldGainText.text = "Add " + revenue + " gold to your supply";
+        //minerCostText.text = "Purchase Miner: " + MinesShop.baseMinerCost;
+        //cartCostText.text = "Purchase Cart: " + MinesShop.baseCartCost;
+        //goldGainText.text = "Add " + revenue + " gold to your supply";
 
         ///Checks which scene is active and displays the correct gold value
         if ( castleSceneName == currentScene.name )
@@ -123,8 +123,8 @@ public class GoldHandler : MonoBehaviour
         }
         else
         {
-            softGold.SetActive(false);
-            hardGold.SetActive(true);
+            //softGold.SetActive(false);
+            //hardGold.SetActive(true);
         }
 
         ///Keeps track of time elapsed and updates the players passive gold according to the interval. Gives passive gold based off the player's revenue

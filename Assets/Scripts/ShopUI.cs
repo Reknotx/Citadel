@@ -53,7 +53,7 @@ namespace ShopSystem
 
         private void OnDisable()
         {
-            Player.Instance.canMove = true;
+            if (Player.Instance != null) Player.Instance.canMove = true;
         }
 
         public void BuyStatIncrease(StatToIncrease stat)
