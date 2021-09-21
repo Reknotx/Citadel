@@ -47,9 +47,16 @@ public class Enemy : Unit
     ///<summary>This targets the player for the Enemy.</summary>
     public GameObject player;
 
-            #endregion
-
     #endregion
+    #region Enemy AI Movement Stats
+    public float followDistance;
+
+    ///<summary>This is the distance from the player the enemy wills top at</summary>
+    public float stoppingDistance;
+    #endregion
+    #endregion
+
+
 
 
     public override void Update()
@@ -57,6 +64,12 @@ public class Enemy : Unit
 
         base.Update();
 
+        #region Enemy AI Movement
+        if(Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        }
+        #endregion
 
         #region Player Detection
         ///<summary>This sets the player as the target in the scene.</summary>
@@ -117,7 +130,6 @@ public class Enemy : Unit
         if (onFire == true)
         {
             myHealth -= onFireDamage * Time.deltaTime;
-            
         }
     }
     #region Interactions with the Player

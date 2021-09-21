@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 7350155801823799727, guid: 4bada1b6300f5d74f8ea11e0827c89c1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7350155801823799733, guid: 4bada1b6300f5d74f8ea11e0827c89c1, type: 3}
       propertyPath: gold
       value: 
@@ -931,7 +935,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &623352080
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -955,14 +959,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 623352079}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75707635ce1d7044b884717d9f518dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2.81
   jumpFroce: 0
-  _rigidBody: {fileID: 623352080}
   _groundCollider: {fileID: 623352082}
   _platformCollider: {fileID: 0}
   _hitboxCollider: {fileID: 623352082}
@@ -972,15 +975,12 @@ MonoBehaviour:
   spellLocationRight: {fileID: 1265680078}
   spellLocationCenter: {fileID: 1433205990}
   facingRight: 0
-  onFire: 0
-  fireDamageTaken: 0
   myHealth: 5
+  _rigidBody: {fileID: 623352080}
   facingRightLocal: 0
   player: {fileID: 367821608}
   followDistance: 12
   stoppingDistance: 5
-  gold: {fileID: 1401711112}
-  goldPerKill: 100000
   skeletonShootingDistance: 7
   projectile: {fileID: 8009402920651334389, guid: 4be439661164c2546bd08a2cd8834521, type: 3}
   shootLocation: {fileID: 759742705}
@@ -2009,6 +2009,8 @@ MonoBehaviour:
   hardGoldText: {fileID: 1144699989}
   mySoftGold: 100
   myHardGold: 2000
+  startingSoftGold: 0
+  startingHardGold: 100
   softGold: {fileID: 226959010}
   hardGold: {fileID: 1731486358}
   castleSceneName: SampleScene
@@ -2332,7 +2334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &1568933306
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2361,9 +2363,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d218cdf961ab77b46874154626d506e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 2.15
   jumpFroce: 0
-  _rigidBody: {fileID: 1568933306}
   _groundCollider: {fileID: 1568933308}
   _platformCollider: {fileID: 0}
   _hitboxCollider: {fileID: 1568933308}
@@ -2373,16 +2374,13 @@ MonoBehaviour:
   spellLocationRight: {fileID: 1265680078}
   spellLocationCenter: {fileID: 1433205990}
   facingRight: 0
-  onFire: 0
-  fireDamageTaken: 0
   myHealth: 5
+  _rigidBody: {fileID: 1568933306}
   facingRightLocal: 0
   player: {fileID: 367821608}
   followDistance: 12
   stoppingDistance: 3
-  gold: {fileID: 1401711112}
-  goldPerKill: 100000
-  goblinMeleeRange: 3
+  goblinMeleeRange: 4
 --- !u!65 &1568933308
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3142,7 +3140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &1855897179
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3173,7 +3171,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2.08
   jumpFroce: 1.62
-  _rigidBody: {fileID: 1855897179}
   _groundCollider: {fileID: 1855897181}
   _platformCollider: {fileID: 0}
   _hitboxCollider: {fileID: 1855897181}
@@ -3183,15 +3180,12 @@ MonoBehaviour:
   spellLocationRight: {fileID: 1265680078}
   spellLocationCenter: {fileID: 1433205990}
   facingRight: 0
-  onFire: 0
-  fireDamageTaken: 0
   myHealth: 5
+  _rigidBody: {fileID: 1855897179}
   facingRightLocal: 0
   player: {fileID: 367821608}
   followDistance: 12
   stoppingDistance: 3
-  gold: {fileID: 1401711112}
-  goldPerKill: 100000
   orcMeleeRange: 3
 --- !u!65 &1855897181
 BoxCollider:
