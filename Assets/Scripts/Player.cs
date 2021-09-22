@@ -136,6 +136,7 @@ public class Player : Unit
 
     public override void Update()
     {
+        Application.targetFrameRate = 60;
         facingRightLocal = facingRight;
         base.Update();
 
@@ -168,15 +169,16 @@ public class Player : Unit
         if (canMove == true)
         {
             Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
-            _rigidBody.AddForce(new Vector3(inputVector.x, 0, 0) * speed, ForceMode.Acceleration);
+            _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
              _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
         }
         else
         {
             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
-        
+
        
+        
 
         #endregion
 
@@ -238,6 +240,8 @@ public class Player : Unit
             spellCastDelay = 3f;
         }
 
+
+
       
     }
 
@@ -286,16 +290,16 @@ public class Player : Unit
     {
         if (this != null)
         {
-            if (isGrounded == true)
+            if (isGrounded == true )
             {
 
-                _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
+                _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
                 StartCoroutine(Jumped());
 
             }
             if (onPlatform == true)
             {
-                _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
+                _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
                 StartCoroutine(Jumped());
 
             }
@@ -313,7 +317,7 @@ public class Player : Unit
 
     public void Interact(InputAction.CallbackContext context)
     {
-        //StartCoroutine(InteractCoroutine());
+        
         Interacting = true;
 
     }
@@ -482,7 +486,7 @@ public class Player : Unit
     {
         if (other.gameObject.tag == "platform")
         {
-            _groundCollider.enabled = true;
+            _platformCollider.enabled = true;
         }
  
         if (other.gameObject.tag == "MineEntrance")

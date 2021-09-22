@@ -21,19 +21,21 @@ public class Unit : MonoBehaviour
          #region Unit's Movement Stats 
 
     ///<summary>This is the unit's speed.</summary>
-    [Range(0, 5f)]
+    [Range(0, 30f)]
     [Tooltip("This is the unit's speed.")]
     public float speed;
 
     ///<summary>This determines the unit's jump height.</summary>
-    [Range(0, 8f)]
+    [Range(0, 30f)]
     [Tooltip("This determines the unit's jump height.")]
     public float jumpFroce;
 
-        #endregion
-         #region Unit's Attached Colliders/Gameobjects
-
     
+
+    #endregion
+    #region Unit's Attached Colliders/Gameobjects
+
+
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
@@ -153,6 +155,8 @@ public class Unit : MonoBehaviour
             fireDamageTaken = false;
             onFireDamageDelay = 2f;
         }
+
+      
     }
 
     
