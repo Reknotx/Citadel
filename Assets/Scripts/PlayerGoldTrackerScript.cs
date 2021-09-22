@@ -24,8 +24,6 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     public int startingNumCart;
     public int startingNumMiner = 2;
     
-
-
     public bool updated = false;
     public bool sceneChanged = false;
     public bool playerDead = false;
