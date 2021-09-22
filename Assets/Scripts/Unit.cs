@@ -168,7 +168,7 @@ public class Unit : MonoBehaviour
     {
         _platformCollider.enabled = false;
         _groundCollider.enabled = false;
-        yield return new WaitForSeconds(.7f);
+        yield return new WaitForSeconds(1f);
         _groundCollider.enabled = true;
         _platformCollider.enabled = true;
     }

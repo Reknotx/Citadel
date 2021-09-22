@@ -228,7 +228,8 @@ public class Player : Unit
         if (throughPlatform == true && justJumped == true)
         {
             StartCoroutine(dropDown());
-            _rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
+            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 10);
+            //_rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
         }
         #endregion
 
