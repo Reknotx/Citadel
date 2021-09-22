@@ -17,8 +17,8 @@ using UnityEngine.InputSystem;
 
 public class Player : Unit
 {
+    
 
-    public static Player Instance;
 
     #region Player Stats
 
@@ -83,15 +83,18 @@ public class Player : Unit
             #region Bool Determinates 
 
     /// <summary> determines if the player can move or not </summary>
-    [HideInInspector]
-    public bool canMove = true;
+        [HideInInspector]
+        public bool canMove = true;
 
     /// <summary> determines if the player is trying to interact with things or not </summary>
-    // [HideInInspector]
+   // [HideInInspector]
     public bool Interacting = false;
 
     [HideInInspector]
     public bool canInteract = true;
+
+
+
 
     /// <summary> this keeps track of if the player is in the camp shop or not  </summary>
     public bool inCampShop = false;
@@ -104,16 +107,12 @@ public class Player : Unit
 
     #endregion
 
-
-
-
     #endregion
 
     
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-            Destroy(Instance.gameObject);
+
       
         
         #region Player Movement Important Connectors
@@ -251,8 +250,8 @@ public class Player : Unit
         myHealth = startingHealth;
         maxMana = startingMana;
         myMana = startingMana;
-        GetComponentInChildren<GoldHandler>().MyHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
-        GetComponentInChildren<GoldHandler>().MySoftGold = GetComponentInChildren<GoldHandler>().startingSoftGold;
+        //GetComponentInChildren<GoldHandler>().myHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
+        GetComponentInChildren<GoldHandler>().mySoftGold = GetComponentInChildren<GoldHandler>().startingSoftGold;
         var goldTracker = GameObject.FindGameObjectWithTag("GoldTracker");
         goldTracker.GetComponent<PlayerGoldTrackerScript>().playerDead = true;
         GameObject SceneManager = GameObject.FindGameObjectWithTag("SceneManager");
