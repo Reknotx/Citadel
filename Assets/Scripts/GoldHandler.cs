@@ -25,7 +25,7 @@ public class GoldHandler : MonoBehaviour
     /// </summary>
     public Text hardGoldText;
 
-    private float _mySoftGold;
+    public float _mySoftGold;
 
     /// <summary> player's current soft gold </summary>
     public float MySoftGold
@@ -40,7 +40,7 @@ public class GoldHandler : MonoBehaviour
         }
     }
 
-    private float _myHardGold;
+    public float _myHardGold;
 
     /// <summary> player's current hard gold </summary>
     public float MyHardGold
