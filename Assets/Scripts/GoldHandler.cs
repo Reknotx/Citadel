@@ -56,12 +56,12 @@ public class GoldHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// player's current soft gold
+    /// player's starting soft gold
     /// </summary>
     public float startingSoftGold = 0f;
 
     /// <summary>
-    /// player's current hard gold
+    /// player's starting hard gold
     /// </summary>
     public float startingHardGold = 100f;
 
@@ -127,6 +127,9 @@ public class GoldHandler : MonoBehaviour
     /// </summary>
     private float elapsed = 0f;
 
+
+    
+
     /// <summary>
     /// Start is called when the scene loads in
     /// </summary>
@@ -142,6 +145,10 @@ public class GoldHandler : MonoBehaviour
     /// </summary>
     void Update()
     {
+        
+        
+        
+
         ///Updates soft and hard gold text object
         //softGoldText.text = "Soft Gold: " + (int)MySoftGold;
 
