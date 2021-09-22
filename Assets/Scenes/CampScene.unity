@@ -1056,6 +1056,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc33e1890df07fb4e985addd8c566472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1574091125
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1574091127}
+  - component: {fileID: 1574091126}
+  m_Layer: 0
+  m_Name: PlayerGoldTracker
+  m_TagString: GoldTracker
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1574091126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574091125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45231a9b2fed0c249bf16aa2d0c63406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldHandler: {fileID: 0}
+  playerSoftGold: 0
+  playerHardGold: 0
+  startingSoftGold: 0
+  startingHardGold: 100
+  numCart: 0
+  numMiner: 1
+  startingNumCart: 0
+  startingNumMiner: 1
+  updated: 0
+  sceneChanged: 0
+  playerDead: 0
+  currentSceneName: 
+  lastSceneName: 
+--- !u!4 &1574091127
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574091125}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.5685246, y: 3, z: 0.5601443}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1745337789 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6354622231324802118, guid: 5d7aa0badcecf8141a1f7020c3346bbf, type: 3}

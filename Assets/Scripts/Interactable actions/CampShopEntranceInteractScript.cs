@@ -17,7 +17,7 @@ public class CampShopEntranceInteractScript : MonoBehaviour
     public void Interact()
     {
         if (shopUI != null) shopUI.SetActive(true);
-        Player.Instance.canMove = false;
+       // Player.Instance.canMove = false;
     }
 
     //public override void Interact()

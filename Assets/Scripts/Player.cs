@@ -454,7 +454,7 @@ public class Player : Unit
 
             if (Interacting == true)
             {
-
+                canMove = false;
                 other.GetComponent<CampShopEntranceInteractScript>().Interact();
                 Interacting = false;
             }
