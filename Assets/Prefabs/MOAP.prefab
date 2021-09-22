@@ -1421,7 +1421,7 @@ GameObject:
   - component: {fileID: 5935659708264913100}
   m_Layer: 0
   m_Name: GoldHandler
-  m_TagString: Untagged
+  m_TagString: PlayerGoldHandler
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1454,6 +1454,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   softGoldText: {fileID: 774425043847044386}
   hardGoldText: {fileID: 5935659707873794385}
+  _mySoftGold: 0
+  _myHardGold: 0
   startingSoftGold: 0
   startingHardGold: 100
   softGold: {fileID: 4640540087166160471}
