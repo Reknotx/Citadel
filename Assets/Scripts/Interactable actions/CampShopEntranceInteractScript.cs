@@ -17,6 +17,8 @@ public class CampShopEntranceInteractScript : MonoBehaviour
     public void Interact()
     {
         if (shopUI != null) shopUI.SetActive(true);
+        var sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
+        sceneManager.GetComponent<SceneManagerScript>().goToCampShop();
        // Player.Instance.canMove = false;
     }
 
