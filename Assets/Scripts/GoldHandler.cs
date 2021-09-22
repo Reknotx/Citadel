@@ -166,7 +166,7 @@ public class GoldHandler : MonoBehaviour
     }
 
     /// <param name="hardGold">Increase amount of hard gold by given integer</param>
-    public void AddHardGold(int hardGold)
+    public void AddHardGold(float hardGold)
     {
         myHardGold += hardGold;
     }

@@ -38,22 +38,6 @@ public class Goblin : Enemy
 
     public void GoblinMeleeAttack()
     {
-        if (Time.time >= nextDamageEvent)
-        {
-            nextDamageEvent = Time.time + attackCoolDown;
-            if (facingRight == true)
-            {
-                _lightCollider.transform.position = spellLocationRight.transform.position;
-                _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale / 2);
-                StartCoroutine(lightAttackCoroutine());
-
-            }
-            else
-            {
-                _lightCollider.transform.position = spellLocationLeft.transform.position;
-                _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
-                StartCoroutine(lightAttackCoroutine());
-            }
-        }
+        
     }
 }

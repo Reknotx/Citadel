@@ -54,6 +54,10 @@ public class Enemy : Unit
     ///<summary>This is the distance from the player the enemy wills top at</summary>
     public float stoppingDistance;
     #endregion
+    #region Gold Handler
+    public GoldHandler gold;
+    public int goldOnDeath;
+    #endregion
     #endregion
 
 
@@ -69,6 +73,23 @@ public class Enemy : Unit
         {
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         }
+
+        if(transform.position.x - player.transform.position.x > 0)
+        {
+            facingRight = true;
+        }
+
+        if(transform.position.x - player.transform.position.x < 0)
+        {
+            facingRight = false;
+        }
+
+        if (myHealth <= 0)
+        {
+            Destroy(this.gameObject);
+            gold.AddSoftGold(goldOnDeath);
+        }
+
         #endregion
 
         #region Player Detection
