@@ -89,10 +89,10 @@ public class PlayerGoldTrackerScript : MonoBehaviour
         {
             if (playerDead == true)
             {
-                playerHardGold = startingHardGold;
+                //playerHardGold = startingHardGold;
                 playerSoftGold = startingSoftGold;
-                numCart = startingNumCart;
-                numMiner = startingNumMiner;
+                //numCart = startingNumCart;
+               // numMiner = startingNumMiner;
                 playerDead = false;
             }
             goldHandler.GetComponent<GoldHandler>().myHardGold = playerHardGold;
