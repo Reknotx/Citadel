@@ -107,9 +107,6 @@ public class Player : Unit
 
     #endregion
 
-
-
-
     #endregion
 
     
@@ -253,7 +250,7 @@ public class Player : Unit
         myHealth = startingHealth;
         maxMana = startingMana;
         myMana = startingMana;
-        GetComponentInChildren<GoldHandler>().myHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
+        //GetComponentInChildren<GoldHandler>().myHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
         GetComponentInChildren<GoldHandler>().mySoftGold = GetComponentInChildren<GoldHandler>().startingSoftGold;
         var goldTracker = GameObject.FindGameObjectWithTag("GoldTracker");
         goldTracker.GetComponent<PlayerGoldTrackerScript>().playerDead = true;
