@@ -17,8 +17,8 @@ using UnityEngine.InputSystem;
 
 public class Player : Unit
 {
+    
 
-    public static Player Instance;
 
     #region Player Stats
 
@@ -112,11 +112,7 @@ public class Player : Unit
     
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(Instance.gameObject);
-        }
-        Instance = this;
+
       
         
         #region Player Movement Important Connectors
@@ -137,6 +133,7 @@ public class Player : Unit
 
     public override void Update()
     {
+        Application.targetFrameRate = 60;
         facingRightLocal = facingRight;
         base.Update();
 
@@ -169,15 +166,16 @@ public class Player : Unit
         if (canMove == true)
         {
             Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
-            _rigidBody.AddForce(new Vector3(inputVector.x, 0, 0) * speed, ForceMode.Acceleration);
+            _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
              _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
         }
         else
         {
             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
-        
+
        
+        
 
         #endregion
 
@@ -227,7 +225,8 @@ public class Player : Unit
         if (throughPlatform == true && justJumped == true)
         {
             StartCoroutine(dropDown());
-            _rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
+            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 10);
+            //_rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
         }
         #endregion
 
@@ -239,6 +238,8 @@ public class Player : Unit
             spellCastDelay = 3f;
         }
 
+
+
       
     }
 
@@ -249,8 +250,8 @@ public class Player : Unit
         myHealth = startingHealth;
         maxMana = startingMana;
         myMana = startingMana;
-        GetComponentInChildren<GoldHandler>().MyHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
-        GetComponentInChildren<GoldHandler>().MySoftGold = GetComponentInChildren<GoldHandler>().startingSoftGold;
+        GetComponentInChildren<GoldHandler>().myHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
+        GetComponentInChildren<GoldHandler>().mySoftGold = GetComponentInChildren<GoldHandler>().startingSoftGold;
         var goldTracker = GameObject.FindGameObjectWithTag("GoldTracker");
         goldTracker.GetComponent<PlayerGoldTrackerScript>().playerDead = true;
         GameObject SceneManager = GameObject.FindGameObjectWithTag("SceneManager");
@@ -287,16 +288,16 @@ public class Player : Unit
     {
         if (this != null)
         {
-            if (isGrounded == true)
+            if (isGrounded == true )
             {
 
-                _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
+                _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
                 StartCoroutine(Jumped());
 
             }
             if (onPlatform == true)
             {
-                _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
+                _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
                 StartCoroutine(Jumped());
 
             }
@@ -314,7 +315,7 @@ public class Player : Unit
 
     public void Interact(InputAction.CallbackContext context)
     {
-        //StartCoroutine(InteractCoroutine());
+        
         Interacting = true;
 
     }
@@ -483,7 +484,7 @@ public class Player : Unit
     {
         if (other.gameObject.tag == "platform")
         {
-            _groundCollider.enabled = true;
+            _platformCollider.enabled = true;
         }
  
         if (other.gameObject.tag == "MineEntrance")

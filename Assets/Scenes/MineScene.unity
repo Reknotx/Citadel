@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -501,16 +501,15 @@ MonoBehaviour:
   hardGoldText: {fileID: 1886037513}
   mySoftGold: 100
   myHardGold: 2000
+  startingSoftGold: 0
+  startingHardGold: 100
   softGold: {fileID: 1565832886}
   hardGold: {fileID: 1597872528}
   castleSceneName: CastleScene
   mainMenuName: MainMenu
   numOfMiners: 2
-  minerCostText: {fileID: 0}
   baseGoldIncrease: 0
   numOfCarts: 0
-  cartCostText: {fileID: 0}
-  goldGainText: {fileID: 0}
   minerIncrease: 2
   cartIncrease: 5
   revenue: 0
@@ -1408,7 +1407,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gold: {fileID: 105676571}
+  baseMinerCost: 50
   minerCostIncrease: 25
+  baseCartCost: 150
   cartCostIncrease: 50
 --- !u!4 &1119752597
 Transform:
@@ -1453,8 +1454,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba39b71177ec0146975cf6085c3abff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inCampShop: 0
-  inMineShop: 0
   campButtons: {fileID: 0}
   campShopButtons: {fileID: 0}
   mineButtons: {fileID: 1628519898}

@@ -461,7 +461,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4164641213947438827}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.57, y: 2.05, z: 0}
+  m_LocalPosition: {x: 0, y: 1.1, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4164641213624984639}
@@ -594,7 +594,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2.85
   jumpFroce: 2.3
-  _rigidBody: {fileID: 4164641213947438828}
   _groundCollider: {fileID: 4164641213947438824}
   _platformCollider: {fileID: 4164641213947438800}
   _hitboxCollider: {fileID: 4164641213947438803}
@@ -604,17 +603,25 @@ MonoBehaviour:
   spellLocationRight: {fileID: 4164641212815824086}
   spellLocationCenter: {fileID: 4164641213551997763}
   facingRight: 0
-  onFire: 0
-  fireDamageTaken: 0
   myHealth: 5
+  maxHealth: 0
+  startingHealth: 0
   myMana: 0
+  maxMana: 0
+  startingMana: 0
+  _rigidBody: {fileID: 4164641213947438828}
   facingRightLocal: 0
   knockbackForce: 5
-  lightAttackDamage: 1
-  heavyAttackDamage: 3
+  meleeAttackRange: 1
+  meleeAttackDamage: 0
   playerCollisionDamage: 0
   fireWall_prefab: {fileID: 1103918510936984276, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
   canMove: 1
+  Interacting: 0
+  canInteract: 1
+  inCampShop: 0
+  inMine: 0
+  inMineShop: 0
 --- !u!114 &4164641213947438802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -736,6 +743,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2d06b76a-c763-4971-b69a-c83e6f3bbe55
     m_ActionName: PlayerControl/Attack 3[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2220fc03-f45c-4321-970a-3215eb00f551
+    m_ActionName: PlayerControl/Interact[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControl
