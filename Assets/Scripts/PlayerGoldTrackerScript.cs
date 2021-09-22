@@ -91,8 +91,8 @@ public class PlayerGoldTrackerScript : MonoBehaviour
                 playerDead = false;
             }
 
-            goldHandler.GetComponent<GoldHandler>().MyHardGold = playerHardGold;
-            goldHandler.GetComponent<GoldHandler>().MySoftGold = playerSoftGold;
+            goldHandler.GetComponent<GoldHandler>()._myHardGold = playerHardGold;
+            goldHandler.GetComponent<GoldHandler>()._mySoftGold = playerSoftGold;
             goldHandler.GetComponent<GoldHandler>().numOfCarts = numCart;
             goldHandler.GetComponent<GoldHandler>().numOfMiners = numMiner;
 
