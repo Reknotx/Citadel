@@ -83,18 +83,15 @@ public class Player : Unit
             #region Bool Determinates 
 
     /// <summary> determines if the player can move or not </summary>
-        [HideInInspector]
-        public bool canMove = true;
+    [HideInInspector]
+    public bool canMove = true;
 
     /// <summary> determines if the player is trying to interact with things or not </summary>
-   // [HideInInspector]
+    // [HideInInspector]
     public bool Interacting = false;
 
     [HideInInspector]
     public bool canInteract = true;
-
-
-
 
     /// <summary> this keeps track of if the player is in the camp shop or not  </summary>
     public bool inCampShop = false;
