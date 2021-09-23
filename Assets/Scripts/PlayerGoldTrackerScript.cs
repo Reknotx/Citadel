@@ -48,8 +48,14 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     
-       goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
+
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        //_instance = this;
+
+        goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
         currentSceneName = SceneManager.GetActiveScene().name;
 
         if(currentSceneName!=lastSceneName)

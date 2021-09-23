@@ -362,7 +362,7 @@ public class Player : Unit
     }
     #endregion
     #region Unit Melee Attacks
-    /// <summary> This is the attacking function /// </summary>
+    /// <summary> This is the attacking function  </summary>
     public void lightAttack(InputAction.CallbackContext context)
     {
         _lightCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange, .3f, 1.5f);
@@ -387,7 +387,7 @@ public class Player : Unit
 
     }
 
-    /// <summary> This is the attacking function /// </summary>
+    /// <summary> This is the attacking function  </summary>
 
     public void heavyAttack(InputAction.CallbackContext context)
     {
