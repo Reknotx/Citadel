@@ -27,11 +27,19 @@ public class Goblin : Enemy
 
     #endregion
 
+    #region Goblin Attack Visuals
+
+    public GameObject goblinAttack_L;
+    public GameObject goblinAttack_R;
+
+    #endregion
+
 
     // Start is called before the first frame update
     void Start()
     {
-
+        goblinAttack_L.SetActive(false);
+        goblinAttack_R.SetActive(false);
     }
 
     // Update is called once per frame
@@ -43,11 +51,27 @@ public class Goblin : Enemy
         {
             if (canAttack)
             {
-                playerLife.Damage(goblinDamage);
-                StartCoroutine(WaitBetweenAttack());
+                GoblinAttack();
             }
         }
 
+    }
+
+    private void GoblinAttack()
+    {
+        if (facingRight)
+        {
+            StartCoroutine(WaitBetweenVisual_Right());
+            playerLife.Damage(goblinDamage);
+            StartCoroutine(WaitBetweenAttack());
+
+        }
+        else
+        {
+            StartCoroutine(WaitBetweenVisual_Left());
+            playerLife.Damage(goblinDamage);
+            StartCoroutine(WaitBetweenAttack());
+        }
     }
 
     IEnumerator WaitBetweenAttack()
@@ -55,5 +79,19 @@ public class Goblin : Enemy
         canAttack = false;
         yield return new WaitForSeconds(1f);
         canAttack = true;
+    }
+
+    IEnumerator WaitBetweenVisual_Right()
+    {
+        goblinAttack_R.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        goblinAttack_R.SetActive(false);
+    }
+
+    IEnumerator WaitBetweenVisual_Left()
+    {
+        goblinAttack_L.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        goblinAttack_L.SetActive(false);
     }
 }

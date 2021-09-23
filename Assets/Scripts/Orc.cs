@@ -27,11 +27,19 @@ public class Orc : Enemy
 
     #endregion
 
+    #region Orc Attack Visuals
+
+    public GameObject orcAttack_L;
+    public GameObject orcAttack_R;
+
+    #endregion
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        orcAttack_L.SetActive(false);
+        orcAttack_R.SetActive(false);
     }
 
     // Update is called once per frame
@@ -43,11 +51,26 @@ public class Orc : Enemy
         {
             if (canAttack)
             {
-                playerLife.Damage(orcDamage);
-                StartCoroutine(WaitBetweenAttack());
+                OrcAttack();
             }
         }
+    }
 
+    private void OrcAttack()
+    {
+        if (facingRight)
+        {
+            StartCoroutine(WaitBetweenVisual_Right());
+            playerLife.Damage(orcDamage);
+            StartCoroutine(WaitBetweenAttack());
+            
+        }
+        else
+        {
+            StartCoroutine(WaitBetweenVisual_Left());
+            playerLife.Damage(orcDamage);
+            StartCoroutine(WaitBetweenAttack());
+        }
     }
 
     IEnumerator WaitBetweenAttack()
@@ -55,5 +78,19 @@ public class Orc : Enemy
         canAttack = false;
         yield return new WaitForSeconds(1f);
         canAttack = true;
+    }
+
+    IEnumerator WaitBetweenVisual_Right()
+    {
+        orcAttack_R.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        orcAttack_R.SetActive(false);
+    }
+
+    IEnumerator WaitBetweenVisual_Left()
+    {
+        orcAttack_L.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        orcAttack_L.SetActive(false);
     }
 }

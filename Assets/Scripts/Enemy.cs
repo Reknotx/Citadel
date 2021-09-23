@@ -53,6 +53,8 @@ public class Enemy : Unit
 
     ///<summary>This is the distance from the player the enemy wills top at</summary>
     public float stoppingDistance;
+
+    private Vector3 enemyDirectionLocal;
     #endregion
     #region Gold Handler
     public GoldHandler gold;
@@ -69,26 +71,8 @@ public class Enemy : Unit
         base.Update();
 
         #region Enemy AI Movement
-        if(Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        }
 
-        if(transform.position.x - player.transform.position.x > 0)
-        {
-            facingRight = true;
-        }
-
-        if(transform.position.x - player.transform.position.x < 0)
-        {
-            facingRight = false;
-        }
-
-        if (myHealth <= 0)
-        {
-            Destroy(this.gameObject);
-            gold.AddSoftGold(goldOnDeath);
-        }
+        EnemyMovement();
 
         #endregion
 
@@ -166,6 +150,32 @@ public class Enemy : Unit
     public void patrolAB()
     {
         return;
+    }
+
+    public virtual void EnemyMovement()
+    {
+        if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        }
+
+        enemyDirectionLocal = transform.InverseTransformPoint(player.transform.position);
+
+        if (enemyDirectionLocal.x > 0)
+        {
+            facingRight = true;
+        }
+
+        if (enemyDirectionLocal.x < 0)
+        {
+            facingRight = false;
+        }
+
+        if (myHealth <= 0)
+        {
+            Destroy(this.gameObject);
+            gold.AddSoftGold(goldOnDeath);
+        }
     }
 
 
