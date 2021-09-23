@@ -16,6 +16,15 @@ public class Orc : Enemy
     [SerializeField]
     private float orcMeleeRange;
 
+    public float orcDamage;
+
+    private bool canAttack = true;
+    #endregion
+
+    #region Life Handler for Player
+
+    public LifeManaHandler playerLife;
+
     #endregion
 
 
@@ -32,8 +41,19 @@ public class Orc : Enemy
 
         if(Vector2.Distance(transform.position, player.transform.position) <= orcMeleeRange)
         {
-            //lightAttack(/*attack player*/);
+            if (canAttack)
+            {
+                playerLife.Damage(orcDamage);
+                StartCoroutine(WaitBetweenAttack());
+            }
         }
 
+    }
+
+    IEnumerator WaitBetweenAttack()
+    {
+        canAttack = false;
+        yield return new WaitForSeconds(1f);
+        canAttack = true;
     }
 }

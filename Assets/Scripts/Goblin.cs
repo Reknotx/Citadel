@@ -15,6 +15,16 @@ public class Goblin : Enemy
     [SerializeField]
     private float goblinMeleeRange;
 
+    public float goblinDamage;
+
+    private bool canAttack = true;
+
+    #endregion
+
+    #region Life Handler for Player
+
+    public LifeManaHandler playerLife;
+
     #endregion
 
 
@@ -31,13 +41,19 @@ public class Goblin : Enemy
 
         if (Vector2.Distance(transform.position, player.transform.position) <= goblinMeleeRange)
         {
-            GoblinMeleeAttack();
+            if (canAttack)
+            {
+                playerLife.Damage(goblinDamage);
+                StartCoroutine(WaitBetweenAttack());
+            }
         }
 
     }
 
-    public void GoblinMeleeAttack()
+    IEnumerator WaitBetweenAttack()
     {
-        
+        canAttack = false;
+        yield return new WaitForSeconds(1f);
+        canAttack = true;
     }
 }

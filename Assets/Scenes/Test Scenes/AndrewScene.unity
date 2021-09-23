@@ -775,118 +775,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3344308626254956239, guid: e0fe9c3120a2c4a428bf1a1b74291b4c, type: 3}
   m_PrefabInstance: {fileID: 3344308626590295849}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &498943127
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 498943128}
-  - component: {fileID: 498943132}
-  - component: {fileID: 498943131}
-  - component: {fileID: 498943130}
-  - component: {fileID: 498943129}
-  m_Layer: 0
-  m_Name: Goblin_meleeLight
-  m_TagString: swordLight
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &498943128
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 498943127}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.67, y: 0.40710604, z: 0.03537855}
-  m_LocalScale: {x: 0.5837461, y: 0.15162237, z: 0.75811183}
-  m_Children: []
-  m_Father: {fileID: 1568933311}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &498943129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 498943127}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45f9e0076db44f948a374c52986e9ea2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lightCollider: {fileID: 498943130}
-  heavyCollider: {fileID: 896389007}
-  lightRenderer: {fileID: 498943131}
-  heavyRenderer: {fileID: 896389009}
---- !u!65 &498943130
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 498943127}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &498943131
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 498943127}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 4bfefe8d774f78e4097f352b22b901a3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &498943132
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 498943127}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!65 &503577681 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 7350155802209281737, guid: 4bada1b6300f5d74f8ea11e0827c89c1, type: 3}
@@ -1101,6 +989,8 @@ MonoBehaviour:
   player: {fileID: 367821608}
   followDistance: 12
   stoppingDistance: 5
+  gold: {fileID: 0}
+  goldOnDeath: 0
   skeletonShootingDistance: 7
   projectile: {fileID: 8009402920651334389, guid: 4be439661164c2546bd08a2cd8834521, type: 3}
   shootLocation: {fileID: 759742705}
@@ -1429,46 +1319,6 @@ CanvasRenderer:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7431981048439176727, guid: 72d60d6bd53b4e24ebd8ca74847ee5ed, type: 3}
   m_PrefabInstance: {fileID: 7431981048209220336}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &875601165
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 875601166}
-  m_Layer: 0
-  m_Name: Goblin_spellLocationLeft
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &875601166
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875601165}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.53, y: 0.27292022, z: 0.03537855}
-  m_LocalScale: {x: 0.75811183, y: 0.75811183, z: 0.75811183}
-  m_Children: []
-  m_Father: {fileID: 1568933311}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &896389007 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 4164641213868743860, guid: b52e07313918d364bbc57db27fa8577c, type: 3}
-  m_PrefabInstance: {fileID: 586622971}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &896389009 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 4164641213868743861, guid: b52e07313918d364bbc57db27fa8577c, type: 3}
-  m_PrefabInstance: {fileID: 586622971}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &922537541
 GameObject:
@@ -2494,7 +2344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &1568933306
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2530,8 +2380,8 @@ MonoBehaviour:
   _hitboxCollider: {fileID: 1568933308}
   _lightCollider: {fileID: 1714150994}
   _heavyCollider: {fileID: 503577681}
-  spellLocationLeft: {fileID: 875601165}
-  spellLocationRight: {fileID: 1980844489}
+  spellLocationLeft: {fileID: 0}
+  spellLocationRight: {fileID: 0}
   spellLocationCenter: {fileID: 1433205990}
   facingRight: 0
   myHealth: 5
@@ -2540,7 +2390,11 @@ MonoBehaviour:
   player: {fileID: 367821608}
   followDistance: 12
   stoppingDistance: 3
+  gold: {fileID: 1401711112}
+  goldOnDeath: 25
   goblinMeleeRange: 3
+  goblinDamage: 15
+  playerLife: {fileID: 171176569}
 --- !u!65 &1568933308
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2613,10 +2467,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 19.61, y: -3.19, z: -0.07}
   m_LocalScale: {x: 1.9786, y: 1.9786, z: 1.9786}
-  m_Children:
-  - {fileID: 875601166}
-  - {fileID: 1980844490}
-  - {fileID: 498943128}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3349,7 +3200,11 @@ MonoBehaviour:
   player: {fileID: 367821608}
   followDistance: 12
   stoppingDistance: 3
+  gold: {fileID: 1401711112}
+  goldOnDeath: 25
   orcMeleeRange: 3
+  orcDamage: 15
+  playerLife: {fileID: 171176569}
 --- !u!65 &1855897181
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3551,36 +3406,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1980844489
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1980844490}
-  m_Layer: 0
-  m_Name: Goblin_spellLocationRight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1980844490
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1980844489}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.53, y: 0.27292022, z: 0.03537855}
-  m_LocalScale: {x: 0.75811183, y: 0.75811183, z: 0.75811183}
-  m_Children: []
-  m_Father: {fileID: 1568933311}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2063585435 stripped
 MonoBehaviour:
