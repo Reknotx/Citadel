@@ -31,8 +31,29 @@ public class Goblin : Enemy
 
         if (Vector2.Distance(transform.position, player.transform.position) <= goblinMeleeRange)
         {
-            //lightAttack(/*attack player*/);
+            GoblinMeleeAttack();
         }
 
+    }
+
+    public void GoblinMeleeAttack()
+    {
+        if (Time.time >= nextDamageEvent)
+        {
+            nextDamageEvent = Time.time + attackCoolDown;
+            if (facingRight == true)
+            {
+                _lightCollider.transform.position = spellLocationRight.transform.position;
+                _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale / 2);
+                StartCoroutine(lightAttackCoroutine());
+
+            }
+            else
+            {
+                _lightCollider.transform.position = spellLocationLeft.transform.position;
+                _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
+                StartCoroutine(lightAttackCoroutine());
+            }
+        }
     }
 }

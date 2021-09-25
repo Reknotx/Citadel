@@ -15,8 +15,14 @@ namespace ShopSystem
         public Button speedUpButton;
         public Button manaUpButton;
         public Button spellPotencyUpButton;
+        public Button firewallSpellButton;
 
         List<Button> shopButtons;
+
+        private void Awake()
+        {
+            if (gameObject.activeSelf) gameObject.SetActive(false);
+        }
 
         private void Start()
         {
@@ -28,6 +34,7 @@ namespace ShopSystem
             shopButtons.Add(speedUpButton);
             shopButtons.Add(manaUpButton);
             shopButtons.Add(spellPotencyUpButton);
+            shopButtons.Add(firewallSpellButton);
 
             healthUpButton.onClick.AddListener(() => BuyStatIncrease(info.healthUpInfo.statToIncrease));
             attackUpButton.onClick.AddListener(() => BuyStatIncrease(info.attackUpInfo.statToIncrease));
@@ -35,11 +42,18 @@ namespace ShopSystem
             speedUpButton.onClick.AddListener(() => BuyStatIncrease(info.speedUpInfo.statToIncrease));
             manaUpButton.onClick.AddListener(() => BuyStatIncrease(info.manaUpInfo.statToIncrease));
             spellPotencyUpButton.onClick.AddListener(() => BuyStatIncrease(info.spellPotencyUpInfo.statToIncrease));
+
+            firewallSpellButton.onClick.AddListener(() => BuySpell());
         }
 
         private void OnEnable()
         {
             CheckButtons();
+        }
+
+        private void OnDisable()
+        {
+            if (Player.Instance != null) Player.Instance.canMove = true;
         }
 
         public void BuyStatIncrease(StatToIncrease stat)
@@ -94,42 +108,29 @@ namespace ShopSystem
                     break;
             }
 
-            GoldHandler.Instance.myHardGold -= goldSpent;
+            GoldHandler.Instance.MyHardGold -= goldSpent;
 
             CheckButtons();
         }
 
         public void CheckButtons()
         {
-            if (GoldHandler.Instance.myHardGold < info.healthUpInfo.upgradeCost)
-                healthUpButton.interactable = false;
-            else
-                healthUpButton.interactable = true;
+            float hardGold = GoldHandler.Instance.MyHardGold;
 
-            if (GoldHandler.Instance.myHardGold < info.attackUpInfo.upgradeCost)
-                attackUpButton.interactable = false;
-            else
-                attackUpButton.interactable = true;
+            healthUpButton.interactable = hardGold > info.healthUpInfo.upgradeCost;
+            attackUpButton.interactable = hardGold > info.attackUpInfo.upgradeCost;
+            attackRangeUpButton.interactable = hardGold > info.attackRangeUpInfo.upgradeCost;
+            speedUpButton.interactable = hardGold > info.speedUpInfo.upgradeCost;
+            manaUpButton.interactable = hardGold > info.manaUpInfo.upgradeCost;
+            spellPotencyUpButton.interactable = hardGold > info.spellPotencyUpInfo.upgradeCost;
 
-            if (GoldHandler.Instance.myHardGold < info.attackRangeUpInfo.upgradeCost)
-                attackRangeUpButton.interactable = false;
-            else
-                attackRangeUpButton.interactable = true;
-
-            if (GoldHandler.Instance.myHardGold < info.speedUpInfo.upgradeCost)
-                speedUpButton.interactable = false;
-            else
-                speedUpButton.interactable = true;
-
-            if (GoldHandler.Instance.myHardGold < info.manaUpInfo.upgradeCost)
-                manaUpButton.interactable = false;
-            else
-                manaUpButton.interactable = true;
-
-            if (GoldHandler.Instance.myHardGold < info.spellPotencyUpInfo.upgradeCost)
-                spellPotencyUpButton.interactable = false;
-            else
-                spellPotencyUpButton.interactable = true;
+            firewallSpellButton.interactable = hardGold > info.fireWall.baseSpellCost;
         }
+        public void BuySpell()
+        {
+            Player.Instance.fireWall_prefab = info.fireWall.spellPrefab;
+        }
+
     }
+
 }

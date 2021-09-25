@@ -1159,6 +1159,7 @@ GameObject:
   - component: {fileID: 4311093275309286339}
   - component: {fileID: 1529968456051506474}
   - component: {fileID: 7516163073446458642}
+  - component: {fileID: 7234027933687321025}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Untagged
@@ -1238,12 +1239,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bab5b1c800e967e40bb5417b637118fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 0
   speed: 2.85
-  _rigidBody: {fileID: 0}
-  _collider: {fileID: 0}
   jumpFroce: 2.3
-  Reach: 1
+  _groundCollider: {fileID: 0}
+  _platformCollider: {fileID: 0}
+  _hitboxCollider: {fileID: 0}
+  _lightCollider: {fileID: 0}
+  _heavyCollider: {fileID: 0}
+  spellLocationLeft: {fileID: 0}
+  spellLocationRight: {fileID: 0}
+  spellLocationCenter: {fileID: 0}
+  facingRight: 0
+  myHealth: 0
+  maxHealth: 0
+  myMana: 0
+  maxMana: 0
+  _rigidBody: {fileID: 0}
+  facingRightLocal: 0
+  knockbackForce: 0
+  meleeAttackRange: 1
+  meleeAttackDamage: 0
+  playerCollisionDamage: 0
+  fireWall_prefab: {fileID: 0}
+  canMove: 1
+  Interacting: 0
 --- !u!114 &7516163073446458642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1370,6 +1389,25 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerControl
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!95 &7234027933687321025
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5558018655770081519}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: f9b60a898dc1c5e46b008c9231ab9f8b, type: 3}
+  m_Controller: {fileID: 9100000, guid: f997b82ab47ad794b9626d9c49886e0a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5829642779118348021
 GameObject:
   m_ObjectHideFlags: 0

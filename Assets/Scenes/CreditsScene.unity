@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 1176569689}
   m_Layer: 0
   m_Name: Scene Manager
-  m_TagString: Untagged
+  m_TagString: SceneManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -400,8 +400,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba39b71177ec0146975cf6085c3abff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inCampShop: 0
-  inMineShop: 0
   campButtons: {fileID: 0}
   campShopButtons: {fileID: 0}
   mineButtons: {fileID: 0}
@@ -471,7 +469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -729,8 +727,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Credits
 
-
-    Coming Soon'
+'
 --- !u!222 &1733331384
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -20,9 +20,6 @@ using UnityEngine;
 ///figure out what rooms I need to spawn afterwards that will fit that description
 ///
 
-
-
-
 /// <summary> The map generator that spawns in the rooms in a 6x6 grid. </summary>
 public class MapGenerator : MonoBehaviour
 {
@@ -67,12 +64,14 @@ public class MapGenerator : MonoBehaviour
 
     public void Start()
     {
-        grid = new Room[gridInfo.gridSize, gridInfo.gridSize + 6];
-        conceptGrid = new GridNode[gridInfo.gridSize, gridInfo.gridSize + 6];
-        columns = gridInfo.gridSize + 6;
-        rows = gridInfo.gridSize;
+        //trueGridSize = new Vector2(gridInfo.gridSize + 1, gridInfo.gridSize);
+        trueGridSize = new Vector2(gridInfo.gridSize + 1, 1);
 
-        trueGridSize = new Vector2(gridInfo.gridSize + 6, gridInfo.gridSize);
+        grid = new Room[(int)trueGridSize.y, (int)trueGridSize.x];
+        conceptGrid = new GridNode[(int)trueGridSize.y, (int)trueGridSize.x];
+        columns = (int)trueGridSize.x;
+        rows = (int)trueGridSize.y;
+
 
         ///Initializing the concept grid.
         Debug.Log("Initializing the concept grid.");
@@ -198,7 +197,7 @@ public class MapGenerator : MonoBehaviour
             row.transform.parent = transform;
 
             ///Spawning in a column
-            for (int x = 1; x < trueGridSize.x; x++)
+            for (int x = 0; x < trueGridSize.x; x++)
             {
                 if (grid[y, x] != null) continue;
 
