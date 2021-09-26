@@ -22,10 +22,21 @@ public class Player : Unit
 
     #region Player Stats
 
-            #region Player's Base Stats/Important controls
+    #region Player's Base Stats/Important controls
+
+    private float _health;
 
     ///<summary>This is the units health.</summary>
-    public float myHealth;
+    public float Health
+    {
+        get => _health;
+        set
+        {
+            _health = Mathf.Clamp(value, 0, maxHealth);
+
+            if (_health == 0) ResetGame();
+        }
+    }
 
     ///<summary>This is the maximum units health.</summary>
     public float maxHealth;
@@ -33,8 +44,18 @@ public class Player : Unit
     ///<summary>This is the  units starting health.</summary>
     public float startingHealth;
 
+    private float _mana;
+
+
     ///<summary>This is the units mana for magic casting.</summary>
-    public float myMana;
+    public float Mana
+    {
+        get => _mana;
+        set
+        {
+            _mana = Mathf.Clamp(value, 0, maxMana);
+        }
+    }
 
     ///<summary>This is the units maximum mana for magic casting.</summary>
     public float maxMana;
@@ -113,7 +134,7 @@ public class Player : Unit
     private void Awake()
     {
 
-      if(Instance != null && Instance != this)
+        if(Instance != null && Instance != this)
         {
             Destroy(Instance.gameObject);
         }
@@ -123,11 +144,13 @@ public class Player : Unit
          playerInputActions = new PlayerInputActions();
          playerInputActions.PlayerControl.Enable();
          playerInputActions.PlayerControl.Jump.performed += Jump;
-         playerInputActions.PlayerControl.Movement.performed += movement;
-         playerInputActions.PlayerControl.Drop.performed += Drop;
-         
-
+        //playerInputActions.PlayerControl.Movement.performed += movement;
         
+        ///Demonstrating a different approach to movement.
+        playerInputActions.PlayerControl.Movement.performed += ctxMp => moveDir = ctxMp.ReadValue<Vector2>();
+        playerInputActions.PlayerControl.Movement.canceled += ctxMc => moveDir = Vector2.zero;
+        
+        playerInputActions.PlayerControl.Drop.performed += Drop;         
 
 
         #endregion
@@ -138,32 +161,29 @@ public class Player : Unit
 
     public override void Update()
     {
-        Application.targetFrameRate = 60;
         facingRightLocal = facingRight;
         base.Update();
-
-        #region Player Stat controls
-
-        if(myHealth >= maxHealth) 
-        {
-            myHealth = maxHealth;
-        }
         
+        movement();
+        
+        #region Player Stat controls
+        ///Moved into a property
+        //if(Health >= maxHealth) 
+        //{
+        //    Health = maxHealth;
+        //}
+        
+        ///Moved into property
+        //if (Mana >= maxMana)
+        //{
+        //    Mana = maxMana;
+        //}
 
-        if (myMana >= maxMana)
-        {
-            myMana = maxMana;
-        }
-
-        if(myHealth <= 0)
-        {
-            ResetGame();
-        }
- 
-
-      
-
-
+        ///Moved into a property to keep it localized.
+        //if(Health <= 0)
+        //{
+        //    ResetGame();
+        //}
         #endregion
 
         #region Player Movement Detection
@@ -171,17 +191,20 @@ public class Player : Unit
         if (canMove == true)
         {
             Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
-            _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
-             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+            
+            
+            ///This line conflicts wtih the movement function
+            //_rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
+            ///This line conflicts wtih the movement function
+            
+            
+            
+            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
         }
         else
         {
             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
-
-       
-        
-
         #endregion
 
         #region Ground/Platform detection
@@ -242,23 +265,22 @@ public class Player : Unit
             canCast = true;
             spellCastDelay = 3f;
         }
-
-
-
-      
     }
 
 
     public void ResetGame()
     {
         maxHealth = startingHealth;
-        myHealth = startingHealth;
+        Health = startingHealth;
         maxMana = startingMana;
-        myMana = startingMana;
+        Mana = startingMana;
+        
         //GetComponentInChildren<GoldHandler>().myHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
         GetComponentInChildren<GoldHandler>()._mySoftGold = GetComponentInChildren<GoldHandler>().startingSoftGold;
+        
         var goldTracker = GameObject.FindGameObjectWithTag("GoldTracker");
         goldTracker.GetComponent<PlayerGoldTrackerScript>().playerDead = true;
+        
         GameObject SceneManager = GameObject.FindGameObjectWithTag("SceneManager");
         SceneManager.GetComponent<SceneManagerScript>().goToCamp();
 
@@ -267,23 +289,41 @@ public class Player : Unit
 
 
     #region Player Movement Actions
+
     /// <summary> This moves the player from side to side on the x axis  /// </summary>
     public void movement(InputAction.CallbackContext context)
     {
-        if (canMove == true)
+        if (canMove == true && this != null)
         {
-            if (this != null)
+
+            Vector2 inputVector = context.ReadValue<Vector2>();
+            _rigidBody.MovePosition(transform.position + (new Vector3(inputVector.x, /*transform.position.y*/0f, 0) * speed * Time.deltaTime));
+            if (inputVector.x > 0)
             {
-                Vector2 inputVector = context.ReadValue<Vector2>();
-                _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
-                if (inputVector.x > 0)
-                {
-                    facingRight = true;
-                }
-                if (inputVector.x < 0)
-                {
-                    facingRight = false;
-                }
+                facingRight = true;
+            }
+            if (inputVector.x < 0)
+            {
+                facingRight = false;
+            }
+        }
+    }
+
+    private Vector2 moveDir;
+    public void movement()
+    {
+        if (moveDir == Vector2.zero) return;
+
+        if (canMove == true && this != null)
+        {
+            _rigidBody.MovePosition(transform.position + (new Vector3(moveDir.x, 0f, 0) * speed * Time.deltaTime));
+            if (moveDir.x > 0)
+            {
+                facingRight = true;
+            }
+            if (moveDir.x < 0)
+            {
+                facingRight = false;
             }
         }
     }

@@ -41,10 +41,12 @@ public class Enemy : Unit
     ///<summary>This is the range of detection to the player.</summary>
     [Range(0, 20)]
     private float _DetectionRange;
+    
     ///<summary>This tracks what the ground detection raycast hits.</summary>
     RaycastHit hit;
 
     ///<summary>This targets the player for the Enemy.</summary>
+    [HideInInspector]
     public GameObject player;
 
     #endregion
@@ -64,26 +66,28 @@ public class Enemy : Unit
         base.Update();
 
         #region Enemy AI Movement
-        if(Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        }
+        //if(Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+        //{
+        //    transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        //}
 
-        if(transform.position.x - player.transform.position.x > 0)
-        {
-            facingRight = true;
-        }
+        //if(transform.position.x - player.transform.position.x > 0)
+        //{
+        //    facingRight = true;
+        //}
 
-        if(transform.position.x - player.transform.position.x < 0)
-        {
-            facingRight = false;
-        }
+        //if(transform.position.x - player.transform.position.x < 0)
+        //{
+        //    facingRight = false;
+        //}
+        ///Moved into a function to allow for overriding.
+        Move();
 
         #endregion
 
         #region Player Detection
         ///<summary>This sets the player as the target in the scene.</summary>
-        player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) player = GameObject.FindGameObjectWithTag("Player");
 
         #endregion
 
@@ -145,7 +149,7 @@ public class Enemy : Unit
     #region Interactions with the Player
     public void Interact()
     {
-        player.GetComponent<Player>().myHealth--;
+        player.GetComponent<Player>().Health--;
     }
     #endregion
 
@@ -159,7 +163,20 @@ public class Enemy : Unit
 
     protected virtual void Move()
     {
+        if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        }
 
+        if (transform.position.x - player.transform.position.x > 0)
+        {
+            facingRight = true;
+        }
+
+        if (transform.position.x - player.transform.position.x < 0)
+        {
+            facingRight = false;
+        }
     }
     #endregion
 

@@ -19,7 +19,7 @@ public class ManaPickupInteractableScript : MonoBehaviour
         if (given == false)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<Player>().myMana += dropAmount;
+            player.GetComponent<Player>().Mana += dropAmount;
             given = true;
         }
 

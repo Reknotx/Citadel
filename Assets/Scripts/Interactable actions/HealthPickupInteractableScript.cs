@@ -21,7 +21,7 @@ public class HealthPickupInteractableScript : MonoBehaviour
         if(given == false)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<Player>().myHealth += dropAmount;
+            player.GetComponent<Player>().Health += dropAmount;
             given = true;
         }
         
