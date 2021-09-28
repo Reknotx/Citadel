@@ -58,6 +58,7 @@ public class Enemy : Unit
 
     Vector2 currentDirection;
     #endregion
+
     #endregion
 
     public override void Update()

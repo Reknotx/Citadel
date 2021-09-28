@@ -138,6 +138,8 @@ public class Player : Unit
         {
             Destroy(Instance.gameObject);
         }
+
+        Instance = this;
         
         #region Player Movement Important Connectors
          ///<summary>The following is used to track player inputs and controls.</summary>

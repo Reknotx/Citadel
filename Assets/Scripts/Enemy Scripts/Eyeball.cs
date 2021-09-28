@@ -8,43 +8,84 @@ public class Eyeball : Enemy
 
     public Transform playerTrans;
 
-    public bool spottedPlayer;
+    private bool _spottedPlayer = true, _bobbing = true;
 
-    private void Awake()
+    private IEnumerator BobCR;
+
+    [HideInInspector]
+    public bool SpottedPlayer
     {
-        StartCoroutine(WaitTillPlayerSpawns());
+        get => _spottedPlayer;
+        set => _spottedPlayer = value;
     }
 
     private void Start()
     {
+        playerTrans = Player.Instance.transform;
         Bob();
     }
 
     protected override void Move()
     {
-        //if (!spottedPlayer) return;
-        /////Fire rays around the eyeball searching for walls.
+        if (!SpottedPlayer)
+        {
 
-        //moveDir = Player.Instance.transform.position - transform.position;
+            
+            return;
+        }
+        ///Fire rays around the eyeball searching for walls.
 
-        //_rigidBody.MovePosition(transform.position + moveDir);
+        moveDir = playerTrans.position - transform.position;
+        #region Starting and stopping the bob
+        float angle = playerTrans.position.y < transform.position.y 
+                                             ? 360 - Vector3.Angle(moveDir, transform.right) 
+                                             : Vector3.Angle(moveDir, transform.right);
+        
+        bool movingVert;
+        
+        if ((angle > 45 && angle <= 90)
+            || (angle > 90 && angle < 135)
+            || (angle > 225 && angle <= 270)
+            || (angle > 270 && angle < 315))
+            movingVert = true;
+        else
+            movingVert = false;
+        
+        if (movingVert)
+            ///Cancle the bob
+            _bobbing = false;
+        else if (_bobbing == false && !movingVert)
+            Bob();
+        #endregion
+
+        _rigidBody.MovePosition(transform.position + (moveDir.normalized * speed * Time.deltaTime));
     }
 
     private void Bob()
     {
-        StartCoroutine(Lerp());
+        _bobbing = true;
+        BobCR = Lerp();
+        StartCoroutine(BobCR);
     }
 
     private void WallDetection()
     {
-        Physics.Raycast(transform.position, new Vector2(1, 0).normalized, out RaycastHit eastHit, 1, 1<<31);
-        Physics.Raycast(transform.position, new Vector2(1, 1).normalized, out RaycastHit northEastHit, 1, 1<<31);
-        Physics.Raycast(transform.position, new Vector2(0, 1).normalized, out RaycastHit northHit, 1, 1<<31);
-        Physics.Raycast(transform.position, new Vector2(-1, 1).normalized, out RaycastHit northWestHit, 1, 1 << 31);
-        Physics.Raycast(transform.position, new Vector2(-1, 0).normalized, out RaycastHit westHit, 1, 1<<31);
-        Physics.Raycast(transform.position, new Vector2(-1, -1).normalized, out RaycastHit southWestHit, 1, 1<<31);
-        Physics.Raycast(transform.position, new Vector2(0, -1).normalized, out RaycastHit southHit, 1, 1<<31);
-        Physics.Raycast(transform.position, new Vector2(1, -1).normalized, out RaycastHit southEastHit, 1, 1<<31);
+        float maxX = 1f, minX = -1f, maxY = 1f, minY = -1f;
+
+        bool northHit = Physics.Raycast(transform.position, new Vector2(0, 1).normalized, out RaycastHit northHitInfo, 1, 1 << 31);
+        bool northEastHit = Physics.Raycast(transform.position, new Vector2(1, 1).normalized, out RaycastHit northEastHitInfo, 1, 1 << 31);
+        bool northWestHit = Physics.Raycast(transform.position, new Vector2(-1, 1).normalized, out RaycastHit northWestHitInfo, 1, 1 << 31);
+        bool southHit = Physics.Raycast(transform.position, new Vector2(0, -1).normalized, out RaycastHit southHitInfo, 1, 1 << 31);
+        bool eastHit = Physics.Raycast(transform.position, new Vector2(1, 0).normalized, out RaycastHit eastHitInfo, 1, 1<<31);
+        bool westHit = Physics.Raycast(transform.position, new Vector2(-1, 0).normalized, out RaycastHit westHitInfo, 1, 1<<31);
+        bool southWestHit = Physics.Raycast(transform.position, new Vector2(-1, -1).normalized, out RaycastHit southWestHitInfo, 1, 1<<31);
+        bool southEastHit = Physics.Raycast(transform.position, new Vector2(1, -1).normalized, out RaycastHit southEastHitInfo, 1, 1<<31);
+
+        if (southEastHit || southWestHit || southHit)
+        {
+
+        }
+
 
         ///I could use these rays to place a limit on the range of movement that the enemy can have
         ///For example. If the north one returns positive, then y can't be a certain value. To be more clear
@@ -59,10 +100,11 @@ public class Eyeball : Enemy
 
     protected void Attack()
     {
-
+        ///Turn on a trigger collider so that the enemy can hit the player.
     }
 
-    bool movingVertical = false;
+    [Range(0f, 0.8f)]
+    public float BobDistance = 0.8f;
 
     IEnumerator Lerp()
     {
@@ -74,12 +116,6 @@ public class Eyeball : Enemy
 
         while (lerping)
         {
-            if (movingVertical)
-            {
-                yield return new WaitForFixedUpdate();
-                continue;
-            }
-
             float u = (Time.time - timeStart) / 1;
             if (u >= 1)
             {
@@ -90,16 +126,25 @@ public class Eyeball : Enemy
             p01 = (1 - u) * p0 + u * p1;
 
             ///set the y-offset for bobbing here
-            transform.GetChild(0).localPosition = new Vector3(0f, Mathf.Sin(Mathf.Deg2Rad * p01));
+            transform.GetChild(0).localPosition = new Vector3(0f, BobDistance * Mathf.Sin(Mathf.Deg2Rad * p01));
 
             yield return new WaitForFixedUpdate();
         }
+        if (_bobbing) StartCoroutine(Lerp());
     }
 
     IEnumerator WaitTillPlayerSpawns()
     {
-        yield return new WaitUntil(() => Player.Instance != null);
-
-        playerTrans = Player.Instance.transform;
+        while (true)
+        {
+            if (Player.Instance != null)
+            {
+                playerTrans = Player.Instance.transform;
+                break;
+            }
+            
+            yield return new WaitForFixedUpdate();
+        }
+        Debug.Log("Found player");
     }
 }
