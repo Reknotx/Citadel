@@ -16,17 +16,20 @@ public class PlayerGoldTrackerScript : MonoBehaviour
 
     public float playerSoftGold;
     public float playerHardGold;
+    public float startingSoftGold = 100f;
+    public float startingHardGold = 2000f;
 
     public int numCart;
     public int numMiner;
-
-
+    public int startingNumCart;
+    public int startingNumMiner = 2;
+    
     public bool updated = false;
     public bool sceneChanged = false;
+    public bool playerDead = false;
 
     public string currentSceneName;
     public string lastSceneName;
-
 
     private void Awake()
     {
@@ -35,10 +38,8 @@ public class PlayerGoldTrackerScript : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        else
-        {
-            _instance = this;
-        }
+        _instance = this;
+        
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -47,8 +48,14 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
-       goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
+
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        //_instance = this;
+
+        goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
         currentSceneName = SceneManager.GetActiveScene().name;
 
         if(currentSceneName!=lastSceneName)
@@ -67,17 +74,31 @@ public class PlayerGoldTrackerScript : MonoBehaviour
         }
         
 
+     
+
         trackGold();
+
+        
 
     }
 
 
     public void updateGold()
     {
-        if (updated == false)
+        
+        if (updated == false && currentSceneName != "MainMenuScene")
         {
-            goldHandler.GetComponent<GoldHandler>().myHardGold = playerHardGold;
-            goldHandler.GetComponent<GoldHandler>().mySoftGold = playerSoftGold;
+            if (playerDead == true)
+            {
+                //playerHardGold = startingHardGold;
+                playerSoftGold = startingSoftGold;
+                //numCart = startingNumCart;
+               // numMiner = startingNumMiner;
+                playerDead = false;
+            }
+
+            goldHandler.GetComponent<GoldHandler>()._myHardGold = playerHardGold;
+            goldHandler.GetComponent<GoldHandler>()._mySoftGold = playerSoftGold;
             goldHandler.GetComponent<GoldHandler>().numOfCarts = numCart;
             goldHandler.GetComponent<GoldHandler>().numOfMiners = numMiner;
 
@@ -88,9 +109,13 @@ public class PlayerGoldTrackerScript : MonoBehaviour
 
     public void trackGold()
     {
-        playerHardGold = goldHandler.GetComponent<GoldHandler>().myHardGold;
-        playerSoftGold = goldHandler.GetComponent<GoldHandler>().mySoftGold;
-        numCart = goldHandler.GetComponent<GoldHandler>().numOfCarts;
-        numMiner = goldHandler.GetComponent<GoldHandler>().numOfMiners;
+        if(currentSceneName != "MainMenuScene")
+        {
+            playerHardGold = goldHandler.GetComponent<GoldHandler>().MyHardGold;
+            playerSoftGold = goldHandler.GetComponent<GoldHandler>().MySoftGold;
+            numCart = goldHandler.GetComponent<GoldHandler>().numOfCarts;
+            numMiner = goldHandler.GetComponent<GoldHandler>().numOfMiners;
+        }
+        
     }
 }

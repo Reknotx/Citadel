@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ManaPickupInteractableScript : MonoBehaviour
 {
-    public float dropAmount = 1;
+    public int dropAmount = 1;
 
     private bool given = false;
 

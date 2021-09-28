@@ -46,10 +46,10 @@ public class MinesShop : MonoBehaviour
 
     public void PurchaseMiner()
     {
-        if( (int)gold.myHardGold >= baseMinerCost)
+        if( (int)gold.MyHardGold >= baseMinerCost)
         {
             gold.numOfMiners += 1;
-            gold.myHardGold -= baseMinerCost;
+            gold.MyHardGold -= baseMinerCost;
             baseMinerCost += (minerCostIncrease * gold.numOfMiners);
         }
     }
@@ -59,10 +59,10 @@ public class MinesShop : MonoBehaviour
     /// </summary>
     public void PurchaseCart()
     {
-        if ((int)gold.myHardGold >= baseCartCost)
+        if ((int)gold.MyHardGold >= baseCartCost)
         {
             gold.numOfCarts += 1;
-            gold.myHardGold -= baseCartCost;
+            gold.MyHardGold -= baseCartCost;
             baseCartCost += (cartCostIncrease * gold.numOfCarts);
         }
     }

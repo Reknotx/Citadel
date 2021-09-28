@@ -15,25 +15,27 @@ using UnityEngine.InputSystem;
 
 public class Unit : MonoBehaviour
 {
-
+       
     #region Base Stats
 
          #region Unit's Movement Stats 
 
     ///<summary>This is the unit's speed.</summary>
-    [Range(0, 5f)]
+    [Range(0, 30f)]
     [Tooltip("This is the unit's speed.")]
     public float speed;
 
     ///<summary>This determines the unit's jump height.</summary>
-    [Range(0, 8f)]
+    [Range(0, 30f)]
     [Tooltip("This determines the unit's jump height.")]
     public float jumpFroce;
 
-        #endregion
+    
+
+    #endregion
          #region Unit's Attached Colliders/Gameobjects
 
-    
+
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
@@ -143,8 +145,8 @@ public class Unit : MonoBehaviour
 
     public virtual void Update()
     {
-        ///<summary>finds the player in the scene</summary>
-        
+      
+
 
         ///<summary>this determines if the unit can take damage from a initially cast fire spell</summary>
         onFireDamageDelay -= Time.deltaTime * onFireDamageRate;
@@ -153,18 +155,124 @@ public class Unit : MonoBehaviour
             fireDamageTaken = false;
             onFireDamageDelay = 2f;
         }
+
+      
+    }
+    
+    #region Unit Actions
+
+        #region Unit Melee Attacks
+    /// <summary> This is the attacking function /// </summary>
+    public void lightAttack(InputAction.CallbackContext context)
+    {
+
+        if (Time.time >= nextDamageEvent)
+        {
+            nextDamageEvent = Time.time + attackCoolDown;
+            if (facingRight == true)
+            {
+                _lightCollider.transform.position = spellLocationRight.transform.position;
+                StartCoroutine(lightAttackCoroutine());
+
+            }
+            else
+            {
+                _lightCollider.transform.position = spellLocationLeft.transform.position;
+                StartCoroutine(lightAttackCoroutine());
+            }
+        }
+        
     }
 
-    
-    
+    /// <summary> This is the attacking function /// </summary>
 
+    public void heavyAttack(InputAction.CallbackContext context)
+    {
+        if (Time.time >= nextDamageEvent)
+        {
+            nextDamageEvent = Time.time + attackCoolDown;
+            if (facingRight == true)
+            {
+                _heavyCollider.transform.position = spellLocationRight.transform.position;
+                StartCoroutine(heavyAttackCoroutine());
+
+            }
+            else
+            {
+                _heavyCollider.transform.position = spellLocationLeft.transform.position;
+                StartCoroutine(heavyAttackCoroutine());
+            }
+        }
+        
+
+    }
+
+        #endregion
+        
+    #endregion
+
+    /*#region Unit Melee Attacks
+    /// <summary> This is the attacking function /// </summary>
+    public void lightAttack(InputAction.CallbackContext context)
+    {
+        _lightCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange, .3f, 1.5f);
+
+        if (Time.time >= nextDamageEvent)
+        {
+            nextDamageEvent = Time.time + attackCoolDown;
+            if (facingRight == true)
+            {
+                _lightCollider.transform.position = spellLocationRight.transform.position;
+                _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale / 2);
+                StartCoroutine(lightAttackCoroutine());
+
+            }
+            else
+            {
+                _lightCollider.transform.position = spellLocationLeft.transform.position;
+                _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
+                StartCoroutine(lightAttackCoroutine());
+            }
+        }
+
+    }
+
+    /// <summary> This is the attacking function /// </summary>
+
+    public void heavyAttack(InputAction.CallbackContext context)
+    {
+        _heavyCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange, .3f, 1.5f);
+
+        if (Time.time >= nextDamageEvent)
+        {
+            nextDamageEvent = Time.time + attackCoolDown;
+            if (facingRight == true)
+            {
+                _heavyCollider.transform.position = spellLocationRight.transform.position;
+                _heavyCollider.transform.position = _heavyCollider.transform.position + (_heavyCollider.gameObject.transform.localScale / 2);
+                StartCoroutine(heavyAttackCoroutine());
+
+            }
+            else
+            {
+                _heavyCollider.transform.position = spellLocationLeft.transform.position;
+                _heavyCollider.transform.position = _heavyCollider.transform.position - (_heavyCollider.gameObject.transform.localScale / 2);
+                StartCoroutine(heavyAttackCoroutine());
+            }
+        }
+
+
+    }
+
+    #endregion
+    */
     #region IEnumerator Coroutines
     /// <summary> this allows units to drop through platforms </summary>
     public IEnumerator dropDown()
     {
         _platformCollider.enabled = false;
         _groundCollider.enabled = false;
-        yield return new WaitForSeconds(.7f);
+        yield return new WaitForSeconds(1f);
         _groundCollider.enabled = true;
         _platformCollider.enabled = true;
     }

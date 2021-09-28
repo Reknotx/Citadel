@@ -21,7 +21,7 @@ public class ShopGoldSender : MonoBehaviour
     /// </summary>
     public void SendGoldToSurface()
     {
-        gold.AddHardGold((int)gold.mySoftGold);
-        gold.mySoftGold = 0;
+        gold.AddHardGold((int)gold.MySoftGold);
+        gold.MySoftGold = 0;
     }
 }

@@ -17,12 +17,12 @@ using UnityEngine.InputSystem;
 
 public class Player : Unit
 {
-    
 
+    public static Player Instance;
 
     #region Player Stats
 
-    #region Player's Base Stats/Important controls
+            #region Player's Base Stats/Important controls
 
     ///<summary>This is the units health.</summary>
     public float myHealth;
@@ -50,7 +50,7 @@ public class Player : Unit
     public Rigidbody _rigidBody;
 
     #endregion
-    #region Player's Ground/Directional Detection Stats
+            #region Player's Ground/Directional Detection Stats
 
     ///<summary>This is the range of detection to the ground.</summary>
     private float _Reach = 2f;
@@ -107,16 +107,16 @@ public class Player : Unit
 
     #endregion
 
-
-
-
     #endregion
 
     
     private void Awake()
     {
 
-      
+      if(Instance != null && Instance != this)
+        {
+            Destroy(Instance.gameObject);
+        }
         
         #region Player Movement Important Connectors
          ///<summary>The following is used to track player inputs and controls.</summary>
@@ -131,11 +131,14 @@ public class Player : Unit
 
 
         #endregion
+
+
     }
 
 
     public override void Update()
     {
+        Application.targetFrameRate = 60;
         facingRightLocal = facingRight;
         base.Update();
 
@@ -152,7 +155,10 @@ public class Player : Unit
             myMana = maxMana;
         }
 
-        
+        if(myHealth <= 0)
+        {
+            ResetGame();
+        }
  
 
       
@@ -165,15 +171,16 @@ public class Player : Unit
         if (canMove == true)
         {
             Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
-            _rigidBody.AddForce(new Vector3(inputVector.x, 0, 0) * speed, ForceMode.Acceleration);
+            _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
              _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
         }
         else
         {
             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
-        
+
        
+        
 
         #endregion
 
@@ -223,7 +230,8 @@ public class Player : Unit
         if (throughPlatform == true && justJumped == true)
         {
             StartCoroutine(dropDown());
-            _rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
+            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 10);
+            //_rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
         }
         #endregion
 
@@ -235,6 +243,8 @@ public class Player : Unit
             spellCastDelay = 3f;
         }
 
+
+
       
     }
 
@@ -245,10 +255,12 @@ public class Player : Unit
         myHealth = startingHealth;
         maxMana = startingMana;
         myMana = startingMana;
-        GetComponentInChildren<GoldHandler>().myHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
-        GetComponentInChildren<GoldHandler>().mySoftGold = GetComponentInChildren<GoldHandler>().startingSoftGold;
+        //GetComponentInChildren<GoldHandler>().myHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
+        GetComponentInChildren<GoldHandler>()._mySoftGold = GetComponentInChildren<GoldHandler>().startingSoftGold;
+        var goldTracker = GameObject.FindGameObjectWithTag("GoldTracker");
+        goldTracker.GetComponent<PlayerGoldTrackerScript>().playerDead = true;
         GameObject SceneManager = GameObject.FindGameObjectWithTag("SceneManager");
-        SceneManager.GetComponent<SceneManagerScript>().backToMainmenu();
+        SceneManager.GetComponent<SceneManagerScript>().goToCamp();
 
     }
 
@@ -281,16 +293,16 @@ public class Player : Unit
     {
         if (this != null)
         {
-            if (isGrounded == true)
+            if (isGrounded == true )
             {
 
-                _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
+                _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
                 StartCoroutine(Jumped());
 
             }
             if (onPlatform == true)
             {
-                _rigidBody.AddForce(Vector3.up * jumpFroce, ForceMode.Impulse);
+                _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
                 StartCoroutine(Jumped());
 
             }
@@ -308,7 +320,7 @@ public class Player : Unit
 
     public void Interact(InputAction.CallbackContext context)
     {
-        //StartCoroutine(InteractCoroutine());
+        
         Interacting = true;
 
     }
@@ -350,7 +362,7 @@ public class Player : Unit
     }
     #endregion
     #region Unit Melee Attacks
-    /// <summary> This is the attacking function /// </summary>
+    /// <summary> This is the attacking function  </summary>
     public void lightAttack(InputAction.CallbackContext context)
     {
         _lightCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange, .3f, 1.5f);
@@ -375,7 +387,7 @@ public class Player : Unit
 
     }
 
-    /// <summary> This is the attacking function /// </summary>
+    /// <summary> This is the attacking function  </summary>
 
     public void heavyAttack(InputAction.CallbackContext context)
     {
@@ -442,7 +454,7 @@ public class Player : Unit
 
             if (Interacting == true)
             {
-
+                canMove = false;
                 other.GetComponent<CampShopEntranceInteractScript>().Interact();
                 Interacting = false;
             }
@@ -477,7 +489,7 @@ public class Player : Unit
     {
         if (other.gameObject.tag == "platform")
         {
-            _groundCollider.enabled = true;
+            _platformCollider.enabled = true;
         }
  
         if (other.gameObject.tag == "MineEntrance")
@@ -504,11 +516,6 @@ public class Player : Unit
 
     #endregion
 
-    public IEnumerator InteractCoroutine()
-    {
-        Interacting = true;
-        yield return new WaitForSeconds(.5f);
-        Interacting = false;
-    }
+   
 
 }

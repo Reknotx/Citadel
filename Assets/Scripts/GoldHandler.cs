@@ -14,9 +14,10 @@ using UnityEngine.SceneManagement;
 
 public class GoldHandler : MonoBehaviour
 {
-    /// <summary>
-    /// Text displayed for player's soft gold
-    /// </summary>
+    public static GoldHandler Instance;
+
+
+    /// <summary> Text displayed for player's soft gold </summary>
     public Text softGoldText;
 
     /// <summary>
@@ -24,23 +25,43 @@ public class GoldHandler : MonoBehaviour
     /// </summary>
     public Text hardGoldText;
 
-    /// <summary>
-    /// player's current soft gold
-    /// </summary>
-    public float mySoftGold;
+    public float _mySoftGold;
+
+    /// <summary> player's current soft gold </summary>
+    public float MySoftGold
+    {
+        get => _mySoftGold;
+
+        set
+        {
+            _mySoftGold = value;
+            if (softGoldText != null)
+                softGoldText.text = "Soft Gold: " + (int)MySoftGold;
+        }
+    }
+
+    public float _myHardGold;
+
+    /// <summary> player's current hard gold </summary>
+    public float MyHardGold
+    {
+        get => _myHardGold;
+
+        set
+        {
+            _myHardGold = value;
+            if (hardGoldText != null)
+                hardGoldText.text = "Hard Gold: " + (int)MyHardGold;
+        }
+    }
 
     /// <summary>
-    /// player's current hard gold
-    /// </summary>
-    public float myHardGold;
-
-    /// <summary>
-    /// player's current soft gold
+    /// player's starting soft gold
     /// </summary>
     public float startingSoftGold = 0f;
 
     /// <summary>
-    /// player's current hard gold
+    /// player's starting hard gold
     /// </summary>
     public float startingHardGold = 100f;
 
@@ -106,12 +127,15 @@ public class GoldHandler : MonoBehaviour
     /// </summary>
     private float elapsed = 0f;
 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+            Destroy(Instance.gameObject);
 
-    
+        Instance = this;
+    }
 
-    /// <summary>
-    /// Start is called when the scene loads in
-    /// </summary>
+
     private void Start()
     {
         currentScene = SceneManager.GetActiveScene();
@@ -129,12 +153,12 @@ public class GoldHandler : MonoBehaviour
         
 
         ///Updates soft and hard gold text object
-        softGoldText.text = "Soft Gold: " + (int)mySoftGold;
+        //softGoldText.text = "Soft Gold: " + (int)MySoftGold;
 
-        hardGoldText.text = "Hard Gold: " + (int)myHardGold;
+        //hardGoldText.text = "Hard Gold: " + (int)MyHardGold;
 
         ///Checks which scene is active and displays the correct gold value
-        if ( castleSceneName == currentScene.name )
+        if (castleSceneName == currentScene.name )
         {
             hardGold.SetActive(false);
             softGold.SetActive(true);
@@ -162,13 +186,13 @@ public class GoldHandler : MonoBehaviour
     /// <param name="softGold">Increase amount of soft gold by given integer</param>
     public void AddSoftGold(int softGold)
     {
-        mySoftGold += softGold;
+        MySoftGold += softGold;
     }
 
     /// <param name="hardGold">Increase amount of hard gold by given integer</param>
     public void AddHardGold(float hardGold)
     {
-        myHardGold += hardGold;
+        MyHardGold += hardGold;
     }
 
   
