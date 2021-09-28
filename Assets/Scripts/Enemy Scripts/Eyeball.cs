@@ -1,3 +1,12 @@
+/*
+ * Author: Chase O'Connor
+ * Date: 9/23/2021
+ * 
+ * Brief: Handles the logic for the flying eyeball enemy like attacking, 
+ * bobbing, movement, etc.
+ * 
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +20,33 @@ public class Eyeball : Enemy
     private bool _spottedPlayer = true, _bobbing = true;
 
     private IEnumerator BobCR;
+
+    private bool _attacking = false;
+
+    Vector3 posBeforeAttack;
+
+    private bool canAttack;
+    private float attackRate = 3f;
+    private float attackCooldown;
+
+    private bool Attacking
+    {
+        get => _attacking;
+
+        set
+        {
+            if (attackCoolDown < attackRate) return;
+
+            _attacking = value;
+            if (value)
+            {
+                ///Start the attack function.
+                posBeforeAttack = transform.position;
+                attackCoolDown = 0;
+            }
+            //else
+        }
+    }
 
     [HideInInspector]
     public bool SpottedPlayer
@@ -27,12 +63,28 @@ public class Eyeball : Enemy
 
     protected override void Move()
     {
-        if (!SpottedPlayer)
-        {
-
-            
+        if (Attacking)
             return;
+        else
+            attackCoolDown += Time.deltaTime;
+
+        if (!SpottedPlayer) return;
+        else if (Vector3.Distance(transform.position, playerTrans.position) <= 5f
+            && Physics.Raycast(transform.position, (playerTrans.position - transform.position).normalized, out RaycastHit info, 100f))
+        {
+            if (info.collider.gameObject.layer == 7)
+            {
+                //Debug.Log("Direct path to the player");
+                _bobbing = false;
+                Attacking = true;
+                return;
+            }
+            else
+            {
+                //Debug.Log(info.collider.gameObject.name + " Layer: " + info.collider.gameObject.layer);
+            }
         }
+
         ///Fire rays around the eyeball searching for walls.
 
         moveDir = playerTrans.position - transform.position;
@@ -61,12 +113,6 @@ public class Eyeball : Enemy
         _rigidBody.MovePosition(transform.position + (moveDir.normalized * speed * Time.deltaTime));
     }
 
-    private void Bob()
-    {
-        _bobbing = true;
-        BobCR = Lerp();
-        StartCoroutine(BobCR);
-    }
 
     private void WallDetection()
     {
@@ -98,15 +144,25 @@ public class Eyeball : Enemy
 
     }
 
-    protected void Attack()
+    public void DmgPlayer()
     {
-        ///Turn on a trigger collider so that the enemy can hit the player.
+        ///Damage the player and set attacking to false
+        Player.Instance.TakeDamage(1);
+    }
+
+    #region Bobbing
+    /// <summary> Starts the bobbing coroutine. </summary>
+    private void Bob()
+    {
+        _bobbing = true;
+        BobCR = BobbingLerp();
+        StartCoroutine(BobCR);
     }
 
     [Range(0f, 0.8f)]
     public float BobDistance = 0.8f;
 
-    IEnumerator Lerp()
+    IEnumerator BobbingLerp()
     {
 
         bool lerping = true;
@@ -130,21 +186,8 @@ public class Eyeball : Enemy
 
             yield return new WaitForFixedUpdate();
         }
-        if (_bobbing) StartCoroutine(Lerp());
+        if (_bobbing) StartCoroutine(BobbingLerp());
     }
+    #endregion
 
-    IEnumerator WaitTillPlayerSpawns()
-    {
-        while (true)
-        {
-            if (Player.Instance != null)
-            {
-                playerTrans = Player.Instance.transform;
-                break;
-            }
-            
-            yield return new WaitForFixedUpdate();
-        }
-        Debug.Log("Found player");
-    }
 }

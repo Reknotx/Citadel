@@ -18,7 +18,7 @@ public class Unit : MonoBehaviour
        
     #region Base Stats
 
-         #region Unit's Movement Stats 
+    #region Unit's Movement Stats 
 
     ///<summary>This is the unit's speed.</summary>
     [Range(0, 30f)]
@@ -29,11 +29,33 @@ public class Unit : MonoBehaviour
     [Range(0, 30f)]
     [Tooltip("This determines the unit's jump height.")]
     public float jumpFroce;
+    #endregion
+    #region Health
+    protected float _health;
 
-    
+    ///<summary>This is the maximum units health.</summary>
+    public float maxHealth;
+
+    ///<summary>This is the units health.</summary>
+    public virtual float Health
+    {
+        get => _health;
+        set
+        {
+            _health = Mathf.Clamp(value, 0, maxHealth);
+
+            if (_health == 0)
+            {
+                ///Destroy the object here
+            }
+        }
+    }
+    #endregion
+
 
     #endregion
-         #region Unit's Attached Colliders/Gameobjects
+   
+    #region Unit's Attached Colliders/Gameobjects
 
 
 
@@ -69,7 +91,8 @@ public class Unit : MonoBehaviour
     protected GameObject spellLocationCenter;
 
             #endregion
-         #region Unit's bool determinates 
+    
+    #region Unit's bool determinates 
 
     ///<summary>This determines whether the unit is on the ground or not.</summary>
     [HideInInspector]
@@ -107,7 +130,8 @@ public class Unit : MonoBehaviour
     [HideInInspector]
     protected bool fireDamageTaken;
     #endregion
-         #region Unit's Attacks
+    
+    #region Unit's Attacks
 
     ///<summary>This is the cool down between melee attacks for the unit .</summary>
     [HideInInspector]
@@ -138,11 +162,8 @@ public class Unit : MonoBehaviour
 
     /// <summary> This determines the delay between taking on fire damage</summary>
     protected float onFireDamageDelay = 2f;
-    #endregion
-
 
     #endregion
-
     public virtual void Update()
     {
       
@@ -157,6 +178,19 @@ public class Unit : MonoBehaviour
         }
 
       
+    }
+
+    /// Author: Chase O'Connor
+    /// Date: 9/28/2021
+    /// <summary>
+    /// This function takes in an integer value to subtract from this
+    /// unit's current health.
+    /// </summary>
+    /// <param name="amount">The amount of damage to apply to the unit.</param>
+    public void TakeDamage(int amount)
+    {
+        Debug.Log("Dealing " + amount + " points of damage to " + name);
+        Health -= amount;
     }
     
     #region Unit Actions

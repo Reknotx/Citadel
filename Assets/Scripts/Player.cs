@@ -21,28 +21,27 @@ public class Player : Unit
     public static Player Instance;
 
     #region Player Stats
-
     #region Player's Base Stats/Important controls
 
-    private float _health;
+    ///<summary>This is the  units starting health.</summary>
+    public float startingHealth;
 
     ///<summary>This is the units health.</summary>
-    public float Health
+    public override float Health
     {
-        get => _health;
+        get => base.Health;
         set
         {
             _health = Mathf.Clamp(value, 0, maxHealth);
 
-            if (_health == 0) ResetGame();
+            if (base.Health == 0)
+            {
+                ///Destroy the object here
+                ResetGame();
+            }
         }
     }
 
-    ///<summary>This is the maximum units health.</summary>
-    public float maxHealth;
-
-    ///<summary>This is the  units starting health.</summary>
-    public float startingHealth;
 
     private float _mana;
 
