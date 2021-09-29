@@ -10,12 +10,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class Eyeball : Enemy
 {
     Vector3 moveDir;
 
-    public Transform playerTrans;
 
     private bool _spottedPlayer = true, _bobbing = true;
 
@@ -28,6 +28,22 @@ public class Eyeball : Enemy
     private bool canAttack;
     private float attackRate = 3f;
     private float attackCooldown;
+
+    #region Pathfinding
+    public Transform playerTrans;
+
+    public float seekerSpeed = 200f;
+    public float nextWaypointDistance = 3f;
+
+    Path path;
+
+    int currentWaypoint = 0;
+    bool reachedEndOfPath = false;
+
+    Seeker seeker;
+
+    public GameObject enemyModel;
+    #endregion
 
     private bool Attacking
     {
@@ -59,31 +75,76 @@ public class Eyeball : Enemy
     {
         playerTrans = Player.Instance.transform;
         Bob();
+
+        seeker = GetComponent<Seeker>();
+
+        InvokeRepeating("UpdatePath", 0f, 0.5f);
+    }
+
+    private void UpdatePath()
+    {
+        if (seeker.IsDone())
+            seeker.StartPath(_rigidBody.position, playerTrans.position, OnPathComplete);
+    }
+
+    private void OnPathComplete(Path p)
+    {
+        if (!p.error)
+        {
+            path = p;
+            currentWaypoint = 0;
+        }
     }
 
     protected override void Move()
     {
-        if (Attacking)
+        if (path == null) return;
+
+        if (currentWaypoint >= path.vectorPath.Count)
+        {
+            reachedEndOfPath = true;
             return;
+        }
         else
-            attackCoolDown += Time.deltaTime;
+            reachedEndOfPath = false;
+
+        Vector2 dir = (Vector2)(path.vectorPath[currentWaypoint] - _rigidBody.position).normalized;
+        Vector2 force = dir * seekerSpeed * Time.deltaTime;
+
+        _rigidBody.AddForce(force);
+
+        float dist = Vector2.Distance(_rigidBody.position, path.vectorPath[currentWaypoint]);
+
+        if (dist < nextWaypointDistance)
+            currentWaypoint++;
+
+        if (force.x >= 0.01f)
+            enemyModel.transform.localScale = new Vector3(-1f, 1f, 1f);
+        else if (force.x <= -0.01f)
+            enemyModel.transform.localScale = new Vector3(1f, 1f, 1f);  
+
+
+        //if (Attacking)
+        //    return;
+        //else
+        //    attackCoolDown += Time.deltaTime;
 
         if (!SpottedPlayer) return;
-        else if (Vector3.Distance(transform.position, playerTrans.position) <= 5f
-            && Physics.Raycast(transform.position, (playerTrans.position - transform.position).normalized, out RaycastHit info, 100f))
-        {
-            if (info.collider.gameObject.layer == 7)
-            {
-                //Debug.Log("Direct path to the player");
-                _bobbing = false;
-                Attacking = true;
-                return;
-            }
-            else
-            {
-                //Debug.Log(info.collider.gameObject.name + " Layer: " + info.collider.gameObject.layer);
-            }
-        }
+        //else if (Vector3.Distance(transform.position, playerTrans.position) <= 5f
+        //    && Physics.Raycast(transform.position, (playerTrans.position - transform.position).normalized, out RaycastHit info, 100f))
+        //{
+        //    if (info.collider.gameObject.layer == 7)
+        //    {
+        //        //Debug.Log("Direct path to the player");
+        //        _bobbing = false;
+        //        Attacking = true;
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        //Debug.Log(info.collider.gameObject.name + " Layer: " + info.collider.gameObject.layer);
+        //    }
+        //}
 
         ///Fire rays around the eyeball searching for walls.
 
@@ -108,9 +169,7 @@ public class Eyeball : Enemy
             _bobbing = false;
         else if (_bobbing == false && !movingVert)
             Bob();
-        #endregion
-
-        _rigidBody.MovePosition(transform.position + (moveDir.normalized * speed * Time.deltaTime));
+        #endregion    
     }
 
 
