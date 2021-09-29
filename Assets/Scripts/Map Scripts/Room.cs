@@ -24,26 +24,44 @@ public class Room : MonoBehaviour
     
     public RoomInfo roomInfo;
 
+    public GameObject fog;  
 
     #endregion
 
     #region Private
-
+    bool _firstVisit;
 
     #endregion
     #endregion
 
 
     #region Properties
+    bool FirstVisit
+    {
+        get => _firstVisit;
 
+        set
+        {
+            _firstVisit = value;
+            if (!value)
+            {
+                ///turn off the fog
+                fog.SetActive(false);
+            }
+        }
+    }
 
     #endregion
+
+
 
 
     private void Start()
     {
         ///set enemies and inanimateObj to empty as all references will be
         ///set on start.
+        fog.SetActive(true);
+        fog.GetComponent<MeshRenderer>().enabled = true;
         
     }
 
@@ -53,7 +71,10 @@ public class Room : MonoBehaviour
     /// and spawn in everything in the room.</remarks>
     public void OnEnter()
     {
+        if (FirstVisit) { FirstVisit = false; }
 
+        ///Turn on all the enemies.
+        ///Tu
     }
 
     /// <summary> The function that will trigger when player leaves the room. </summary>
