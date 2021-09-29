@@ -93,6 +93,11 @@ public class Player : Unit
     [HideInInspector]
     public bool canInteract = true;
 
+   
+    public bool leftWall = false;
+    public bool rightWall = false;
+    public bool onWall = false;
+
 
 
 
@@ -159,9 +164,9 @@ public class Player : Unit
         {
             ResetGame();
         }
- 
 
-      
+
+
 
 
         #endregion
@@ -170,6 +175,7 @@ public class Player : Unit
         ///<summary>This moves the player constantly while the input is held.</summary>
         if (canMove == true)
         {
+            
             Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
             _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
              _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
@@ -210,6 +216,33 @@ public class Player : Unit
             isGrounded = false;
         }
 
+        ///<summary>This determines whether the unit is against a wall or not.</summary>
+        var leftWallCheck = transform.TransformDirection(Vector3.left);
+        Debug.DrawRay(transform.position, leftWallCheck * (_Reach/100), Color.red);
+        if (Physics.Raycast(transform.position, leftWallCheck, out hit, _Reach) && hit.transform.tag == "ground")
+        {
+            leftWall = true;
+        }
+        else
+        {
+            leftWall = false;
+            onWall = false;
+        }
+
+        ///<summary>This determines whether the unit is against a wall or not.</summary>
+        var rightWallCheck = transform.TransformDirection(Vector3.right);
+        Debug.DrawRay(transform.position, rightWallCheck * (_Reach /100), Color.red);
+        if (Physics.Raycast(transform.position, rightWallCheck, out hit, _Reach) && hit.transform.tag == "ground")
+        {
+            rightWall = true;
+        }
+        else
+        {
+            rightWall = false;
+            onWall = false;
+        }
+
+
 
         ///<summary>This determines whether the unit is trying to jump up through a platform or not.</summary>
         var roofCheck = transform.TransformDirection(Vector3.up);
@@ -233,6 +266,18 @@ public class Player : Unit
             _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 10);
             //_rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
         }
+
+
+        if (leftWall == true)
+        {
+            onWall = true;
+        }
+        if (rightWall == true)
+        {
+            onWall = true;
+        }
+
+
         #endregion
 
         ///<summary>this sets the rate for how quickly players can cast spells </summary>
@@ -274,16 +319,20 @@ public class Player : Unit
         {
             if (this != null)
             {
-                Vector2 inputVector = context.ReadValue<Vector2>();
-                _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
-                if (inputVector.x > 0)
+                if(onWall == false)
                 {
-                    facingRight = true;
+                    Vector2 inputVector = context.ReadValue<Vector2>();
+                    _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
+                    if (inputVector.x > 0)
+                    {
+                        facingRight = true;
+                    }
+                    if (inputVector.x < 0)
+                    {
+                        facingRight = false;
+                    }
                 }
-                if (inputVector.x < 0)
-                {
-                    facingRight = false;
-                }
+                
             }
         }
     }
