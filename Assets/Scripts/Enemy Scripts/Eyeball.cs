@@ -23,11 +23,10 @@ public class Eyeball : Enemy
 
     private bool _attacking = false;
 
-    Vector3 posBeforeAttack;
-
     private bool canAttack;
-    private float attackRate = 3f;
-    private float attackCooldown;
+    public float attackRate = 5f;
+    private float attackCooldown = 0;
+    public float lurchDist = 5f;
 
     #region Pathfinding
     public Transform playerTrans;
@@ -45,22 +44,21 @@ public class Eyeball : Enemy
     public GameObject enemyModel;
     #endregion
 
+    private bool startAttackCooldown = false;
     private bool Attacking
     {
         get => _attacking;
 
         set
         {
-            if (attackCoolDown < attackRate) return;
-
             _attacking = value;
+
             if (value)
             {
                 ///Start the attack function.
-                posBeforeAttack = transform.position;
-                attackCoolDown = 0;
+                Debug.Log("Starting attack lurch coroutine");
+                StartCoroutine(AttackLurch());
             }
-            //else
         }
     }
 
@@ -75,7 +73,8 @@ public class Eyeball : Enemy
     {
         playerTrans = Player.Instance.transform;
         Bob();
-
+        Attacking = false;
+        startAttackCooldown = true;
         seeker = GetComponent<Seeker>();
 
         InvokeRepeating("UpdatePath", 0f, 0.5f);
@@ -98,58 +97,46 @@ public class Eyeball : Enemy
 
     protected override void Move()
     {
-        if (path == null) return;
-
-        if (currentWaypoint >= path.vectorPath.Count)
-        {
-            reachedEndOfPath = true;
-            return;
-        }
-        else
-            reachedEndOfPath = false;
-
-        Vector2 dir = (Vector2)(path.vectorPath[currentWaypoint] - _rigidBody.position).normalized;
-        Vector2 force = dir * seekerSpeed * Time.deltaTime;
-
-        _rigidBody.AddForce(force);
-
-        float dist = Vector2.Distance(_rigidBody.position, path.vectorPath[currentWaypoint]);
-
-        if (dist < nextWaypointDistance)
-            currentWaypoint++;
-
-        if (force.x >= 0.01f)
-            enemyModel.transform.localScale = new Vector3(-1f, 1f, 1f);
-        else if (force.x <= -0.01f)
-            enemyModel.transform.localScale = new Vector3(1f, 1f, 1f);  
-
-
-        //if (Attacking)
-        //    return;
-        //else
-        //    attackCoolDown += Time.deltaTime;
-
         if (!SpottedPlayer) return;
-        //else if (Vector3.Distance(transform.position, playerTrans.position) <= 5f
-        //    && Physics.Raycast(transform.position, (playerTrans.position - transform.position).normalized, out RaycastHit info, 100f))
-        //{
-        //    if (info.collider.gameObject.layer == 7)
-        //    {
-        //        //Debug.Log("Direct path to the player");
-        //        _bobbing = false;
-        //        Attacking = true;
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        //Debug.Log(info.collider.gameObject.name + " Layer: " + info.collider.gameObject.layer);
-        //    }
-        //}
+
+        if (Attacking)
+            return;
+        else if (startAttackCooldown)
+        {
+            //Debug.Log("Adding to attack cooldown");
+            this.attackCooldown += Time.deltaTime;
+            if (attackCooldown >= attackRate)
+                canAttack = true;
+            else
+                canAttack = false;
+        }
+
+        #region pathfinding
+        PathFinding();
+        #endregion
+
+
+        if (Vector3.Distance(transform.position, playerTrans.position) <= lurchDist
+            && Physics.Raycast(transform.position, (playerTrans.position - transform.position).normalized, out RaycastHit info, 100f))
+        {
+            if (info.collider.gameObject.layer == 7 && canAttack)
+            {
+                Debug.Log("Direct path to the player");
+                _bobbing = false;
+                Attacking = true;
+                return;
+            }
+            else
+            {
+                //Debug.Log(info.collider.gameObject.name + " Layer: " + info.collider.gameObject.layer);
+                startAttackCooldown = true;
+            }
+        }
 
         ///Fire rays around the eyeball searching for walls.
 
-        moveDir = playerTrans.position - transform.position;
         #region Starting and stopping the bob
+        moveDir = playerTrans.position - transform.position;
         float angle = playerTrans.position.y < transform.position.y 
                                              ? 360 - Vector3.Angle(moveDir, transform.right) 
                                              : Vector3.Angle(moveDir, transform.right);
@@ -169,7 +156,35 @@ public class Eyeball : Enemy
             _bobbing = false;
         else if (_bobbing == false && !movingVert)
             Bob();
-        #endregion    
+        #endregion   
+
+        void PathFinding()
+        {
+            if (path == null) return;
+
+            if (currentWaypoint >= path.vectorPath.Count)
+            {
+                reachedEndOfPath = true;
+                return;
+            }
+            else
+                reachedEndOfPath = false;
+
+            Vector2 dir = (Vector2)(path.vectorPath[currentWaypoint] - _rigidBody.position).normalized;
+            Vector2 force = dir * seekerSpeed * Time.deltaTime;
+
+            _rigidBody.AddForce(force);
+
+            float dist = Vector2.Distance(_rigidBody.position, path.vectorPath[currentWaypoint]);
+
+            if (dist < nextWaypointDistance)
+                currentWaypoint++;
+
+            if (force.x >= 0.01f)
+                enemyModel.transform.localScale = new Vector3(-1f, 1f, 1f);
+            else if (force.x <= -0.01f)
+                enemyModel.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
     }
 
 
@@ -249,4 +264,58 @@ public class Eyeball : Enemy
     }
     #endregion
 
+
+    IEnumerator AttackLurch()
+    {
+        bool moving = true;
+        float lurchSpeed = 2f;
+        float timeStart = Time.time;
+
+        Vector3 startPos = transform.position;
+        Vector3 p1 = playerTrans.position;
+        Vector3 p01;
+
+        Vector3 moveDir = Vector3.zero;
+
+        while(moving)
+        {
+            float u = ((Time.time - timeStart) * lurchSpeed) / 1;
+            if (u >= 1)
+            {
+                u = 1;
+                moving = false;
+            }
+
+            p01 = (1 - u) * startPos + u * p1;
+
+            _rigidBody.MovePosition(p01);
+            Debug.Log("moving to player");
+
+            yield return new WaitForFixedUpdate();
+        }
+
+        moving = true;
+        Vector3 p2 = transform.position;
+        timeStart = Time.time;
+
+        while (moving)
+        {
+            float u = (Time.time - timeStart) / 1;
+            if (u >= 1)
+            {
+                u = 1;
+                moving = false;
+            }
+
+            p01 = (1 - u) * p2 + u * startPos;
+
+            _rigidBody.MovePosition(p01);
+            Debug.Log("Moving back to start pos.");
+
+            yield return new WaitForFixedUpdate();
+        }
+
+        Attacking = false;
+        attackCooldown = 0;
+    }
 }

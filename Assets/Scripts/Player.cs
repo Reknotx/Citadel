@@ -100,14 +100,14 @@ public class Player : Unit
     /// <summary>this is the physical gameobject that is cast during the firewall spell</summary>
     public GameObject fireWall_prefab;
     #endregion
-            #region Bool Determinates 
+    #region Bool Determinates 
 
     /// <summary> determines if the player can move or not </summary>
-        [HideInInspector]
-        public bool canMove = true;
+    [HideInInspector]
+    public bool canMove = true;
 
     /// <summary> determines if the player is trying to interact with things or not </summary>
-   // [HideInInspector]
+    [HideInInspector]
     public bool Interacting = false;
 
     [HideInInspector]
@@ -117,12 +117,15 @@ public class Player : Unit
 
 
     /// <summary> this keeps track of if the player is in the camp shop or not  </summary>
+    [HideInInspector]
     public bool inCampShop = false;
 
     /// <summary> this keeps track of if the player is in the mine  or not  </summary>
+    [HideInInspector]
     public bool inMine = false;
 
     /// <summary> this keeps track of if the player is in the mine shop or not  </summary>
+    [HideInInspector]
     public bool inMineShop = false;
 
     #endregion

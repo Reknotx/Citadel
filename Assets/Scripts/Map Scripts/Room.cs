@@ -9,6 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Minimap;
 
 public class Room : MonoBehaviour
 {
@@ -23,7 +24,6 @@ public class Room : MonoBehaviour
     public List<GameObject> inanimateObjs = new List<GameObject>();
     
     public RoomInfo roomInfo;
-
     public GameObject fog;  
 
     #endregion
@@ -74,7 +74,8 @@ public class Room : MonoBehaviour
         if (FirstVisit) { FirstVisit = false; }
 
         ///Turn on all the enemies.
-        ///Tu
+        ///Adjust the grid position for the astar path  
+        
     }
 
     /// <summary> The function that will trigger when player leaves the room. </summary>
