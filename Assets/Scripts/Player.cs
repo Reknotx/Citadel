@@ -28,7 +28,7 @@ public class Player : Unit
     public float myHealth;
 
     ///<summary>This is the maximum units health.</summary>
-    public float maxHealth;
+    public float maxHealth; //
 
     ///<summary>This is the  units starting health.</summary>
     public float startingHealth;
@@ -37,7 +37,7 @@ public class Player : Unit
     public float myMana;
 
     ///<summary>This is the units maximum mana for magic casting.</summary>
-    public float maxMana;
+    public float maxMana; //
 
     ///<summary>This is the units starting .</summary>
     public float startingMana;
@@ -69,10 +69,10 @@ public class Player : Unit
     public float knockbackForce;
 
     ///<summary>This determines the range of the player's melee attack.</summary>
-    public float meleeAttackRange = 1f;
+    public float meleeAttackRange = 1f; //
 
     ///<summary>This determines the damage of the player's melee attack.</summary>
-    public int meleeAttackDamage;
+    public int meleeAttackDamage; //
 
     ///<summary>This determines the damage the player deals to an enemy when they collide.</summary>
     public int playerCollisionDamage;
