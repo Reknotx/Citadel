@@ -94,8 +94,6 @@ public class Player : Unit
     public bool canInteract = true;
 
 
-
-
     /// <summary> this keeps track of if the player is in the camp shop or not  </summary>
     public bool inCampShop = false;
 
@@ -159,9 +157,9 @@ public class Player : Unit
         {
             ResetGame();
         }
- 
 
-      
+
+
 
 
         #endregion
@@ -170,6 +168,7 @@ public class Player : Unit
         ///<summary>This moves the player constantly while the input is held.</summary>
         if (canMove == true)
         {
+            
             Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
             _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
              _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
@@ -210,6 +209,9 @@ public class Player : Unit
             isGrounded = false;
         }
 
+        
+
+
 
         ///<summary>This determines whether the unit is trying to jump up through a platform or not.</summary>
         var roofCheck = transform.TransformDirection(Vector3.up);
@@ -230,9 +232,14 @@ public class Player : Unit
         if (throughPlatform == true && justJumped == true)
         {
             StartCoroutine(dropDown());
-            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 10);
+            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 6);
             //_rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
         }
+
+
+       
+
+
         #endregion
 
         ///<summary>this sets the rate for how quickly players can cast spells </summary>
@@ -256,7 +263,8 @@ public class Player : Unit
         maxMana = startingMana;
         myMana = startingMana;
         //GetComponentInChildren<GoldHandler>().myHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
-        GetComponentInChildren<GoldHandler>()._mySoftGold = GetComponentInChildren<GoldHandler>().startingSoftGold;
+        var goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
+        goldHandler.GetComponent<GoldHandler>()._mySoftGold = goldHandler.GetComponent<GoldHandler>().startingSoftGold;
         var goldTracker = GameObject.FindGameObjectWithTag("GoldTracker");
         goldTracker.GetComponent<PlayerGoldTrackerScript>().playerDead = true;
         GameObject SceneManager = GameObject.FindGameObjectWithTag("SceneManager");
@@ -274,16 +282,19 @@ public class Player : Unit
         {
             if (this != null)
             {
-                Vector2 inputVector = context.ReadValue<Vector2>();
-                _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
-                if (inputVector.x > 0)
-                {
-                    facingRight = true;
-                }
-                if (inputVector.x < 0)
-                {
-                    facingRight = false;
-                }
+               
+                    Vector2 inputVector = context.ReadValue<Vector2>();
+                    _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
+                    if (inputVector.x > 0)
+                    {
+                        facingRight = true;
+                    }
+                    if (inputVector.x < 0)
+                    {
+                        facingRight = false;
+                    }
+                
+                
             }
         }
     }
@@ -295,14 +306,17 @@ public class Player : Unit
         {
             if (isGrounded == true )
             {
-
-                _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
+              
+                _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
+                
                 StartCoroutine(Jumped());
 
             }
             if (onPlatform == true)
             {
-                _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
+              
+                _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
+                // _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
                 StartCoroutine(Jumped());
 
             }
@@ -476,7 +490,7 @@ public class Player : Unit
         }
         #endregion
 
-        #region ground/platform collisions
+        #region ground/platform/camp collisions
 
         if (other.gameObject.tag =="ground")
         {
