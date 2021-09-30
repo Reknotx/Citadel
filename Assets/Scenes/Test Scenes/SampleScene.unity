@@ -572,17 +572,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   softGoldText: {fileID: 1236611481}
   hardGoldText: {fileID: 1466950811}
-  mySoftGold: 100
-  myHardGold: 2000
+  _mySoftGold: 0
+  _myHardGold: 0
+  startingSoftGold: 0
+  startingHardGold: 100
   softGold: {fileID: 1293061657}
   hardGold: {fileID: 49501656}
   castleSceneName: SampleScene
   mainMenuName: MainMenu
   numOfMiners: 1
   baseGoldIncrease: 0
-  minerIncrease: 2
   numOfCarts: 0
+  minerIncrease: 2
   cartIncrease: 5
+  revenue: 0
 --- !u!4 &443644420
 Transform:
   m_ObjectHideFlags: 0
@@ -1637,6 +1640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numOfMiners: 1
   baseGoldGain: 150
+  clickPercentage: 0
   gold: {fileID: 443644419}
 --- !u!4 &832621427
 Transform:
@@ -3017,7 +3021,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2102305755}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -19.16, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3035,5 +3039,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bab5b1c800e967e40bb5417b637118fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 0
   speed: 2.9
+  jumpFroce: 0
+  _groundCollider: {fileID: 0}
+  _platformCollider: {fileID: 0}
+  _hitboxCollider: {fileID: 0}
+  _lightCollider: {fileID: 0}
+  _heavyCollider: {fileID: 0}
+  spellLocationLeft: {fileID: 0}
+  spellLocationRight: {fileID: 0}
+  spellLocationCenter: {fileID: 0}
+  facingRight: 0
+  myHealth: 0
+  maxHealth: 0
+  startingHealth: 0
+  myMana: 0
+  maxMana: 0
+  startingMana: 0
+  _rigidBody: {fileID: 0}
+  facingRightLocal: 0
+  knockbackForce: 0
+  meleeAttackRange: 1
+  meleeAttackDamage: 0
+  playerCollisionDamage: 0
+  fireWall_prefab: {fileID: 0}
+  canMove: 1
+  Interacting: 0
+  canInteract: 1
+  inCampShop: 0
+  inMine: 0
+  inMineShop: 0

@@ -157,7 +157,10 @@ public class Enemy : Unit
         return;
     }
 
+    protected virtual void Move()
+    {
 
+    }
     #endregion
 
     #region Collision Detection

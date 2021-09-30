@@ -48,8 +48,14 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     
-       goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
+
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        //_instance = this;
+
+        goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
         currentSceneName = SceneManager.GetActiveScene().name;
 
         if(currentSceneName!=lastSceneName)
@@ -91,8 +97,8 @@ public class PlayerGoldTrackerScript : MonoBehaviour
                 playerDead = false;
             }
 
-            goldHandler.GetComponent<GoldHandler>().MyHardGold = playerHardGold;
-            goldHandler.GetComponent<GoldHandler>().MySoftGold = playerSoftGold;
+            goldHandler.GetComponent<GoldHandler>()._myHardGold = playerHardGold;
+            goldHandler.GetComponent<GoldHandler>()._mySoftGold = playerSoftGold;
             goldHandler.GetComponent<GoldHandler>().numOfCarts = numCart;
             goldHandler.GetComponent<GoldHandler>().numOfMiners = numMiner;
 
