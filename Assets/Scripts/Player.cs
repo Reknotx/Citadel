@@ -93,13 +93,6 @@ public class Player : Unit
     [HideInInspector]
     public bool canInteract = true;
 
-   
-    public bool leftWall = false;
-    public bool rightWall = false;
-    public bool onWall = false;
-
-
-
 
     /// <summary> this keeps track of if the player is in the camp shop or not  </summary>
     public bool inCampShop = false;
@@ -216,31 +209,7 @@ public class Player : Unit
             isGrounded = false;
         }
 
-        ///<summary>This determines whether the unit is against a wall or not.</summary>
-        var leftWallCheck = transform.TransformDirection(Vector3.left);
-        Debug.DrawRay(transform.position, leftWallCheck * (_Reach/100), Color.red);
-        if (Physics.Raycast(transform.position, leftWallCheck, out hit, _Reach) && hit.transform.tag == "ground")
-        {
-            leftWall = true;
-        }
-        else
-        {
-            leftWall = false;
-            onWall = false;
-        }
-
-        ///<summary>This determines whether the unit is against a wall or not.</summary>
-        var rightWallCheck = transform.TransformDirection(Vector3.right);
-        Debug.DrawRay(transform.position, rightWallCheck * (_Reach /100), Color.red);
-        if (Physics.Raycast(transform.position, rightWallCheck, out hit, _Reach) && hit.transform.tag == "ground")
-        {
-            rightWall = true;
-        }
-        else
-        {
-            rightWall = false;
-            onWall = false;
-        }
+        
 
 
 
@@ -263,19 +232,12 @@ public class Player : Unit
         if (throughPlatform == true && justJumped == true)
         {
             StartCoroutine(dropDown());
-            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 10);
+            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 6);
             //_rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
         }
 
 
-        if (leftWall == true)
-        {
-            onWall = true;
-        }
-        if (rightWall == true)
-        {
-            onWall = true;
-        }
+       
 
 
         #endregion
@@ -319,8 +281,7 @@ public class Player : Unit
         {
             if (this != null)
             {
-                if(onWall == false)
-                {
+               
                     Vector2 inputVector = context.ReadValue<Vector2>();
                     _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
                     if (inputVector.x > 0)
@@ -331,7 +292,7 @@ public class Player : Unit
                     {
                         facingRight = false;
                     }
-                }
+                
                 
             }
         }
@@ -528,7 +489,7 @@ public class Player : Unit
         }
         #endregion
 
-        #region ground/platform collisions
+        #region ground/platform/camp collisions
 
         if (other.gameObject.tag =="ground")
         {

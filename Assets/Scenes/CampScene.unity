@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5263043593152289955, guid: c1a9e51a92f62534da9fa5ea1777e2ed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -32.28
+      value: -33.69
       objectReference: {fileID: 0}
     - target: {fileID: 5263043593152289955, guid: c1a9e51a92f62534da9fa5ea1777e2ed, type: 3}
       propertyPath: m_LocalPosition.y
@@ -464,9 +464,17 @@ PrefabInstance:
       propertyPath: speed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6354622231324802118, guid: 5d7aa0badcecf8141a1f7020c3346bbf, type: 3}
+      propertyPath: jumpFroce
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6354622231324802119, guid: 5d7aa0badcecf8141a1f7020c3346bbf, type: 3}
       propertyPath: m_Mass
       value: 0.0000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354622231324802119, guid: 5d7aa0badcecf8141a1f7020c3346bbf, type: 3}
+      propertyPath: m_Interpolate
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6354622231324802169, guid: 5d7aa0badcecf8141a1f7020c3346bbf, type: 3}
       propertyPath: m_ActionEvents.Array.size
@@ -977,9 +985,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1001 &1055565396
 PrefabInstance:
