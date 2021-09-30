@@ -344,14 +344,17 @@ public class Player : Unit
         {
             if (isGrounded == true )
             {
-
-                _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
+              
+                _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
+                
                 StartCoroutine(Jumped());
 
             }
             if (onPlatform == true)
             {
-                _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
+              
+                _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
+                // _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
                 StartCoroutine(Jumped());
 
             }
