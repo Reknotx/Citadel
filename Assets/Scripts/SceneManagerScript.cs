@@ -35,6 +35,7 @@ public class SceneManagerScript : MonoBehaviour
     #endregion
 
     GameObject player;
+   public GameObject shopUI;
 
     private GameObject toMineShopBTN;
 
@@ -68,6 +69,7 @@ public class SceneManagerScript : MonoBehaviour
         activeScene = SceneManager.GetActiveScene();
         activeSceneName = activeScene.name;
         GameObject player = GameObject.FindWithTag("Player");
+      //  shopUI = GameObject.FindGameObjectWithTag("CampShop");
 
     }
 
@@ -100,6 +102,10 @@ public class SceneManagerScript : MonoBehaviour
         campShopButtons.SetActive(true);
 
         
+      
+        shopUI.SetActive(true);
+
+
         player.GetComponent<Player>().canMove = false;
     } 
     
