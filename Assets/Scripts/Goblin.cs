@@ -21,6 +21,8 @@ public class Goblin : Enemy
 
     private float yDistance;
 
+    public float jumpVelocity;
+
     #endregion
 
 
@@ -68,13 +70,15 @@ public class Goblin : Enemy
             if (isGrounded)
             {
                 //jump toward player
-                _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
+                // _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
+                GetComponent<Rigidbody>().AddForce(Vector3.up * jumpVelocity);
                 StartCoroutine(Jumped());
             }
 
             if (onPlatform == true)
             {
-                _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
+                //_rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
+                GetComponent<Rigidbody>().AddForce(Vector3.up * jumpVelocity);
                 StartCoroutine(Jumped());
 
             }
