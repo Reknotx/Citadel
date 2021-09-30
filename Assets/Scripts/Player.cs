@@ -263,7 +263,8 @@ public class Player : Unit
         maxMana = startingMana;
         myMana = startingMana;
         //GetComponentInChildren<GoldHandler>().myHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
-        GetComponentInChildren<GoldHandler>()._mySoftGold = GetComponentInChildren<GoldHandler>().startingSoftGold;
+        var goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
+        goldHandler.GetComponent<GoldHandler>()._mySoftGold = goldHandler.GetComponent<GoldHandler>().startingSoftGold;
         var goldTracker = GameObject.FindGameObjectWithTag("GoldTracker");
         goldTracker.GetComponent<PlayerGoldTrackerScript>().playerDead = true;
         GameObject SceneManager = GameObject.FindGameObjectWithTag("SceneManager");
