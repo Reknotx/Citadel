@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 4164641213947438828}
   - component: {fileID: 4164641213947438829}
   - component: {fileID: 4164641213947438802}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -607,6 +607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   jumpFroce: 10
+  maxHealth: 0
   _groundCollider: {fileID: 4164641213947438824}
   _platformCollider: {fileID: 4164641213947438800}
   _hitboxCollider: {fileID: 4164641213947438803}
@@ -616,10 +617,7 @@ MonoBehaviour:
   spellLocationRight: {fileID: 4164641212815824086}
   spellLocationCenter: {fileID: 4164641213551997763}
   facingRight: 0
-  myHealth: 5
-  maxHealth: 0
   startingHealth: 0
-  myMana: 0
   maxMana: 0
   startingMana: 0
   _rigidBody: {fileID: 4164641213947438828}

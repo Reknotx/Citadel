@@ -106,6 +106,7 @@ public class MapGenerator : MonoBehaviour
         GameObject spawnRoom = SpawnRoom(roomCont.SpawnRooms[Random.Range(0, roomCont.SpawnRooms.Count)], new Vector2(0, SRY), "Spawn Room");
         
         tempRoomInfo = spawnRoom.GetComponent<Room>().roomInfo;
+        spawnRoom.GetComponent<Room>().fogEnabledOnStart = false;
 
         conceptGrid[(int)SpawnRoomGridPos.y, 0] = new GridNode(SpawnRoomGridPos,
                                                                GridNode.RoomType.Spawn,

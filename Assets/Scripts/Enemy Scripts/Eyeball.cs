@@ -289,7 +289,7 @@ public class Eyeball : Enemy
             p01 = (1 - u) * startPos + u * p1;
 
             _rigidBody.MovePosition(p01);
-            Debug.Log("moving to player");
+            //Debug.Log("moving to player");
 
             yield return new WaitForFixedUpdate();
         }
@@ -310,7 +310,7 @@ public class Eyeball : Enemy
             p01 = (1 - u) * p2 + u * startPos;
 
             _rigidBody.MovePosition(p01);
-            Debug.Log("Moving back to start pos.");
+            //Debug.Log("Moving back to start pos.");
 
             yield return new WaitForFixedUpdate();
         }
