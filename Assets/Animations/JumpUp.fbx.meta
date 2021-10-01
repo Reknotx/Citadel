@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: bc10124f635a9ab46a7599be1b232c21
+guid: 1a2e8a6d9bb8c3f44a2585e738c51d3b
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Running
+    second: JumpStart
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -28,14 +28,12 @@ ModelImporter:
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'ri_tettg:Player_Rigged:ForeArm_L' has translation
-      animation that will be discarded.\n\t'ri_tettg:Player_Rigged:Calf_L' has translation
-      animation that will be discarded.\n\t'ri_tettg:Player_Rigged:Calf_R' has translation
+      to improve retargeting quality.\n\t'ri_tettg:Player_Rigged:ForeArm_R' has translation
       animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    importConstraints: 1
+    importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -45,11 +43,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Running
+      name: JumpStart
       takeName: Take 001
       internalID: 0
       firstFrame: 1
-      lastFrame: 16
+      lastFrame: 18
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -440,410 +438,410 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: RunHeadFixBake(Clone)
+    - name: JumpUp(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Player_Armature
-      parentName: RunHeadFixBake(Clone)
+      parentName: JumpUp(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 3.2808414, y: 3.2808414, z: 3.2808414}
     - name: ri_tettg:Player_Rigged:Root
       parentName: ri_tettg:Player_Rigged:Player_Armature
       position: {x: -0, y: 0, z: 0}
-      rotation: {x: 0.00000005338508, y: 0.7071068, z: 0.7071067, w: 0.000000053385072}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: 0.000000053385147, y: 0.7071068, z: 0.7071068, w: 0.000000053385143}
+      scale: {x: 0.9999996, y: 0.9999997, z: 0.9999995}
     - name: ri_tettg:Player_Rigged:Pelvis
       parentName: ri_tettg:Player_Rigged:Root
-      position: {x: 1.2177227e-10, y: 0.24405514, z: 0.00080643594}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.00026121398, y: 0.24465887, z: 0.00042690357}
+      rotation: {x: 2.306856e-16, y: 0.000000051053846, z: 0.000000003055515, w: 1}
+      scale: {x: 0.9999999, y: 1.0000001, z: 1.0000002}
     - name: ri_tettg:Player_Rigged:Spine
       parentName: ri_tettg:Player_Rigged:Pelvis
-      position: {x: -0.0000000023018754, y: 0.026159877, z: -0.0008064977}
-      rotation: {x: -0.12753491, y: 0.008422135, z: -0.0133732585, w: 0.99170816}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.0000000016613135, y: 0.02615988, z: -0.000806494}
+      rotation: {x: -0.1199113, y: 0.00000004926833, z: -2.0468824e-10, w: 0.9927846}
+      scale: {x: 1.0000005, y: 1, z: 1.0000006}
     - name: ri_tettg:Player_Rigged:Spine1
       parentName: ri_tettg:Player_Rigged:Spine
-      position: {x: 0.000000004792516, y: 0.03743706, z: 0.0016286644}
-      rotation: {x: 0.17047125, y: 0.013437149, z: -0.0110034, w: 0.9852096}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.0000000011760949, y: 0.03743706, z: 0.0016286421}
+      rotation: {x: 0.18595971, y: -0.00000007322811, z: -0.000000003910613, w: 0.9825574}
+      scale: {x: 0.9999996, y: 1.0000001, z: 0.9999995}
     - name: ri_tettg:Player_Rigged:Spine2
       parentName: ri_tettg:Player_Rigged:Spine1
-      position: {x: 0.0000000052852336, y: 0.034853946, z: -0.00025288135}
-      rotation: {x: 0.13277856, y: 0.0038398237, z: -0.016400557, w: 0.9910026}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 4.1548676e-10, y: 0.034853946, z: -0.000252883}
+      rotation: {x: 0.14845443, y: 0.000000020916817, z: -0.000000015621408, w: 0.9889193}
+      scale: {x: 1.0000002, y: 0.9999998, z: 1.0000002}
     - name: ri_tettg:Player_Rigged:Neck
       parentName: ri_tettg:Player_Rigged:Spine2
-      position: {x: 0.000000010671575, y: 0.03186227, z: -0.002588826}
-      rotation: {x: -0.32006985, y: 0.002592601, z: 0.014238778, w: 0.9472834}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 4.19395e-10, y: 0.031862244, z: -0.0025889282}
+      rotation: {x: -0.3456156, y: 0.000000108695104, z: -0.000000020844382, w: 0.93837625}
+      scale: {x: 1.0000007, y: 1, z: 1.0000005}
     - name: ri_tettg:Player_Rigged:Head
       parentName: ri_tettg:Player_Rigged:Neck
-      position: {x: 0.000000002916603, y: 0.032502297, z: 0.001201094}
-      rotation: {x: 0.16653255, y: -0.020366538, z: 0.030751556, w: 0.98534584}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.00000000373365, y: 0.03250215, z: 0.0012011263}
+      rotation: {x: 0.13661289, y: -0.00000012467524, z: 0.000000009409848, w: 0.9906245}
+      scale: {x: 0.99999964, y: 1, z: 0.99999964}
     - name: ri_tettg:Player_Rigged:Clav_L
       parentName: ri_tettg:Player_Rigged:Spine2
-      position: {x: 0.01475141, y: 0.018062292, z: -0.009937769}
-      rotation: {x: -0.12066986, y: -0.21398485, z: -0.6633639, w: 0.7068223}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.014751415, y: 0.018062303, z: -0.009937765}
+      rotation: {x: 0.11189299, y: 0.21277863, z: 0.6881338, w: -0.6846}
+      scale: {x: 1.0000004, y: 1.0000006, z: 1.0000004}
     - name: ri_tettg:Player_Rigged:Bicep_L
       parentName: ri_tettg:Player_Rigged:Clav_L
-      position: {x: 0.006416953, y: 0.026723735, z: 0.00064704404}
-      rotation: {x: -0.0644549, y: -0.06970349, z: 0.047151964, w: 0.994366}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.00641693, y: 0.026723746, z: 0.00064704136}
+      rotation: {x: -0.06552247, y: -0.01604349, z: 0.00006599348, w: 0.9977221}
+      scale: {x: 0.9999999, y: 1, z: 1.0000006}
     - name: ri_tettg:Player_Rigged:ForeArm_L
       parentName: ri_tettg:Player_Rigged:Bicep_L
-      position: {x: -0.00030984485, y: 0.06078387, z: -0.0009068705}
-      rotation: {x: 0.015090417, y: -0.0048841, z: -0.04472428, w: 0.9988735}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.00033887455, y: 0.06078404, z: -0.0008821741}
+      rotation: {x: -0.042545993, y: -0.003716099, z: 0.028217372, w: 0.99868906}
+      scale: {x: 1.0000002, y: 1.0000007, z: 1.0000002}
     - name: ri_tettg:Player_Rigged:Hand_L
       parentName: ri_tettg:Player_Rigged:ForeArm_L
-      position: {x: 0.0009595265, y: 0.03792748, z: 0.000053281303}
-      rotation: {x: 0.09834291, y: -0.016252538, z: -0.057383917, w: 0.9933638}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.00095966447, y: 0.0379275, z: 0.000053417098}
+      rotation: {x: 0.054604355, y: -0.0011636019, z: 0.005559264, w: 0.99849194}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1.0000002}
     - name: ri_tettg:Player_Rigged:Finger1_L
       parentName: ri_tettg:Player_Rigged:Hand_L
-      position: {x: 0.0015129108, y: 0.021559147, z: -0.007397208}
-      rotation: {x: -0.116223015, y: -0.033975728, z: 0.000288337, w: 0.9926418}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.0015129222, y: 0.021559143, z: -0.0073972023}
+      rotation: {x: -0.00571944, y: 0.015337127, z: -0.08926882, w: 0.9958731}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
     - name: ri_tettg:Player_Rigged:Finger11_L
       parentName: ri_tettg:Player_Rigged:Finger1_L
-      position: {x: 0.00083346857, y: 0.014322194, z: 0.00019331844}
-      rotation: {x: 0.052981496, y: 0.03378393, z: -0.06612927, w: 0.9958306}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.00083345664, y: 0.014322202, z: 0.00019331643}
+      rotation: {x: 0.05669534, y: 0.025536513, z: -0.25658056, w: 0.96452063}
+      scale: {x: 0.99999976, y: 1.0000004, z: 1}
     - name: ri_tettg:Player_Rigged:Finger2_L
       parentName: ri_tettg:Player_Rigged:Hand_L
-      position: {x: 0.0018157924, y: 0.022118228, z: -0.0013394448}
-      rotation: {x: 0.0053997794, y: 0.009342585, z: -0.06340464, w: 0.9979296}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.0018157896, y: 0.022118231, z: -0.0013394303}
+      rotation: {x: 0.0053994064, y: 0.009342592, z: -0.06340493, w: 0.99792963}
+      scale: {x: 1.0000001, y: 1.0000005, z: 1.0000004}
     - name: ri_tettg:Player_Rigged:Finger21_L
       parentName: ri_tettg:Player_Rigged:Finger2_L
-      position: {x: 0.000798802, y: 0.015795456, z: 0.00018027646}
-      rotation: {x: 0.04715453, y: 0.028050024, z: -0.30635327, w: 0.9503354}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.0007987901, y: 0.015795454, z: 0.00018028113}
+      rotation: {x: 0.047154643, y: 0.028050153, z: -0.3063532, w: 0.95033544}
+      scale: {x: 0.9999997, y: 1.0000001, z: 0.9999998}
     - name: ri_tettg:Player_Rigged:Finger3_L
       parentName: ri_tettg:Player_Rigged:Hand_L
-      position: {x: 0.0013067548, y: 0.022462994, z: 0.0037554873}
-      rotation: {x: -0.013162831, y: 0.02810554, z: -0.099666506, w: 0.99453676}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.0013067629, y: 0.02246299, z: 0.0037554833}
+      rotation: {x: 0.0012792008, y: 0.021858966, z: -0.09950092, w: 0.9947965}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
     - name: ri_tettg:Player_Rigged:Finger31_L
       parentName: ri_tettg:Player_Rigged:Finger3_L
-      position: {x: 0.00042364124, y: 0.013271512, z: 0.000048427093}
-      rotation: {x: 0.029844558, y: 0.013310187, z: -0.26204765, w: 0.96450156}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.0004236269, y: 0.013271517, z: 0.00004843204}
+      rotation: {x: 0.029147297, y: 0.015138023, z: -0.19522288, w: 0.9802089}
+      scale: {x: 0.99999964, y: 1.0000004, z: 1.0000004}
     - name: ri_tettg:Player_Rigged:Finger4_L
       parentName: ri_tettg:Player_Rigged:Hand_L
-      position: {x: 0.0007010076, y: 0.019406814, z: 0.008409198}
-      rotation: {x: -0.012746719, y: 0.03756938, z: -0.10083816, w: 0.99411154}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.000701026, y: 0.019406822, z: 0.008409185}
+      rotation: {x: 0.012046796, y: 0.020192146, z: -0.099590376, w: 0.99475074}
+      scale: {x: 1.0000001, y: 0.9999998, z: 0.9999999}
     - name: ri_tettg:Player_Rigged:Finger41_L
       parentName: ri_tettg:Player_Rigged:Finger4_L
-      position: {x: 0.0002680726, y: 0.01314732, z: 0.000003171018}
-      rotation: {x: 0.01866064, y: 0.010398806, z: -0.34654522, w: 0.93779004}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.00026806493, y: 0.013147314, z: 0.0000031784477}
+      rotation: {x: 0.018275104, y: 0.011142614, z: -0.30875018, w: 0.9509023}
+      scale: {x: 0.99999976, y: 1.0000004, z: 1.0000004}
     - name: ri_tettg:Player_Rigged:Thumb_L
       parentName: ri_tettg:Player_Rigged:Hand_L
-      position: {x: 0.0038419568, y: 0.006478197, z: -0.008799236}
-      rotation: {x: -0.11894906, y: 0.042621125, z: -0.28553897, w: 0.9500011}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.0038419573, y: 0.0064781965, z: -0.008799243}
+      rotation: {x: -0.16770154, y: 0.1048967, z: -0.3063471, w: 0.93114144}
+      scale: {x: 0.99999976, y: 1.0000002, z: 0.9999999}
     - name: ri_tettg:Player_Rigged:Clav_R
       parentName: ri_tettg:Player_Rigged:Spine2
-      position: {x: -0.011274885, y: 0.018062305, z: -0.009937768}
-      rotation: {x: -0.09924067, y: 0.2144811, z: 0.71528465, w: 0.6576603}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.011274882, y: 0.018062308, z: -0.009937766}
+      rotation: {x: -0.108247824, y: 0.21174282, z: 0.69588304, w: 0.6776387}
+      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000001}
     - name: ri_tettg:Player_Rigged:Bicep_R
       parentName: ri_tettg:Player_Rigged:Clav_R
-      position: {x: -0.0065363194, y: 0.029623827, z: 0.00084500544}
-      rotation: {x: -0.113822736, y: -0.012939141, z: -0.031260587, w: 0.99292487}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.0065363273, y: 0.029623827, z: 0.0008450225}
+      rotation: {x: -0.06419653, y: 0.0049399864, z: -0.010681154, w: 0.99786794}
+      scale: {x: 1.0000002, y: 1.0000002, z: 0.99999994}
     - name: ri_tettg:Player_Rigged:ForeArm_R
       parentName: ri_tettg:Player_Rigged:Bicep_R
-      position: {x: 0.00033897333, y: 0.06078412, z: -0.0008821883}
-      rotation: {x: 0.020977328, y: 0.016799884, z: 0.040812336, w: 0.9988053}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.0003388774, y: 0.06078411, z: -0.0008821845}
+      rotation: {x: -0.043888588, y: 0.0037690736, z: -0.02756923, w: 0.9986489}
+      scale: {x: 1.0000005, y: 1.0000008, z: 1.0000008}
     - name: ri_tettg:Player_Rigged:Hand_R
       parentName: ri_tettg:Player_Rigged:ForeArm_R
-      position: {x: -0.00095962925, y: 0.037927426, z: 0.00005338352}
-      rotation: {x: -0.07945576, y: 0.11608421, z: -0.03921767, w: 0.98927915}
-      scale: {x: 0.99999994, y: 0.99999994, z: 0.9999999}
+      position: {x: -0.0009596353, y: 0.037927452, z: 0.00005340941}
+      rotation: {x: 0.054604556, y: 0.0011636782, z: -0.0055592377, w: 0.99849194}
+      scale: {x: 0.99999976, y: 0.99999946, z: 0.9999995}
     - name: ri_tettg:Player_Rigged:Finger1_R
       parentName: ri_tettg:Player_Rigged:Hand_R
-      position: {x: -0.0015129005, y: 0.021559129, z: -0.0073971995}
-      rotation: {x: 0.00041962104, y: -0.012963281, z: -0.061884046, w: 0.9979991}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.0015129083, y: 0.021559134, z: -0.007397202}
+      rotation: {x: -0.0057195756, y: -0.015337175, z: 0.08926817, w: 0.99587315}
+      scale: {x: 1.0000001, y: 1.0000005, z: 1.0000002}
     - name: ri_tettg:Player_Rigged:Finger11_R
       parentName: ri_tettg:Player_Rigged:Finger1_R
-      position: {x: -0.00083346723, y: 0.014322186, z: 0.00019331052}
-      rotation: {x: 0.05492495, y: -0.030172996, z: 0.1534498, w: 0.9861674}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.00083345064, y: 0.014322167, z: 0.0001933165}
+      rotation: {x: 0.05669532, y: -0.02553648, z: 0.2565809, w: 0.9645205}
+      scale: {x: 0.9999998, y: 0.9999995, z: 0.99999976}
     - name: ri_tettg:Player_Rigged:Finger2_R
       parentName: ri_tettg:Player_Rigged:Hand_R
-      position: {x: -0.0018157993, y: 0.02211826, z: -0.0013394288}
-      rotation: {x: 0.0053997235, y: -0.009342569, z: 0.0634046, w: 0.9979296}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.0018158049, y: 0.022118285, z: -0.0013394279}
+      rotation: {x: 0.005399427, y: -0.009342626, z: 0.06340478, w: 0.99792963}
+      scale: {x: 1, y: 1.0000006, z: 1.0000001}
     - name: ri_tettg:Player_Rigged:Finger21_R
       parentName: ri_tettg:Player_Rigged:Finger2_R
-      position: {x: -0.0007987751, y: 0.015795454, z: 0.0001802719}
-      rotation: {x: 0.04715455, y: -0.028050004, z: 0.30635336, w: 0.9503354}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.0007987707, y: 0.015795447, z: 0.00018028263}
+      rotation: {x: 0.0471547, y: -0.028050037, z: 0.30635333, w: 0.9503353}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000002}
     - name: ri_tettg:Player_Rigged:Finger3_R
       parentName: ri_tettg:Player_Rigged:Hand_R
-      position: {x: -0.0013067545, y: 0.022462983, z: 0.0037554875}
-      rotation: {x: -0.015813572, y: -0.030223545, z: 0.09857811, w: 0.99454457}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.0013067593, y: 0.022462975, z: 0.003755483}
+      rotation: {x: 0.0012798859, y: -0.021858947, z: 0.09950051, w: 0.9947966}
+      scale: {x: 1, y: 1.0000004, z: 1.0000004}
     - name: ri_tettg:Player_Rigged:Finger31_R
       parentName: ri_tettg:Player_Rigged:Finger3_R
-      position: {x: -0.00042361984, y: 0.013271542, z: 0.00004843325}
-      rotation: {x: 0.029964725, y: -0.012944326, z: 0.27500203, w: 0.9608894}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.00042362895, y: 0.013271538, z: 0.000048437454}
+      rotation: {x: 0.029147437, y: -0.015138071, z: 0.19522294, w: 0.9802089}
+      scale: {x: 1.0000005, y: 1.0000004, z: 1.0000002}
     - name: ri_tettg:Player_Rigged:Finger4_R
       parentName: ri_tettg:Player_Rigged:Hand_R
-      position: {x: -0.0007010125, y: 0.019406812, z: 0.008409195}
-      rotation: {x: -0.009895087, y: -0.03360049, z: 0.1017665, w: 0.99419147}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.0007010102, y: 0.019406801, z: 0.0084091835}
+      rotation: {x: 0.012047821, y: -0.020192062, z: 0.09959132, w: 0.99475056}
+      scale: {x: 1.0000001, y: 1.0000005, z: 1.0000004}
     - name: ri_tettg:Player_Rigged:Finger41_R
       parentName: ri_tettg:Player_Rigged:Finger4_R
-      position: {x: -0.00026808726, y: 0.013147348, z: 0.0000031720322}
-      rotation: {x: 0.019449119, y: -0.008580888, z: 0.43337566, w: 0.90096265}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.00026807148, y: 0.013147363, z: 0.000003183585}
+      rotation: {x: 0.0182751, y: -0.01114269, z: 0.3087507, w: 0.9509021}
+      scale: {x: 0.99999994, y: 0.99999964, z: 0.99999964}
     - name: ri_tettg:Player_Rigged:Thumb_R
       parentName: ri_tettg:Player_Rigged:Hand_R
-      position: {x: -0.0038419473, y: 0.0064781876, z: -0.008799253}
-      rotation: {x: -0.04465707, y: -0.049139768, z: 0.30362093, w: 0.9504764}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.003841946, y: 0.0064781774, z: -0.008799246}
+      rotation: {x: -0.16770144, y: -0.104896806, z: 0.30634713, w: 0.93114144}
+      scale: {x: 1.0000001, y: 1.0000004, z: 1.0000004}
     - name: ri_tettg:Player_Rigged:Thigh_L
       parentName: ri_tettg:Player_Rigged:Pelvis
-      position: {x: 0.015807278, y: -0.0025513084, z: -0.0008064853}
-      rotation: {x: -0.1746458, y: -0.004092526, z: 0.9826497, w: -0.062303588}
-      scale: {x: 1.0000014, y: 1, z: 1}
+      position: {x: 0.015807284, y: -0.0025513081, z: -0.0008064877}
+      rotation: {x: 0.0014105738, y: -0.028225927, z: 0.9983535, w: -0.049917918}
+      scale: {x: 1.0000012, y: 1, z: 1.0000002}
     - name: ri_tettg:Player_Rigged:Calf_L
       parentName: ri_tettg:Player_Rigged:Thigh_L
-      position: {x: -0.00030700382, y: 0.096342176, z: -0.0006823578}
-      rotation: {x: -0.0002676572, y: 0.04587349, z: -0.014150251, w: 0.998847}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.00030687233, y: 0.09634215, z: -0.00068281486}
+      rotation: {x: 0.04812177, y: 0.0002935045, z: -0.035107713, w: 0.9982243}
+      scale: {x: 1.0000002, y: 1.0000005, z: 1.0000006}
     - name: ri_tettg:Player_Rigged:Foot_L
       parentName: ri_tettg:Player_Rigged:Calf_L
-      position: {x: 0.0015423984, y: 0.094310984, z: -0.00037730072}
-      rotation: {x: 0.038759194, y: -0.22078788, z: -0.041614573, w: 0.9736625}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.0015423789, y: 0.094311, z: -0.00037727001}
+      rotation: {x: 0.009945973, y: -0.00073826406, z: -0.014823558, w: 0.99984044}
+      scale: {x: 0.99999994, y: 1.0000006, z: 1.0000008}
     - name: ri_tettg:Player_Rigged:Toe_L
       parentName: ri_tettg:Player_Rigged:Foot_L
-      position: {x: -0.005895617, y: 0.044102386, z: -0.01905181}
-      rotation: {x: -0.5412677, y: -0.27498665, z: 0.65144634, w: 0.4550047}
-      scale: {x: 1, y: 1.0000006, z: 1}
+      position: {x: -0.0058956333, y: 0.0441024, z: -0.019051813}
+      rotation: {x: -0.4365772, y: -0.40260884, z: 0.5812968, w: 0.5562379}
+      scale: {x: 1.0000002, y: 1.0000007, z: 1.0000001}
     - name: ri_tettg:Player_Rigged:Thigh_R
       parentName: ri_tettg:Player_Rigged:Pelvis
-      position: {x: -0.015807278, y: -0.0025513084, z: -0.00080649654}
-      rotation: {x: -0.017860217, y: -0.059562966, z: 0.99804175, w: 0.0067831445}
-      scale: {x: 1.0000012, y: 1, z: 1}
+      position: {x: -0.015807286, y: -0.0025513163, z: -0.0008064897}
+      rotation: {x: -0.0014106387, y: -0.028225927, z: 0.9983535, w: 0.049917903}
+      scale: {x: 1.000001, y: 1.0000006, z: 1.0000006}
     - name: ri_tettg:Player_Rigged:Calf_R
       parentName: ri_tettg:Player_Rigged:Thigh_R
-      position: {x: 0.0003062475, y: 0.09634239, z: -0.00065841613}
-      rotation: {x: 0.124558985, y: 0.05425124, z: 0.007551342, w: 0.9906992}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.00030687166, y: 0.09634219, z: -0.0006825968}
+      rotation: {x: 0.048121765, y: -0.0002934967, z: 0.035107736, w: 0.9982243}
+      scale: {x: 1.0000002, y: 0.9999995, z: 0.99999976}
     - name: ri_tettg:Player_Rigged:Foot_R
       parentName: ri_tettg:Player_Rigged:Calf_R
-      position: {x: -0.0015423675, y: 0.09431092, z: -0.0003772681}
-      rotation: {x: -0.036073174, y: -0.07127406, z: 0.006770046, w: 0.9967813}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.0015423897, y: 0.09431096, z: -0.00037729813}
+      rotation: {x: 0.009945973, y: 0.0007381395, z: 0.014823519, w: 0.99984044}
+      scale: {x: 0.9999999, y: 1.0000005, z: 1.0000006}
     - name: ri_tettg:Player_Rigged:Toe_R
       parentName: ri_tettg:Player_Rigged:Foot_R
-      position: {x: 0.00589559, y: 0.044102386, z: -0.01905182}
-      rotation: {x: -0.43657693, y: 0.40260872, z: -0.58129704, w: 0.5562379}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.005895592, y: 0.044102404, z: -0.019051833}
+      rotation: {x: -0.4365771, y: 0.4026088, z: -0.5812968, w: 0.55623794}
+      scale: {x: 0.9999997, y: 1, z: 1.0000001}
     - name: ri_tettg:Player_Rigged:Player
-      parentName: RunHeadFixBake(Clone)
+      parentName: JumpUp(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 3.2808414, y: 3.2808414, z: 3.2808414}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      parentName: RunHeadFixBake(Clone)
+      parentName: JumpUp(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.0328084, y: 0.0328084, z: 0.0328084}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_HipsEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 1.1894913, y: 21.645882, z: -0.0000027614592}
-      rotation: {x: 3.0616168e-17, y: -0, z: -0, w: 1}
+      position: {x: -0.0048752106, y: 22.29641, z: 0.0032700037}
+      rotation: {x: 0.03617778, y: -0.41321683, z: 0.046733167, w: 0.90871286}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftAnkleEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: -2.4397628, y: 2.6946702, z: 0.00000007266998}
-      rotation: {x: 3.469142e-32, y: -0, z: -1.2246467e-16, w: 1}
+      position: {x: -6.022647, y: 4.5949135, z: -1.6779429}
+      rotation: {x: -0.000000052154057, y: -0.31463683, z: -0.00000032037497, w: 0.94921213}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightAnkleEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 2.926154, y: 2.7352223, z: -0.00000021800993}
-      rotation: {x: 8.264928e-19, y: -9.244828e-10, z: -8.940055e-10, w: 1}
+      position: {x: 4.48389, y: 4.5657616, z: -0.000020928954}
+      rotation: {x: 0.0000005513428, y: -0.2513219, z: -0.000000037252917, w: 0.96790355}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftWristEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: -12.273461, y: 31.112938, z: 2.575588}
-      rotation: {x: 0.17676628, y: 0.0432619, z: -0.46505395, w: 0.86637574}
+      position: {x: -4.8046465, y: 23.973803, z: -4.9828444}
+      rotation: {x: -0.105234146, y: -0.39157474, z: -0.20228036, w: 0.89144695}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightWristEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 14.171199, y: 31.257326, z: -0.16911611}
-      rotation: {x: 0.11542804, y: -0.10430064, z: 0.50185114, w: 0.8508485}
+      position: {x: 3.4279375, y: 23.769455, z: 5.2553716}
+      rotation: {x: 0.028402165, y: -0.6028929, z: 0.0016726201, w: 0.79731464}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftKneeEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: -1.6366419, y: 12.092528, z: -0.07865406}
-      rotation: {x: -0.032311276, y: -0.21798904, z: -0.038082875, w: 0.9746725}
+      position: {x: -5.681618, y: 13.859964, z: 0.05799878}
+      rotation: {x: 0.053045355, y: -0.48464406, z: -0.063805714, w: 0.870767}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightKneeEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 2.9083517, y: 12.089181, z: 1.2141286}
-      rotation: {x: 0.047040466, y: -0.07083398, z: -0.011570725, w: 0.9963111}
+      position: {x: 0.93506354, y: 12.87083, z: 2.7207785}
+      rotation: {x: 0.19726191, y: -0.36657515, z: 0.111000575, w: 0.9024352}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftElbowEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: -8.650719, y: 31.995016, z: 1.8742622}
-      rotation: {x: 0.12440226, y: 0.06683482, z: -0.51419747, w: 0.8459658}
+      position: {x: -3.0723922, y: 27.307884, z: -4.4561605}
+      rotation: {x: 0.07946822, y: -0.30974662, z: -0.06841987, w: 0.9450188}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightElbowEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 10.530431, y: 32.32195, z: -0.09456486}
-      rotation: {x: 0.12521306, y: 0.07184761, z: 0.4716705, w: 0.86987734}
+      position: {x: 1.6721033, y: 22.116306, z: 4.7937274}
+      rotation: {x: 0.13360998, y: -0.75979763, z: 0.124858335, w: 0.62391216}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_ChestOriginEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 1.1896563, y: 24.516998, z: 0.0030988113}
-      rotation: {x: 0.008238709, y: 0.006794951, z: 0.014261359, w: 0.9998413}
+      position: {x: -0.33457315, y: 25.147474, z: 0.081159264}
+      rotation: {x: 0.04551384, y: -0.41602045, z: 0.05858269, w: 0.9063242}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_ChestEndEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 0.5754547, y: 33.664806, z: 0.84991723}
-      rotation: {x: 0.039709643, y: 0.02806074, z: 0.04050303, w: 0.9979957}
+      position: {x: -2.404755, y: 34.08625, z: 1.0725708}
+      rotation: {x: 0.13317803, y: -0.4683288, z: 0.05966941, w: 0.87141913}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftShoulderEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: -2.8541832, y: 32.054096, z: 0.04322432}
-      rotation: {x: 0.02626092, y: 0.14801486, z: -0.6061262, w: 0.7810333}
+      position: {x: -3.3310318, y: 33.073647, z: -2.546949}
+      rotation: {x: 0.15989932, y: -0.3253901, z: 0.12067624, w: 0.92411625}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightShoulderEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 4.4661565, y: 32.665184, z: -0.34511596}
-      rotation: {x: 0.039588884, y: 0.0057841544, z: 0.5770139, w: 0.81575376}
+      position: {x: 0.7458076, y: 32.921024, z: 3.574135}
+      rotation: {x: 0.26663303, y: -0.72771746, z: 0.12928303, w: 0.618563}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_HeadEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 0.4762314, y: 37.85382, z: 0.5060605}
-      rotation: {x: -0.019191455, y: 0.01253057, z: -0.0056106257, w: 0.9997216}
+      position: {x: -2.807925, y: 38.279472, z: 1.3129262}
+      rotation: {x: 0.047229875, y: -0.6201013, z: 0.052826643, w: 0.78131497}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHipEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: -0.3912372, y: 21.645882, z: -0.0000035608289}
-      rotation: {x: 0.014848364, y: -0.17729944, z: -0.0082143275, w: 0.9840107}
+      position: {x: -1.0388862, y: 22.209415, z: -1.1891881}
+      rotation: {x: -0.15217128, y: -0.3825652, z: -0.14379998, w: 0.8998941}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightHipEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 2.7702198, y: 21.645882, z: -0.0000019620893}
-      rotation: {x: -0.030339334, y: -0.01919979, z: -0.042629886, w: 0.9984456}
+      position: {x: 1.0291358, y: 22.383406, z: 1.1957281}
+      rotation: {x: -0.023796657, y: -0.4183292, z: -0.0047070556, w: 0.9079715}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandThumbEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: -1.2641519, y: 21.2075, z: -6.832239}
-      rotation: {x: 0.3805271, y: -0.24472837, z: 0.50158936, w: 0.7373705}
+      position: {x: -5.589565, y: 23.71156, z: -4.1724873}
+      rotation: {x: -0.022293987, y: -0.30494803, z: -0.18271163, w: 0.9344122}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandIndexEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 0.6838637, y: 19.322937, z: -7.717992}
-      rotation: {x: 0.19413964, y: -0.32247013, z: 0.3581546, w: 0.8544285}
+      position: {x: -7.865171, y: 22.015526, z: -4.2175617}
+      rotation: {x: -0.23752373, y: -0.26691046, z: -0.35275277, w: 0.864816}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandMiddleEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 1.3645427, y: 20.210825, z: -8.395685}
-      rotation: {x: 0.3568659, y: -0.32353774, z: 0.4976526, w: 0.72132653}
+      position: {x: -7.3517647, y: 21.157103, z: -5.0193386}
+      rotation: {x: -0.10523415, y: -0.3915753, z: -0.20228052, w: 0.89144665}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandRingEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 1.3941356, y: 20.922832, z: -8.337122}
-      rotation: {x: 0.3200298, y: -0.34857613, z: 0.5668039, w: 0.6743954}
+      position: {x: -6.7646027, y: 21.01935, z: -5.217624}
+      rotation: {x: -0.11862312, y: -0.38412112, z: -0.1700765, w: 0.89969635}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandPinkyEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 1.2347168, y: 21.618631, z: -8.354519}
-      rotation: {x: 0.28297523, y: -0.37829623, z: 0.63040006, w: 0.61596495}
+      position: {x: -6.1902966, y: 21.015633, z: -5.506167}
+      rotation: {x: -0.13436237, y: -0.37845126, z: -0.13312502, w: 0.90609}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandThumbEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 0.31423742, y: 22.402195, z: 6.941595}
-      rotation: {x: 0.62838465, y: -0.5941519, z: 0.40226445, w: 0.30049887}
+      position: {x: 2.4673007, y: 23.124353, z: 5.306015}
+      rotation: {x: 0.028401854, y: -0.6028928, z: 0.0016730111, w: 0.79731476}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandIndexEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 2.8983705, y: 21.288961, z: 7.867386}
-      rotation: {x: -0.5918376, y: 0.6386704, z: -0.3291242, w: -0.36538428}
+      position: {x: 2.5623066, y: 20.349415, z: 6.264742}
+      rotation: {x: -0.013887028, y: -0.60138077, z: 0.05412664, w: 0.7970061}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandMiddleEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 3.342201, y: 21.903332, z: 7.9061494}
-      rotation: {x: -0.59015894, y: 0.63602203, z: -0.33212823, w: -0.36997193}
+      position: {x: 3.1367369, y: 20.067078, z: 6.0494556}
+      rotation: {x: 0.028402139, y: -0.60289305, z: 0.0016726231, w: 0.7973145}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandRingEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 3.222526, y: 22.654705, z: 7.7748394}
-      rotation: {x: -0.59384906, y: 0.6419137, z: -0.3245047, w: -0.36053672}
+      position: {x: 3.6164062, y: 20.241114, z: 5.6953297}
+      rotation: {x: 0.042342752, y: -0.6039859, z: -0.016800087, w: 0.79569215}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandPinkyEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 3.0058892, y: 23.208311, z: 7.9945498}
-      rotation: {x: 0.68079877, y: -0.5442934, z: 0.26863503, w: 0.40999138}
+      position: {x: 4.0719094, y: 20.536482, z: 5.388622}
+      rotation: {x: 0.07508739, y: -0.52063435, z: -0.067933485, w: 0.84775394}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftFootExtraFingerEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 13.32257, y: 2.461694, z: -1.0201486}
-      rotation: {x: 0.19048439, y: -0.6509967, z: 0.27717265, w: 0.68051034}
+      position: {x: -7.4742618, y: 0.07885128, z: -0.7159006}
+      rotation: {x: -9.1026037e-10, y: -0.31463683, z: -0.000000005591597, w: 0.94921213}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightFootExtraFingerEffector
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: -9.3511305, y: 2.1341357, z: 0.5412537}
-      rotation: {x: 0.21237764, y: -0.68338805, z: 0.18858214, w: 0.6725424}
+      position: {x: 4.2017627, y: 0.04969464, z: 1.718436}
+      rotation: {x: 0.0000006006979, y: -0.2513219, z: 0.00000015282599, w: 0.96790355}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_Hips
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Reference
-      position: {x: 1.0145668, y: 21.839725, z: 0.058499422}
-      rotation: {x: 0.4197772, y: -0.5497495, z: 0.28556088, w: 0.66333824}
+      position: {x: 0.0261215, y: 22.558176, z: -0.04270493}
+      rotation: {x: 0.036177784, y: -0.41321683, z: 0.04673317, w: 0.90871286}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftUpLeg
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Hips
       position: {x: -1.5807285, y: -0.25513092, z: 0.0806491}
-      rotation: {x: 0.01484836, y: -0.17729944, z: -0.008214327, w: 0.9840107}
+      rotation: {x: -0.24813521, y: 0.026118563, z: -0.09600768, w: 0.96360224}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftLeg
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_LeftUpLeg
       position: {x: -0.9896376, y: -9.56395, z: 0.6124951}
-      rotation: {x: -0.05122837, y: -0.04252556, z: -0.020502124, w: 0.9975705}
+      rotation: {x: 0.22552286, y: -0.08566587, z: -0.026244335, w: 0.9701093}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftFoot
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_LeftLeg
       position: {x: -0.12557285, y: -9.425554, z: -0.337654}
-      rotation: {x: 0.03231128, y: 0.21798903, z: 0.03808287, w: 0.9746725}
+      rotation: {x: -0.030275865, y: 0.18605465, z: 0.07725493, w: 0.97902954}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftFootExtraFinger1
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_LeftFoot
       position: {x: -0.58956134, y: -4.5160627, z: 1.6386336}
-      rotation: {x: -0.20485821, y: -0.00000004055402, z: -0.000000008487837, w: 0.9787917}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightUpLeg
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Hips
       position: {x: 1.5807285, y: -0.25513092, z: 0.080649115}
-      rotation: {x: -0.03033933, y: -0.01919979, z: -0.042629886, w: 0.9984456}
+      rotation: {x: -0.07596761, y: -0.0040102056, z: -0.021742348, w: 0.99686515}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightLeg
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_RightUpLeg
       position: {x: 0.9896382, y: -9.563947, z: 0.61249506}
-      rotation: {x: 0.07999225, y: -0.049238533, z: 0.027867666, w: 0.99518853}
+      rotation: {x: 0.24874337, y: 0.0429623, z: 0.013789502, w: 0.9675179}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightFoot
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_RightLeg
       position: {x: 0.12557285, y: -9.425554, z: -0.33765396}
-      rotation: {x: -0.04704048, y: 0.07083392, z: 0.011570678, w: 0.9963111}
+      rotation: {x: -0.21882686, y: 0.12800756, z: -0.057861853, w: 0.96559876}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightFootExtraFinger1
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_RightFoot
@@ -853,157 +851,157 @@ ModelImporter:
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_Spine
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Hips
       position: {x: 6.4214726e-14, y: 2.615989, z: 0.08064856}
-      rotation: {x: 0.0076977783, y: 0.0067577963, z: 0.014286709, w: 0.9998455}
+      rotation: {x: 0.013335619, y: -0.0035423636, z: 0.007123056, w: 0.9998795}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_Spine1
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Spine
       position: {x: -0.000000078333386, y: 3.6748242, z: 0.7331642}
-      rotation: {x: 0.01571123, y: 0.012831228, z: 0.011704302, w: 0.99972576}
+      rotation: {x: 0.039300997, y: -0.033744674, z: -0.013055653, w: 0.9985722}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_Spine2
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Spine1
       position: {x: -0.0000000633063, y: 3.457663, z: -0.43953407}
-      rotation: {x: 0.015811782, y: 0.008262349, z: 0.014678389, w: 0.9997331}
+      rotation: {x: 0.03907117, y: -0.033568483, z: -0.018048335, w: 0.99850935}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftShoulder
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Spine2
       position: {x: -1.4751421, y: 2.0563323, z: 0.14683427}
-      rotation: {x: 0.0000003797366, y: 0.00000006262562, z: -0.000000111834744, w: 1}
+      rotation: {x: 0.00000012497233, y: 0.00000027974662, z: -0.00000016050791, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftArm
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_LeftShoulder
       position: {x: -2.2028842, y: -1.3954264, z: -0.87041855}
-      rotation: {x: 0.018609442, y: 0.101017155, z: -0.6416314, w: 0.7601042}
+      rotation: {x: 0.05336755, y: 0.15576923, z: 0.018467607, w: 0.9861779}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftForeArm
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_LeftArm
       position: {x: -1.711535, y: -5.8018894, z: 0.6039111}
-      rotation: {x: 0.110544965, y: -0.011115122, z: 0.12781496, w: 0.9855555}
+      rotation: {x: -0.13731223, y: 0.0007276415, z: -0.15359914, w: 0.97854596}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHand
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_LeftForeArm
       position: {x: -1.0909624, y: -3.5009115, z: 0.9734406}
-      rotation: {x: 0.05059577, y: 0.011733037, z: 0.05850076, w: 0.99693537}
+      rotation: {x: -0.20615411, y: -0.11719777, z: -0.066452384, w: 0.9692003}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandThumb1
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHand
       position: {x: 0.1932225, y: -0.6064048, z: 0.9677208}
-      rotation: {x: 0.051835295, y: 0.051667973, z: -0.0409243, w: 0.9964782}
+      rotation: {x: 0.06859788, y: 0.10876507, z: 0.0027743448, w: 0.9916939}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandIndex1
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHand
       position: {x: -0.5300531, y: -1.9544201, z: 1.0570388}
-      rotation: {x: -0.20947991, y: 0.07503269, z: -0.11459507, w: 0.9681716}
+      rotation: {x: -0.20486997, y: 0.0897788, z: -0.07460488, w: 0.9718036}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandIndex2
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandIndex1
       position: {x: -0.12228264, y: -1.4146135, z: 0.20613638}
-      rotation: {x: -0.0023787129, y: -0.027528064, z: -0.1903207, w: 0.9813331}
+      rotation: {x: -0.0015590538, y: -0.01803916, z: -0.1247158, w: 0.9920273}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandMiddle1
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHand
       position: {x: -0.55040413, y: -2.102939, z: 0.46666843}
-      rotation: {x: 0, y: 0, z: 6.071532e-18, w: 1}
+      rotation: {x: -1.4979806e-13, y: -0.0000006117105, z: -0.00000024899023, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandMiddle2
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandMiddle1
       position: {x: -0.2505062, y: -1.5483286, z: 0.20394945}
-      rotation: {x: 4.1633363e-17, y: 1.179612e-16, z: -7.155734e-18, w: 1}
+      rotation: {x: 0.00000007985749, y: -0.0000009334737, z: -0.00000002853194, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandRing1
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHand
       position: {x: -0.63540184, y: -2.1907148, z: -0.03176165}
-      rotation: {x: 0.000089875975, y: 0.009764454, z: 0.09408929, w: 0.9955159}
+      rotation: {x: 0.00003503744, y: 0.0037774672, z: 0.03640388, w: 0.99933004}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandRing2
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandRing1
       position: {x: -0.012162047, y: -1.3206867, z: 0.13707076}
-      rotation: {x: 0.00006510573, y: 0.007084548, z: 0.0682667, w: 0.997642}
+      rotation: {x: -0.0000003131885, y: -0.00000039512713, z: -0.00000017370468, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandPinky1
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHand
       position: {x: -0.6153054, y: -1.9519969, z: -0.5379737}
-      rotation: {x: -0.0000012059947, y: 0.010557745, z: 0.19163561, w: 0.9814094}
+      rotation: {x: -0.00000047263333, y: 0.0042631556, z: 0.07739724, w: 0.9969912}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandPinky2
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_LeftHandPinky1
       position: {x: 0.00014999082, y: -1.3130151, z: 0.07233773}
-      rotation: {x: 0.00000007637351, y: 0.0022008864, z: 0.03994485, w: 0.99919945}
+      rotation: {x: -0.00000020238812, y: 0.00000020659526, z: 0.00000016985472, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightShoulder
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Spine2
       position: {x: 1.1274886, y: 2.0563323, z: 0.14683437}
-      rotation: {x: 0.00000005813001, y: 0.000000057724957, z: 0.000000047476995, w: 1}
+      rotation: {x: 0.00000017307886, y: -0.000000024159526, z: -0.00000016642296, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightArm
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_RightShoulder
       position: {x: 2.5505383, y: -1.395424, z: -0.8704187}
-      rotation: {x: -0.008385457, y: 0.0038963465, z: 0.5437003, w: 0.8392285}
+      rotation: {x: 0.16709444, y: -0.34314817, z: 0.047794677, w: 0.92306256}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightForeArm
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_RightArm
       position: {x: 1.7115352, y: -5.801892, z: 0.6039108}
-      rotation: {x: 0.10643441, y: 0.0000016870093, z: -0.11928444, w: 0.9871388}
+      rotation: {x: -0.09107665, y: 0.00006693119, z: 0.10192828, w: 0.9906138}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightHand
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_RightForeArm
       position: {x: 1.0909636, y: -3.5009115, z: 0.97344124}
-      rotation: {x: -0.091381416, y: -0.14346586, z: 0.056581832, w: 0.98380154}
+      rotation: {x: -0.16281621, y: 0.22632523, z: -0.039532818, w: 0.95953375}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandThumb1
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_RightHand
       position: {x: -0.19322191, y: -0.60640246, z: 0.9677199}
-      rotation: {x: 0.12502848, y: -0.050636195, z: 0.018628703, w: 0.99068505}
+      rotation: {x: -0.000000012011374, y: 0.00000019745053, z: 0.00000049161025, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandIndex1
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_RightHand
       position: {x: 0.5300542, y: -1.9544177, z: 1.0570376}
-      rotation: {x: -0.0019486671, y: 0.022541175, z: 0.15584527, w: 0.98752236}
+      rotation: {x: -0.002082356, y: 0.0025801673, z: 0.06727578, w: 0.9977289}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandIndex2
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandIndex1
       position: {x: 0.12228206, y: -1.4146112, z: 0.20613551}
-      rotation: {x: -0.0013033136, y: 0.015079223, z: 0.10425537, w: 0.9944354}
+      rotation: {x: -0.0016768327, y: 0.01939481, z: 0.13409963, w: 0.99077666}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandMiddle1
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_RightHand
       position: {x: 0.5504047, y: -2.1029413, z: 0.46666768}
-      rotation: {x: 0, y: 0, z: 8.239936e-18, w: 1}
+      rotation: {x: 4.4658647e-15, y: -0.00000018736641, z: 0.000000024057131, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandMiddle2
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandMiddle1
       position: {x: 0.25050735, y: -1.5483286, z: 0.20394902}
-      rotation: {x: -1.3877788e-17, y: -8.673618e-18, z: -4.6403853e-17, w: 1}
+      rotation: {x: -0.0008275745, y: 0.005114281, z: 0.039848957, w: 0.9991923}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandRing1
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_RightHand
       position: {x: 0.63540184, y: -2.1907127, z: -0.031762447}
-      rotation: {x: 0.00012089422, y: -0.0131440805, z: -0.12665217, w: 0.9918601}
+      rotation: {x: 0.000022226408, y: -0.002397658, z: -0.023099475, w: 0.9997303}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandRing2
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandRing1
       position: {x: 0.012162047, y: -1.3206891, z: 0.13707069}
-      rotation: {x: 0.000078023346, y: -0.00846956, z: -0.0816109, w: 0.9966283}
+      rotation: {x: -0.0000004847474, y: -0.00000039129827, z: -0.00000003725329, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandPinky1
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_RightHand
       position: {x: 0.6153054, y: -1.9519947, z: -0.53797436}
-      rotation: {x: -0.0000014546432, y: -0.008184962, z: -0.14856528, w: 0.9888687}
+      rotation: {x: -0.0060372, y: 0.09394041, z: -0.08606483, w: 0.9918325}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandPinky2
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_RightHandPinky1
       position: {x: -0.00015057219, y: -1.3130174, z: 0.07233758}
-      rotation: {x: -0.0000008310296, y: -0.0073703676, z: -0.13378233, w: 0.99098337}
+      rotation: {x: -0.00000028592183, y: -0.0000003456567, z: -0.0000006986723, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_Neck
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Spine2
       position: {x: -0.000000046308244, y: 3.0022235, z: -1.0980457}
-      rotation: {x: -0.027051736, y: 0.0014634358, z: -0.014398479, w: 0.99952924}
+      rotation: {x: -0.039639827, y: -0.084975764, z: 0.027754866, w: 0.9952073}
       scale: {x: 1, y: 1, z: 1}
     - name: ri_tettg:Player_Rigged:Character1_Ctrl_Head
       parentName: ri_tettg:Player_Rigged:Character1_Ctrl_Neck
       position: {x: -0.000000072202404, y: 3.1614044, z: 0.76408696}
-      rotation: {x: -0.030360164, y: -0.015974404, z: -0.033245523, w: 0.9988583}
+      rotation: {x: -0.035559315, y: -0.086374044, z: 0.032010306, w: 0.99511325}
       scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
