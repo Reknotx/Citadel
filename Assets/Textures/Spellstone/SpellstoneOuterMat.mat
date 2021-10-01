@@ -7,27 +7,15 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD:Assets/Materials/SpellstoneMat/SpellstoneMiddleMat.mat
-  m_Name: SpellstoneMiddleMat
+  m_Name: SpellstoneOuterMat
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _ALPHATEST_ON _EMISSION
-  m_LightmapFlags: 2
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2450
   stringTagMap:
     RenderType: TransparentCutout
-=======
-  m_Name: SpellstoneInnerMat
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHABLEND_ON _EMISSION
-  m_LightmapFlags: 1
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
->>>>>>> f948f6c93dd8ab258eaae951fd9aa6e79033d2e4:Assets/Textures/Spellstone/SpellstoneInnerMat.mat
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -49,19 +37,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-<<<<<<< HEAD:Assets/Materials/SpellstoneMat/SpellstoneMiddleMat.mat
-        m_Texture: {fileID: 2800000, guid: b96a1aafcfb121343a00280a7470ccfb, type: 3}
+        m_Texture: {fileID: 2800000, guid: a75f10649537c2e489353b12cb5966ab, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: b96a1aafcfb121343a00280a7470ccfb, type: 3}
-=======
-        m_Texture: {fileID: 2800000, guid: 6b09eb1a7db247c42991eab40f006d4a, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 6b09eb1a7db247c42991eab40f006d4a, type: 3}
->>>>>>> f948f6c93dd8ab258eaae951fd9aa6e79033d2e4:Assets/Textures/Spellstone/SpellstoneInnerMat.mat
+        m_Texture: {fileID: 2800000, guid: 8af2fd061b714cd4c866f6d430aaa524, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -78,25 +58,21 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
-    - _Cutoff: 0.618
+    - _Cutoff: 0.606
     - _DetailNormalMapScale: 1
-    - _DstBlend: 10
+    - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
-    - _Metallic: 0
-<<<<<<< HEAD:Assets/Materials/SpellstoneMat/SpellstoneMiddleMat.mat
+    - _Metallic: 0.842
     - _Mode: 1
-=======
-    - _Mode: 2
->>>>>>> f948f6c93dd8ab258eaae951fd9aa6e79033d2e4:Assets/Textures/Spellstone/SpellstoneInnerMat.mat
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 5
+    - _SrcBlend: 1
     - _UVSec: 0
-    - _ZWrite: 0
+    - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
