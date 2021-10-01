@@ -126,9 +126,7 @@ public class Player : Unit
     #endregion
 
 
-    public string currentSceneName;
-    public string lastSceneName;
-    public bool sceneChanged = false;
+ 
 
     #endregion
 
@@ -193,19 +191,6 @@ public class Player : Unit
         }
 
 
-        if (currentSceneName != lastSceneName)
-        {
-
-            sceneChanged = true;
-        }
-
-
-        if (sceneChanged == true)
-        {
-            canInteract = false;
-            lastSceneName = currentSceneName;
-            sceneChanged = false;
-        }
 
 
         if (Interacting == true)
