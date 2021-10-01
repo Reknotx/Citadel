@@ -86,12 +86,23 @@ public class Player : Unit
         [HideInInspector]
         public bool canMove = true;
 
+    /// <summary> determines if the player can jump once more in the air or not </summary>
+    //[HideInInspector]
+    public bool canDoubleJump = true;
+
+    /// <summary> determines if the player can jump once more in the air or not </summary>
+    //[HideInInspector]
+    public bool hasDoubleJump = false;
+
     /// <summary> determines if the player is trying to interact with things or not </summary>
    // [HideInInspector]
     public bool Interacting = false;
+   // {
+       // return playerInputActions.PlayerControl.
+    //}
 
     [HideInInspector]
-    public bool canInteract = true;
+    public bool canInteract = false;
 
 
     /// <summary> this keeps track of if the player is in the camp shop or not  </summary>
@@ -103,11 +114,25 @@ public class Player : Unit
     /// <summary> this keeps track of if the player is in the mine shop or not  </summary>
     public bool inMineShop = false;
 
+    public bool grounded;
+
     #endregion
+            #region Bool Equipment
+
+    public bool shuues = false;
+    public bool undying = false;
+    public bool spellStone = false;
+    public bool backShield = false;
+    #endregion
+
+
+    public string currentSceneName;
+    public string lastSceneName;
+    public bool sceneChanged = false;
 
     #endregion
 
-    
+
     private void Awake()
     {
 
@@ -155,12 +180,38 @@ public class Player : Unit
 
         if(myHealth <= 0)
         {
-            ResetGame();
+            if(undying == true)
+            {
+                undying = false;
+                myHealth = Mathf.Round(maxHealth * 0.15f);
+            }
+            else
+            {
+                ResetGame();
+            }
+           
         }
 
 
+        if (currentSceneName != lastSceneName)
+        {
+
+            sceneChanged = true;
+        }
 
 
+        if (sceneChanged == true)
+        {
+            canInteract = false;
+            lastSceneName = currentSceneName;
+            sceneChanged = false;
+        }
+
+
+        if (Interacting == true)
+        {
+            StartCoroutine(InteractCoroutine());
+        }
 
         #endregion
 
@@ -178,7 +229,12 @@ public class Player : Unit
             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
 
-       
+        if(isGrounded == true)
+        {
+            canDoubleJump = true;
+            hasDoubleJump = false;
+        }
+        grounded = isGrounded;
         
 
         #endregion
@@ -308,18 +364,41 @@ public class Player : Unit
             {
               
                 _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
-                
-                StartCoroutine(Jumped());
+                canDoubleJump = true;
+               StartCoroutine(Jumped());
 
             }
+            else if(shuues == true )
+            {
+                if(canDoubleJump == true)
+                {
+                    _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
+                    canDoubleJump = false;
+                    StartCoroutine(Jumped());
+                }
+                
+            }
+
+
             if (onPlatform == true)
             {
-              
+
                 _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
-                // _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
+                canDoubleJump = true;
                 StartCoroutine(Jumped());
 
             }
+            else if (  shuues == true )
+            {
+                if(canDoubleJump == true)
+                {
+                    _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
+                    canDoubleJump = false;
+                    StartCoroutine(Jumped());
+                }
+                
+            }
+
         }
     }
 
@@ -334,10 +413,15 @@ public class Player : Unit
 
     public void Interact(InputAction.CallbackContext context)
     {
-        
-        Interacting = true;
-
+        if(Interacting == false)
+        {
+            Interacting = true;
+            
+        }
     }
+    
+
+
    
 
     #endregion
@@ -542,5 +626,33 @@ public class Player : Unit
     #endregion
 
 
+
+    public IEnumerator InteractCoroutine()
+    {
+       
+            yield return new WaitForSeconds(.1f);
+            if (Interacting == true)
+            {
+                Interacting = false;
+            }
+      
+        
+       
+        
+    }
+
+    public IEnumerator Jumped()
+    {
+        justJumped = true;
+        yield return new WaitForSeconds(.5f);
+        justJumped = false;
+        if(hasDoubleJump == false)
+        {
+            canDoubleJump = true;
+            hasDoubleJump = true;
+        }
+        
+
+    }
 
 }

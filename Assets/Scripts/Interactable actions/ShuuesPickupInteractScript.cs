@@ -4,15 +4,56 @@ using UnityEngine;
 
 public class ShuuesPickupInteractScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private bool given = false;
+    public GameObject player;
+    public bool playerInteracting = false;
+    public bool colliding = false;
+
+    private void Awake()
     {
-        
+         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        
+        playerInteracting = player.GetComponent<Player>().Interacting;
+
+        if (playerInteracting == true && colliding == true)
+        {
+
+            Interact();
+            Destroy(this.gameObject);
+
+        }
+    }
+
+    public void Interact()
+    {
+        if (given == false)
+        {
+            
+            player.GetComponent<Player>().shuues = true;
+            given = true;
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+
+            colliding = true;
+               
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+
+            colliding = false;
+
+        }
     }
 }

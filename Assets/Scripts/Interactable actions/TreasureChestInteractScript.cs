@@ -17,11 +17,13 @@ public class TreasureChestInteractScript : MonoBehaviour
     public GameObject spellStonePickup;
     public GameObject backShieldPickup;
 
+    private Collider myCollider;
+
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        myCollider = this.GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -31,6 +33,7 @@ public class TreasureChestInteractScript : MonoBehaviour
         {
             if(dropped == false)
             {
+                myCollider.enabled = false;
                 randomSpawn();
                 lid.transform.rotation = Quaternion.Euler(60, 0, 0);
             }
@@ -75,8 +78,9 @@ public class TreasureChestInteractScript : MonoBehaviour
         {
             if( other.GetComponent<Player>().Interacting == true)
             {
-                Interact();
                 other.GetComponent<Player>().Interacting = false;
+                Interact();
+               
             }
         }
     }

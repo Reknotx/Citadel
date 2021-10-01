@@ -63,8 +63,14 @@ public class Enemy : Unit
 
         base.Update();
 
+        #region Player Detection
+        ///<summary>This sets the player as the target in the scene.</summary>
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        #endregion
+
         #region Enemy AI Movement
-        if(Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+        if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
         {
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         }
@@ -81,11 +87,7 @@ public class Enemy : Unit
 
         #endregion
 
-        #region Player Detection
-        ///<summary>This sets the player as the target in the scene.</summary>
-        player = GameObject.FindGameObjectWithTag("Player");
-
-        #endregion
+       
 
 
         #region Ground/Platform detection
