@@ -35,8 +35,12 @@ public class Enemy : Unit
     [HideInInspector]
     public bool facingRightLocal;
 
-            #endregion
-            #region Enemy's Player Detection Stats
+    #endregion
+    #region Enemy's Player Detection Stats
+
+    
+
+    public float jumpHeight;
 
     ///<summary>This is the range of detection to the player.</summary>
     [Range(0, 20)]
@@ -64,20 +68,20 @@ public class Enemy : Unit
         base.Update();
 
         #region Enemy AI Movement
-        if(Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        }
 
-        if(transform.position.x - player.transform.position.x > 0)
+        //EnemyMove();
+
+        if (transform.position.x - player.transform.position.x < 0)
         {
             facingRight = true;
         }
 
-        if(transform.position.x - player.transform.position.x < 0)
+        if (transform.position.x - player.transform.position.x > 0)
         {
             facingRight = false;
         }
+
+
 
         #endregion
 
@@ -142,6 +146,25 @@ public class Enemy : Unit
             myHealth -= onFireDamage * Time.deltaTime;
         }
     }
+
+    #region Enemy AI Functions
+
+    public void EnemyMove()
+    {
+        if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        }
+
+        
+
+       
+    }
+
+
+
+    #endregion
+
     #region Interactions with the Player
     public void Interact()
     {
