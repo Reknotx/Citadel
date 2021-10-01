@@ -53,7 +53,7 @@ public class Player : Unit
             #region Player's Ground/Directional Detection Stats
 
     ///<summary>This is the range of detection to the ground.</summary>
-    private float _Reach = 2f;
+    private float _Reach = 1f;
 
     ///<summary>This tracks what the ground detection raycast hits.</summary>
     RaycastHit hit;
@@ -434,6 +434,8 @@ public class Player : Unit
     #region Collision Detection
     public void OnTriggerStay(Collider other)
     {
+
+      
         #region Camp Collisions
         if(other.gameObject.tag == "MineEntrance")
         {
@@ -441,9 +443,9 @@ public class Player : Unit
             buttonController.GetComponent<SceneButtonControllerScript>().enterMineBTN.SetActive(true);
             if (Interacting == true)
             {
-
-                other.GetComponent<MineEntranceInteractScript>().Interact();
                 Interacting = false;
+                other.GetComponent<MineEntranceInteractScript>().Interact();
+                
             }
         }
 
@@ -455,9 +457,9 @@ public class Player : Unit
 
             if (Interacting == true)
             {
-
-                other.GetComponent<CastleEntranceInteractScript>().Interact();
                 Interacting = false;
+                other.GetComponent<CastleEntranceInteractScript>().Interact();
+               
             }
         }
 
@@ -468,9 +470,10 @@ public class Player : Unit
 
             if (Interacting == true)
             {
+                Interacting = false;
                 canMove = false;
                 other.GetComponent<CampShopEntranceInteractScript>().Interact();
-                Interacting = false;
+               
             }
         }
 
@@ -526,10 +529,18 @@ public class Player : Unit
     }
     #endregion
 
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            Debug.Log("testing");
+        }
+    }
+
 
     #endregion
 
-   
+
 
 }

@@ -39,6 +39,12 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     public int playerAttackDamage;
     public float playerAttackRange;
 
+    public float startingSpeed;
+    public float startingMaxHealth;
+    public float startingMaxMana;
+    public int startingAttackDamage;
+    public float startingAttackRange;
+
     private void Awake()
     {
 
@@ -135,6 +141,16 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     {
         if (statsUpdated == false && currentSceneName != "MainMenuScene" && currentSceneName != "MineScene")
         {
+            if (playerDead == true)
+            {
+                    playerSpeed =  startingSpeed;
+                    playerMaxHealth =  startingMaxHealth;
+                    playerMaxMana = startingMaxMana;
+                    playerAttackDamage =startingAttackDamage ;
+                    playerAttackRange =  startingAttackRange;
+                    playerDead = false;
+            }
+
 
             player.GetComponent<Player>().maxHealth = playerMaxHealth;
             player.GetComponent<Player>().maxMana = playerMaxMana;
