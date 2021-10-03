@@ -17,7 +17,8 @@ public class GraphMover : MonoBehaviour
 
     public void MoveGraph(Vector3 pos)
     {
-        AstarPath.active.data.gridGraph.center = new Vector3(pos.x + 15, pos.y + 15, 0);
-        //path.data.gridGraph.
+        var graph = AstarPath.active.data.gridGraph;
+        graph.center = pos;
+        AstarPath.active.Scan(graph);
     }
 }

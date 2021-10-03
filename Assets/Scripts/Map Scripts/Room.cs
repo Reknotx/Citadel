@@ -73,6 +73,10 @@ public class Room : MonoBehaviour
     {
         FirstVisit = false;
 
+        GraphMover.Instance.MoveGraph(transform.position + new Vector3(15, 15, 0));
+
+        MiniMapManager.Instance.MoveMinimapCamera(transform.position + new Vector3(15, 15, 0));
+
         ///Turn on all the enemies.
         foreach (GameObject enemy in enemies)
         {
