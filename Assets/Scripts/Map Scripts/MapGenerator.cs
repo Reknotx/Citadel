@@ -23,6 +23,8 @@ using UnityEngine;
 /// <summary> The map generator that spawns in the rooms in a 6x6 grid. </summary>
 public class MapGenerator : MonoBehaviour
 {
+    public static MapGenerator Instance;
+
     /// <summary>
     /// Grid size is set as follows. 
     /// Max Y value will be set to gridSize.
@@ -56,10 +58,24 @@ public class MapGenerator : MonoBehaviour
 
     public GridInfo gridInfo = new GridInfo();
 
+    [HideInInspector]
+    public static List<Room> specialRooms;
+
     public void Awake()
     {
+        if (Instance != null && Instance != this)
+            Destroy(Instance);
+
+        Instance = this;
+
+        if (specialRooms == null)
+            specialRooms = new List<Room>();
+        else if (specialRooms.Count > 0 && specialRooms[0] == null)
+            specialRooms.Clear();
+
         if (roomCont == null)
             Debug.LogError("Room Container is empty. Please insert the scriptable object.");
+
     }
 
     public void Start()
@@ -104,6 +120,7 @@ public class MapGenerator : MonoBehaviour
         int SRY = Random.Range(0, (int)trueGridSize.y);
 
         GameObject spawnRoom = SpawnRoom(roomCont.SpawnRooms[Random.Range(0, roomCont.SpawnRooms.Count)], new Vector2(0, SRY), "Spawn Room");
+        AddSpecialRoomToList(spawnRoom);
         
         tempRoomInfo = spawnRoom.GetComponent<Room>().roomInfo;
         spawnRoom.GetComponent<Room>().fogEnabledOnStart = false;
@@ -129,6 +146,7 @@ public class MapGenerator : MonoBehaviour
         BossRoomGridPos = new Vector2(BRPos.x / roomSize, BRPos.y / roomSize);
 
         GameObject bossRoom = SpawnRoom(roomCont.BossRooms[Random.Range(0, roomCont.BossRooms.Count)], BossRoomGridPos, "Boss Room");
+        AddSpecialRoomToList(bossRoom);
 
         BossRoomPos = bossRoom.transform.position;
         
@@ -169,6 +187,12 @@ public class MapGenerator : MonoBehaviour
         ///3. Dead end rooms will obviously have one connection.
         ///
         ///Time to adjust the Astar algorithm to utilize my internal class rather than the room class.
+            
+        #region Spawning Shops
+
+
+        //AddSpecialRoomToList(shopRoom);
+        #endregion
 
         CreatePath(AStar(conceptGrid[(int)SpawnRoomGridPos.y, 0],
                          conceptGrid[(int)BossRoomGridPos.y, (int)BossRoomGridPos.x]));
@@ -182,11 +206,6 @@ public class MapGenerator : MonoBehaviour
         #endregion
 
 
-        #region Spawning Shops
-
-
-
-        #endregion
 
         #region Spawning in filled rooms
 
@@ -250,6 +269,20 @@ public class MapGenerator : MonoBehaviour
         }
 
         return spawnedRoom;
+    }
+
+
+    private void AddSpecialRoomToList(GameObject roomObj)
+    {
+        specialRooms.Add(roomObj.GetComponent<Room>());
+    }
+
+    public void ExposeSpecialRooms()
+    {
+        foreach (Room room in specialRooms)
+        {
+            room.TurnOffFog();
+        }
     }
 
     /// <summary> A small directional enum for aiding the algorithm. </summary>

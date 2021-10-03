@@ -54,6 +54,9 @@ public class Room : MonoBehaviour
     #endregion
 
 
+    private void Awake()
+    {
+    }
 
 
     private void Start()
@@ -98,5 +101,12 @@ public class Room : MonoBehaviour
             enemy.SetActive(false);
         }
     }
+
+    public void TurnOffFog()
+    {
+        fog.SetActive(false);
+    }
+
+
 
 }
