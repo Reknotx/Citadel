@@ -16,13 +16,30 @@ public class Orc : Enemy
     [SerializeField]
     private float orcMeleeRange;
 
+    public float orcDamage;
+
+    private bool canAttack = true;
+    #endregion
+
+    #region Life Handler for Player
+
+    public LifeManaHandler playerLife;
+
+    #endregion
+
+    #region Orc Attack Visuals
+
+    public GameObject orcAttack_L;
+    public GameObject orcAttack_R;
+
     #endregion
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        orcAttack_L.SetActive(false);
+        orcAttack_R.SetActive(false);
     }
 
     // Update is called once per frame
@@ -32,8 +49,48 @@ public class Orc : Enemy
 
         if(Vector2.Distance(transform.position, player.transform.position) <= orcMeleeRange)
         {
-            //lightAttack(/*attack player*/);
+            if (canAttack)
+            {
+                OrcAttack();
+            }
         }
+    }
 
+    private void OrcAttack()
+    {
+        if (facingRight)
+        {
+            StartCoroutine(WaitBetweenVisual_Right());
+            playerLife.Damage(orcDamage);
+            StartCoroutine(WaitBetweenAttack());
+            
+        }
+        else
+        {
+            StartCoroutine(WaitBetweenVisual_Left());
+            playerLife.Damage(orcDamage);
+            StartCoroutine(WaitBetweenAttack());
+        }
+    }
+
+    IEnumerator WaitBetweenAttack()
+    {
+        canAttack = false;
+        yield return new WaitForSeconds(1f);
+        canAttack = true;
+    }
+
+    IEnumerator WaitBetweenVisual_Right()
+    {
+        orcAttack_R.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        orcAttack_R.SetActive(false);
+    }
+
+    IEnumerator WaitBetweenVisual_Left()
+    {
+        orcAttack_L.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        orcAttack_L.SetActive(false);
     }
 }
