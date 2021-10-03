@@ -28,7 +28,7 @@ public class Player : Unit
     public float myHealth;
 
     ///<summary>This is the maximum units health.</summary>
-    public float maxHealth;
+    public float maxHealth; //
 
     ///<summary>This is the  units starting health.</summary>
     public float startingHealth;
@@ -37,7 +37,7 @@ public class Player : Unit
     public float myMana;
 
     ///<summary>This is the units maximum mana for magic casting.</summary>
-    public float maxMana;
+    public float maxMana; //
 
     ///<summary>This is the units starting .</summary>
     public float startingMana;
@@ -53,7 +53,7 @@ public class Player : Unit
             #region Player's Ground/Directional Detection Stats
 
     ///<summary>This is the range of detection to the ground.</summary>
-    private float _Reach = 2f;
+    private float _Reach = 1f;
 
     ///<summary>This tracks what the ground detection raycast hits.</summary>
     RaycastHit hit;
@@ -69,10 +69,10 @@ public class Player : Unit
     public float knockbackForce;
 
     ///<summary>This determines the range of the player's melee attack.</summary>
-    public float meleeAttackRange = 1f;
+    public float meleeAttackRange = 1f; //
 
     ///<summary>This determines the damage of the player's melee attack.</summary>
-    public int meleeAttackDamage;
+    public int meleeAttackDamage; //
 
     ///<summary>This determines the damage the player deals to an enemy when they collide.</summary>
     public int playerCollisionDamage;
@@ -86,14 +86,23 @@ public class Player : Unit
         [HideInInspector]
         public bool canMove = true;
 
+    /// <summary> determines if the player can jump once more in the air or not </summary>
+    //[HideInInspector]
+    public bool canDoubleJump = true;
+
+    /// <summary> determines if the player can jump once more in the air or not </summary>
+    //[HideInInspector]
+    public bool hasDoubleJump = false;
+
     /// <summary> determines if the player is trying to interact with things or not </summary>
    // [HideInInspector]
     public bool Interacting = false;
+   // {
+       // return playerInputActions.PlayerControl.
+    //}
 
     [HideInInspector]
-    public bool canInteract = true;
-
-
+    public bool canInteract = false;
 
 
     /// <summary> this keeps track of if the player is in the camp shop or not  </summary>
@@ -105,11 +114,23 @@ public class Player : Unit
     /// <summary> this keeps track of if the player is in the mine shop or not  </summary>
     public bool inMineShop = false;
 
+    public bool grounded;
+
     #endregion
+            #region Bool Equipment
+
+    public bool shuues = false;
+    public bool undying = false;
+    public bool spellStone = false;
+    public bool backShield = false;
+    #endregion
+
+
+ 
 
     #endregion
 
-    
+
     private void Awake()
     {
 
@@ -157,12 +178,25 @@ public class Player : Unit
 
         if(myHealth <= 0)
         {
-            ResetGame();
+            if(undying == true)
+            {
+                undying = false;
+                myHealth = Mathf.Round(maxHealth * 0.15f);
+            }
+            else
+            {
+                ResetGame();
+            }
+           
         }
- 
 
-      
 
+
+
+        if (Interacting == true)
+        {
+            StartCoroutine(InteractCoroutine());
+        }
 
         #endregion
 
@@ -170,6 +204,7 @@ public class Player : Unit
         ///<summary>This moves the player constantly while the input is held.</summary>
         if (canMove == true)
         {
+            
             Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
             _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
              _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
@@ -179,7 +214,12 @@ public class Player : Unit
             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
 
-       
+        if(isGrounded == true)
+        {
+            canDoubleJump = true;
+            hasDoubleJump = false;
+        }
+        grounded = isGrounded;
         
 
         #endregion
@@ -210,6 +250,9 @@ public class Player : Unit
             isGrounded = false;
         }
 
+        
+
+
 
         ///<summary>This determines whether the unit is trying to jump up through a platform or not.</summary>
         var roofCheck = transform.TransformDirection(Vector3.up);
@@ -230,9 +273,14 @@ public class Player : Unit
         if (throughPlatform == true && justJumped == true)
         {
             StartCoroutine(dropDown());
-            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 10);
+            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 6);
             //_rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
         }
+
+
+       
+
+
         #endregion
 
         ///<summary>this sets the rate for how quickly players can cast spells </summary>
@@ -256,7 +304,8 @@ public class Player : Unit
         maxMana = startingMana;
         myMana = startingMana;
         //GetComponentInChildren<GoldHandler>().myHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
-        GetComponentInChildren<GoldHandler>()._mySoftGold = GetComponentInChildren<GoldHandler>().startingSoftGold;
+        var goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
+        goldHandler.GetComponent<GoldHandler>()._mySoftGold = goldHandler.GetComponent<GoldHandler>().startingSoftGold;
         var goldTracker = GameObject.FindGameObjectWithTag("GoldTracker");
         goldTracker.GetComponent<PlayerGoldTrackerScript>().playerDead = true;
         GameObject SceneManager = GameObject.FindGameObjectWithTag("SceneManager");
@@ -274,16 +323,19 @@ public class Player : Unit
         {
             if (this != null)
             {
-                Vector2 inputVector = context.ReadValue<Vector2>();
-                _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
-                if (inputVector.x > 0)
-                {
-                    facingRight = true;
-                }
-                if (inputVector.x < 0)
-                {
-                    facingRight = false;
-                }
+               
+                    Vector2 inputVector = context.ReadValue<Vector2>();
+                    _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
+                    if (inputVector.x > 0)
+                    {
+                        facingRight = true;
+                    }
+                    if (inputVector.x < 0)
+                    {
+                        facingRight = false;
+                    }
+                
+                
             }
         }
     }
@@ -295,17 +347,43 @@ public class Player : Unit
         {
             if (isGrounded == true )
             {
-
-                _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
-                StartCoroutine(Jumped());
+              
+                _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
+                canDoubleJump = true;
+               StartCoroutine(Jumped());
 
             }
+            else if(shuues == true )
+            {
+                if(canDoubleJump == true)
+                {
+                    _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
+                    canDoubleJump = false;
+                    StartCoroutine(Jumped());
+                }
+                
+            }
+
+
             if (onPlatform == true)
             {
-                _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
+
+                _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
+                canDoubleJump = true;
                 StartCoroutine(Jumped());
 
             }
+            else if (  shuues == true )
+            {
+                if(canDoubleJump == true)
+                {
+                    _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
+                    canDoubleJump = false;
+                    StartCoroutine(Jumped());
+                }
+                
+            }
+
         }
     }
 
@@ -320,10 +398,15 @@ public class Player : Unit
 
     public void Interact(InputAction.CallbackContext context)
     {
-        
-        Interacting = true;
-
+        if(Interacting == false)
+        {
+            Interacting = true;
+            
+        }
     }
+    
+
+
    
 
     #endregion
@@ -420,6 +503,8 @@ public class Player : Unit
     #region Collision Detection
     public void OnTriggerStay(Collider other)
     {
+
+      
         #region Camp Collisions
         if(other.gameObject.tag == "MineEntrance")
         {
@@ -427,9 +512,9 @@ public class Player : Unit
             buttonController.GetComponent<SceneButtonControllerScript>().enterMineBTN.SetActive(true);
             if (Interacting == true)
             {
-
-                other.GetComponent<MineEntranceInteractScript>().Interact();
                 Interacting = false;
+                other.GetComponent<MineEntranceInteractScript>().Interact();
+                
             }
         }
 
@@ -441,9 +526,9 @@ public class Player : Unit
 
             if (Interacting == true)
             {
-
-                other.GetComponent<CastleEntranceInteractScript>().Interact();
                 Interacting = false;
+                other.GetComponent<CastleEntranceInteractScript>().Interact();
+               
             }
         }
 
@@ -454,9 +539,10 @@ public class Player : Unit
 
             if (Interacting == true)
             {
+                Interacting = false;
                 canMove = false;
                 other.GetComponent<CampShopEntranceInteractScript>().Interact();
-                Interacting = false;
+               
             }
         }
 
@@ -476,7 +562,7 @@ public class Player : Unit
         }
         #endregion
 
-        #region ground/platform collisions
+        #region ground/platform/camp collisions
 
         if (other.gameObject.tag =="ground")
         {
@@ -512,10 +598,46 @@ public class Player : Unit
     }
     #endregion
 
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            Debug.Log("testing");
+        }
+    }
+
 
     #endregion
 
-   
+
+
+    public IEnumerator InteractCoroutine()
+    {
+       
+            yield return new WaitForSeconds(.1f);
+            if (Interacting == true)
+            {
+                Interacting = false;
+            }
+      
+        
+       
+        
+    }
+
+    public IEnumerator Jumped()
+    {
+        justJumped = true;
+        yield return new WaitForSeconds(.5f);
+        justJumped = false;
+        if(hasDoubleJump == false)
+        {
+            canDoubleJump = true;
+            hasDoubleJump = true;
+        }
+        
+
+    }
 
 }
