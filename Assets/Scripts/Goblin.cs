@@ -6,6 +6,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Goblin : Enemy
@@ -19,9 +20,10 @@ public class Goblin : Enemy
 
     private bool canAttack = true;
 
-    private float yDistance;
+   
 
-    public float jumpVelocity;
+    
+    
 
     #endregion
 
@@ -56,6 +58,7 @@ public class Goblin : Enemy
 
         if (Vector2.Distance(transform.position, player.transform.position) <= goblinMeleeRange)
         {
+            
 
             if (canAttack)
             {
@@ -63,22 +66,29 @@ public class Goblin : Enemy
             }
         }
 
-        yDistance = transform.position.y - player.transform.position.y;
+        
+        
+           /* yDistance = transform.position.y - player.transform.position.y;
+        
 
-        if (yDistance > jumpHeight)
+        if (yDistance <= Mathf.Abs(jumpHeight))
         {
-            if (isGrounded)
-            {
-                //jump toward player
-                // _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
-                GetComponent<Rigidbody>().AddForce(Vector3.up * jumpVelocity);
-                StartCoroutine(Jumped());
-            }
+            /*if (isGrounded)
+            {*/
+               /* if (canJump)
+                {
+                    //jump toward player
 
-            if (onPlatform == true)
+                    //_rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpVelocity));
+                    StartCoroutine(IsJumping());
+
+                }
+                
+            //}
+
+           /* if (onPlatform == true)
             {
-                //_rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
-                GetComponent<Rigidbody>().AddForce(Vector3.up * jumpVelocity);
+                _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpVelocity));
                 StartCoroutine(Jumped());
 
             }
@@ -87,7 +97,7 @@ public class Goblin : Enemy
         else if (yDistance < jumpHeight)
         {
             //drop through floor toward player
-        }
+        }*/
 
     }
 
@@ -131,6 +141,8 @@ public class Goblin : Enemy
         yield return new WaitForSeconds(0.5f);
         goblinAttack_L.SetActive(false);
     }
+
+    
 
     public void GoblinMeleeAttack()
     {

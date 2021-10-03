@@ -638,7 +638,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -61, y: -15.600006}
+  m_AnchoredPosition: {x: -61, y: -15.599976}
   m_SizeDelta: {x: 47.8683, y: 7.3012}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &226959012
@@ -1064,11 +1064,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4164641213947438831, guid: b52e07313918d364bbc57db27fa8577c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 29.84
+      value: 26.67
       objectReference: {fileID: 0}
     - target: {fileID: 4164641213947438831, guid: b52e07313918d364bbc57db27fa8577c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.42
+      value: 1.35
       objectReference: {fileID: 0}
     - target: {fileID: 4164641213947438831, guid: b52e07313918d364bbc57db27fa8577c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1170,10 +1170,13 @@ MonoBehaviour:
   myHealth: 5
   _rigidBody: {fileID: 623352080}
   facingRightLocal: 0
+  yDistance: 0
+  jumpVelocity: 0
   jumpHeight: 0
   player: {fileID: 367821608}
   followDistance: 12
   stoppingDistance: 5
+  noJumpHeight: 0
   skeletonShootingDistance: 7
   projectile: {fileID: 8009402920651334389, guid: 4be439661164c2546bd08a2cd8834521, type: 3}
   shootLocation: {fileID: 759742705}
@@ -2474,6 +2477,22 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7441511599208486226, guid: bec5e393f8911044aa2a18101f84bb31, type: 3}
+      propertyPath: m_Size.x
+      value: 2.7876287
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441511599208486226, guid: bec5e393f8911044aa2a18101f84bb31, type: 3}
+      propertyPath: m_Size.y
+      value: 0.35466543
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441511599208486226, guid: bec5e393f8911044aa2a18101f84bb31, type: 3}
+      propertyPath: m_Center.x
+      value: -1.3938143
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441511599208486226, guid: bec5e393f8911044aa2a18101f84bb31, type: 3}
+      propertyPath: m_Center.y
+      value: 0.07861455
+      objectReference: {fileID: 0}
     - target: {fileID: 7441511599208486237, guid: bec5e393f8911044aa2a18101f84bb31, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -2492,11 +2511,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7441511599208486237, guid: bec5e393f8911044aa2a18101f84bb31, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 37.93
+      value: 35.89
       objectReference: {fileID: 0}
     - target: {fileID: 7441511599208486237, guid: bec5e393f8911044aa2a18101f84bb31, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.26
+      value: -1.66
       objectReference: {fileID: 0}
     - target: {fileID: 7441511599208486237, guid: bec5e393f8911044aa2a18101f84bb31, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2819,13 +2838,15 @@ MonoBehaviour:
   myHealth: 5
   _rigidBody: {fileID: 1568933306}
   facingRightLocal: 0
+  yDistance: 0
+  jumpVelocity: 7
   jumpHeight: 3
   player: {fileID: 367821608}
   followDistance: 12
   stoppingDistance: 3
+  noJumpHeight: 5
   goblinMeleeRange: 3
   goblinDamage: 10
-  jumpVelocity: 10
   playerLife: {fileID: 171176569}
   goblinAttack_L: {fileID: 2028274568}
   goblinAttack_R: {fileID: 2081849533}
@@ -3826,10 +3847,13 @@ MonoBehaviour:
   myHealth: 5
   _rigidBody: {fileID: 1855897179}
   facingRightLocal: 0
+  yDistance: 0
+  jumpVelocity: 0
   jumpHeight: 0
   player: {fileID: 367821608}
   followDistance: 12
   stoppingDistance: 3
+  noJumpHeight: 0
   orcMeleeRange: 3
   orcDamage: 15
   playerLife: {fileID: 171176569}

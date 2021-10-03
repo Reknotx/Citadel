@@ -38,7 +38,11 @@ public class Enemy : Unit
     #endregion
     #region Enemy's Player Detection Stats
 
-    
+    public float yDistance;
+
+    public float jumpVelocity;
+
+    private bool canJump = true;
 
     public float jumpHeight;
 
@@ -58,9 +62,20 @@ public class Enemy : Unit
     ///<summary>This is the distance from the player the enemy wills top at</summary>
     public float stoppingDistance;
 
+    private float stopSpeed = 0f;
+
+    private float normalSpeed;
+
+    public float noJumpHeight;
+
     Vector2 currentDirection;
     #endregion
     #endregion
+
+    private void Start()
+    {
+        normalSpeed = speed;
+    }
 
     public override void Update()
     {
@@ -84,6 +99,41 @@ public class Enemy : Unit
 
 
         #endregion
+
+        yDistance = Mathf.Abs(transform.position.y - player.transform.position.y);
+
+
+
+        if (isGrounded)
+        {
+            if (canJump)
+            {
+                //jump toward player
+
+                //_rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpVelocity));
+                StartCoroutine(IsJumping());
+
+            }
+
+        }
+
+        if (yDistance < noJumpHeight)
+        {
+            speed = stopSpeed;
+        }
+        else
+        {
+            speed = normalSpeed;
+        }
+
+        /*if (onPlatform == true)
+        {
+            _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpVelocity));
+            StartCoroutine(Jumped());
+
+        }*/
+
+
 
         #region Player Detection
         ///<summary>This sets the player as the target in the scene.</summary>
@@ -251,6 +301,20 @@ public class Enemy : Unit
                 onFireDamage = 1;
                 StartCoroutine(onFireCoroutine());
             }
+        }
+    }
+
+    IEnumerator IsJumping()
+    {
+        if (yDistance >= jumpHeight && yDistance < noJumpHeight)
+        {
+
+            canJump = false;
+            _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpVelocity));
+            
+            yield return new WaitForSeconds(3f);
+            canJump = true;
+
         }
     }
 
