@@ -448,23 +448,39 @@ public class Player : Unit
     /// <summary> This is the attacking function  </summary>
     public void lightAttack(InputAction.CallbackContext context)
     {
-        _lightCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange, .3f, 1.5f);
+        //Tyler made an edit to 1.0f y from 0.3fy
+        _lightCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange,1.0f, 1.0f);
 
         if (Time.time >= nextDamageEvent)
         {
             nextDamageEvent = Time.time + attackCoolDown;
             if (facingRight == true)
             {
+                //10/4/21 Tyler Added this to fix the problems with sword position and rotation
                 _lightCollider.transform.position = spellLocationRight.transform.position;
-                _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale/2);
+                _lightCollider.transform.position = _lightCollider.transform.position;
+                _lightCollider.transform.eulerAngles = new Vector3(0.0f, 0.0f, 270.0f);
                 StartCoroutine(lightAttackCoroutine());
-
+                //Tyler commented this out to fix the problems with sword pos and rtotation
+                /*
+                _lightCollider.transform.position = spellLocationRight.transform.position;
+                _lightCollider.transform.position = _lightCollider.transform.position; // (_lightCollider.gameObject.transform.localScale/2);
+                StartCoroutine(lightAttackCoroutine());
+                */
             }
             else
             {
+                //10/4/21 Tyler Added this to fix the problems with sword position and rotation
                 _lightCollider.transform.position = spellLocationLeft.transform.position;
-                _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
+                _lightCollider.transform.position = _lightCollider.transform.position;
+                _lightCollider.transform.eulerAngles = new Vector3(180.0f, 0.0f, 90.0f);
                 StartCoroutine(lightAttackCoroutine());
+                //Tyler commented this out to fix the problems with sword pos and rtotation
+                /*
+                _lightCollider.transform.position = spellLocationLeft.transform.position;
+                _lightCollider.transform.position = _lightCollider.transform.position; // - (_lightCollider.gameObject.transform.localScale / 2);
+                StartCoroutine(lightAttackCoroutine());
+                */
             }
         }
 
@@ -474,23 +490,39 @@ public class Player : Unit
 
     public void heavyAttack(InputAction.CallbackContext context)
     {
-        _heavyCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange, .3f, 1.5f);
+        //Tyler made an edit to 1.0f y from 0.3fy
+        _heavyCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange, 1.0f, 1.0f);
 
         if (Time.time >= nextDamageEvent)
         {
             nextDamageEvent = Time.time + attackCoolDown;
             if (facingRight == true)
             {
+                //10/4/21 Tyler Added this to fix the problems with sword position and rotation
+                _heavyCollider.transform.position = spellLocationRight.transform.position;
+                _heavyCollider.transform.position = _heavyCollider.transform.position;
+                _heavyCollider.transform.eulerAngles = new Vector3(0.0f, 0.0f, 270.0f);
+                StartCoroutine(heavyAttackCoroutine());
+                //Tyler commented this out to fix the problems with sword pos and rtotation
+                /*
                 _heavyCollider.transform.position = spellLocationRight.transform.position;
                 _heavyCollider.transform.position = _heavyCollider.transform.position + (_heavyCollider.gameObject.transform.localScale / 2);
                 StartCoroutine(heavyAttackCoroutine());
-
+                */
             }
             else
             {
+                //10/4/21 Tyler Added this to fix the problems with sword position and rotation
+                _heavyCollider.transform.position = spellLocationLeft.transform.position;
+                _heavyCollider.transform.position = _heavyCollider.transform.position;
+                _heavyCollider.transform.eulerAngles = new Vector3(180.0f, 0.0f, 90.0f);
+                StartCoroutine(heavyAttackCoroutine());
+                //Tyler commented this out to fix the problems with sword pos and rtotation
+                /*
                 _heavyCollider.transform.position = spellLocationLeft.transform.position;
                 _heavyCollider.transform.position = _heavyCollider.transform.position - (_heavyCollider.gameObject.transform.localScale / 2);
                 StartCoroutine(heavyAttackCoroutine());
+                */
             }
         }
 

@@ -121,7 +121,7 @@ Transform:
   m_GameObject: {fileID: 493934281022271349}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.41300002}
-  m_LocalScale: {x: 1.5, y: 0.3, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5677106435990358312}
   m_RootOrder: 1
@@ -236,8 +236,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 493934281067369775}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.53, y: 1.193, z: 0}
-  m_LocalScale: {x: 0.6992364, y: 0.6992364, z: 0.6992364}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4788754908606882353}
   - {fileID: 493934281248266235}
@@ -393,11 +393,18 @@ MonoBehaviour:
   playerCollisionDamage: 0
   fireWall_prefab: {fileID: 1103918510936984276, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
   canMove: 1
+  canDoubleJump: 1
+  hasDoubleJump: 0
   Interacting: 0
   canInteract: 1
   inCampShop: 0
   inMine: 0
   inMineShop: 0
+  grounded: 0
+  shuues: 0
+  undying: 0
+  spellStone: 0
+  backShield: 0
 --- !u!114 &493934281067369750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -569,7 +576,7 @@ Transform:
   m_GameObject: {fileID: 493934281109704240}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.413}
-  m_LocalScale: {x: 1.1550001, y: 0.3, z: 1.5000002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5677106435990358312}
   m_RootOrder: 0
@@ -2038,7 +2045,7 @@ Transform:
   m_GameObject: {fileID: 5277870884640241803}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: -0.99, z: 0}
-  m_LocalScale: {x: 1.4301314, y: 1.4301314, z: 1.4301314}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8389238001766028172}
   - {fileID: 5096489480568365864}
