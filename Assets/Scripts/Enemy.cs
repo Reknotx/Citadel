@@ -306,7 +306,7 @@ public class Enemy : Unit
 
     IEnumerator IsJumping()
     {
-        if (yDistance >= jumpHeight && yDistance < noJumpHeight)
+        if (yDistance >= jumpHeight)
         {
 
             canJump = false;

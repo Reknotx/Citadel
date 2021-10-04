@@ -20,8 +20,6 @@ public class Goblin : Enemy
 
     private bool canAttack = true;
 
-   
-
     
     
 
@@ -49,6 +47,8 @@ public class Goblin : Enemy
     {
         goblinAttack_L.SetActive(false);
         goblinAttack_R.SetActive(false);
+
+        
     }
 
     // Update is called once per frame
