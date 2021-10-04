@@ -38,7 +38,7 @@ public class Skeleton : Enemy
         {
             if (canShoot)
             {
-                transform.LookAt(player.transform);
+                //transform.LookAt(player.transform);
                 Instantiate(projectile, shootLocation.position, Quaternion.identity);
                 StartCoroutine(ProjectileCooldown());
             }

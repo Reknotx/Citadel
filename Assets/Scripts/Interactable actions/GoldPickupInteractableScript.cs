@@ -18,8 +18,8 @@ public class GoldPickupInteractableScript : MonoBehaviour
     {
         if (given == false)
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponentInChildren<GoldHandler>().MySoftGold += dropAmount;
+            GameObject goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
+            goldHandler.GetComponent<GoldHandler>()._mySoftGold += dropAmount;
             given = true;
         }
 

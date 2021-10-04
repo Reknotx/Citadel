@@ -328,12 +328,7 @@ public class Unit : MonoBehaviour
         _heavyCollider.enabled = false;
     }
 
-    public IEnumerator Jumped()
-    {
-        justJumped = true;
-        yield return new WaitForSeconds(.5f);
-        justJumped = false;
-    }
+   
 
     public IEnumerator Stun()
     {
@@ -354,6 +349,8 @@ public class Unit : MonoBehaviour
         yield return new WaitForSeconds(onFireDuration);
         onFire = false;
     }
+
+    
 
    
      

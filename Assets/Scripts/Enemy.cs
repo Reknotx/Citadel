@@ -35,8 +35,16 @@ public class Enemy : Unit
     [HideInInspector]
     public bool facingRightLocal;
 
-            #endregion
-            #region Enemy's Player Detection Stats
+    #endregion
+    #region Enemy's Player Detection Stats
+
+    public float yDistance;
+
+    public float jumpVelocity;
+
+    private bool canJump = true;
+
+    public float jumpHeight;
 
     ///<summary>This is the range of detection to the player.</summary>
     [Range(0, 20)]
@@ -56,10 +64,21 @@ public class Enemy : Unit
     ///<summary>This is the distance from the player the enemy wills top at</summary>
     public float stoppingDistance;
 
+    private float stopSpeed = 0f;
+
+    private float normalSpeed;
+
+    public float noJumpHeight;
+
     Vector2 currentDirection;
     #endregion
 
     #endregion
+
+    private void Start()
+    {
+        normalSpeed = speed;
+    }
 
     public override void Update()
     {
@@ -67,24 +86,43 @@ public class Enemy : Unit
         base.Update();
 
         #region Enemy AI Movement
-        //if(Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
-        //{
-        //    transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        //}
-
-        //if(transform.position.x - player.transform.position.x > 0)
-        //{
-        //    facingRight = true;
-        //}
-
-        //if(transform.position.x - player.transform.position.x < 0)
-        //{
-        //    facingRight = false;
-        //}
-        ///Moved into a function to allow for overriding.
         Move();
-
         #endregion
+
+        yDistance = Mathf.Abs(transform.position.y - player.transform.position.y);
+
+
+
+        if (isGrounded)
+        {
+            if (canJump)
+            {
+                //jump toward player
+
+                //_rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpVelocity));
+                StartCoroutine(IsJumping());
+
+            }
+
+        }
+
+        if (yDistance < noJumpHeight)
+        {
+            speed = stopSpeed;
+        }
+        else
+        {
+            speed = normalSpeed;
+        }
+
+        /*if (onPlatform == true)
+        {
+            _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpVelocity));
+            StartCoroutine(Jumped());
+
+        }*/
+
+
 
         #region Player Detection
         ///<summary>This sets the player as the target in the scene.</summary>
@@ -147,6 +185,7 @@ public class Enemy : Unit
             myHealth -= onFireDamage * Time.deltaTime;
         }
     }
+
     #region Interactions with the Player
     public void Interact()
     {
@@ -246,6 +285,20 @@ public class Enemy : Unit
                 onFireDamage = 1;
                 StartCoroutine(onFireCoroutine());
             }
+        }
+    }
+
+    IEnumerator IsJumping()
+    {
+        if (yDistance >= jumpHeight)
+        {
+
+            canJump = false;
+            _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpVelocity));
+            
+            yield return new WaitForSeconds(3f);
+            canJump = true;
+
         }
     }
 
