@@ -37,6 +37,10 @@ public class SceneManagerScript : MonoBehaviour
     GameObject player;
    public GameObject shopUI;
 
+    //Tyler Code here
+    public GameObject NextScrenH2P;
+    //End Tyler Code
+
     private GameObject toMineShopBTN;
 
     /* will make this a singleton
@@ -75,22 +79,34 @@ public class SceneManagerScript : MonoBehaviour
 
     #region button functions 
 
+    //Tyler Code here
+    public void HowToPlay()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void ButtonControl()
+    {
+        SceneManager.LoadScene(8);
+    }
+    //End Tyler Code
+
     /// <summary> this takes the player to the camp scene</summary>
     public void goToCamp()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
 
     /// <summary> this takes the player to the options scene </summary>
     public void goToOptions()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     /// <summary> this takes the player to the credits scene </summary>
     public void goToCredits()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 
     /// <summary> this takes the player to the camp shop scene </summary>
@@ -118,7 +134,7 @@ public class SceneManagerScript : MonoBehaviour
             //player.GetComponent<Player>().inMine = true;
        // player.GetComponent<Player>().canMove = false;
             //campButtons.SetActive(false);wda
-            SceneManager.LoadScene(5);
+            SceneManager.LoadScene(6);
 
             
 
@@ -138,7 +154,7 @@ public class SceneManagerScript : MonoBehaviour
     /// <summary> this takes the player to the castle scene </summary>
     public void goToCastle()
     {
-        SceneManager.LoadScene(6);
+        SceneManager.LoadScene(7);
     }
 
     /// <summary> this takes the player back to the main menu scene </summary>
