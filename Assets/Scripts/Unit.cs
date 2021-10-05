@@ -324,7 +324,7 @@ public class Unit : MonoBehaviour
     public IEnumerator heavyAttackCoroutine()
     {
         _heavyCollider.enabled = true;
-        yield return new WaitForSeconds(.7f);
+        yield return new WaitForSeconds(.9f);
         _heavyCollider.enabled = false;
     }
 

@@ -78,6 +78,8 @@ public class Enemy : Unit
     private void Start()
     {
         normalSpeed = speed;
+        //Tyler Added code
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public override void Update()

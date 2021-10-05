@@ -370,6 +370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpFroce: 2.5
+  maxHealth: 10
   _groundCollider: {fileID: 493934281067369772}
   _platformCollider: {fileID: 493934281067369748}
   _hitboxCollider: {fileID: 493934281067369751}
@@ -380,7 +381,6 @@ MonoBehaviour:
   spellLocationCenter: {fileID: 493934281473032327}
   facingRight: 0
   myHealth: 5
-  maxHealth: 10
   startingHealth: 3
   myMana: 5
   maxMana: 10
@@ -401,10 +401,13 @@ MonoBehaviour:
   inMine: 0
   inMineShop: 0
   grounded: 0
+  isRunning: 0
+  isAttacking: 0
   shuues: 0
   undying: 0
   spellStone: 0
   backShield: 0
+  animator: {fileID: 1483161897260169291}
 --- !u!114 &493934281067369750
 MonoBehaviour:
   m_ObjectHideFlags: 0
