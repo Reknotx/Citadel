@@ -10,8 +10,8 @@ namespace Interactables
 
         public override void Interact()
         {
-            ///Execute functionality.
-
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.GetComponent<Player>().spellStone = true;
             base.Interact();
         }
     }

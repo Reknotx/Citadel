@@ -624,35 +624,36 @@ public class Player : Unit
 
         if (other.GetComponent<Interactable>() != null)
         {
+            Interactable localInteractRef = other.GetComponent<Interactable>();
+           
+            if(localInteractRef is CastleEntranceInteractScript)
+            {
+                   GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+                   buttonController.GetComponent<SceneButtonControllerScript>().enterCastleBTN.SetActive(true);
+            }
+
+            if (localInteractRef is MineEntranceInteractScript)
+            {
+                GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+                buttonController.GetComponent<SceneButtonControllerScript>().enterMineBTN.SetActive(true);
+            }
+
+            if (localInteractRef is CampShopEntranceInteractScript)
+            {
+                GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+                buttonController.GetComponent<SceneButtonControllerScript>().enterCampShopBTN.SetActive(true);
+            }
+            ///turn on button manager
+
+            if (Interacting)
             other.GetComponent<Interactable>().Interact();
         }
 
 
-        //if(other.gameObject.tag == "MineEntrance")
-        //{
-        //    GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
-        //    buttonController.GetComponent<SceneButtonControllerScript>().enterMineBTN.SetActive(true);
-        //    if (Interacting == true)
-        //    {
-        //        Interacting = false;
-        //        other.GetComponent<MineEntranceInteractScript>().Interact();
-
-        //    }
-        //}
+       
 
 
-        //if (other.gameObject.tag == "CastleEntrance")
-        //{
-        //    GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
-        //    buttonController.GetComponent<SceneButtonControllerScript>().enterCastleBTN.SetActive(true);
-
-        //    if (Interacting == true)
-        //    {
-        //        Interacting = false;
-        //        other.GetComponent<CastleEntranceInteractScript>().Interact();
-
-        //    }
-        //}
+       
 
         //if (other.gameObject.tag == "CampShopEntrance")
         //{

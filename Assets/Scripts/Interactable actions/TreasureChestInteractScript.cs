@@ -46,6 +46,8 @@ namespace Interactables
         public override void Interact()
         {
             opened = true;
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.GetComponent<Player>().Interacting = false;
         }
 
         private void randomSpawn()
@@ -73,18 +75,7 @@ namespace Interactables
 
         }
 
-        public void OnTriggerStay(Collider other)
-        {
-            if (other.gameObject.tag == "Player")
-            {
-                if (other.GetComponent<Player>().Interacting == true)
-                {
-                    other.GetComponent<Player>().Interacting = false;
-                    Interact();
-
-                }
-            }
-        }
+        
 
     }
 }
