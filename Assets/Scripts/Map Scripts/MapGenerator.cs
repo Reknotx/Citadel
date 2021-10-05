@@ -61,7 +61,6 @@ public class MapGenerator : MonoBehaviour
     [HideInInspector]
     public static List<Room> specialRooms;
 
-    [Space(20)]
     [Header("Enable this if we want to only have one row on the map.")]
     public bool OneRowOnly = false;
 

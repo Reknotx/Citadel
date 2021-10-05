@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2982838568778839152}
   - component: {fileID: 2982838568778839167}
   - component: {fileID: 2982838568778839166}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2.81
   jumpFroce: 0
+  maxHealth: 0
   _groundCollider: {fileID: 2982838568778839162}
   _platformCollider: {fileID: 0}
   _hitboxCollider: {fileID: 2982838568778839162}
@@ -240,7 +241,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2982838568907107737}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ShootLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -215,8 +215,10 @@ public class Player : Unit
             
             Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
             _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
-             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-            animator.SetBool("isRunning", isRunning);
+            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+            
+            if (animator != null)
+                animator.SetBool("isRunning", isRunning);
             
         }
         else
