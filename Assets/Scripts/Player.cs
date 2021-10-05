@@ -21,49 +21,20 @@ public class Player : Unit
     public static Player Instance;
 
     #region Player Stats
-    #region Player's Base Stats/Important controls
+
+            #region Player's Base Stats/Important controls
+
+    ///<summary>This is the units health.</summary>
+    public float myHealth;
+
+    ///<summary>This is the maximum units health.</summary>
+   // public float maxHealth; //
 
     ///<summary>This is the  units starting health.</summary>
     public float startingHealth;
 
-    ///<summary>This is the units health.</summary>
-    public override float Health
-    {
-        get => base.Health;
-        set
-        {
-            _health = Mathf.Clamp(value, 0, maxHealth);
-
-            if (base.Health == 0)
-            {
-                if(undying == true)
-                {
-                    undying = false;
-                    myHealth = Mathf.Round(maxHealth * 0.15f);
-                }
-                else
-                {
-                    ResetGame();
-                }
-            }
-        }
-    }
-
-
-    private float _mana;
-    ///<summary>This is the maximum units health.</summary>
-    public float maxHealth; //
-
-
     ///<summary>This is the units mana for magic casting.</summary>
-    public float Mana
-    {
-        get => _mana;
-        set
-        {
-            _mana = Mathf.Clamp(value, 0, maxMana);
-        }
-    }
+    public float myMana;
 
     ///<summary>This is the units maximum mana for magic casting.</summary>
     public float maxMana; //
@@ -82,13 +53,13 @@ public class Player : Unit
             #region Player's Ground/Directional Detection Stats
 
     ///<summary>This is the range of detection to the ground.</summary>
-    private float _Reach = 1f;
+    private float _Reach = 2f;
 
     ///<summary>This tracks what the ground detection raycast hits.</summary>
     RaycastHit hit;
 
     ///<summary>This tracks what direction the player is facing.</summary>
-    [HideInInspector]
+    //[HideInInspector]
     public bool facingRightLocal;
 
             #endregion
@@ -109,11 +80,11 @@ public class Player : Unit
     /// <summary>this is the physical gameobject that is cast during the firewall spell</summary>
     public GameObject fireWall_prefab;
     #endregion
-    #region Bool Determinates 
+            #region Bool Determinates 
 
     /// <summary> determines if the player can move or not </summary>
-    [HideInInspector]
-    public bool canMove = true;
+        [HideInInspector]
+        public bool canMove = true;
 
     /// <summary> determines if the player can jump once more in the air or not </summary>
     //[HideInInspector]
@@ -124,7 +95,7 @@ public class Player : Unit
     public bool hasDoubleJump = false;
 
     /// <summary> determines if the player is trying to interact with things or not </summary>
-    [HideInInspector]
+   // [HideInInspector]
     public bool Interacting = false;
    // {
        // return playerInputActions.PlayerControl.
@@ -135,15 +106,12 @@ public class Player : Unit
 
 
     /// <summary> this keeps track of if the player is in the camp shop or not  </summary>
-    [HideInInspector]
     public bool inCampShop = false;
 
     /// <summary> this keeps track of if the player is in the mine  or not  </summary>
-    [HideInInspector]
     public bool inMine = false;
 
     /// <summary> this keeps track of if the player is in the mine shop or not  </summary>
-    [HideInInspector]
     public bool inMineShop = false;
 
     public bool grounded;
@@ -166,25 +134,21 @@ public class Player : Unit
     private void Awake()
     {
 
-        if(Instance != null && Instance != this)
+      if(Instance != null && Instance != this)
         {
             Destroy(Instance.gameObject);
         }
-
-        Instance = this;
         
         #region Player Movement Important Connectors
          ///<summary>The following is used to track player inputs and controls.</summary>
          playerInputActions = new PlayerInputActions();
          playerInputActions.PlayerControl.Enable();
          playerInputActions.PlayerControl.Jump.performed += Jump;
-        //playerInputActions.PlayerControl.Movement.performed += movement;
+         playerInputActions.PlayerControl.Movement.performed += movement;
+         playerInputActions.PlayerControl.Drop.performed += Drop;
+         
+
         
-        ///Demonstrating a different approach to movement.
-        playerInputActions.PlayerControl.Movement.performed += ctxMp => moveDir = ctxMp.ReadValue<Vector2>();
-        playerInputActions.PlayerControl.Movement.canceled += ctxMc => moveDir = Vector2.zero;
-        
-        playerInputActions.PlayerControl.Drop.performed += Drop;         
 
 
         #endregion
@@ -195,16 +159,40 @@ public class Player : Unit
 
     public override void Update()
     {
+        Application.targetFrameRate = 60;
         facingRightLocal = facingRight;
         base.Update();
-        
-        movement();
-        
+
         #region Player Stat controls
-        ///Moved the player stat controls into a property
-        ///In order to keep things localized
+
+        if(myHealth >= maxHealth) 
+        {
+            myHealth = maxHealth;
+        }
         
-        
+
+        if (myMana >= maxMana)
+        {
+            myMana = maxMana;
+        }
+
+        if(myHealth <= 0)
+        {
+            if(undying == true)
+            {
+                undying = false;
+                myHealth = Mathf.Round(maxHealth * 0.15f);
+            }
+            else
+            {
+                ResetGame();
+            }
+           
+        }
+
+
+
+
         if (Interacting == true)
         {
             StartCoroutine(InteractCoroutine());
@@ -218,15 +206,8 @@ public class Player : Unit
         {
             
             Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
-            
-            
-            ///This line conflicts wtih the movement function
-            //_rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
-            ///This line conflicts wtih the movement function
-            
-            
-            
-            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+            _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
+             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
         }
         else
         {
@@ -309,22 +290,24 @@ public class Player : Unit
             canCast = true;
             spellCastDelay = 3f;
         }
+
+
+
+      
     }
 
 
     public void ResetGame()
     {
         maxHealth = startingHealth;
-        Health = startingHealth;
+        myHealth = startingHealth;
         maxMana = startingMana;
-        Mana = startingMana;
-        
+        myMana = startingMana;
         //GetComponentInChildren<GoldHandler>().myHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
         var goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
         goldHandler.GetComponent<GoldHandler>()._mySoftGold = goldHandler.GetComponent<GoldHandler>().startingSoftGold;
         var goldTracker = GameObject.FindGameObjectWithTag("GoldTracker");
         goldTracker.GetComponent<PlayerGoldTrackerScript>().playerDead = true;
-        
         GameObject SceneManager = GameObject.FindGameObjectWithTag("SceneManager");
         SceneManager.GetComponent<SceneManagerScript>().goToCamp();
 
@@ -333,16 +316,12 @@ public class Player : Unit
 
 
     #region Player Movement Actions
-
     /// <summary> This moves the player from side to side on the x axis  /// </summary>
     public void movement(InputAction.CallbackContext context)
     {
-        if (canMove == true && this != null)
+        if (canMove == true)
         {
-
-            Vector2 inputVector = context.ReadValue<Vector2>();
-            _rigidBody.MovePosition(transform.position + (new Vector3(inputVector.x, /*transform.position.y*/0f, 0) * speed * Time.deltaTime));
-            if (inputVector.x > 0)
+            if (this != null)
             {
                
                     Vector2 inputVector = context.ReadValue<Vector2>();
@@ -470,7 +449,7 @@ public class Player : Unit
     public void lightAttack(InputAction.CallbackContext context)
     {
         //Tyler made an edit to 1.0f y from 0.3fy
-        _lightCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange,1.0f, 1.0f);
+        _lightCollider.gameObject.transform.localScale = new Vector3(1.0f,meleeAttackRange, 1.0f);
 
         if (Time.time >= nextDamageEvent)
         {
@@ -478,30 +457,34 @@ public class Player : Unit
             if (facingRight == true)
             {
                 //10/4/21 Tyler Added this to fix the problems with sword position and rotation
-                _lightCollider.transform.position = spellLocationRight.transform.position;
+                /* _lightCollider.transform.position = spellLocationRight.transform.position;
                 _lightCollider.transform.position = _lightCollider.transform.position;
-                _lightCollider.transform.eulerAngles = new Vector3(0.0f, 0.0f, 270.0f);
+                
                 StartCoroutine(lightAttackCoroutine());
                 //Tyler commented this out to fix the problems with sword pos and rtotation
-                /*
+                 */
                 _lightCollider.transform.position = spellLocationRight.transform.position;
-                _lightCollider.transform.position = _lightCollider.transform.position; // (_lightCollider.gameObject.transform.localScale/2);
+                _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale/2);
+                _lightCollider.transform.eulerAngles = new Vector3(0.0f, 0.0f, 270.0f);
+                _lightCollider.transform.localPosition = new Vector3(_lightCollider.transform.localPosition.x, 0f, _lightCollider.transform.localPosition.z);
                 StartCoroutine(lightAttackCoroutine());
-                */
+              
             }
             else
             {
                 //10/4/21 Tyler Added this to fix the problems with sword position and rotation
-                _lightCollider.transform.position = spellLocationLeft.transform.position;
+               /*  _lightCollider.transform.position = spellLocationLeft.transform.position;
                 _lightCollider.transform.position = _lightCollider.transform.position;
-                _lightCollider.transform.eulerAngles = new Vector3(180.0f, 0.0f, 90.0f);
+                
                 StartCoroutine(lightAttackCoroutine());
                 //Tyler commented this out to fix the problems with sword pos and rtotation
-                /*
+               */
                 _lightCollider.transform.position = spellLocationLeft.transform.position;
-                _lightCollider.transform.position = _lightCollider.transform.position; // - (_lightCollider.gameObject.transform.localScale / 2);
+                _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
+                _lightCollider.transform.eulerAngles = new Vector3(180.0f, 0.0f, 90.0f);
+                _lightCollider.transform.localPosition = new Vector3(_lightCollider.transform.localPosition.x, 0f, _lightCollider.transform.localPosition.z);
                 StartCoroutine(lightAttackCoroutine());
-                */
+                
             }
         }
 
@@ -512,7 +495,7 @@ public class Player : Unit
     public void heavyAttack(InputAction.CallbackContext context)
     {
         //Tyler made an edit to 1.0f y from 0.3fy
-        _heavyCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange, 1.0f, 1.0f);
+        _heavyCollider.gameObject.transform.localScale = new Vector3(2.0f, meleeAttackRange, 1.0f);
 
         if (Time.time >= nextDamageEvent)
         {
@@ -520,30 +503,34 @@ public class Player : Unit
             if (facingRight == true)
             {
                 //10/4/21 Tyler Added this to fix the problems with sword position and rotation
-                _heavyCollider.transform.position = spellLocationRight.transform.position;
+              /*  _heavyCollider.transform.position = spellLocationRight.transform.position;
                 _heavyCollider.transform.position = _heavyCollider.transform.position;
                 _heavyCollider.transform.eulerAngles = new Vector3(0.0f, 0.0f, 270.0f);
                 StartCoroutine(heavyAttackCoroutine());
                 //Tyler commented this out to fix the problems with sword pos and rtotation
-                /*
+               */ 
                 _heavyCollider.transform.position = spellLocationRight.transform.position;
                 _heavyCollider.transform.position = _heavyCollider.transform.position + (_heavyCollider.gameObject.transform.localScale / 2);
+                _heavyCollider.transform.eulerAngles = new Vector3(0.0f, 0.0f, 270.0f);
+                _heavyCollider.transform.localPosition = new Vector3(_heavyCollider.transform.localPosition.x, 0f, _heavyCollider.transform.localPosition.z);
                 StartCoroutine(heavyAttackCoroutine());
-                */
+                
             }
             else
             {
                 //10/4/21 Tyler Added this to fix the problems with sword position and rotation
-                _heavyCollider.transform.position = spellLocationLeft.transform.position;
+               /* _heavyCollider.transform.position = spellLocationLeft.transform.position;
                 _heavyCollider.transform.position = _heavyCollider.transform.position;
                 _heavyCollider.transform.eulerAngles = new Vector3(180.0f, 0.0f, 90.0f);
                 StartCoroutine(heavyAttackCoroutine());
                 //Tyler commented this out to fix the problems with sword pos and rtotation
-                /*
+                */
                 _heavyCollider.transform.position = spellLocationLeft.transform.position;
                 _heavyCollider.transform.position = _heavyCollider.transform.position - (_heavyCollider.gameObject.transform.localScale / 2);
+                _heavyCollider.transform.eulerAngles = new Vector3(180.0f, 0.0f, 90.0f);
+                _heavyCollider.transform.localPosition = new Vector3(_heavyCollider.transform.localPosition.x, 0f, _heavyCollider.transform.localPosition.z);
                 StartCoroutine(heavyAttackCoroutine());
-                */
+                
             }
         }
 
