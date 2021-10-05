@@ -603,7 +603,7 @@ public class Player : Unit
         if (other.GetComponent<Interactable>() != null)
         {
             other.GetComponent<Interactable>().Interact();
-        }
+        }   
 
 
         //if(other.gameObject.tag == "MineEntrance")
