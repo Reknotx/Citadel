@@ -64,8 +64,11 @@ public class Room : MonoBehaviour
         ///set enemies and inanimateObj to empty as all references will be
         ///set on start.
         if (!fogEnabledOnStart) return;
-        fog.SetActive(true);
-        fog.GetComponent<MeshRenderer>().enabled = true;
+        if (fog != null)
+        {
+            fog.SetActive(true);
+            fog.GetComponent<MeshRenderer>().enabled = true;
+        }
     }
 
     /// <summary> The function that will trigger when player enters the room. </summary>

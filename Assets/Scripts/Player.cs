@@ -26,6 +26,8 @@ public class Player : Unit
     ///<summary>This is the  units starting health.</summary>
     public float startingHealth;
 
+    private float _myHealth;
+
     ///<summary>This is the units health.</summary>
     public override float Health
     {
@@ -39,7 +41,7 @@ public class Player : Unit
                 if(undying == true)
                 {
                     undying = false;
-                    myHealth = Mathf.Round(maxHealth * 0.15f);
+                    _myHealth = Mathf.Round(maxHealth * 0.15f);
                 }
                 else
                 {
@@ -52,7 +54,6 @@ public class Player : Unit
 
     private float _mana;
     ///<summary>This is the maximum units health.</summary>
-    public float maxHealth; //
 
 
     ///<summary>This is the units mana for magic casting.</summary>
@@ -158,12 +159,12 @@ public class Player : Unit
     #endregion
 
 
- 
+
 
     #endregion
+    Vector2 moveDir;
 
-
-    private void Awake()
+    public void Awake()
     {
 
         if(Instance != null && Instance != this)
@@ -198,7 +199,7 @@ public class Player : Unit
         facingRightLocal = facingRight;
         base.Update();
         
-        movement();
+        //movement();
         
         #region Player Stat controls
         ///Moved the player stat controls into a property
@@ -339,24 +340,16 @@ public class Player : Unit
     {
         if (canMove == true && this != null)
         {
-
             Vector2 inputVector = context.ReadValue<Vector2>();
-            _rigidBody.MovePosition(transform.position + (new Vector3(inputVector.x, /*transform.position.y*/0f, 0) * speed * Time.deltaTime));
+
+            _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
             if (inputVector.x > 0)
             {
-               
-                    Vector2 inputVector = context.ReadValue<Vector2>();
-                    _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
-                    if (inputVector.x > 0)
-                    {
-                        facingRight = true;
-                    }
-                    if (inputVector.x < 0)
-                    {
-                        facingRight = false;
-                    }
-                
-                
+                facingRight = true;
+            }
+            if (inputVector.x < 0)
+            {
+                facingRight = false;
             }
         }
     }

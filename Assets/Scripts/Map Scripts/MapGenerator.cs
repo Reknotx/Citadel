@@ -80,8 +80,8 @@ public class MapGenerator : MonoBehaviour
 
     public void Start()
     {
-        //trueGridSize = new Vector2(gridInfo.gridSize + 1, gridInfo.gridSize);
-        trueGridSize = new Vector2(gridInfo.gridSize + 1, 1);
+        trueGridSize = new Vector2(gridInfo.gridSize + 1, gridInfo.gridSize);
+        //trueGridSize = new Vector2(gridInfo.gridSize + 1, 1);
 
         grid = new Room[(int)trueGridSize.y, (int)trueGridSize.x];
         conceptGrid = new GridNode[(int)trueGridSize.y, (int)trueGridSize.x];
