@@ -50,7 +50,7 @@ public class Goblin : Enemy
         //end
         goblinAttack_L.SetActive(false);
         goblinAttack_R.SetActive(false);
-
+        playerLife = GameObject.FindGameObjectWithTag("HealthManaHandler").GetComponent<LifeManaHandler>();
         
     }
 
