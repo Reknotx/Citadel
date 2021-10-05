@@ -479,6 +479,7 @@ public class Player : Unit
         if (Time.time >= nextDamageEvent)
         {
             nextDamageEvent = Time.time + attackCoolDown;
+            triggered = true;
             if (facingRight == true)
             {
                 //10/4/21 Tyler Added this to fix the problems with sword position and rotation
@@ -511,9 +512,16 @@ public class Player : Unit
                 StartCoroutine(lightAttackCoroutine());
                 
             }
-           
-        }
 
+           
+
+        }
+             if (triggered)
+            {
+                animator.SetTrigger("lightAttack");
+
+                triggered = false;
+            }
     }
 
     /// <summary> This is the attacking function  </summary>
@@ -528,7 +536,7 @@ public class Player : Unit
         {
             nextDamageEvent = Time.time + attackCoolDown;
 
-          
+            triggered = true;
 
             if (facingRight == true)
             {
@@ -568,9 +576,11 @@ public class Player : Unit
 
            
         }
-        if(!isAttacking)
+        if(triggered)
         {
-            StartCoroutine(InitializeHeavyAttack());
+            animator.SetTrigger("heavyAttack");
+          
+            triggered = false;
         }
 
 
@@ -720,16 +730,6 @@ public class Player : Unit
     }
 
 
-    public IEnumerator InitializeHeavyAttack()
-    {
-
-       
-        yield return new WaitForSeconds(1f);
-        isAttacking = true;
-      
-
-
-
-    }
+   
 
 }
