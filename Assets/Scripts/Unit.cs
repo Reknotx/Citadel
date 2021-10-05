@@ -316,7 +316,7 @@ public class Unit : MonoBehaviour
     public IEnumerator lightAttackCoroutine()
     {
         _lightCollider.enabled = true;
-        yield return new WaitForSeconds(.7f);
+        yield return new WaitForSeconds(.8f);
         _lightCollider.enabled = false;
     }
 
