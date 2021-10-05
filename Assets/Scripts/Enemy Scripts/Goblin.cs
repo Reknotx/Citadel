@@ -45,9 +45,12 @@ public class Goblin : Enemy
     // Start is called before the first frame update
     void Start()
     {
+        //Tyler Added code
+        player = GameObject.FindGameObjectWithTag("Player");
+        //end
         goblinAttack_L.SetActive(false);
         goblinAttack_R.SetActive(false);
-
+        playerLife = GameObject.FindGameObjectWithTag("HealthManaHandler").GetComponent<LifeManaHandler>();
         
     }
 

@@ -61,6 +61,10 @@ public class MapGenerator : MonoBehaviour
     [HideInInspector]
     public static List<Room> specialRooms;
 
+    [Header("Enable this if we want to only have one row on the map.")]
+    public bool OneRowOnly = false;
+
+
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -80,8 +84,10 @@ public class MapGenerator : MonoBehaviour
 
     public void Start()
     {
-        //trueGridSize = new Vector2(gridInfo.gridSize + 1, gridInfo.gridSize);
-        trueGridSize = new Vector2(gridInfo.gridSize + 1, 1);
+        if (OneRowOnly)
+            trueGridSize = new Vector2(gridInfo.gridSize + 1, 1);
+        else
+            trueGridSize = new Vector2(gridInfo.gridSize + 1, gridInfo.gridSize);
 
         grid = new Room[(int)trueGridSize.y, (int)trueGridSize.x];
         conceptGrid = new GridNode[(int)trueGridSize.y, (int)trueGridSize.x];

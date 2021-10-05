@@ -16,7 +16,10 @@ public class RoomTrigger : MonoBehaviour
         if (other.gameObject.layer == 7)
             parentRoomScript.OnEnter();
         if (other.gameObject.layer == 8 && !parentRoomScript.enemies.Contains(other.gameObject))
+        {
             parentRoomScript.enemies.Add(other.gameObject);
+
+        }
 
     }
 

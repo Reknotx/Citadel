@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 6354622231324802119}
   - component: {fileID: 6354622231324802118}
   - component: {fileID: 6354622231324802169}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -512,6 +512,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   jumpFroce: 17
+  maxHealth: 10
   _groundCollider: {fileID: 6354622231324802115}
   _platformCollider: {fileID: 6354622231324802171}
   _hitboxCollider: {fileID: 6354622231324802168}
@@ -522,7 +523,6 @@ MonoBehaviour:
   spellLocationCenter: {fileID: 6354622231981861352}
   facingRight: 0
   myHealth: 5
-  maxHealth: 10
   startingHealth: 3
   myMana: 5
   maxMana: 10
@@ -535,11 +535,21 @@ MonoBehaviour:
   playerCollisionDamage: 0
   fireWall_prefab: {fileID: 1103918510936984276, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
   canMove: 1
+  canDoubleJump: 1
+  hasDoubleJump: 0
   Interacting: 0
   canInteract: 1
   inCampShop: 0
   inMine: 0
   inMineShop: 0
+  grounded: 0
+  isRunning: 0
+  isAttacking: 0
+  shuues: 0
+  undying: 0
+  spellStone: 0
+  backShield: 0
+  animator: {fileID: 0}
 --- !u!114 &6354622231324802169
 MonoBehaviour:
   m_ObjectHideFlags: 0

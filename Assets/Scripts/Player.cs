@@ -17,6 +17,9 @@ using UnityEngine.InputSystem;
 
 public class Player : Unit
 {
+    /// <summary>
+    /// sidhajshdkashdi
+    /// </summary>
 
     public static Player Instance;
 
@@ -215,8 +218,10 @@ public class Player : Unit
             
             Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
             _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
-             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-            animator.SetBool("isRunning", isRunning);
+            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+            
+            if (animator != null)
+                animator.SetBool("isRunning", isRunning);
             
         }
         else
@@ -448,6 +453,7 @@ public class Player : Unit
 
                 var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
                 fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * 12 + fireWallSpell.transform.up * -2;
+
                 if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
                 {
                     fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
@@ -458,6 +464,7 @@ public class Player : Unit
             {
                 var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
                 fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * -12 + fireWallSpell.transform.up * -2;
+
                 if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
                 {
                     fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
@@ -478,7 +485,8 @@ public class Player : Unit
 
         if (Time.time >= nextDamageEvent)
         {
-            nextDamageEvent = Time.time + attackCoolDown;
+            nextDamageEvent = Time.time + (attackCoolDown/2);
+            triggered = true;
             if (facingRight == true)
             {
                 //10/4/21 Tyler Added this to fix the problems with sword position and rotation
@@ -511,9 +519,16 @@ public class Player : Unit
                 StartCoroutine(lightAttackCoroutine());
                 
             }
-           
-        }
 
+           
+
+        }
+             if (triggered)
+             {
+                animator.SetTrigger("lightAttack");
+
+                triggered = false;
+             }
     }
 
     /// <summary> This is the attacking function  </summary>
@@ -528,7 +543,7 @@ public class Player : Unit
         {
             nextDamageEvent = Time.time + attackCoolDown;
 
-          
+            triggered = true;
 
             if (facingRight == true)
             {
@@ -568,9 +583,11 @@ public class Player : Unit
 
            
         }
-        if(!isAttacking)
+        if(triggered)
         {
-            StartCoroutine(InitializeHeavyAttack());
+            animator.SetTrigger("heavyAttack");
+          
+            triggered = false;
         }
 
 
@@ -720,16 +737,6 @@ public class Player : Unit
     }
 
 
-    public IEnumerator InitializeHeavyAttack()
-    {
-
-       
-        yield return new WaitForSeconds(1f);
-        isAttacking = true;
-      
-
-
-
-    }
+   
 
 }

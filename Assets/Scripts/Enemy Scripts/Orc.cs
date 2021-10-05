@@ -38,8 +38,13 @@ public class Orc : Enemy
     // Start is called before the first frame update
     void Start()
     {
+        //Tyler added code
+        player = GameObject.FindGameObjectWithTag("Player");
+        //end
         orcAttack_L.SetActive(false);
         orcAttack_R.SetActive(false);
+
+        playerLife = GameObject.FindGameObjectWithTag("HealthManaHandler").GetComponent<LifeManaHandler>();
     }
 
     // Update is called once per frame
