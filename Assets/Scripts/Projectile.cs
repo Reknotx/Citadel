@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
 
         target = new Vector3(player.position.x, player.position.y, player.position.z);
 
-        playerHealth = GameObject.FindGameObjectWithTag("HealthManaHandler").GetComponent<LifeManaHandler>();
+        playerHealth = GameObject.FindGameObjectWithTag("ManaHealthHandler").GetComponent<LifeManaHandler>();
 
     }
 
