@@ -304,7 +304,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &77839126
 RectTransform:
   m_ObjectHideFlags: 0
@@ -713,6 +713,8 @@ MonoBehaviour:
   minerCostIncrease: 25
   baseCartCost: 150
   cartCostIncrease: 50
+  mineCartCost: {fileID: 1486285117}
+  minerCost: {fileID: 1245467020}
 --- !u!4 &245883543
 Transform:
   m_ObjectHideFlags: 0
@@ -1786,7 +1788,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1283978843
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2026,7 +2028,7 @@ MonoBehaviour:
   softGoldText: {fileID: 1857847354}
   hardGoldText: {fileID: 1144699989}
   _mySoftGold: 0
-  _myHardGold: 0
+  _myHardGold: 2000
   startingSoftGold: 0
   startingHardGold: 100
   softGold: {fileID: 226959010}
@@ -2776,7 +2778,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -60.799988, y: -15.799988}
+  m_AnchoredPosition: {x: -60.80005, y: -15.799988}
   m_SizeDelta: {x: 48.2743, y: 7.3012}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1731486360
@@ -3141,7 +3143,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numOfMiners: 1
   baseGoldGain: 150
-  clickPercentage: 0.2
+  clickPercentage: 1
+  goldPerClick: {fileID: 1724209135}
   gold: {fileID: 1401711112}
 --- !u!4 &1872370944
 Transform:
@@ -3770,7 +3773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7431981048439176727, guid: 72d60d6bd53b4e24ebd8ca74847ee5ed, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 81.1
+      value: 81.1001
       objectReference: {fileID: 0}
     - target: {fileID: 7431981048439176727, guid: 72d60d6bd53b4e24ebd8ca74847ee5ed, type: 3}
       propertyPath: m_AnchoredPosition.y

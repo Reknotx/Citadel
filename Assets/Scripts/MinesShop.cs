@@ -8,6 +8,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MinesShop : MonoBehaviour
 {
@@ -41,8 +42,18 @@ public class MinesShop : MonoBehaviour
     [SerializeField]
     private int cartCostIncrease = 50;
 
-  
-    
+    public Text mineCartCost;
+
+    public Text minerCost;
+
+
+    public void Update()
+    {
+        mineCartCost.text = "Purchase Mine Cart: " + baseCartCost;
+        minerCost.text = "Purchase Miner: " + baseMinerCost;
+    }
+
+
 
     public void PurchaseMiner()
     {
