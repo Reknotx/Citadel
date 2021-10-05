@@ -9,6 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Minimap;
 
 public class Room : MonoBehaviour
 {
@@ -23,28 +24,48 @@ public class Room : MonoBehaviour
     public List<GameObject> inanimateObjs = new List<GameObject>();
     
     public RoomInfo roomInfo;
-
+    public GameObject fog;
+    
+    [HideInInspector]
+    public bool fogEnabledOnStart = true;
 
     #endregion
 
     #region Private
-
+    bool _firstVisit = true;
 
     #endregion
     #endregion
 
 
     #region Properties
+    bool FirstVisit
+    {
+        get => _firstVisit;
 
+        set
+        {
+            _firstVisit = value;
+            ///turn off the fog
+            fog.SetActive(false);
+        }
+    }
 
     #endregion
+
+
+    private void Awake()
+    {
+    }
 
 
     private void Start()
     {
         ///set enemies and inanimateObj to empty as all references will be
         ///set on start.
-        
+        if (!fogEnabledOnStart) return;
+        fog.SetActive(true);
+        fog.GetComponent<MeshRenderer>().enabled = true;
     }
 
     /// <summary> The function that will trigger when player enters the room. </summary>
@@ -53,7 +74,19 @@ public class Room : MonoBehaviour
     /// and spawn in everything in the room.</remarks>
     public void OnEnter()
     {
+        FirstVisit = false;
 
+        GraphMover.Instance.MoveGraph(transform.position + new Vector3(15, 15, 0));
+
+        MiniMapManager.Instance.MoveMinimapCamera(transform.position + new Vector3(15, 15, 0));
+
+        ///Turn on all the enemies.
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.SetActive(true);
+        }
+        ///Adjust the grid position for the astar path   
+        Debug.Log("Entered " + name);
     }
 
     /// <summary> The function that will trigger when player leaves the room. </summary>
@@ -63,6 +96,17 @@ public class Room : MonoBehaviour
     /// spawned at once.</remarks>
     public void OnExit()
     {
-        
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.SetActive(false);
+        }
     }
+
+    public void TurnOffFog()
+    {
+        fog.SetActive(false);
+    }
+
+
+
 }

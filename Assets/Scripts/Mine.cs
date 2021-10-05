@@ -52,14 +52,12 @@ public class Mine : MonoBehaviour
 
     IEnumerator Lerp()
     {
-
         bool lerping = true;
         float timeStart = Time.time;
 
         float p0 = 0f;
         float p1 = 1;
         float p01;
-
 
         while (lerping)
         {
