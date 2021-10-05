@@ -213,6 +213,7 @@ public class Enemy : Unit
         if (transform.position.x - player.transform.position.x > 0)
         {
             facingRight = true;
+            
         }
 
         if (transform.position.x - player.transform.position.x < 0)

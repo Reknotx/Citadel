@@ -53,6 +53,11 @@ public class Projectile : MonoBehaviour
             playerHealth.Damage(projectileDamage);
             
         }
+
+        if (other.tag == "ground")
+        {
+            DestroyProjectile();
+        }
     }
 }
    
