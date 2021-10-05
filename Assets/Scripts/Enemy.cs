@@ -204,11 +204,7 @@ public class Enemy : Unit
         if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
         {
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        }
-
-        
-
-       
+        }  
     }
 
 
