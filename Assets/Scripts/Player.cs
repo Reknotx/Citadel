@@ -80,6 +80,8 @@ public class Player : Unit
     ///<summary>This determines the damage the player deals to an enemy when they collide.</summary>
     public int playerCollisionDamage;
 
+    public GameObject ManaHealthController;
+
     /// <summary>this is the physical gameobject that is cast during the firewall spell</summary>
     public GameObject fireWall_prefab;
     #endregion
@@ -157,9 +159,9 @@ public class Player : Unit
          playerInputActions.PlayerControl.Jump.performed += Jump;
          playerInputActions.PlayerControl.Movement.performed += movement;
          playerInputActions.PlayerControl.Drop.performed += Drop;
-         
 
-        
+
+        ManaHealthController = GameObject.FindGameObjectWithTag("ManaHealthController");
 
 
         #endregion
@@ -445,13 +447,27 @@ public class Player : Unit
     {
         if (canCast == true)
         {
+            var manaCost = 20f;
+            if (spellStone == true)
+            {
+                
+                ManaHealthController.GetComponent<LifeManaHandler>().ReduceMana((manaCost*0.25f));
+            }
+            else
+            {
+                
+                ManaHealthController.GetComponent<LifeManaHandler>().ReduceMana(manaCost);
+            }
+            
+
+
             ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>
             if (facingRight == true)
             {
-
+                
                 var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
                 fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * 12 + fireWallSpell.transform.up * -2;
-
+                
                 if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
                 {
                     fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
@@ -460,9 +476,10 @@ public class Player : Unit
             }
             else
             {
+                
                 var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
                 fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * -12 + fireWallSpell.transform.up * -2;
-
+               
                 if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
                 {
                     fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);

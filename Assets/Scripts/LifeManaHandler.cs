@@ -75,7 +75,7 @@ public class LifeManaHandler : MonoBehaviour
     /// <summary>
     /// Updates the health and mana bars to their current state, depending on if spells have been cast or if the player has taken damage.
     /// </summary>
-    void Update()
+    void FixedUpdate()
     {
         ///Calculate the player's current life and display the proper amount in UI
         calculateLife = currentLife / myLife;
