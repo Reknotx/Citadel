@@ -116,6 +116,9 @@ public class Player : Unit
 
     public bool grounded;
 
+    public bool isRunning = false;
+    public bool isAttacking = false;
+
     #endregion
             #region Bool Equipment
 
@@ -124,9 +127,14 @@ public class Player : Unit
     public bool spellStone = false;
     public bool backShield = false;
     #endregion
+            #region Animations
+    public Animator animator;
+    private bool triggered = false;
+    private float animationFinishTime = .5f;
+
+            #endregion
 
 
- 
 
     #endregion
 
@@ -208,6 +216,8 @@ public class Player : Unit
             Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
             _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
              _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+            animator.SetBool("isRunning", isRunning);
+            
         }
         else
         {
@@ -220,7 +230,10 @@ public class Player : Unit
             hasDoubleJump = false;
         }
         grounded = isGrounded;
+
         
+
+
 
         #endregion
 
@@ -329,10 +342,22 @@ public class Player : Unit
                     if (inputVector.x > 0)
                     {
                         facingRight = true;
+
                     }
                     if (inputVector.x < 0)
                     {
                         facingRight = false;
+                    }
+
+                    if(inputVector.x == 0)
+                    {
+                        isRunning = false;
+                    }
+                    else
+                    {
+                    
+                        isRunning = true;
+                    
                     }
                 
                 
@@ -486,6 +511,7 @@ public class Player : Unit
                 StartCoroutine(lightAttackCoroutine());
                 
             }
+           
         }
 
     }
@@ -497,9 +523,13 @@ public class Player : Unit
         //Tyler made an edit to 1.0f y from 0.3fy
         _heavyCollider.gameObject.transform.localScale = new Vector3(2.0f, meleeAttackRange, 1.0f);
 
+        
         if (Time.time >= nextDamageEvent)
         {
             nextDamageEvent = Time.time + attackCoolDown;
+
+          
+
             if (facingRight == true)
             {
                 //10/4/21 Tyler Added this to fix the problems with sword position and rotation
@@ -514,7 +544,8 @@ public class Player : Unit
                 _heavyCollider.transform.eulerAngles = new Vector3(0.0f, 0.0f, 270.0f);
                 _heavyCollider.transform.localPosition = new Vector3(_heavyCollider.transform.localPosition.x, 0f, _heavyCollider.transform.localPosition.z);
                 StartCoroutine(heavyAttackCoroutine());
-                
+               
+
             }
             else
             {
@@ -530,8 +561,16 @@ public class Player : Unit
                 _heavyCollider.transform.eulerAngles = new Vector3(180.0f, 0.0f, 90.0f);
                 _heavyCollider.transform.localPosition = new Vector3(_heavyCollider.transform.localPosition.x, 0f, _heavyCollider.transform.localPosition.z);
                 StartCoroutine(heavyAttackCoroutine());
-                
+               
+
             }
+
+
+           
+        }
+        if(!isAttacking)
+        {
+            StartCoroutine(InitializeHeavyAttack());
         }
 
 
@@ -655,7 +694,7 @@ public class Player : Unit
     public IEnumerator InteractCoroutine()
     {
        
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(.01f);
             if (Interacting == true)
             {
                 Interacting = false;
@@ -677,6 +716,19 @@ public class Player : Unit
             hasDoubleJump = true;
         }
         
+
+    }
+
+
+    public IEnumerator InitializeHeavyAttack()
+    {
+
+       
+        yield return new WaitForSeconds(1f);
+        isAttacking = true;
+      
+
+
 
     }
 

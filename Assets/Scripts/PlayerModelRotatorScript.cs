@@ -30,5 +30,6 @@ public class PlayerModelRotatorScript : MonoBehaviour
         {
             this.gameObject.transform.eulerAngles = new Vector3(0f, 90f, 0f);
         }
+        
     }
 }
