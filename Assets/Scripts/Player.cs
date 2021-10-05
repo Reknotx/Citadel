@@ -597,12 +597,12 @@ public class Player : Unit
     public void OnTriggerStay(Collider other)
     {
 
-      
+
         #region Camp Collisions
 
-        if (other.GetComponent<Interactable>() is not null and Interactable interactable)
+        if (other.GetComponent<Interactable>() != null)
         {
-            interactable.Interact();
+            other.GetComponent<Interactable>().Interact();
         }
 
 
@@ -614,7 +614,7 @@ public class Player : Unit
         //    {
         //        Interacting = false;
         //        other.GetComponent<MineEntranceInteractScript>().Interact();
-                
+
         //    }
         //}
 
@@ -628,7 +628,7 @@ public class Player : Unit
         //    {
         //        Interacting = false;
         //        other.GetComponent<CastleEntranceInteractScript>().Interact();
-               
+
         //    }
         //}
 
@@ -642,7 +642,7 @@ public class Player : Unit
         //        Interacting = false;
         //        canMove = false;
         //        other.GetComponent<CampShopEntranceInteractScript>().Interact();
-               
+
         //    }
         //}
 
