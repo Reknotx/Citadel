@@ -15,6 +15,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+using Interactables;
+
 public class Player : Unit
 {
     /// <summary>
@@ -220,8 +222,10 @@ public class Player : Unit
             
             Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
             _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
-             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-            animator.SetBool("isRunning", isRunning);
+            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+            
+            if (animator != null)
+                animator.SetBool("isRunning", isRunning);
             
         }
         else
@@ -615,47 +619,54 @@ public class Player : Unit
     public void OnTriggerStay(Collider other)
     {
 
-      
+
         #region Camp Collisions
-        if(other.gameObject.tag == "MineEntrance")
+
+        if (other.GetComponent<Interactable>() != null)
         {
-            GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
-            buttonController.GetComponent<SceneButtonControllerScript>().enterMineBTN.SetActive(true);
-            if (Interacting == true)
-            {
-                Interacting = false;
-                other.GetComponent<MineEntranceInteractScript>().Interact();
-                
-            }
+            other.GetComponent<Interactable>().Interact();
         }
 
 
-        if (other.gameObject.tag == "CastleEntrance")
-        {
-            GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
-            buttonController.GetComponent<SceneButtonControllerScript>().enterCastleBTN.SetActive(true);
+        //if(other.gameObject.tag == "MineEntrance")
+        //{
+        //    GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+        //    buttonController.GetComponent<SceneButtonControllerScript>().enterMineBTN.SetActive(true);
+        //    if (Interacting == true)
+        //    {
+        //        Interacting = false;
+        //        other.GetComponent<MineEntranceInteractScript>().Interact();
 
-            if (Interacting == true)
-            {
-                Interacting = false;
-                other.GetComponent<CastleEntranceInteractScript>().Interact();
-               
-            }
-        }
+        //    }
+        //}
 
-        if (other.gameObject.tag == "CampShopEntrance")
-        {
-            GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
-            buttonController.GetComponent<SceneButtonControllerScript>().enterCampShopBTN.SetActive(true);
 
-            if (Interacting == true)
-            {
-                Interacting = false;
-                canMove = false;
-                other.GetComponent<CampShopEntranceInteractScript>().Interact();
-               
-            }
-        }
+        //if (other.gameObject.tag == "CastleEntrance")
+        //{
+        //    GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+        //    buttonController.GetComponent<SceneButtonControllerScript>().enterCastleBTN.SetActive(true);
+
+        //    if (Interacting == true)
+        //    {
+        //        Interacting = false;
+        //        other.GetComponent<CastleEntranceInteractScript>().Interact();
+
+        //    }
+        //}
+
+        //if (other.gameObject.tag == "CampShopEntrance")
+        //{
+        //    GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+        //    buttonController.GetComponent<SceneButtonControllerScript>().enterCampShopBTN.SetActive(true);
+
+        //    if (Interacting == true)
+        //    {
+        //        Interacting = false;
+        //        canMove = false;
+        //        other.GetComponent<CampShopEntranceInteractScript>().Interact();
+
+        //    }
+        //}
 
         #endregion
 

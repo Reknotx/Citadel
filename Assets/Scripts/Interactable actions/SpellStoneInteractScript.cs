@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellStoneInteractScript : MonoBehaviour
+namespace Interactables
 {
-    // Start is called before the first frame update
-    void Start()
+    public class SpellStoneInteractScript : Item
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        public override void Interact()
+        {
+            ///Execute functionality.
+
+            base.Interact();
+        }
     }
 }

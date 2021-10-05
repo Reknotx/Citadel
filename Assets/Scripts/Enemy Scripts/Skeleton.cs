@@ -27,7 +27,9 @@ public class Skeleton : Enemy
 
     private void Start()
     {
-       
+        //Tyler Added Code
+        player = GameObject.FindGameObjectWithTag("Player");
+        //End
     }
 
     public override void Update()
