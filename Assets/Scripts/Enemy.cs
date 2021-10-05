@@ -75,6 +75,9 @@ public class Enemy : Unit
 
     #endregion
 
+    public Renderer m_render;
+    public bool seenByCamera = false;
+
     private void Start()
     {
         normalSpeed = speed;
@@ -205,23 +208,31 @@ public class Enemy : Unit
 
     protected virtual void Move()
     {
-        if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+        if (m_render.isVisible)
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        }
+            if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            }
 
-        if (transform.position.x - player.transform.position.x > 0)
-        {
-            facingRight = true;
-            
-        }
+            if (transform.position.x - player.transform.position.x > 0)
+            {
+                facingRight = true;
 
-        if (transform.position.x - player.transform.position.x < 0)
-        {
-            facingRight = false;
+            }
+
+            if (transform.position.x - player.transform.position.x < 0)
+            {
+                facingRight = false;
+            }
         }
     }
     #endregion
+
+    private void OnBecameVisible()
+    {
+        m_render = true;
+    }
 
     #region Collision Detection
     ///<summary>These track the collisions between the enemy and in-game objects .</summary>

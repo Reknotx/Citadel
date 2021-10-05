@@ -30,6 +30,20 @@ Transform:
   m_Father: {fileID: 3145674282413693683}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1547997984418519886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2394455277905674713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27bd6ccdb0588f44a8970d1253560dd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 3145674282413693685}
+  facingRightLocal: 1
 --- !u!1 &3145674281824328900
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,6 +390,7 @@ MonoBehaviour:
   followDistance: 12
   stoppingDistance: 3
   noJumpHeight: 5
+  m_render: {fileID: 3145674282413693681}
   goblinMeleeRange: 1
   goblinDamage: 10
   playerLife: {fileID: 0}
@@ -475,6 +490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   target: {fileID: 0}
+  m_renderer: {fileID: 0}
 --- !u!1 &3145674282712512809
 GameObject:
   m_ObjectHideFlags: 0
@@ -506,20 +522,6 @@ Transform:
   m_Father: {fileID: 3145674282413693683}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1547997984418519886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2394455277905674713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27bd6ccdb0588f44a8970d1253560dd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: 3145674282413693685}
-  facingRightLocal: 1
 --- !u!1 &6759457102546678098
 GameObject:
   m_ObjectHideFlags: 0
