@@ -15,6 +15,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+using Interactables;
+
 public class Player : Unit
 {
 
@@ -597,45 +599,52 @@ public class Player : Unit
 
       
         #region Camp Collisions
-        if(other.gameObject.tag == "MineEntrance")
+
+        if (other.GetComponent<Interactable>() is not null and Interactable interactable)
         {
-            GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
-            buttonController.GetComponent<SceneButtonControllerScript>().enterMineBTN.SetActive(true);
-            if (Interacting == true)
-            {
-                Interacting = false;
-                other.GetComponent<MineEntranceInteractScript>().Interact();
+            interactable.Interact();
+        }
+
+
+        //if(other.gameObject.tag == "MineEntrance")
+        //{
+        //    GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+        //    buttonController.GetComponent<SceneButtonControllerScript>().enterMineBTN.SetActive(true);
+        //    if (Interacting == true)
+        //    {
+        //        Interacting = false;
+        //        other.GetComponent<MineEntranceInteractScript>().Interact();
                 
-            }
-        }
+        //    }
+        //}
 
 
-        if (other.gameObject.tag == "CastleEntrance")
-        {
-            GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
-            buttonController.GetComponent<SceneButtonControllerScript>().enterCastleBTN.SetActive(true);
+        //if (other.gameObject.tag == "CastleEntrance")
+        //{
+        //    GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+        //    buttonController.GetComponent<SceneButtonControllerScript>().enterCastleBTN.SetActive(true);
 
-            if (Interacting == true)
-            {
-                Interacting = false;
-                other.GetComponent<CastleEntranceInteractScript>().Interact();
+        //    if (Interacting == true)
+        //    {
+        //        Interacting = false;
+        //        other.GetComponent<CastleEntranceInteractScript>().Interact();
                
-            }
-        }
+        //    }
+        //}
 
-        if (other.gameObject.tag == "CampShopEntrance")
-        {
-            GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
-            buttonController.GetComponent<SceneButtonControllerScript>().enterCampShopBTN.SetActive(true);
+        //if (other.gameObject.tag == "CampShopEntrance")
+        //{
+        //    GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+        //    buttonController.GetComponent<SceneButtonControllerScript>().enterCampShopBTN.SetActive(true);
 
-            if (Interacting == true)
-            {
-                Interacting = false;
-                canMove = false;
-                other.GetComponent<CampShopEntranceInteractScript>().Interact();
+        //    if (Interacting == true)
+        //    {
+        //        Interacting = false;
+        //        canMove = false;
+        //        other.GetComponent<CampShopEntranceInteractScript>().Interact();
                
-            }
-        }
+        //    }
+        //}
 
         #endregion
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Compass : MonoBehaviour
 {
+    [Tooltip("Toggle this to activate the item's special effect.")]
     public bool triggerEffect = false;
 
     void Update()

@@ -10,11 +10,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CastleEntranceInteractScript : MonoBehaviour
+namespace Interactables
 {
-   public void Interact()
+    public class CastleEntranceInteractScript : Interactable
     {
-        GameObject sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
-        sceneManager.GetComponent<SceneManagerScript>().goToCastle();
+        public override void Interact()
+        {
+            GameObject sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
+            sceneManager.GetComponent<SceneManagerScript>().goToCastle();
+        }
     }
 }

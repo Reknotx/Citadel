@@ -2,36 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoldPickupInteractableScript : MonoBehaviour
+namespace Interactables
 {
-    public float dropAmount = 1;
-
-    private bool given = false;
-
-    // Update is called once per frame
-    void Update()
+    public class GoldPickupInteractableScript : Interactable
     {
+        public float dropAmount = 1;
 
-    }
+        private bool given = false;
 
-    public void Interact()
-    {
-        if (given == false)
+        // Update is called once per frame
+        void Update()
         {
-            GameObject goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
-            goldHandler.GetComponent<GoldHandler>()._mySoftGold += dropAmount;
-            given = true;
+
         }
 
-
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
+        public override void Interact()
         {
-            Interact();
-            Destroy(this.gameObject);
+            if (given == false)
+            {
+                GameObject goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
+                goldHandler.GetComponent<GoldHandler>()._mySoftGold += dropAmount;
+                given = true;
+            }
+
+
+        }
+
+        public void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == "Player")
+            {
+                Interact();
+                Destroy(this.gameObject);
+            }
         }
     }
 }

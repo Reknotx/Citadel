@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackShieldPickupInteractScript : MonoBehaviour
+namespace Interactables
 {
-    // Start is called before the first frame update
-    void Start()
+    public class BackShieldPickupInteractScript : Interactable
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public override void Interact()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

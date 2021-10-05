@@ -2,58 +2,61 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShuuesPickupInteractScript : MonoBehaviour
+namespace Interactables
 {
-    private bool given = false;
-    public GameObject player;
-    public bool playerInteracting = false;
-    public bool colliding = false;
-
-    private void Awake()
+    public class ShuuesPickupInteractScript : Item
     {
-         player = GameObject.FindGameObjectWithTag("Player");
-    }
+        private bool given = false;
+        public GameObject player;
+        public bool playerInteracting = false;
+        public bool colliding = false;
 
-    public void Update()
-    {
-        playerInteracting = player.GetComponent<Player>().Interacting;
-
-        if (playerInteracting == true && colliding == true)
+        private void Awake()
         {
-
-            Interact();
-            Destroy(this.gameObject);
-
+            player = GameObject.FindGameObjectWithTag("Player");
         }
-    }
 
-    public void Interact()
-    {
-        if (given == false)
+        public void Update()
         {
-            
-            player.GetComponent<Player>().shuues = true;
-            given = true;
-        }
-    }
+            playerInteracting = player.GetComponent<Player>().Interacting;
 
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
+            if (playerInteracting == true && colliding == true)
+            {
+
+                Interact();
+                Destroy(this.gameObject);
+
+            }
+        }
+
+        public override void Interact()
         {
+            if (given == false)
+            {
 
-            colliding = true;
-               
+                player.GetComponent<Player>().shuues = true;
+                given = true;
+            }
         }
-    }
 
-    public void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
+        //public void OnTriggerEnter(Collider other)
+        //{
+        //    if (other.gameObject.tag == "Player")
+        //    {
 
-            colliding = false;
+        //        colliding = true;
 
-        }
+        //    }
+        //}
+
+        //public void OnTriggerExit(Collider other)
+        //{
+        //    if (other.gameObject.tag == "Player")
+        //    {
+
+        //        colliding = false;
+
+        //    }
+        //}
     }
 }
