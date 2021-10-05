@@ -27,15 +27,13 @@ namespace Interactables
 
         }
 
-        /*
         public void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.tag == "Player")
             {
-                Interact();
-               
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                player.GetComponent<Player>().Interacting = true;
             }
         }
-        */
     }
 }

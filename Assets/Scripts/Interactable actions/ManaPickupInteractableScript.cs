@@ -27,16 +27,16 @@ namespace Interactables
 
         }
 
-        /*
+        
         public void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.tag == "Player")
             {
-                Interact();
-                Destroy(this.gameObject);
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                player.GetComponent<Player>().Interacting = true;
             }
         }
 
-        */
+        
     }
 }
