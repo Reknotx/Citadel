@@ -5,7 +5,6 @@
  * and each time the player moves to another floor.
  */
 
-using Map.RoomScripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

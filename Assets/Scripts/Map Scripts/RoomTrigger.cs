@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Map.RoomScripts
+namespace Map
 {
     public class RoomTrigger : MonoBehaviour
     {

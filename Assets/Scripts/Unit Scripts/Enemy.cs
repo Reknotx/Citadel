@@ -12,6 +12,9 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
+    LootTable enemyLootTable;
+
+
     #region Enemy Stats
 
             #region Enemy's Base Stats/Important Controls
@@ -327,4 +330,26 @@ public class Enemy : Unit
 
     #endregion
 
+    [Range(0f, 100f)]
+    public float percentChanceToDropItem = 40f;
+
+    public override void TakeDamage(int amount)
+    {
+        if (Health - amount <= 0)
+        {
+            float dropYes = Random.Range(0f, 100f);
+
+            if (dropYes >= percentChanceToDropItem) return;
+
+            GameObject item = enemyLootTable.Drop();
+
+            if (item != null)
+            {
+                //Debug.Log("Success");
+                Instantiate(item, transform.position, Quaternion.identity);
+            }
+        }
+
+        base.TakeDamage(amount);
+    }
 }
