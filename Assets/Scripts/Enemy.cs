@@ -208,7 +208,7 @@ public class Enemy : Unit
 
     protected virtual void Move()
     {
-        if (m_render.isVisible)
+        if (seenByCamera)
         {
             if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
             {
@@ -231,7 +231,7 @@ public class Enemy : Unit
 
     private void OnBecameVisible()
     {
-        m_render = true;
+        seenByCamera = true;
     }
 
     #region Collision Detection
