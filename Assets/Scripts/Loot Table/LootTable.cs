@@ -81,7 +81,7 @@ public class LootTable : ScriptableObject
 //public class LootTableEditor : Editor
 //{
 //    LootTable lootTableInfo;
-//    SerializedProperty
+//    SerializedProperty property;
 
 //    private void OnEnable()
 //    {
