@@ -85,7 +85,7 @@ public class Enemy : Unit
 
         player = GameObject.FindGameObjectWithTag("Player");
 
-        
+        Astar = GetComponent<AIPath>();
     }
 
     public override void Update()
