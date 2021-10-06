@@ -51,8 +51,14 @@ public class Projectile : MonoBehaviour
         {
             DestroyProjectile();
             playerHealth.Damage(projectileDamage);
-            
+
         }
     }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        DestroyProjectile();
+    }
+
 }
    

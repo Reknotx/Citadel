@@ -130,10 +130,13 @@ MonoBehaviour:
   yDistance: 0
   jumpVelocity: 7
   jumpHeight: 3
+  isKnockedBack: 0
   player: {fileID: 0}
   followDistance: 12
   stoppingDistance: 5
   noJumpHeight: 0
+  Astar: {fileID: 0}
+  distanceToPlayer: 0
   skeletonShootingDistance: 7
   projectile: {fileID: 8009402920651334389, guid: 4be439661164c2546bd08a2cd8834521, type: 3}
   shootLocation: {fileID: 2982838568907107737}
@@ -255,7 +258,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2982838568907107736}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.68, y: 0, z: 0}
+  m_LocalPosition: {x: -1.28, y: 0.39, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2982838568778839165}
