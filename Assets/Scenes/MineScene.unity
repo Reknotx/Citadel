@@ -159,7 +159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 800, y: -440}
+  m_AnchoredPosition: {x: 800, y: -400}
   m_SizeDelta: {x: 890, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &28885117
@@ -642,7 +642,7 @@ GameObject:
   - component: {fileID: 469288809}
   - component: {fileID: 469288808}
   m_Layer: 5
-  m_Name: Text
+  m_Name: MinecartText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1001,6 +1001,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 774425043847044386, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: m_Color.b
+      value: 0.18431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 774425043847044386, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 774425043847044386, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: m_Color.r
+      value: 0.88235295
+      objectReference: {fileID: 0}
     - target: {fileID: 3042122612190196581, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -1045,14 +1057,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4640540087166160471, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5098373277399680429, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
       propertyPath: m_Name
       value: MOAP
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935659707873794385, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: m_Color.b
+      value: 0.18431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935659707873794385, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935659707873794385, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: m_Color.r
+      value: 0.88235295
       objectReference: {fileID: 0}
     - target: {fileID: 5935659708264913100, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
       propertyPath: numOfMiners
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5935659708267293120, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fe2e430c7ac494845ac69e092f47d25c, type: 3}
+    - target: {fileID: 5935659708267293122, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9220498930113262576, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fe2e430c7ac494845ac69e092f47d25c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
 --- !u!1 &1116908808
@@ -1222,6 +1262,8 @@ MonoBehaviour:
   minerCostIncrease: 25
   baseCartCost: 150
   cartCostIncrease: 50
+  minecartCost: {fileID: 469288808}
+  minerCost: {fileID: 1770781974}
 --- !u!4 &1119752597
 Transform:
   m_ObjectHideFlags: 0
@@ -1395,7 +1437,7 @@ GameObject:
   - component: {fileID: 1572585212}
   - component: {fileID: 1572585211}
   m_Layer: 5
-  m_Name: Text
+  m_Name: GoldGainText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1442,11 +1484,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 40
+    m_FontSize: 46
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 41
+    m_MaxSize: 46
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1508,7 +1550,7 @@ GameObject:
   - component: {fileID: 1770781975}
   - component: {fileID: 1770781974}
   m_Layer: 5
-  m_Name: Text
+  m_Name: MinerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2030,6 +2072,7 @@ MonoBehaviour:
   numOfMiners: 1
   baseGoldGain: 150
   clickPercentage: 0.2
+  goldPerClick: {fileID: 1572585211}
   gold: {fileID: 199330502}
 --- !u!4 &2107191401
 Transform:

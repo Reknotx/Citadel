@@ -42,18 +42,15 @@ public class MinesShop : MonoBehaviour
     [SerializeField]
     private int cartCostIncrease = 50;
 
-    public Text mineCartCost;
+    public Text minecartCost;
 
     public Text minerCost;
 
-
     public void Update()
     {
-        mineCartCost.text = "Purchase Mine Cart: " + baseCartCost;
+        minecartCost.text = "Purchase Mine Cart: " + baseCartCost;
         minerCost.text = "Purchase Miner: " + baseMinerCost;
     }
-
-
 
     public void PurchaseMiner()
     {
