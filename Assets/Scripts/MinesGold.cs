@@ -9,6 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MinesGold : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class MinesGold : MonoBehaviour
     /// </summary>
     public float clickPercentage;
 
+    public Text goldPerClick;
+
     /// <summary>
     /// Reference to GoldHandler
     /// </summary>
@@ -38,5 +41,10 @@ public class MinesGold : MonoBehaviour
     public void GoldPerClick()
     {
         gold.AddHardGold(gold.revenue * clickPercentage);
+    }
+
+    public void Update()
+    {
+        goldPerClick.text = "" + (gold.revenue * clickPercentage) + " gold";
     }
 }
