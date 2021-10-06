@@ -211,6 +211,10 @@ public class Player : Unit
 
         #region Player Stat controls
         
+        if (LifeMana.myMana == 0)
+        {
+            canCast = false;
+        }
 
         if (myMana >= maxMana)
         {
