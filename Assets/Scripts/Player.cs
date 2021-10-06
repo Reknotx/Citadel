@@ -165,9 +165,13 @@ public class Player : Unit
     private bool triggered = false;
     private float animationFinishTime = .5f;
 
-            #endregion
+    #endregion
 
+    #region Health Mana Controller
 
+    public LifeManaHandler LifeMana;
+
+    #endregion
 
     #endregion
 
@@ -187,13 +191,14 @@ public class Player : Unit
          playerInputActions.PlayerControl.Jump.performed += Jump;
          //playerInputActions.PlayerControl.Movement.performed += movement;
          playerInputActions.PlayerControl.Drop.performed += Drop;
-         
 
-        
+
+
 
 
         #endregion
 
+        LifeMana = FindObjectOfType<LifeManaHandler>();
 
     }
 
@@ -469,10 +474,11 @@ public class Player : Unit
     {
         if (canCast == true)
         {
+            LifeMana.ReduceMana(10f);
             ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>
             if (facingRight == true)
             {
-
+                
                 var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
                 fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * 12 + fireWallSpell.transform.up * -2;
 

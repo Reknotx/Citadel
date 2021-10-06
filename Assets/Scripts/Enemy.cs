@@ -118,14 +118,14 @@ public class Enemy : Unit
             facingRight = false;
         }
 
-        if (isKnockedBack)
+        /*if (isKnockedBack)
         {
             Astar.canMove = false;
         }
         else
         {
             Astar.canMove = true;
-        }
+        }*/
 
 
 
