@@ -2,33 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomTrigger : MonoBehaviour
+namespace Map.RoomScripts
 {
-    public Room parentRoomScript;
-
-    private void Awake()
+    public class RoomTrigger : MonoBehaviour
     {
-        parentRoomScript = transform.parent.GetComponent<Room>();
-    }
+        public Room parentRoomScript;
 
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.layer == 7)
-            parentRoomScript.OnEnter();
-        if (other.gameObject.layer == 8 && !parentRoomScript.enemies.Contains(other.gameObject))
+        private void Awake()
         {
-            parentRoomScript.enemies.Add(other.gameObject);
+            parentRoomScript = transform.parent.GetComponent<Room>();
+        }
+
+        public void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.layer == 7)
+                parentRoomScript.OnEnter();
+            if (other.gameObject.layer == 8 && !parentRoomScript.enemies.Contains(other.gameObject))
+            {
+                parentRoomScript.enemies.Add(other.gameObject);
+
+            }
 
         }
 
-    }
+        public void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.layer == 7)
+                parentRoomScript.OnExit();
+            else if (other.gameObject.layer == 8 && parentRoomScript.enemies.Contains(other.gameObject))
+                parentRoomScript.enemies.Remove(other.gameObject);
 
-    public void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == 7)
-            parentRoomScript.OnExit();
-        else if (other.gameObject.layer == 8 && parentRoomScript.enemies.Contains(other.gameObject))
-            parentRoomScript.enemies.Remove(other.gameObject);
-
+        }
     }
 }
