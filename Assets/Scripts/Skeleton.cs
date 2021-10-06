@@ -25,9 +25,11 @@ public class Skeleton : Enemy
     public Transform shootLocation;
     #endregion
 
+    
+
     private void Start()
     {
-       
+        
     }
 
     public override void Update()

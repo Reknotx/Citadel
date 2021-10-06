@@ -9,6 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class Enemy : Unit
 {
@@ -46,6 +47,8 @@ public class Enemy : Unit
 
     public float jumpHeight;
 
+    public bool isKnockedBack;
+
     ///<summary>This is the range of detection to the player.</summary>
     [Range(0, 20)]
     private float _DetectionRange;
@@ -68,6 +71,10 @@ public class Enemy : Unit
 
     public float noJumpHeight;
 
+    public AIPath Astar;
+
+    public float distanceToPlayer;
+    
     Vector2 currentDirection;
     #endregion
     #endregion
@@ -75,6 +82,10 @@ public class Enemy : Unit
     private void Start()
     {
         normalSpeed = speed;
+
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        
     }
 
     public override void Update()
@@ -86,6 +97,17 @@ public class Enemy : Unit
 
         //EnemyMove();
 
+        distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+
+        if (distanceToPlayer < followDistance)
+        {
+            Astar.canMove = true;
+        }
+        else
+        {
+            Astar.canMove = false;
+        }
+
         if (transform.position.x - player.transform.position.x < 0)
         {
             facingRight = true;
@@ -94,6 +116,15 @@ public class Enemy : Unit
         if (transform.position.x - player.transform.position.x > 0)
         {
             facingRight = false;
+        }
+
+        if (isKnockedBack)
+        {
+            Astar.canMove = false;
+        }
+        else
+        {
+            Astar.canMove = true;
         }
 
 
@@ -201,10 +232,14 @@ public class Enemy : Unit
 
     public void EnemyMove()
     {
-        if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+        if (Vector2.Distance(transform.position, player.transform.position) < followDistance)
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        }  
+            Astar.maxSpeed = 0f;
+        }
+        else
+        {
+            Astar.maxSpeed = 3f;
+        }
     }
 
 
@@ -267,12 +302,17 @@ public class Enemy : Unit
             if(hitOnRight == true)
             {
                 _rigidBody.AddForce(new Vector3(player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
-             
+                
+                StartCoroutine(Knockback());
+                
+
             }
             else
             {
                 _rigidBody.AddForce(new Vector3(-player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
-               
+                
+                StartCoroutine(Knockback());
+                
             }
         }
         if (other.gameObject.tag == "Player")
@@ -312,6 +352,13 @@ public class Enemy : Unit
             canJump = true;
 
         }
+    }
+
+    IEnumerator Knockback()
+    {
+        isKnockedBack = true;
+        yield return new WaitForSeconds(3f);
+        isKnockedBack = false;
     }
 
     #endregion

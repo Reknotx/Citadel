@@ -34,6 +34,16 @@ public class Orc : Enemy
 
     #endregion
 
+    #region Orc Dash Properties
+
+    private bool isDashing;
+    private bool canDash;
+
+    private bool dashHandler;
+
+
+    #endregion
+
 
     // Start is called before the first frame update
     void Start()
