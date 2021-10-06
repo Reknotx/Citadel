@@ -1,4 +1,4 @@
-/*
+    /*
  * Author: Hunter Lawrence-Emanuel
  * Date: 9/1/2021
  * 
@@ -19,12 +19,8 @@ using Interactables;
 
 public class Player : Unit
 {
-    /// <summary>
-    /// sidhajshdkashdi
-    /// </summary>
 
     public static Player Instance;
-
     #region Player Stats
 
             #region Player's Base Stats/Important controls
@@ -34,6 +30,33 @@ public class Player : Unit
 
     ///<summary>This is the maximum units health.</summary>
    // public float maxHealth; //
+
+    public override float Health 
+    { 
+        get => base.Health; 
+        set
+        {
+            Health = Mathf.Clamp(value, 0, maxHealth);
+            if (base.Health <= 0)
+            {
+                if (undying == true)
+                {
+                    undying = false;
+                    myHealth = Mathf.Round(maxHealth * 0.15f);
+                }
+                else
+                {
+                    ResetGame();
+                }
+
+            }
+            else
+            {
+                invulnerable = true;
+                StartCoroutine(IFrames());
+            }
+        }
+    }
 
     ///<summary>This is the  units starting health.</summary>
     public float startingHealth;
@@ -101,6 +124,8 @@ public class Player : Unit
     //[HideInInspector]
     public bool hasDoubleJump = false;
 
+    public bool invulnerable = false;
+
     /// <summary> determines if the player is trying to interact with things or not </summary>
    // [HideInInspector]
     public bool Interacting = false;
@@ -159,7 +184,7 @@ public class Player : Unit
          playerInputActions = new PlayerInputActions();
          playerInputActions.PlayerControl.Enable();
          playerInputActions.PlayerControl.Jump.performed += Jump;
-         playerInputActions.PlayerControl.Movement.performed += movement;
+         //playerInputActions.PlayerControl.Movement.performed += movement;
          playerInputActions.PlayerControl.Drop.performed += Drop;
 
 
@@ -179,34 +204,12 @@ public class Player : Unit
         base.Update();
 
         #region Player Stat controls
-
-        if(myHealth >= maxHealth) 
-        {
-            myHealth = maxHealth;
-        }
         
 
         if (myMana >= maxMana)
         {
             myMana = maxMana;
         }
-
-        if(myHealth <= 0)
-        {
-            if(undying == true)
-            {
-                undying = false;
-                myHealth = Mathf.Round(maxHealth * 0.15f);
-            }
-            else
-            {
-                ResetGame();
-            }
-           
-        }
-
-
-
 
         if (Interacting == true)
         {
@@ -335,6 +338,13 @@ public class Player : Unit
 
     }
 
+    public override void TakeDamage(int amount)
+    {
+        if (invulnerable)
+            return;
+
+        base.TakeDamage(amount);
+    }
 
 
     #region Player Movement Actions
@@ -471,7 +481,6 @@ public class Player : Unit
                 
                 var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
                 fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * 12 + fireWallSpell.transform.up * -2;
-                
                 if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
                 {
                     fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
@@ -504,7 +513,7 @@ public class Player : Unit
 
         if (Time.time >= nextDamageEvent)
         {
-            nextDamageEvent = Time.time + (attackCoolDown/2);
+            nextDamageEvent = Time.time + attackCoolDown;
             triggered = true;
             if (facingRight == true)
             {
@@ -543,11 +552,11 @@ public class Player : Unit
 
         }
              if (triggered)
-             {
+            {
                 animator.SetTrigger("lightAttack");
 
                 triggered = false;
-             }
+            }
     }
 
     /// <summary> This is the attacking function  </summary>
@@ -646,7 +655,7 @@ public class Player : Unit
             ///turn on button manager
 
             if (Interacting)
-            other.GetComponent<Interactable>().Interact();
+                other.GetComponent<Interactable>().Interact();
         }
 
 
@@ -763,7 +772,32 @@ public class Player : Unit
 
     }
 
+    public IEnumerator IFrames()
+    {
+        float startTime = Time.time;
+        float waitTime = 0.125f;
 
-   
+        MeshRenderer render = GetComponent<MeshRenderer>();
+
+        while (true)
+        {
+            ///Turn on 50% opacityy
+            Color origMat = render.material.color;
+            origMat.a = 0.5f;
+            render.material.color = origMat;
+            yield return new WaitForSeconds(0.125f);
+
+            ///wait 0.125 seconds
+            ///turn opacity back to 100%
+
+            yield return new WaitForFixedUpdate();
+            if (Time.time - startTime >= 1f)
+                break;
+        }
+
+
+
+        invulnerable = false;
+    }
 
 }
