@@ -75,6 +75,9 @@ public class Enemy : Unit
 
     #endregion
 
+    public Renderer m_render;
+    public bool seenByCamera = false;
+
     private void Start()
     {
         normalSpeed = speed;
@@ -205,22 +208,31 @@ public class Enemy : Unit
 
     protected virtual void Move()
     {
-        if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+        if (seenByCamera)
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        }
+            if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            }
 
-        if (transform.position.x - player.transform.position.x > 0)
-        {
-            facingRight = true;
-        }
+            if (transform.position.x - player.transform.position.x > 0)
+            {
+                facingRight = true;
 
-        if (transform.position.x - player.transform.position.x < 0)
-        {
-            facingRight = false;
+            }
+
+            if (transform.position.x - player.transform.position.x < 0)
+            {
+                facingRight = false;
+            }
         }
     }
     #endregion
+
+    private void OnBecameVisible()
+    {
+        seenByCamera = true;
+    }
 
     #region Collision Detection
     ///<summary>These track the collisions between the enemy and in-game objects .</summary>
@@ -230,6 +242,15 @@ public class Enemy : Unit
         if (other.gameObject.tag=="swordLight")
         {
             myHealth = myHealth - player.GetComponent<Player>().meleeAttackDamage;
+            //Tyler Added code
+            if(myHealth <= 0)
+            {
+                //add drop stuff here
+
+
+                Destroy(this.gameObject);
+            }
+            //end of Tyler code
             hitOnRight = player.GetComponent<Player>().facingRightLocal ;
 
             //if you turn on the bellow code, it will apply knockback to the light attack

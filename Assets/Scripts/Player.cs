@@ -19,6 +19,9 @@ using Interactables;
 
 public class Player : Unit
 {
+    /// <summary>
+    /// sidhajshdkashdi
+    /// </summary>
 
     public static Player Instance;
     #region Player Stats
@@ -218,6 +221,13 @@ public class Player : Unit
 
         #region Player Movement Detection
         ///<summary>This moves the player constantly while the input is held.</summary>
+        
+        //Tyler Added Code
+        if (isAttacking)
+        {
+            canMove = false;
+        }
+        //End Tyler Code
         if (canMove == true)
         {
             
@@ -465,6 +475,7 @@ public class Player : Unit
 
                 var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
                 fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * 12 + fireWallSpell.transform.up * -2;
+
                 if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
                 {
                     fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
@@ -475,6 +486,7 @@ public class Player : Unit
             {
                 var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
                 fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * -12 + fireWallSpell.transform.up * -2;
+
                 if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
                 {
                     fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
@@ -495,7 +507,7 @@ public class Player : Unit
 
         if (Time.time >= nextDamageEvent)
         {
-            nextDamageEvent = Time.time + attackCoolDown;
+            nextDamageEvent = Time.time + (attackCoolDown/2);
             triggered = true;
             if (facingRight == true)
             {
@@ -534,11 +546,11 @@ public class Player : Unit
 
         }
              if (triggered)
-            {
+             {
                 animator.SetTrigger("lightAttack");
 
                 triggered = false;
-            }
+             }
     }
 
     /// <summary> This is the attacking function  </summary>
