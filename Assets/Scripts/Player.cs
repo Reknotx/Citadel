@@ -213,6 +213,13 @@ public class Player : Unit
 
         #region Player Movement Detection
         ///<summary>This moves the player constantly while the input is held.</summary>
+        
+        //Tyler Added Code
+        if (isAttacking)
+        {
+            canMove = false;
+        }
+        //End Tyler Code
         if (canMove == true)
         {
             

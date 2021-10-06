@@ -242,6 +242,15 @@ public class Enemy : Unit
         if (other.gameObject.tag=="swordLight")
         {
             myHealth = myHealth - player.GetComponent<Player>().meleeAttackDamage;
+            //Tyler Added code
+            if(myHealth <= 0)
+            {
+                //add drop stuff here
+
+
+                Destroy(this.gameObject);
+            }
+            //end of Tyler code
             hitOnRight = player.GetComponent<Player>().facingRightLocal ;
 
             //if you turn on the bellow code, it will apply knockback to the light attack
