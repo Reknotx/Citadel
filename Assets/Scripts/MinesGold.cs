@@ -45,6 +45,6 @@ public class MinesGold : MonoBehaviour
 
     public void Update()
     {
-        goldPerClick.text = "" + gold.revenue * clickPercentage;
+        goldPerClick.text = "" + (gold.revenue * clickPercentage) + " gold";
     }
 }

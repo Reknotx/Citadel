@@ -165,8 +165,8 @@ public class GoldHandler : MonoBehaviour
         }
         else
         {
-            softGold.SetActive(false);
-            hardGold.SetActive(true);
+            //softGold.SetActive(false);
+            //hardGold.SetActive(true);
         }
 
         ///Keeps track of time elapsed and updates the players passive gold according to the interval. Gives passive gold based off the player's revenue

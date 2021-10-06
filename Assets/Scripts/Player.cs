@@ -1,4 +1,4 @@
-/*
+    /*
  * Author: Hunter Lawrence-Emanuel
  * Date: 9/1/2021
  * 
@@ -15,11 +15,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+using Interactables;
+
 public class Player : Unit
 {
+    /// <summary>
+    /// sidhajshdkashdi
+    /// </summary>
 
     public static Player Instance;
-
     #region Player Stats
 
             #region Player's Base Stats/Important controls
@@ -28,7 +32,34 @@ public class Player : Unit
     public float myHealth;
 
     ///<summary>This is the maximum units health.</summary>
-    public float maxHealth;
+   // public float maxHealth; //
+
+    public override float Health 
+    { 
+        get => base.Health; 
+        set
+        {
+            base.Health = Mathf.Clamp(value, 0, maxHealth);
+            if (base.Health <= 0)
+            {
+                if (undying == true)
+                {
+                    undying = false;
+                    myHealth = Mathf.Round(maxHealth * 0.15f);
+                }
+                else
+                {
+                    ResetGame();
+                }
+
+            }
+            else
+            {
+                invulnerable = true;
+                StartCoroutine(IFrames());
+            }
+        }
+    }
 
     ///<summary>This is the  units starting health.</summary>
     public float startingHealth;
@@ -37,7 +68,7 @@ public class Player : Unit
     public float myMana;
 
     ///<summary>This is the units maximum mana for magic casting.</summary>
-    public float maxMana;
+    public float maxMana; //
 
     ///<summary>This is the units starting .</summary>
     public float startingMana;
@@ -59,7 +90,7 @@ public class Player : Unit
     RaycastHit hit;
 
     ///<summary>This tracks what direction the player is facing.</summary>
-    [HideInInspector]
+    //[HideInInspector]
     public bool facingRightLocal;
 
             #endregion
@@ -69,10 +100,10 @@ public class Player : Unit
     public float knockbackForce;
 
     ///<summary>This determines the range of the player's melee attack.</summary>
-    public float meleeAttackRange = 1f;
+    public float meleeAttackRange = 1f; //
 
     ///<summary>This determines the damage of the player's melee attack.</summary>
-    public int meleeAttackDamage;
+    public int meleeAttackDamage; //
 
     ///<summary>This determines the damage the player deals to an enemy when they collide.</summary>
     public int playerCollisionDamage;
@@ -86,12 +117,25 @@ public class Player : Unit
         [HideInInspector]
         public bool canMove = true;
 
+    /// <summary> determines if the player can jump once more in the air or not </summary>
+    //[HideInInspector]
+    public bool canDoubleJump = true;
+
+    /// <summary> determines if the player can jump once more in the air or not </summary>
+    //[HideInInspector]
+    public bool hasDoubleJump = false;
+
+    public bool invulnerable = false;
+
     /// <summary> determines if the player is trying to interact with things or not </summary>
    // [HideInInspector]
     public bool Interacting = false;
+   // {
+       // return playerInputActions.PlayerControl.
+    //}
 
     [HideInInspector]
-    public bool canInteract = true;
+    public bool canInteract = false;
 
 
     /// <summary> this keeps track of if the player is in the camp shop or not  </summary>
@@ -103,11 +147,31 @@ public class Player : Unit
     /// <summary> this keeps track of if the player is in the mine shop or not  </summary>
     public bool inMineShop = false;
 
+    public bool grounded;
+
+    public bool isRunning = false;
+    public bool isAttacking = false;
+
     #endregion
+            #region Bool Equipment
+
+    public bool shuues = false;
+    public bool undying = false;
+    public bool spellStone = false;
+    public bool backShield = false;
+    #endregion
+            #region Animations
+    public Animator animator;
+    private bool triggered = false;
+    private float animationFinishTime = .5f;
+
+            #endregion
+
+
 
     #endregion
 
-    
+
     private void Awake()
     {
 
@@ -121,7 +185,7 @@ public class Player : Unit
          playerInputActions = new PlayerInputActions();
          playerInputActions.PlayerControl.Enable();
          playerInputActions.PlayerControl.Jump.performed += Jump;
-         playerInputActions.PlayerControl.Movement.performed += movement;
+         //playerInputActions.PlayerControl.Movement.performed += movement;
          playerInputActions.PlayerControl.Drop.performed += Drop;
          
 
@@ -141,11 +205,6 @@ public class Player : Unit
         base.Update();
 
         #region Player Stat controls
-
-        if(myHealth >= maxHealth) 
-        {
-            myHealth = maxHealth;
-        }
         
 
         if (myMana >= maxMana)
@@ -153,33 +212,48 @@ public class Player : Unit
             myMana = maxMana;
         }
 
-        if(myHealth <= 0)
+        if (Interacting == true)
         {
-            ResetGame();
+            StartCoroutine(InteractCoroutine());
         }
-
-
-
-
 
         #endregion
 
         #region Player Movement Detection
         ///<summary>This moves the player constantly while the input is held.</summary>
+        
+        //Tyler Added Code
+        if (isAttacking)
+        {
+            canMove = false;
+        }
+        //End Tyler Code
         if (canMove == true)
         {
             
             Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
             _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
-             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+            
+            if (animator != null)
+                animator.SetBool("isRunning", isRunning);
+            
         }
         else
         {
             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
 
-       
+        if(isGrounded == true)
+        {
+            canDoubleJump = true;
+            hasDoubleJump = false;
+        }
+        grounded = isGrounded;
+
         
+
+
 
         #endregion
 
@@ -272,6 +346,13 @@ public class Player : Unit
 
     }
 
+    public override void TakeDamage(int amount)
+    {
+        if (invulnerable)
+            return;
+
+        base.TakeDamage(amount);
+    }
 
 
     #region Player Movement Actions
@@ -288,10 +369,22 @@ public class Player : Unit
                     if (inputVector.x > 0)
                     {
                         facingRight = true;
+
                     }
                     if (inputVector.x < 0)
                     {
                         facingRight = false;
+                    }
+
+                    if(inputVector.x == 0)
+                    {
+                        isRunning = false;
+                    }
+                    else
+                    {
+                    
+                        isRunning = true;
+                    
                     }
                 
                 
@@ -308,18 +401,41 @@ public class Player : Unit
             {
               
                 _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
-                
-                StartCoroutine(Jumped());
+                canDoubleJump = true;
+               StartCoroutine(Jumped());
 
             }
+            else if(shuues == true )
+            {
+                if(canDoubleJump == true)
+                {
+                    _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
+                    canDoubleJump = false;
+                    StartCoroutine(Jumped());
+                }
+                
+            }
+
+
             if (onPlatform == true)
             {
-              
+
                 _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
-                // _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpFroce);
+                canDoubleJump = true;
                 StartCoroutine(Jumped());
 
             }
+            else if (  shuues == true )
+            {
+                if(canDoubleJump == true)
+                {
+                    _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
+                    canDoubleJump = false;
+                    StartCoroutine(Jumped());
+                }
+                
+            }
+
         }
     }
 
@@ -334,10 +450,15 @@ public class Player : Unit
 
     public void Interact(InputAction.CallbackContext context)
     {
-        
-        Interacting = true;
-
+        if(Interacting == false)
+        {
+            Interacting = true;
+            
+        }
     }
+    
+
+
    
 
     #endregion
@@ -354,6 +475,7 @@ public class Player : Unit
 
                 var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
                 fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * 12 + fireWallSpell.transform.up * -2;
+
                 if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
                 {
                     fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
@@ -364,6 +486,7 @@ public class Player : Unit
             {
                 var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
                 fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * -12 + fireWallSpell.transform.up * -2;
+
                 if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
                 {
                     fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
@@ -379,50 +502,114 @@ public class Player : Unit
     /// <summary> This is the attacking function  </summary>
     public void lightAttack(InputAction.CallbackContext context)
     {
-        _lightCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange, .3f, 1.5f);
+        //Tyler made an edit to 1.0f y from 0.3fy
+        _lightCollider.gameObject.transform.localScale = new Vector3(1.0f,meleeAttackRange, 1.0f);
 
         if (Time.time >= nextDamageEvent)
         {
-            nextDamageEvent = Time.time + attackCoolDown;
+            nextDamageEvent = Time.time + (attackCoolDown/2);
+            triggered = true;
             if (facingRight == true)
             {
+                //10/4/21 Tyler Added this to fix the problems with sword position and rotation
+                /* _lightCollider.transform.position = spellLocationRight.transform.position;
+                _lightCollider.transform.position = _lightCollider.transform.position;
+                
+                StartCoroutine(lightAttackCoroutine());
+                //Tyler commented this out to fix the problems with sword pos and rtotation
+                 */
                 _lightCollider.transform.position = spellLocationRight.transform.position;
                 _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale/2);
+                _lightCollider.transform.eulerAngles = new Vector3(0.0f, 0.0f, 270.0f);
+                _lightCollider.transform.localPosition = new Vector3(_lightCollider.transform.localPosition.x, 0f, _lightCollider.transform.localPosition.z);
                 StartCoroutine(lightAttackCoroutine());
-
+              
             }
             else
             {
+                //10/4/21 Tyler Added this to fix the problems with sword position and rotation
+               /*  _lightCollider.transform.position = spellLocationLeft.transform.position;
+                _lightCollider.transform.position = _lightCollider.transform.position;
+                
+                StartCoroutine(lightAttackCoroutine());
+                //Tyler commented this out to fix the problems with sword pos and rtotation
+               */
                 _lightCollider.transform.position = spellLocationLeft.transform.position;
                 _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
+                _lightCollider.transform.eulerAngles = new Vector3(180.0f, 0.0f, 90.0f);
+                _lightCollider.transform.localPosition = new Vector3(_lightCollider.transform.localPosition.x, 0f, _lightCollider.transform.localPosition.z);
                 StartCoroutine(lightAttackCoroutine());
+                
             }
-        }
 
+           
+
+        }
+             if (triggered)
+             {
+                animator.SetTrigger("lightAttack");
+
+                triggered = false;
+             }
     }
 
     /// <summary> This is the attacking function  </summary>
 
     public void heavyAttack(InputAction.CallbackContext context)
     {
-        _heavyCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange, .3f, 1.5f);
+        //Tyler made an edit to 1.0f y from 0.3fy
+        _heavyCollider.gameObject.transform.localScale = new Vector3(2.0f, meleeAttackRange, 1.0f);
 
+        
         if (Time.time >= nextDamageEvent)
         {
             nextDamageEvent = Time.time + attackCoolDown;
+
+            triggered = true;
+
             if (facingRight == true)
             {
+                //10/4/21 Tyler Added this to fix the problems with sword position and rotation
+              /*  _heavyCollider.transform.position = spellLocationRight.transform.position;
+                _heavyCollider.transform.position = _heavyCollider.transform.position;
+                _heavyCollider.transform.eulerAngles = new Vector3(0.0f, 0.0f, 270.0f);
+                StartCoroutine(heavyAttackCoroutine());
+                //Tyler commented this out to fix the problems with sword pos and rtotation
+               */ 
                 _heavyCollider.transform.position = spellLocationRight.transform.position;
                 _heavyCollider.transform.position = _heavyCollider.transform.position + (_heavyCollider.gameObject.transform.localScale / 2);
+                _heavyCollider.transform.eulerAngles = new Vector3(0.0f, 0.0f, 270.0f);
+                _heavyCollider.transform.localPosition = new Vector3(_heavyCollider.transform.localPosition.x, 0f, _heavyCollider.transform.localPosition.z);
                 StartCoroutine(heavyAttackCoroutine());
+               
 
             }
             else
             {
+                //10/4/21 Tyler Added this to fix the problems with sword position and rotation
+               /* _heavyCollider.transform.position = spellLocationLeft.transform.position;
+                _heavyCollider.transform.position = _heavyCollider.transform.position;
+                _heavyCollider.transform.eulerAngles = new Vector3(180.0f, 0.0f, 90.0f);
+                StartCoroutine(heavyAttackCoroutine());
+                //Tyler commented this out to fix the problems with sword pos and rtotation
+                */
                 _heavyCollider.transform.position = spellLocationLeft.transform.position;
                 _heavyCollider.transform.position = _heavyCollider.transform.position - (_heavyCollider.gameObject.transform.localScale / 2);
+                _heavyCollider.transform.eulerAngles = new Vector3(180.0f, 0.0f, 90.0f);
+                _heavyCollider.transform.localPosition = new Vector3(_heavyCollider.transform.localPosition.x, 0f, _heavyCollider.transform.localPosition.z);
                 StartCoroutine(heavyAttackCoroutine());
+               
+
             }
+
+
+           
+        }
+        if(triggered)
+        {
+            animator.SetTrigger("heavyAttack");
+          
+            triggered = false;
         }
 
 
@@ -434,45 +621,55 @@ public class Player : Unit
     #region Collision Detection
     public void OnTriggerStay(Collider other)
     {
+
+
         #region Camp Collisions
-        if(other.gameObject.tag == "MineEntrance")
+
+        if (other.GetComponent<Interactable>() != null)
         {
-            GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
-            buttonController.GetComponent<SceneButtonControllerScript>().enterMineBTN.SetActive(true);
-            if (Interacting == true)
-            {
-
-                other.GetComponent<MineEntranceInteractScript>().Interact();
-                Interacting = false;
-            }
-        }
+            other.GetComponent<Interactable>().Interact();
+        }   
 
 
-        if (other.gameObject.tag == "CastleEntrance")
-        {
-            GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
-            buttonController.GetComponent<SceneButtonControllerScript>().enterCastleBTN.SetActive(true);
+        //if(other.gameObject.tag == "MineEntrance")
+        //{
+        //    GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+        //    buttonController.GetComponent<SceneButtonControllerScript>().enterMineBTN.SetActive(true);
+        //    if (Interacting == true)
+        //    {
+        //        Interacting = false;
+        //        other.GetComponent<MineEntranceInteractScript>().Interact();
 
-            if (Interacting == true)
-            {
+        //    }
+        //}
 
-                other.GetComponent<CastleEntranceInteractScript>().Interact();
-                Interacting = false;
-            }
-        }
 
-        if (other.gameObject.tag == "CampShopEntrance")
-        {
-            GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
-            buttonController.GetComponent<SceneButtonControllerScript>().enterCampShopBTN.SetActive(true);
+        //if (other.gameObject.tag == "CastleEntrance")
+        //{
+        //    GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+        //    buttonController.GetComponent<SceneButtonControllerScript>().enterCastleBTN.SetActive(true);
 
-            if (Interacting == true)
-            {
-                canMove = false;
-                other.GetComponent<CampShopEntranceInteractScript>().Interact();
-                Interacting = false;
-            }
-        }
+        //    if (Interacting == true)
+        //    {
+        //        Interacting = false;
+        //        other.GetComponent<CastleEntranceInteractScript>().Interact();
+
+        //    }
+        //}
+
+        //if (other.gameObject.tag == "CampShopEntrance")
+        //{
+        //    GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
+        //    buttonController.GetComponent<SceneButtonControllerScript>().enterCampShopBTN.SetActive(true);
+
+        //    if (Interacting == true)
+        //    {
+        //        Interacting = false;
+        //        canMove = false;
+        //        other.GetComponent<CampShopEntranceInteractScript>().Interact();
+
+        //    }
+        //}
 
         #endregion
 
@@ -526,10 +723,74 @@ public class Player : Unit
     }
     #endregion
 
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            Debug.Log("testing");
+        }
+    }
+
 
     #endregion
 
-   
+
+
+    public IEnumerator InteractCoroutine()
+    {
+       
+            yield return new WaitForSeconds(.01f);
+            if (Interacting == true)
+            {
+                Interacting = false;
+            }
+      
+        
+       
+        
+    }
+
+    public IEnumerator Jumped()
+    {
+        justJumped = true;
+        yield return new WaitForSeconds(.5f);
+        justJumped = false;
+        if(hasDoubleJump == false)
+        {
+            canDoubleJump = true;
+            hasDoubleJump = true;
+        }
+        
+
+    }
+
+    public IEnumerator IFrames()
+    {
+        float startTime = Time.time;
+        float waitTime = 0.125f;
+
+        MeshRenderer render = GetComponent<MeshRenderer>();
+
+        while (true)
+        {
+            ///Turn on 50% opacityy
+            Color origMat = render.material.color;
+            origMat.a = 0.5f;
+            render.material.color = origMat;
+            yield return new WaitForSeconds(0.125f);
+
+            ///wait 0.125 seconds
+            ///turn opacity back to 100%
+
+            yield return new WaitForFixedUpdate();
+            if (Time.time - startTime >= 1f)
+                break;
+        }
+
+
+
+        invulnerable = false;
+    }
 
 }

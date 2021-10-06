@@ -2,38 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPickupInteractableScript : MonoBehaviour
+namespace Interactables
 {
-
-
-    public int dropAmount = 1;
-
-    private bool given = false;
-
-    // Update is called once per frame
-    void Update()
+    public class HealthPickupInteractableScript : Interactable
     {
-        
-    }
 
-    public void Interact()
-    {
-        if(given == false)
+
+        public int dropAmount = 1;
+
+        private bool given = false;
+
+        // Update is called once per frame
+        void Update()
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<Player>().myHealth += dropAmount;
-            given = true;
+
         }
-        
-        
-    }
 
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
+        public override void Interact()
         {
-            Interact();
-            Destroy(this.gameObject);
+            if (given == false)
+            {
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                player.GetComponent<Player>().Health += dropAmount;
+                given = true;
+            }
+
+
+        }
+
+        public void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == "Player")
+            {
+                Interact();
+                Destroy(this.gameObject);
+            }
         }
     }
 }

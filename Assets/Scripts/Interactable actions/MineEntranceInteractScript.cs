@@ -10,11 +10,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MineEntranceInteractScript : MonoBehaviour
+namespace Interactables
 {
-    public void Interact()
+    public class MineEntranceInteractScript : Interactable
     {
-        GameObject sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
-        sceneManager.GetComponent<SceneManagerScript>().goToMine();
+        public override void Interact()
+        {
+            GameObject sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
+            sceneManager.GetComponent<SceneManagerScript>().goToMine();
+        }
     }
 }
