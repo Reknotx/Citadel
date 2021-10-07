@@ -44,7 +44,7 @@ public class Unit : MonoBehaviour
         {
             _health = Mathf.Clamp(value, 0, maxHealth);
 
-            if (_health == 0)
+            if (_health <= 0)
             {
                 ///Destroy the object here
                 Destroy(gameObject);

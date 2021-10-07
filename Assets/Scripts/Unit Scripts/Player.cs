@@ -195,7 +195,6 @@ public class Player : Unit
 
         #endregion
 
-
     }
 
     public bool dmgPlayerByTick = false;
@@ -213,8 +212,14 @@ public class Player : Unit
 
         base.Update();
 
+        //Player literally could not move without this code. Tyler Added.
+        speed = 5.0f;
+
         #region Player Stat controls
-        
+        if(myHealth <= 0)
+        {
+            ResetGame();
+        }
 
         if (myMana >= maxMana)
         {
