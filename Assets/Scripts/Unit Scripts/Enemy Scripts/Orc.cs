@@ -43,6 +43,8 @@ public class Orc : Enemy
         //end
         orcAttack_L.SetActive(false);
         orcAttack_R.SetActive(false);
+
+        playerLife = GameObject.FindGameObjectWithTag("HealthManaHandler").GetComponent<LifeManaHandler>();
     }
 
     // Update is called once per frame

@@ -2,23 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Compass : MonoBehaviour
+using Map;
+
+
+namespace Interactables
 {
-    [Tooltip("Toggle this to activate the item's special effect.")]
-    public bool triggerEffect = false;
 
-    void Update()
+    public class Compass :Interactable
     {
-        if (triggerEffect)
+        [Tooltip("Toggle this to activate the item's special effect.")]
+        public bool triggerEffect = false;
+
+        void Update()
         {
-            OnPickup();
-            Destroy(gameObject);
+            if (triggerEffect)
+            {
+                Interact();
+                Destroy(gameObject);
+            }
         }
-    }
 
 
-    public void OnPickup()
-    {
-        MapGenerator.Instance.ExposeSpecialRooms();
+        public override void Interact()
+        {
+            MapGenerator.Instance.ExposeSpecialRooms();
+        }
     }
 }

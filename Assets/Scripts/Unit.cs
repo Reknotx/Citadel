@@ -187,7 +187,7 @@ public class Unit : MonoBehaviour
     /// unit's current health.
     /// </summary>
     /// <param name="amount">The amount of damage to apply to the unit.</param>
-    public void TakeDamage(int amount)
+    public virtual void TakeDamage(int amount)
     {
         Debug.Log("Dealing " + amount + " points of damage to " + name);
         Health -= amount;

@@ -12,6 +12,9 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
+    LootTable enemyLootTable;
+
+
     #region Enemy Stats
 
             #region Enemy's Base Stats/Important Controls
@@ -74,6 +77,9 @@ public class Enemy : Unit
     #endregion
 
     #endregion
+
+    public Renderer m_render;
+    public bool seenByCamera = false;
 
     private void Start()
     {
@@ -205,22 +211,31 @@ public class Enemy : Unit
 
     protected virtual void Move()
     {
-        if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+        if (seenByCamera)
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        }
+            if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            }
 
-        if (transform.position.x - player.transform.position.x > 0)
-        {
-            facingRight = true;
-        }
+            if (transform.position.x - player.transform.position.x > 0)
+            {
+                facingRight = true;
 
-        if (transform.position.x - player.transform.position.x < 0)
-        {
-            facingRight = false;
+            }
+
+            if (transform.position.x - player.transform.position.x < 0)
+            {
+                facingRight = false;
+            }
         }
     }
     #endregion
+
+    private void OnBecameVisible()
+    {
+        seenByCamera = true;
+    }
 
     #region Collision Detection
     ///<summary>These track the collisions between the enemy and in-game objects .</summary>
@@ -230,6 +245,15 @@ public class Enemy : Unit
         if (other.gameObject.tag=="swordLight")
         {
             myHealth = myHealth - player.GetComponent<Player>().meleeAttackDamage;
+            //Tyler Added code
+            if(myHealth <= 0)
+            {
+                //add drop stuff here
+
+
+                Destroy(this.gameObject);
+            }
+            //end of Tyler code
             hitOnRight = player.GetComponent<Player>().facingRightLocal ;
 
             //if you turn on the bellow code, it will apply knockback to the light attack
@@ -306,4 +330,26 @@ public class Enemy : Unit
 
     #endregion
 
+    [Range(0f, 100f)]
+    public float percentChanceToDropItem = 40f;
+
+    public override void TakeDamage(int amount)
+    {
+        if (Health - amount <= 0)
+        {
+            float dropYes = Random.Range(0f, 100f);
+
+            if (dropYes >= percentChanceToDropItem) return;
+
+            GameObject item = enemyLootTable.Drop();
+
+            if (item != null)
+            {
+                //Debug.Log("Success");
+                Instantiate(item, transform.position, Quaternion.identity);
+            }
+        }
+
+        base.TakeDamage(amount);
+    }
 }
