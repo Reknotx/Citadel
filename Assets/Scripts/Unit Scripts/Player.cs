@@ -368,7 +368,7 @@ public class Player : Unit
 
     public void findReference()
     {
-        ManaHealthController = GameObject.FindGameObjectWithTag("ManaHealthController");
+        ManaHealthController = GameObject.FindGameObjectWithTag("HealthManaHandler");
     }
 
 
