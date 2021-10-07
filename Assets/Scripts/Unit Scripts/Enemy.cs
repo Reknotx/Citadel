@@ -210,7 +210,7 @@ public class Enemy : Unit
     #region Interactions with the Player
     public void Interact()
     {
-        player.GetComponent<Player>().Health--;
+        player.GetComponent<Player>().TakeDamage(1);
     }
     #endregion
 
