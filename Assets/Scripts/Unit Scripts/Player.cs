@@ -189,8 +189,8 @@ public class Player : Unit
          //playerInputActions.PlayerControl.Movement.performed += movement;
          playerInputActions.PlayerControl.Drop.performed += Drop;
 
+        findReference();
 
-         //ManaHealthController = GameObject.FindGameObjectWithTag("ManaHealthController");
 
 
         #endregion
@@ -212,6 +212,7 @@ public class Player : Unit
 
         base.Update();
 
+        findReference();
         //Player literally could not move without this code. Tyler Added.
         speed = 5.0f;
 
@@ -230,6 +231,8 @@ public class Player : Unit
         {
             StartCoroutine(InteractCoroutine());
         }
+
+        
 
         #endregion
 
@@ -363,6 +366,11 @@ public class Player : Unit
         base.TakeDamage(amount);
     }
 
+    public void findReference()
+    {
+        ManaHealthController = GameObject.FindGameObjectWithTag("ManaHealthController");
+    }
+
 
     #region Player Movement Actions
     /// <summary> This moves the player from side to side on the x axis  /// </summary>
@@ -482,7 +490,7 @@ public class Player : Unit
             if (spellStone == true)
             {
                 
-                ManaHealthController.GetComponent<LifeManaHandler>().ReduceMana((manaCost*0.25f));
+                ManaHealthController.GetComponent<LifeManaHandler>().ReduceMana((manaCost*0.75f));
             }
             else
             {
