@@ -36,8 +36,8 @@ public class Player : Unit
         get => base.Health; 
         set
         {
-            Health = Mathf.Clamp(value, 0, maxHealth);
-            if (base.Health <= 0)
+            _health = Mathf.Clamp(value, 0, maxHealth);
+            if (_health <= 0)
             {
                 if (undying == true)
                 {
@@ -46,14 +46,10 @@ public class Player : Unit
                 }
                 else
                 {
+                    Debug.Log("Reset");
                     ResetGame();
                 }
 
-            }
-            else
-            {
-                invulnerable = true;
-                StartCoroutine(IFrames());
             }
         }
     }
@@ -117,17 +113,18 @@ public class Player : Unit
         public bool canMove = true;
 
     /// <summary> determines if the player can jump once more in the air or not </summary>
-    //[HideInInspector]
+    [HideInInspector]
     public bool canDoubleJump = true;
 
     /// <summary> determines if the player can jump once more in the air or not </summary>
-    //[HideInInspector]
+    [HideInInspector]
     public bool hasDoubleJump = false;
 
+    [HideInInspector]
     public bool invulnerable = false;
 
     /// <summary> determines if the player is trying to interact with things or not </summary>
-   // [HideInInspector]
+    [HideInInspector]
     public bool Interacting = false;
    // {
        // return playerInputActions.PlayerControl.
@@ -136,19 +133,25 @@ public class Player : Unit
     [HideInInspector]
     public bool canInteract = false;
 
-
+    [HideInInspector]
     /// <summary> this keeps track of if the player is in the camp shop or not  </summary>
     public bool inCampShop = false;
 
+    [HideInInspector]
     /// <summary> this keeps track of if the player is in the mine  or not  </summary>
     public bool inMine = false;
 
+    [HideInInspector]
     /// <summary> this keeps track of if the player is in the mine shop or not  </summary>
     public bool inMineShop = false;
 
+    [HideInInspector]
     public bool grounded;
 
+    [HideInInspector]
     public bool isRunning = false;
+
+    [HideInInspector]
     public bool isAttacking = false;
 
     #endregion
@@ -174,11 +177,10 @@ public class Player : Unit
     private void Awake()
     {
 
-      if(Instance != null && Instance != this)
-        {
+        if(Instance != null && Instance != this)
             Destroy(Instance.gameObject);
-        }
-        
+
+        Health = maxHealth;
         #region Player Movement Important Connectors
          ///<summary>The following is used to track player inputs and controls.</summary>
          playerInputActions = new PlayerInputActions();
@@ -188,23 +190,36 @@ public class Player : Unit
          playerInputActions.PlayerControl.Drop.performed += Drop;
 
 
-        ManaHealthController = GameObject.FindGameObjectWithTag("ManaHealthController");
+         //ManaHealthController = GameObject.FindGameObjectWithTag("ManaHealthController");
 
 
         #endregion
 
-
     }
 
-
+    public bool dmgPlayerByTick = false;
     public override void Update()
     {
         Application.targetFrameRate = 60;
         facingRightLocal = facingRight;
+
+        if (dmgPlayerByTick)
+        {
+            dmgPlayerByTick = false;
+            TakeDamage(1);
+        }
+
+
         base.Update();
 
+        //Player literally could not move without this code. Tyler Added.
+        speed = 5.0f;
+
         #region Player Stat controls
-        
+        if(myHealth <= 0)
+        {
+            ResetGame();
+        }
 
         if (myMana >= maxMana)
         {
@@ -315,10 +330,6 @@ public class Player : Unit
             canCast = true;
             spellCastDelay = 3f;
         }
-
-
-
-      
     }
 
 
@@ -329,6 +340,7 @@ public class Player : Unit
         maxMana = startingMana;
         myMana = startingMana;
         //GetComponentInChildren<GoldHandler>().myHardGold = GetComponentInChildren<GoldHandler>().startingHardGold;
+        
         var goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
         goldHandler.GetComponent<GoldHandler>()._mySoftGold = goldHandler.GetComponent<GoldHandler>().startingSoftGold;
         var goldTracker = GameObject.FindGameObjectWithTag("GoldTracker");
@@ -338,10 +350,15 @@ public class Player : Unit
 
     }
 
-    public override void TakeDamage(int amount)
+    public override void TakeDamage(float amount)
     {
         if (invulnerable)
             return;
+        else
+        {
+            invulnerable = true;
+            StartCoroutine(IFrames());
+        }
 
         base.TakeDamage(amount);
     }
@@ -551,12 +568,13 @@ public class Player : Unit
            
 
         }
-             if (triggered)
-            {
-                animator.SetTrigger("lightAttack");
+        
+        if (triggered && animator != null)
+        {
+            animator.SetTrigger("lightAttack");
 
-                triggered = false;
-            }
+            triggered = false;
+        }
     }
 
     /// <summary> This is the attacking function  </summary>
@@ -785,7 +803,10 @@ public class Player : Unit
             Color origMat = render.material.color;
             origMat.a = 0.5f;
             render.material.color = origMat;
-            yield return new WaitForSeconds(0.125f);
+            yield return new WaitForSeconds(waitTime);
+            origMat.a = 1f;
+            render.material.color = origMat;
+            yield return new WaitForSeconds(waitTime);
 
             ///wait 0.125 seconds
             ///turn opacity back to 100%

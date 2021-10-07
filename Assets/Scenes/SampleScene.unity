@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -464,5 +464,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bab5b1c800e967e40bb5417b637118fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 0
   speed: 2.9
+  jumpFroce: 0
+  maxHealth: 0
+  _groundCollider: {fileID: 0}
+  _platformCollider: {fileID: 0}
+  _hitboxCollider: {fileID: 0}
+  _lightCollider: {fileID: 0}
+  _heavyCollider: {fileID: 0}
+  spellLocationLeft: {fileID: 0}
+  spellLocationRight: {fileID: 0}
+  spellLocationCenter: {fileID: 0}
+  facingRight: 0
+  myHealth: 0
+  startingHealth: 0
+  myMana: 0
+  maxMana: 0
+  startingMana: 0
+  _rigidBody: {fileID: 0}
+  facingRightLocal: 0
+  knockbackForce: 0
+  meleeAttackRange: 1
+  meleeAttackDamage: 0
+  playerCollisionDamage: 0
+  ManaHealthController: {fileID: 0}
+  fireWall_prefab: {fileID: 0}
+  canMove: 1
+  canDoubleJump: 1
+  hasDoubleJump: 0
+  invulnerable: 0
+  Interacting: 0
+  canInteract: 0
+  inCampShop: 0
+  inMine: 0
+  inMineShop: 0
+  grounded: 0
+  isRunning: 0
+  isAttacking: 0
+  shuues: 0
+  undying: 0
+  spellStone: 0
+  backShield: 0
+  animator: {fileID: 0}

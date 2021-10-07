@@ -46,7 +46,7 @@ public class LifeManaHandler : MonoBehaviour
     /// <summary>
     /// The amount of health the player currently has
     /// </summary>
-    public float currentLife;
+    public static float currentLife;
 
     /// <summary>
     /// The amount of mana the player currently has
