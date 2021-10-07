@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
-    LootTable enemyLootTable;
+    public LootTable enemyLootTable;
 
 
     #region Enemy Stats
@@ -78,8 +78,17 @@ public class Enemy : Unit
 
     #endregion
 
+
     public Renderer m_render;
+
+    [HideInInspector]
     public bool seenByCamera = false;
+
+    [Tooltip("Turn this on to disable all functions on the enemy for testing.")]
+    public bool debug = false;
+
+    [Tooltip("Activate this only to immediately kill the enemy.")]
+    public bool killThis = false;
 
     private void Start()
     {
@@ -90,6 +99,10 @@ public class Enemy : Unit
 
     public override void Update()
     {
+
+        if (killThis) TakeDamage(1000);
+
+        if (debug) return;
 
         base.Update();
 
@@ -190,7 +203,7 @@ public class Enemy : Unit
         ///<summary> this damages the enemy over time if they are on fire</summary>
         if (onFire == true)
         {
-            myHealth -= onFireDamage * Time.deltaTime;
+            TakeDamage(onFireDamage * Time.deltaTime);
         }
     }
 
@@ -244,7 +257,7 @@ public class Enemy : Unit
         ///<summary>This triggers when the enemy is hit with the light attack.</summary>
         if (other.gameObject.tag=="swordLight")
         {
-            myHealth = myHealth - player.GetComponent<Player>().meleeAttackDamage;
+            TakeDamage(player.GetComponent<Player>().meleeAttackDamage);
             //Tyler Added code
             if(myHealth <= 0)
             {
@@ -274,7 +287,7 @@ public class Enemy : Unit
         if (other.gameObject.tag == "swordHeavy")
         {
             
-            myHealth = myHealth - (player.GetComponent<Player>().meleeAttackDamage*2);
+            TakeDamage(player.GetComponent<Player>().meleeAttackDamage * 2);
             hitOnRight = player.GetComponent<Player>().facingRightLocal;
             
 
@@ -291,14 +304,14 @@ public class Enemy : Unit
         }
         if (other.gameObject.tag == "Player")
         {
-            myHealth = myHealth - player.GetComponent<Player>().playerCollisionDamage; 
+            TakeDamage(player.GetComponent<Player>().playerCollisionDamage); 
         }
 
         if (other.gameObject.tag == "FireWallCast")
         {
             if(fireDamageTaken == false)
             {
-                myHealth -= other.GetComponent<FireWallSpellScript>().fireWallCollideDamage;
+                TakeDamage(other.GetComponent<FireWallSpellScript>().fireWallCollideDamage);
                 fireDamageTaken = true;
             }
         }
@@ -333,7 +346,7 @@ public class Enemy : Unit
     [Range(0f, 100f)]
     public float percentChanceToDropItem = 40f;
 
-    public override void TakeDamage(int amount)
+    public override void TakeDamage(float amount)
     {
         if (Health - amount <= 0)
         {

@@ -343,7 +343,7 @@ public class Player : Unit
 
     }
 
-    public override void TakeDamage(int amount)
+    public override void TakeDamage(float amount)
     {
         if (invulnerable)
             return;

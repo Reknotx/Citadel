@@ -47,6 +47,7 @@ public class Unit : MonoBehaviour
             if (_health <= 0)
             {
                 ///Destroy the object here
+                Destroy(gameObject);
             }
         }
     }
@@ -187,7 +188,7 @@ public class Unit : MonoBehaviour
     /// unit's current health.
     /// </summary>
     /// <param name="amount">The amount of damage to apply to the unit.</param>
-    public virtual void TakeDamage(int amount)
+    public virtual void TakeDamage(float amount)
     {
         Debug.Log("Dealing " + amount + " points of damage to " + name);
         Health -= amount;
