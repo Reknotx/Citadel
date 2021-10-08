@@ -213,6 +213,7 @@ public class Player : Unit
         base.Update();
 
         findReference();
+        trackHealth();
         //Player literally could not move without this code. Tyler Added.
         speed = 5.0f;
 
@@ -369,6 +370,12 @@ public class Player : Unit
     public void findReference()
     {
         ManaHealthController = GameObject.FindGameObjectWithTag("HealthManaHandler");
+    }
+
+    public void trackHealth()
+    {
+        myHealth = ManaHealthController.GetComponent<LifeManaHandler>().currentLife;
+        maxHealth = ManaHealthController.GetComponent<LifeManaHandler>().myLife;
     }
 
 
