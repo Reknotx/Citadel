@@ -21,7 +21,8 @@ namespace ShopSystem
         [Space(10)]
         public SpellItem fireWall;
 
-        protected int numOfSpells;
+        [HideInInspector]
+        public int numOfSpells;
 
         public List<SpellItem> purchaseableSpells;
 
@@ -70,6 +71,11 @@ namespace ShopSystem
                 upgradeCost = Mathf.RoundToInt(upgradeCost * increaseStatBy);
             }
         }
+
+        public override string ToString()
+        {
+            return description + " by " + increaseStatBy + " for " + upgradeCost + " gold.";
+        }
     }
 
     //this will need to be updated to match more of the spell system
@@ -78,7 +84,7 @@ namespace ShopSystem
     public class SpellItem
     {
         public string name;
-        public int baseSpellCost;
+        public int spellCost;
         public GameObject spellPrefab;
         public string description;
 
@@ -89,6 +95,14 @@ namespace ShopSystem
     public class ShopInfoEditor : Editor
     {
         float labelWidth = 135f;
+
+        ShopInfo shopInfo;
+
+        private void OnEnable()
+        {
+            shopInfo = (ShopInfo)target;
+        }
+
 
         public override void OnInspectorGUI()
         {
@@ -101,7 +115,7 @@ namespace ShopSystem
             EditorGUILayout.BeginHorizontal();
 
             PlaceLabelsForStatUpgrade();
-            
+
             EditorGUILayout.EndHorizontal();
 
             PlaceStatUpgradeInfo();
@@ -110,21 +124,25 @@ namespace ShopSystem
 
             EditorGUILayout.LabelField("Spells", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Bold, fontSize = 16 });
 
+            PlaceSpellItemInfo();
+
+
             EditorGUI.EndChangeCheck();
 
             serializedObject.ApplyModifiedProperties();
-            
+
             void PlaceLabelsForStatUpgrade()
             {
                 EditorGUILayout.LabelField("Stat", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight }, GUILayout.Width(labelWidth));
-                EditorGUILayout.LabelField("Cost", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter }, GUILayout.Width(50));
-                EditorGUILayout.LabelField("Growth", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter }, GUILayout.Width(50));
+                EditorGUILayout.LabelField("Base Cost", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, wordWrap = true }, GUILayout.Width(50));
+                EditorGUILayout.LabelField("Growth of cost", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, wordWrap = true }, GUILayout.Width(50));
                 EditorGUILayout.LabelField("Increase by", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, wordWrap = true }, GUILayout.Width(55));
                 EditorGUILayout.LabelField("Description", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft });
             }
-            
+
             void PlaceStatUpgradeInfo()
             {
+                EditorGUILayout.BeginVertical();
 
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("Health Upgrade", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight }, GUILayout.Width(labelWidth));
@@ -155,8 +173,43 @@ namespace ShopSystem
                 EditorGUILayout.LabelField("Spell Potency Upgrade", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight }, GUILayout.Width(labelWidth));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("spellPotencyUpInfo"), GUIContent.none);
                 EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.EndVertical();
             }
 
+            void PlaceSpellItemInfo()
+            {
+                if (shopInfo.purchaseableSpells == null)
+                    shopInfo.purchaseableSpells = new List<SpellItem>();
+
+                shopInfo.numOfSpells = EditorGUILayout.IntSlider(GUIContent.none, shopInfo.numOfSpells, 1, 12);
+
+                while (shopInfo.numOfSpells != shopInfo.purchaseableSpells.Count)
+                {
+                    if (shopInfo.numOfSpells > shopInfo.purchaseableSpells.Count)
+                        shopInfo.purchaseableSpells.Add(new SpellItem());
+                    else
+                        shopInfo.purchaseableSpells.RemoveAt(shopInfo.purchaseableSpells.Count - 1);
+                }
+
+                for (int index = 0; index < serializedObject.FindProperty("purchaseableSpells").arraySize; index++)
+                {
+                    GameObject itemLocal = (GameObject)serializedObject.FindProperty("purchaseableSpells").GetArrayElementAtIndex(index).FindPropertyRelative("spellPrefab").objectReferenceValue;
+                    EditorGUILayout.BeginHorizontal();
+
+                    if (itemLocal != null)
+                        EditorGUILayout.LabelField(itemLocal.name, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight }, GUILayout.MaxWidth(100));
+                    else
+                        EditorGUILayout.LabelField("Insert Object", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight }, GUILayout.MaxWidth(100));
+
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("purchaseableSpells").GetArrayElementAtIndex(index), GUIContent.none);
+
+                    EditorGUILayout.EndHorizontal();
+
+
+
+                }
+            }
         }
     }
 
@@ -212,7 +265,43 @@ namespace ShopSystem
     [CustomPropertyDrawer(typeof(SpellItem))]
     public class SpellItemDrawer : PropertyDrawer
     {
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            // Using BeginProperty / EndProperty on the parent property means that
+            // prefab override logic works on the entire property.
+            EditorGUI.BeginProperty(position, label, property);
+            GUIStyle style = new GUIStyle(GUI.skin.label)
+            {
+                alignment = TextAnchor.MiddleRight
+            };
 
+            // Don't make child fields be indented
+            var indent = EditorGUI.indentLevel;
+            EditorGUI.indentLevel = 0;
+
+            // Calculate rects
+            Vector2 objectRectPos = new Vector2(position.x, position.y);
+            Vector2 costRectPos = new Vector2(position.x + 105, position.y);
+            Vector2 descriptionRectPos = new Vector2(position.x + 160, position.y);
+
+            Vector2 objectSize = new Vector2(100, position.height);
+            Vector2 costSize = new Vector2(50, position.height);
+            Vector2 descriptionBoxSize = new Vector2(position.width - 160, position.height);
+
+            var objectRect = new Rect(objectRectPos, objectSize);
+            var costRect = new Rect(costRectPos, costSize);
+            var descriptionRect = new Rect(descriptionRectPos, descriptionBoxSize);
+
+            // Draw fields - passs GUIContent.none to each so they are drawn without labels
+            EditorGUI.PropertyField(objectRect, property.FindPropertyRelative("spellPrefab"), GUIContent.none);
+            EditorGUI.PropertyField(costRect, property.FindPropertyRelative("spellCost"), GUIContent.none);
+            EditorGUI.PropertyField(descriptionRect, property.FindPropertyRelative("description"), GUIContent.none);
+
+            // Set indent back to what it was
+            EditorGUI.indentLevel = indent;
+
+            EditorGUI.EndProperty();
+        }
     }
 
 #endif

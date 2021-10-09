@@ -12,7 +12,7 @@ public class LootInfo
 
     public GameObject item;
 
-    public float rate;
+    public float rate = 0.1f;
 }
 
 
