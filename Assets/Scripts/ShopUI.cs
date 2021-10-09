@@ -19,6 +19,8 @@ namespace ShopSystem
 
         List<Button> shopButtons;
 
+        List<Button> itemButtons;
+
         private void Awake()
         {
             if (gameObject.activeSelf) gameObject.SetActive(false);
@@ -59,55 +61,57 @@ namespace ShopSystem
         public void BuyStatIncrease(StatToIncrease stat)
         {
             int goldSpent = 0;
+            ShopStatUpgrade upgrade = null;
 
             switch (stat)
             {
                 case StatToIncrease.health:
-                    Player.Instance.maxHealth += (int)info.healthUpInfo.increaseValueBy;
-                    goldSpent = info.healthUpInfo.upgradeCost;
-                    info.healthUpInfo.Level++;
+                    Player.Instance.maxHealth += (int)info.healthUpInfo.increaseStatBy;
+                    upgrade = info.healthUpInfo;
                     Debug.Log("Buying health upgrade");
                     break;
                 
                 case StatToIncrease.attackPwr:
-                    Player.Instance.meleeAttackDamage += (int)info.attackUpInfo.increaseValueBy;
-                    goldSpent = info.attackUpInfo.upgradeCost;
-                    info.attackUpInfo.Level++;
+                    Player.Instance.meleeAttackDamage += (int)info.attackUpInfo.increaseStatBy;
+                    upgrade = info.attackUpInfo;
                     Debug.Log("Buying attack power upgrade");
                     break;
                 
                 case StatToIncrease.attackRng:
-                    Player.Instance.meleeAttackRange += info.attackRangeUpInfo.increaseValueBy;
-                    goldSpent = info.attackRangeUpInfo.upgradeCost;
-                    info.attackRangeUpInfo.Level++;
+                    Player.Instance.meleeAttackRange += info.attackRangeUpInfo.increaseStatBy;
+                    upgrade = info.attackRangeUpInfo;
                     Debug.Log("Buying attack range upgrade");
                     break;
                 
                 case StatToIncrease.speed:
-                    Player.Instance.speed += info.speedUpInfo.increaseValueBy;
-                    goldSpent = info.speedUpInfo.upgradeCost;
-                    info.speedUpInfo.Level++;
+                    Player.Instance.speed += info.speedUpInfo.increaseStatBy;
+                    upgrade = info.speedUpInfo;
                     Debug.Log("Buying speed upgrade");
                     break;
                 
                 case StatToIncrease.mana:
-                    Player.Instance.maxMana += (int)info.manaUpInfo.increaseValueBy;
-                    goldSpent = info.manaUpInfo.upgradeCost;
-                    info.manaUpInfo.Level++;
+                    Player.Instance.maxMana += (int)info.manaUpInfo.increaseStatBy;
+                    upgrade = info.manaUpInfo;
                     Debug.Log("Buying mana upgrade");
                     break;
                 
                 case StatToIncrease.spellPotency:
                     //Player.Instance.spellPotency += info.spellPotencyUpInfo.increaseValueBy; 
-                    goldSpent = info.spellPotencyUpInfo.upgradeCost;
-                    info.spellPotencyUpInfo.Level++;
+                    upgrade = info.spellPotencyUpInfo;
                     Debug.Log("Buying spell potency upgrade");
                     break;
                 
                 default:
                     break;
             }
+            if (upgrade == null)
+            {
+                Debug.LogError("Null reference found when purchasing upgrade.");
+                return;
+            }
 
+            upgrade.Level++;
+            goldSpent = upgrade.upgradeCost;
             GoldHandler.Instance.MyHardGold -= goldSpent;
 
             CheckButtons();
