@@ -30,6 +30,12 @@ namespace ShopSystem
         //public List<Items> puchaseableItems;
     }
 
+    public abstract class PurchaseableItem
+    {
+        public abstract void Buy();
+    }
+
+
     public enum StatToIncrease
     {
         health,
@@ -41,7 +47,7 @@ namespace ShopSystem
     }
 
     [System.Serializable]
-    public class ShopStatUpgrade
+    public class ShopStatUpgrade : PurchaseableItem
     {
 
         [Tooltip("The base cost value of an upgrade.")]
@@ -76,17 +82,69 @@ namespace ShopSystem
         {
             return description + " by " + increaseStatBy + " for " + upgradeCost + " gold.";
         }
+
+        public override void Buy()
+        {
+            switch (statToIncrease)
+            {
+                case StatToIncrease.health:
+                    Player.Instance.maxHealth += (int)increaseStatBy;
+                    Debug.Log("Buying health upgrade");
+                    break;
+
+                case StatToIncrease.attackPwr:
+                    Player.Instance.meleeAttackDamage += (int)increaseStatBy;
+                    Debug.Log("Buying attack power upgrade");
+                    break;
+
+                case StatToIncrease.attackRng:
+                    Player.Instance.meleeAttackRange += increaseStatBy;
+                    Debug.Log("Buying attack range upgrade");
+                    break;
+
+                case StatToIncrease.speed:
+                    Player.Instance.speed += increaseStatBy;
+                    Debug.Log("Buying speed upgrade");
+                    break;
+
+                case StatToIncrease.mana:
+                    Player.Instance.maxMana += increaseStatBy;
+                    Debug.Log("Buying mana upgrade");
+                    break;
+
+                case StatToIncrease.spellPotency:
+                    //Player.Instance.spellPotency += info.spellPotencyUpInfo.increaseValueBy; 
+                    Debug.Log("Buying spell potency upgrade");
+                    break;
+
+                default:
+                    break;
+            }
+            //if (upgrade == null)
+            //{
+            //    Debug.LogError("Null reference found when purchasing upgrade.");
+            //    return;
+            //}
+
+            Level++;
+            GoldHandler.Instance.MyHardGold -= upgradeCost;
+        }
     }
 
     //this will need to be updated to match more of the spell system
     //that was put in place by hunter
     [System.Serializable]
-    public class SpellItem
+    public class SpellItem : PurchaseableItem
     {
         public string name;
         public int spellCost;
         public GameObject spellPrefab;
         public string description;
+
+        public override void Buy()
+        {
+
+        }
 
     }
 

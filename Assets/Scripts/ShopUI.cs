@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace ShopSystem
@@ -19,7 +20,7 @@ namespace ShopSystem
 
         List<Button> shopButtons;
 
-        List<Button> itemButtons;
+        List<Button> spellButtons;
 
         private void Awake()
         {
@@ -38,12 +39,12 @@ namespace ShopSystem
             shopButtons.Add(spellPotencyUpButton);
             shopButtons.Add(firewallSpellButton);
 
-            healthUpButton.onClick.AddListener(() => BuyStatIncrease(info.healthUpInfo.statToIncrease));
-            attackUpButton.onClick.AddListener(() => BuyStatIncrease(info.attackUpInfo.statToIncrease));
-            attackRangeUpButton.onClick.AddListener(() => BuyStatIncrease(info.attackRangeUpInfo.statToIncrease));
-            speedUpButton.onClick.AddListener(() => BuyStatIncrease(info.speedUpInfo.statToIncrease));
-            manaUpButton.onClick.AddListener(() => BuyStatIncrease(info.manaUpInfo.statToIncrease));
-            spellPotencyUpButton.onClick.AddListener(() => BuyStatIncrease(info.spellPotencyUpInfo.statToIncrease));
+            healthUpButton.onClick.AddListener(() => Buy(info.healthUpInfo));
+            attackUpButton.onClick.AddListener(() => Buy(info.attackUpInfo));
+            attackRangeUpButton.onClick.AddListener(() => Buy(info.attackRangeUpInfo));
+            speedUpButton.onClick.AddListener(() => Buy(info.speedUpInfo));
+            manaUpButton.onClick.AddListener(() => Buy(info.manaUpInfo));
+            spellPotencyUpButton.onClick.AddListener(() => Buy(info.spellPotencyUpInfo));
 
             firewallSpellButton.onClick.AddListener(() => BuySpell());
         }
@@ -58,64 +59,18 @@ namespace ShopSystem
             if (Player.Instance != null) Player.Instance.canMove = true;
         }
 
-        public void BuyStatIncrease(StatToIncrease stat)
+        public void Buy(PurchaseableItem purchaseableItem)
         {
-            int goldSpent = 0;
-            ShopStatUpgrade upgrade = null;
-
-            switch (stat)
-            {
-                case StatToIncrease.health:
-                    Player.Instance.maxHealth += (int)info.healthUpInfo.increaseStatBy;
-                    upgrade = info.healthUpInfo;
-                    Debug.Log("Buying health upgrade");
-                    break;
-                
-                case StatToIncrease.attackPwr:
-                    Player.Instance.meleeAttackDamage += (int)info.attackUpInfo.increaseStatBy;
-                    upgrade = info.attackUpInfo;
-                    Debug.Log("Buying attack power upgrade");
-                    break;
-                
-                case StatToIncrease.attackRng:
-                    Player.Instance.meleeAttackRange += info.attackRangeUpInfo.increaseStatBy;
-                    upgrade = info.attackRangeUpInfo;
-                    Debug.Log("Buying attack range upgrade");
-                    break;
-                
-                case StatToIncrease.speed:
-                    Player.Instance.speed += info.speedUpInfo.increaseStatBy;
-                    upgrade = info.speedUpInfo;
-                    Debug.Log("Buying speed upgrade");
-                    break;
-                
-                case StatToIncrease.mana:
-                    Player.Instance.maxMana += (int)info.manaUpInfo.increaseStatBy;
-                    upgrade = info.manaUpInfo;
-                    Debug.Log("Buying mana upgrade");
-                    break;
-                
-                case StatToIncrease.spellPotency:
-                    //Player.Instance.spellPotency += info.spellPotencyUpInfo.increaseValueBy; 
-                    upgrade = info.spellPotencyUpInfo;
-                    Debug.Log("Buying spell potency upgrade");
-                    break;
-                
-                default:
-                    break;
-            }
-            if (upgrade == null)
-            {
-                Debug.LogError("Null reference found when purchasing upgrade.");
-                return;
-            }
-
-            upgrade.Level++;
-            goldSpent = upgrade.upgradeCost;
-            GoldHandler.Instance.MyHardGold -= goldSpent;
+            purchaseableItem.Buy();
 
             CheckButtons();
         }
+
+        public void DisplayPopUp(string description)
+        {
+
+        }
+
 
         public void CheckButtons()
         {
@@ -135,6 +90,11 @@ namespace ShopSystem
             Player.Instance.fireWall_prefab = info.fireWall.spellPrefab;
         }
 
+
+        public void RandomizeSpells()
+        {
+
+        }
     }
 
 }

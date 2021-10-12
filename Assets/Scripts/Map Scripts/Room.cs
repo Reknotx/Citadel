@@ -81,9 +81,11 @@ namespace Map
         {
             FirstVisit = false;
 
-            GraphMover.Instance.MoveGraph(transform.position + new Vector3(15, 15, 0));
+            if (GraphMover.Instance != null)
+                GraphMover.Instance.MoveGraph(transform.position + new Vector3(15, 15, 0));
 
-            MiniMapManager.Instance.MoveMinimapCamera(transform.position + new Vector3(15, 15, 0));
+            if (MiniMapManager.Instance != null)
+                MiniMapManager.Instance.MoveMinimapCamera(transform.position + new Vector3(15, 15, 0));
 
             ///Turn on all the enemies.
             foreach (GameObject enemy in enemies)
