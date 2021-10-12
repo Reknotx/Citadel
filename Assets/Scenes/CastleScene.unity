@@ -345,16 +345,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: myMana
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: manaBar
       value: 
       objectReference: {fileID: 447215556}
+    - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: maxMana
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: manaText
       value: 
       objectReference: {fileID: 447215554}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: myHealth
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: healthBar
@@ -362,15 +370,19 @@ PrefabInstance:
       objectReference: {fileID: 447215557}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: maxHealth
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: healthText
       value: 
       objectReference: {fileID: 447215555}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: startingMana
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: startingHealth
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: ManaHealthController
