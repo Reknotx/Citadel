@@ -23,7 +23,7 @@ public class Orc : Enemy
 
     #region Life Handler for Player
 
-    public LifeManaHandler playerLife;
+    public Player playerLife;
 
     #endregion
 
@@ -44,7 +44,7 @@ public class Orc : Enemy
         orcAttack_L.SetActive(false);
         orcAttack_R.SetActive(false);
 
-        playerLife = GameObject.FindGameObjectWithTag("HealthManaHandler").GetComponent<LifeManaHandler>();
+        playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -66,14 +66,14 @@ public class Orc : Enemy
         if (facingRight)
         {
             StartCoroutine(WaitBetweenVisual_Right());
-            playerLife.Damage(orcDamage);
+            playerLife.TakeDamage(orcDamage);
             StartCoroutine(WaitBetweenAttack());
             
         }
         else
         {
             StartCoroutine(WaitBetweenVisual_Left());
-            playerLife.Damage(orcDamage);
+            playerLife.TakeDamage(orcDamage);
             StartCoroutine(WaitBetweenAttack());
         }
     }

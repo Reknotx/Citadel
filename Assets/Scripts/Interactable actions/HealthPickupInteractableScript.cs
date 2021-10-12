@@ -21,11 +21,10 @@ namespace Interactables
         public override void Interact()
         {
 
-            GameObject healthTracker = GameObject.FindGameObjectWithTag("HealthManaHandler");
-            healthTracker.GetComponent<LifeManaHandler>().currentLife += dropAmount;
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.GetComponent<Player>().myHealth += dropAmount;
 
-               // GameObject player = GameObject.FindGameObjectWithTag("Player");
-               // player.GetComponent<Player>().myHealth += dropAmount;
+               
             Destroy(this.gameObject);
 
 

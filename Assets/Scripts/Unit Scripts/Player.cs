@@ -14,7 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.UI;
 using Interactables;
 
 public class Player : Unit
@@ -56,6 +56,10 @@ public class Player : Unit
 
     ///<summary>This is the  units starting health.</summary>
     public float startingHealth;
+
+    private float calculateHealth;
+
+    private float calculateMana;
 
     ///<summary>This is the units mana for magic casting.</summary>
     public float myMana;
@@ -167,7 +171,31 @@ public class Player : Unit
     private bool triggered = false;
     private float animationFinishTime = .5f;
 
-            #endregion
+    #endregion
+            #region health and mana bars
+
+    /// <summary>
+    /// Image holding the UI for player's health bar
+    /// </summary>
+    public Image healthBar;
+
+    /// <summary>
+    /// Image holding the UI for the player's mana bar
+    /// </summary>
+    public Image manaBar;
+
+    /// <summary>
+    /// Text displayed in player's health bar
+    /// </summary>
+    public Text healthText;
+
+    /// <summary>
+    /// Text displayed in player's mana bar
+    /// </summary>
+    public Text manaText;
+
+
+    #endregion
 
 
 
@@ -181,15 +209,16 @@ public class Player : Unit
             Destroy(Instance.gameObject);
 
         Health = maxHealth;
+        myMana = maxMana;
         #region Player Movement Important Connectors
-         ///<summary>The following is used to track player inputs and controls.</summary>
-         playerInputActions = new PlayerInputActions();
+        ///<summary>The following is used to track player inputs and controls.</summary>
+        playerInputActions = new PlayerInputActions();
          playerInputActions.PlayerControl.Enable();
          playerInputActions.PlayerControl.Jump.performed += Jump;
          //playerInputActions.PlayerControl.Movement.performed += movement;
          playerInputActions.PlayerControl.Drop.performed += Drop;
 
-        findReference();
+        
 
 
 
@@ -212,12 +241,12 @@ public class Player : Unit
 
         base.Update();
 
-        findReference();
-        trackHealth();
+        
         //Player literally could not move without this code. Tyler Added.
         speed = 5.0f;
 
         #region Player Stat controls
+        myHealth = Health;
         if(myHealth <= 0)
         {
             ResetGame();
@@ -232,6 +261,7 @@ public class Player : Unit
         {
             StartCoroutine(InteractCoroutine());
         }
+
 
         
 
@@ -336,6 +366,17 @@ public class Player : Unit
         }
     }
 
+    private void FixedUpdate()
+    {
+        calculateHealth = Health / maxHealth;
+        healthBar.fillAmount = Mathf.MoveTowards(healthBar.fillAmount, calculateHealth, Time.deltaTime);
+        healthText.text = "" + (int)myHealth;
+
+        calculateMana = myMana / maxMana;
+        manaBar.fillAmount = Mathf.MoveTowards(manaBar.fillAmount, calculateMana, Time.deltaTime);
+        manaText.text = "" + (int)myMana;
+    }
+
 
     public void ResetGame()
     {
@@ -367,16 +408,9 @@ public class Player : Unit
         base.TakeDamage(amount);
     }
 
-    public void findReference()
-    {
-        ManaHealthController = GameObject.FindGameObjectWithTag("HealthManaHandler");
-    }
+   
 
-    public void trackHealth()
-    {
-        myHealth = ManaHealthController.GetComponent<LifeManaHandler>().currentLife;
-        maxHealth = ManaHealthController.GetComponent<LifeManaHandler>().myLife;
-    }
+   
 
 
     #region Player Movement Actions
@@ -497,12 +531,12 @@ public class Player : Unit
             if (spellStone == true)
             {
                 
-                ManaHealthController.GetComponent<LifeManaHandler>().ReduceMana((manaCost*0.75f));
+                ReduceMana((manaCost*0.75f));
             }
             else
             {
                 
-                ManaHealthController.GetComponent<LifeManaHandler>().ReduceMana(manaCost);
+                ReduceMana(manaCost);
             }
             
 
@@ -775,6 +809,13 @@ public class Player : Unit
 
     #endregion
 
+
+
+    /// <param name="mana">Amount of mana lost by the player for casting a spell</param>
+    public void ReduceMana(float mana)
+    {
+        myMana -= mana;
+    }
 
 
     public IEnumerator InteractCoroutine()
