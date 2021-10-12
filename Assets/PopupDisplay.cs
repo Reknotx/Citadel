@@ -1,11 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
-public class PopupDisplay : MonoBehaviour
+namespace Popup
 {
-    public void OnMouseEnter()
+    public class PopupDisplay : MonoBehaviour
     {
-        //transform.parent = 
+        private string _descriptionText;
+
+        [SerializeField]
+        private Text displayText;
+
+        public string DescriptionText
+        {
+            get => _descriptionText;
+
+            set
+            {
+                _descriptionText = value;
+
+                if (displayText != null)
+                    displayText.text = _descriptionText;
+            }
+        }
+
+        private void Awake()
+        {
+            gameObject.SetActive(false);
+        }
+
+        private void OnEnable()
+        {
+            transform.position = Mouse.current.position.ReadValue() + (Vector2.one * 5);
+        }
+
+        public void Update()
+        {
+            transform.position = Mouse.current.position.ReadValue() + (Vector2.one * 5);
+        }
     }
 }

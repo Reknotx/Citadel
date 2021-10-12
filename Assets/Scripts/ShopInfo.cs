@@ -21,6 +21,10 @@ namespace ShopSystem
         [Space(10)]
         public SpellItem fireWall;
 
+        public SpellItem spell1Info;
+        public SpellItem spell2Info;
+        public SpellItem spell3Info;
+
         [HideInInspector]
         public int numOfSpells;
 
@@ -28,11 +32,57 @@ namespace ShopSystem
 
         protected int numOfItems;
         //public List<Items> puchaseableItems;
+
+        public void Init()
+        {
+            healthUpInfo.statToIncrease = StatToIncrease.health;
+            attackUpInfo.statToIncrease = StatToIncrease.attackPwr;
+            attackRangeUpInfo.statToIncrease = StatToIncrease.attackRng;
+            speedUpInfo.statToIncrease = StatToIncrease.speed;
+            manaUpInfo.statToIncrease = StatToIncrease.mana;
+            spellPotencyUpInfo.statToIncrease = StatToIncrease.spellPotency;
+
+            RandomizeSpells();
+        }
+        public void RandomizeSpells()
+        {
+            ///Reference the list of all spells that can be purchased by the player.
+
+            ///Randomly select 3 of those spells to be displayed in the shop
+
+            ///The button's onclick needs to be assigned to purchase it's spell
+            ///and provide it to the player.
+
+            ///
+            List<SpellItem> tempList = purchaseableSpells;
+            for (int i = 0; i < Mathf.Clamp(purchaseableSpells.Count, 0, 3); i++)
+            {
+                int index = Random.Range(0, tempList.Count);
+
+                switch (i)
+                {
+                    case 0: spell1Info = tempList[index]; break;
+
+                    case 1: spell2Info = tempList[index]; break;
+
+                    case 2: spell3Info = tempList[index]; break;
+                }
+
+                tempList.RemoveAt(index);
+
+            }
+
+            spell1Info.name = spell1Info.spellPrefab.name;
+            //spell2Info.name = spell2Info.spellPrefab.name;
+            //spell3Info.name = spell3Info.spellPrefab.name;
+        }
     }
 
     public abstract class PurchaseableItem
     {
         public abstract void Buy();
+
+        public abstract override string ToString();
     }
 
 
@@ -146,6 +196,10 @@ namespace ShopSystem
 
         }
 
+        public override string ToString()
+        {
+            return "Purchase a " + name + " for " + spellCost + " gold.";
+        }
     }
 
 #if UNITY_EDITOR
