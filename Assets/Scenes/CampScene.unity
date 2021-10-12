@@ -1209,6 +1209,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4206313302874563085, guid: 51fb41dafa85cd0459bd4a6aa9f056d6, type: 3}
+      propertyPath: playerMaxMana
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4206313302874563085, guid: 51fb41dafa85cd0459bd4a6aa9f056d6, type: 3}
+      propertyPath: playerMaxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4206313302874563085, guid: 51fb41dafa85cd0459bd4a6aa9f056d6, type: 3}
+      propertyPath: startingMaxMana
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4206313302874563085, guid: 51fb41dafa85cd0459bd4a6aa9f056d6, type: 3}
+      propertyPath: startingMaxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4206313302874563085, guid: 51fb41dafa85cd0459bd4a6aa9f056d6, type: 3}
+      propertyPath: startingAttackDamage
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4206313302874563086, guid: 51fb41dafa85cd0459bd4a6aa9f056d6, type: 3}
       propertyPath: m_Name
       value: PlayerGoldTracker
@@ -1465,9 +1485,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: myMana
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: manaBar
       value: 
       objectReference: {fileID: 1225648567}
+    - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: maxMana
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: manaText
       value: 
@@ -1488,6 +1516,10 @@ PrefabInstance:
       propertyPath: healthText
       value: 
       objectReference: {fileID: 1150024952}
+    - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: startingMana
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: startingHealth
       value: 100

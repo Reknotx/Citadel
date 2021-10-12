@@ -22,7 +22,7 @@ namespace Interactables
         {
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<Player>().myHealth += dropAmount;
+            player.GetComponent<Player>().Health += dropAmount;
 
                
             Destroy(this.gameObject);

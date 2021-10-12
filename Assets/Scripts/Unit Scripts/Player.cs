@@ -246,7 +246,7 @@ public class Player : Unit
         speed = 5.0f;
 
         #region Player Stat controls
-        myHealth = Health;
+       myHealth = Health;
         if(myHealth <= 0)
         {
             ResetGame();
@@ -374,7 +374,7 @@ public class Player : Unit
 
         calculateMana = myMana / maxMana;
         manaBar.fillAmount = Mathf.MoveTowards(manaBar.fillAmount, calculateMana, Time.deltaTime);
-        manaText.text = "" + (int)myMana;
+        manaText.text = "" + myMana;
     }
 
 
