@@ -14,10 +14,13 @@ namespace Interactables
 {
     public class MineEntranceInteractScript : Interactable
     {
+       
+
         public override void Interact()
         {
             GameObject sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
             sceneManager.GetComponent<SceneManagerScript>().goToMine();
+
         }
     }
 }

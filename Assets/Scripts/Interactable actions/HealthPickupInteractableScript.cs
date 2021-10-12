@@ -20,12 +20,10 @@ namespace Interactables
 
         public override void Interact()
         {
-            if (given == false)
-            {
+            
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
-                player.GetComponent<Player>().Health += dropAmount;
-                given = true;
-            }
+                player.GetComponent<Player>().myHealth += dropAmount;
+            Destroy(this.gameObject);
 
 
         }
@@ -34,8 +32,8 @@ namespace Interactables
         {
             if (other.gameObject.tag == "Player")
             {
-                Interact();
-                Destroy(this.gameObject);
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                player.GetComponent<Player>().Interacting = true;
             }
         }
     }

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Minimap;
 
-namespace Map.RoomScripts
+namespace Map
 {
     public class Room : MonoBehaviour
     {

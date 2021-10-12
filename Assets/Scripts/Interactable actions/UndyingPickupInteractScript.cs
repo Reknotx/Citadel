@@ -31,8 +31,8 @@ namespace Interactables
 
         public override void Interact()
         {
-            //given = true;
-            Player.Instance.GetComponent<Player>().undying = true;
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.GetComponent<Player>().undying = true;
             base.Interact();
         }
     }

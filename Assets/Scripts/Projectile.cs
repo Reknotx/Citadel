@@ -54,10 +54,15 @@ public class Projectile : MonoBehaviour
 
         }
 
-        if (other.tag == "ground")
+        /*if (other.tag == "ground")
         {
             DestroyProjectile();
-        }
+        }*/
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        DestroyProjectile();
     }
 
     public void OnCollisionEnter(Collision collision)

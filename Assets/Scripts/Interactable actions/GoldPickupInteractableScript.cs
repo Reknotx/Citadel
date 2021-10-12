@@ -8,7 +8,7 @@ namespace Interactables
     {
         public float dropAmount = 1;
 
-        private bool given = false;
+       // private bool given = false;
 
         // Update is called once per frame
         void Update()
@@ -18,12 +18,11 @@ namespace Interactables
 
         public override void Interact()
         {
-            if (given == false)
-            {
+            
                 GameObject goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
                 goldHandler.GetComponent<GoldHandler>()._mySoftGold += dropAmount;
-                given = true;
-            }
+            Destroy(this.gameObject);
+
 
 
         }
@@ -32,8 +31,8 @@ namespace Interactables
         {
             if (other.gameObject.tag == "Player")
             {
-                Interact();
-                Destroy(this.gameObject);
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                player.GetComponent<Player>().Interacting = true;
             }
         }
     }

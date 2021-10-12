@@ -6,6 +6,7 @@ namespace Interactables
 {
     public class ShuuesPickupInteractScript : Item
     {
+        /*
         private bool given = false;
         public GameObject player;
         public bool playerInteracting = false;
@@ -27,16 +28,17 @@ namespace Interactables
                 Destroy(this.gameObject);
 
             }
+
         }
+
+        */
 
         public override void Interact()
         {
-            if (given == false)
-            {
 
-                player.GetComponent<Player>().shuues = true;
-                given = true;
-            }
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.GetComponent<Player>().shuues = true;
+            base.Interact();
         }
 
         //public void OnTriggerEnter(Collider other)

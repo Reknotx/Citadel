@@ -208,19 +208,24 @@ MonoBehaviour:
   spellLocationRight: {fileID: 0}
   spellLocationCenter: {fileID: 0}
   facingRight: 0
+  enemyLootTable: {fileID: 0}
   myHealth: 5
   _rigidBody: {fileID: 1065828198705947067}
   facingRightLocal: 0
   yDistance: 0
   jumpVelocity: 7
   jumpHeight: 3
-  isKnockedBack: 0
   player: {fileID: 0}
   followDistance: 12
   stoppingDistance: 3
   noJumpHeight: 5
-  Astar: {fileID: 1065828198705947010}
   distanceToPlayer: 0
+  Astar: {fileID: 1065828198705947010}
+  m_render: {fileID: 1065828198705947070}
+  seenByCamera: 0
+  debug: 0
+  killThis: 0
+  percentChanceToDropItem: 40
   orcMeleeRange: 2
   orcDamage: 15
   playerLife: {fileID: 0}

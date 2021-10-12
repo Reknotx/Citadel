@@ -19,23 +19,24 @@ namespace Interactables
 
         public override void Interact()
         {
-            if (given == false)
-            {
+            
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 player.GetComponent<Player>().myMana += dropAmount;
-                given = true;
-            }
+            Destroy(this.gameObject);
 
 
         }
 
+        
         public void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.tag == "Player")
             {
-                Interact();
-                Destroy(this.gameObject);
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                player.GetComponent<Player>().Interacting = true;
             }
         }
+
+        
     }
 }

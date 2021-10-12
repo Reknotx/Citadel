@@ -45,7 +45,7 @@ public class TrapScript : MonoBehaviour
     {
         canDamage = false;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        player.GetComponent<Player>().Health -= trapDamage;
+        player.GetComponent<Player>().TakeDamage(trapDamage);
         yield return new WaitForSeconds(trapDamageInterval);
         canDamage = true;
         
