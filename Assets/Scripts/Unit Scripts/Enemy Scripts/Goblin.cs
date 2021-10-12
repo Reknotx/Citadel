@@ -29,7 +29,7 @@ public class Goblin : Enemy
 
     #region Life Handler for Player
 
-    public LifeManaHandler playerLife;
+    public Player playerLife;
 
     #endregion
 
@@ -50,7 +50,7 @@ public class Goblin : Enemy
         //end
         goblinAttack_L.SetActive(false);
         goblinAttack_R.SetActive(false);
-        playerLife = GameObject.FindGameObjectWithTag("HealthManaHandler").GetComponent<LifeManaHandler>();
+        playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         
     }
 
@@ -110,7 +110,7 @@ public class Goblin : Enemy
         if (facingRight)
         {
             StartCoroutine(WaitBetweenVisual_Right());
-            playerLife.Damage(goblinDamage);
+            playerLife.TakeDamage(goblinDamage);
             StartCoroutine(WaitBetweenAttack());
 
 
@@ -119,7 +119,7 @@ public class Goblin : Enemy
         else
         {
             StartCoroutine(WaitBetweenVisual_Left());
-            playerLife.Damage(goblinDamage);
+            playerLife.TakeDamage(goblinDamage);
             StartCoroutine(WaitBetweenAttack());
         }
     }

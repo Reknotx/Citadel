@@ -55,6 +55,12 @@ public class PlayerGoldTrackerScript : MonoBehaviour
         _instance = this;
 
         DontDestroyOnLoad(this.gameObject);
+
+        player = GameObject.FindGameObjectWithTag("Player");
+        goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
+        currentSceneName = SceneManager.GetActiveScene().name;
+
+
     }
 
 
@@ -69,9 +75,7 @@ public class PlayerGoldTrackerScript : MonoBehaviour
         }
         _instance = this;
 
-        player = GameObject.FindGameObjectWithTag("Player");
-        goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
-        currentSceneName = SceneManager.GetActiveScene().name;
+        
 
         if (currentSceneName != lastSceneName)
         {
@@ -82,6 +86,8 @@ public class PlayerGoldTrackerScript : MonoBehaviour
 
         if (sceneChanged == true)
         {
+            
+
             goldUpdated = false;
             statsUpdated = false;
             updateGold();
@@ -92,7 +98,7 @@ public class PlayerGoldTrackerScript : MonoBehaviour
 
 
 
-
+        findReference();
         trackGold();
         trackStats();
 
@@ -134,6 +140,13 @@ public class PlayerGoldTrackerScript : MonoBehaviour
             numMiner = goldHandler.GetComponent<GoldHandler>().numOfMiners;
         }
 
+    }
+
+    public void findReference()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
+        currentSceneName = SceneManager.GetActiveScene().name;
     }
 
 
