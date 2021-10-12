@@ -15,9 +15,10 @@ using UnityEngine.InputSystem;
 
 public class Unit : MonoBehaviour
 {
-       
+
     #region Base Stats
 
+    [Header("unit base stats")]
     #region Unit's Movement Stats 
 
     ///<summary>This is the unit's speed.</summary>
@@ -55,9 +56,9 @@ public class Unit : MonoBehaviour
 
 
     #endregion
-   
-    #region Unit's Attached Colliders/Gameobjects
 
+    #region Unit's Attached Colliders/Gameobjects
+    [Header("unit colliders/ground detection")]
 
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
@@ -159,9 +160,11 @@ public class Unit : MonoBehaviour
     protected int onFireDamage;
 
     /// <summary> this determines how quickly on fire damage will tick against health </summary>
+ [HideInInspector]
     protected float onFireDamageRate = 1f;
 
     /// <summary> This determines the delay between taking on fire damage</summary>
+    [HideInInspector]
     protected float onFireDamageDelay = 2f;
 
     #endregion

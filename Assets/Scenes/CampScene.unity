@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!65 &89305396 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 7296636179755792671, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+  m_PrefabInstance: {fileID: 6839536119485156944}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &161311738
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -196,6 +201,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1a9e51a92f62534da9fa5ea1777e2ed, type: 3}
+--- !u!65 &295787268 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 9002045093130673485, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+  m_PrefabInstance: {fileID: 6839536119485156944}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &414431013
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,7 +297,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 50, y: 37.353, z: 0}
 --- !u!114 &484738048 stripped
 MonoBehaviour:
@@ -908,7 +918,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5263043593152289955, guid: c1a9e51a92f62534da9fa5ea1777e2ed, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5263043593152289955, guid: c1a9e51a92f62534da9fa5ea1777e2ed, type: 3}
       propertyPath: m_LocalScale.y
@@ -1210,8 +1220,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4206313302874563085, guid: 51fb41dafa85cd0459bd4a6aa9f056d6, type: 3}
+      propertyPath: playerSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4206313302874563085, guid: 51fb41dafa85cd0459bd4a6aa9f056d6, type: 3}
       propertyPath: playerMaxMana
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4206313302874563085, guid: 51fb41dafa85cd0459bd4a6aa9f056d6, type: 3}
+      propertyPath: startingSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4206313302874563085, guid: 51fb41dafa85cd0459bd4a6aa9f056d6, type: 3}
       propertyPath: playerMaxHealth
@@ -1222,8 +1240,20 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4206313302874563085, guid: 51fb41dafa85cd0459bd4a6aa9f056d6, type: 3}
+      propertyPath: playerAttackRange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4206313302874563085, guid: 51fb41dafa85cd0459bd4a6aa9f056d6, type: 3}
       propertyPath: startingMaxHealth
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4206313302874563085, guid: 51fb41dafa85cd0459bd4a6aa9f056d6, type: 3}
+      propertyPath: playerAttackDamage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4206313302874563085, guid: 51fb41dafa85cd0459bd4a6aa9f056d6, type: 3}
+      propertyPath: startingAttackRange
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4206313302874563085, guid: 51fb41dafa85cd0459bd4a6aa9f056d6, type: 3}
       propertyPath: startingAttackDamage
@@ -1484,6 +1514,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 49507156983574495, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: myMana
       value: 100
@@ -1520,6 +1554,14 @@ PrefabInstance:
       propertyPath: startingMana
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: _heavyCollider
+      value: 
+      objectReference: {fileID: 295787268}
+    - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: _lightCollider
+      value: 
+      objectReference: {fileID: 89305396}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: startingHealth
       value: 100
@@ -1571,6 +1613,70 @@ PrefabInstance:
     - target: {fileID: 493934281067369775, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: m_Name
       value: PlayerNew
+      objectReference: {fileID: 0}
+    - target: {fileID: 2526396374839561764, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078490056996463259, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471248705491675934, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_TagString
+      value: swordHeavy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831382812058061515, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210823497023707636, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210823497023707636, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210823497023707636, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6735863030490268494, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_TagString
+      value: swordLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124702301824241806, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296636179755792671, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296636179755792671, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262744268649245665, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00026
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262744268649245665, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00078
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262744268649245665, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0002
+      objectReference: {fileID: 0}
+    - target: {fileID: 8782294765192081755, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_Name
+      value: Sword Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 8782294765192081755, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_TagString
+      value: swordLight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
