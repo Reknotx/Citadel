@@ -136,7 +136,7 @@ namespace ShopSystem
             manaUpButton.interactable = hardGold > info.manaUpInfo.upgradeCost;
             spellPotencyUpButton.interactable = hardGold > info.spellPotencyUpInfo.upgradeCost;
 
-            spell1Button.interactable = hardGold > info.fireWall.spellCost;
+            spell1Button.interactable = hardGold > info.spell1Info.spellCost;
         }
         //public void BuySpell()
         //{

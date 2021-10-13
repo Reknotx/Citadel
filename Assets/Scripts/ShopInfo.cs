@@ -19,8 +19,6 @@ namespace ShopSystem
         public ShopStatUpgrade spellPotencyUpInfo;
 
         [Space(10)]
-        public SpellItem fireWall;
-
         public SpellItem spell1Info;
         public SpellItem spell2Info;
         public SpellItem spell3Info;
@@ -54,21 +52,28 @@ namespace ShopSystem
             ///and provide it to the player.
 
             ///
-            List<SpellItem> tempList = purchaseableSpells;
+            List<SpellItem> tempList = new List<SpellItem>();
             for (int i = 0; i < Mathf.Clamp(purchaseableSpells.Count, 0, 3); i++)
             {
-                int index = Random.Range(0, tempList.Count);
+                int index;
+                while (true)
+                {
+                    index = Random.Range(0, purchaseableSpells.Count);
+
+                    if (!tempList.Contains(purchaseableSpells[index]))
+                        break;
+                }
 
                 switch (i)
                 {
-                    case 0: spell1Info = tempList[index]; break;
+                    case 0: spell1Info = purchaseableSpells[index]; break;
 
-                    case 1: spell2Info = tempList[index]; break;
+                    case 1: spell2Info = purchaseableSpells[index]; break;
 
-                    case 2: spell3Info = tempList[index]; break;
+                    case 2: spell3Info = purchaseableSpells[index]; break;
                 }
 
-                tempList.RemoveAt(index);
+                tempList.Add(purchaseableSpells[index]);
 
             }
 
