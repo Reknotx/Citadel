@@ -34,15 +34,7 @@ public class Orc : Enemy
 
     #endregion
 
-    #region Orc Dash Properties
-
-    private bool isDashing;
-    private bool canDash;
-
-    private bool dashHandler;
-
-
-    #endregion
+    
 
 
     // Start is called before the first frame update
@@ -55,6 +47,8 @@ public class Orc : Enemy
         orcAttack_R.SetActive(false);
 
         playerLife = GameObject.FindGameObjectWithTag("HealthManaHandler").GetComponent<LifeManaHandler>();
+
+        
     }
 
     // Update is called once per frame
@@ -62,31 +56,40 @@ public class Orc : Enemy
     {
         base.Update();
 
-        if(Vector2.Distance(transform.position, player.transform.position) <= orcMeleeRange)
+        
+
+        if (distanceToPlayer <= orcMeleeRange)
         {
             if (canAttack)
             {
                 OrcAttack();
             }
         }
+        
     }
+
+   
 
     private void OrcAttack()
     {
         if (facingRight)
         {
-            StartCoroutine(WaitBetweenVisual_Right());
-            playerLife.Damage(orcDamage);
-            StartCoroutine(WaitBetweenAttack());
-            
-        }
-        else
-        {
+
             StartCoroutine(WaitBetweenVisual_Left());
             playerLife.Damage(orcDamage);
             StartCoroutine(WaitBetweenAttack());
         }
+        else
+        {
+            
+
+            StartCoroutine(WaitBetweenVisual_Right());
+            playerLife.Damage(orcDamage);
+            StartCoroutine(WaitBetweenAttack());
+        }
     }
+
+    
 
     IEnumerator WaitBetweenAttack()
     {
@@ -94,6 +97,10 @@ public class Orc : Enemy
         yield return new WaitForSeconds(1f);
         canAttack = true;
     }
+
+    
+
+    
 
     IEnumerator WaitBetweenVisual_Right()
     {

@@ -65,10 +65,5 @@ public class Projectile : MonoBehaviour
         DestroyProjectile();
     }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        DestroyProjectile();
-    }
-
 }
    

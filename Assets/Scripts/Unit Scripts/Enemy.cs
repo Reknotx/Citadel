@@ -58,7 +58,7 @@ public class Enemy : Unit
     RaycastHit hit;
 
     ///<summary>This targets the player for the Enemy.</summary>
-    [HideInInspector]
+    //[HideInInspector]
     public GameObject player;
 
     #endregion
@@ -70,15 +70,25 @@ public class Enemy : Unit
 
     private float stopSpeed = 0f;
 
-    private float normalSpeed;
+    public float normalSpeed;
 
     public float noJumpHeight;
-
-    Vector2 currentDirection;
 
     public float distanceToPlayer;
 
     public AIPath Astar;
+
+    public float nextWaypointDistance = 3f;
+
+    Path path;
+
+    int currentWaypoint = 0;
+
+    bool reachedEndOfPath = false;
+
+    Seeker seeker;
+
+
     #endregion
 
     #endregion
@@ -95,14 +105,63 @@ public class Enemy : Unit
     [Tooltip("Activate this only to immediately kill the enemy.")]
     public bool killThis = false;
 
-    private void Start()
+    public void Start()
     {
         normalSpeed = speed;
         //Tyler Added code
         player = GameObject.FindGameObjectWithTag("Player");
 
+        _rigidBody = GetComponent<Rigidbody>();
+
         Astar = GetComponent<AIPath>();
+        seeker = GetComponent<Seeker>();
+
+        InvokeRepeating("UpdatePath", 0f, .5f);
+        
     }
+
+    /*void UpdatePath()
+    {
+        if (seeker.IsDone())
+            seeker.StartPath(_rigidBody.position, player.transform.position, OnPathComplete);
+    }
+
+    void OnPathComplete(Path p)
+    {
+        if (!p.error)
+        {
+            path = p;
+            currentWaypoint = 0;
+        }
+    }
+
+    public void FixedUpdate()
+    {
+        if (path == null)
+            return;
+
+        if(currentWaypoint >= path.vectorPath.Count)
+        {
+            reachedEndOfPath = true;
+            return;
+        }
+        else
+        {
+            reachedEndOfPath = false;
+        }
+
+        Vector3 direction = ((Vector3)path.vectorPath[currentWaypoint] - _rigidBody.position).normalized;
+        Vector3 force = direction * speed * Time.deltaTime;
+
+        _rigidBody.AddForce(force);
+
+        float distance = Vector3.Distance(_rigidBody.position, path.vectorPath[currentWaypoint]);
+
+        if(distance < nextWaypointDistance)
+        {
+            currentWaypoint++;
+        }
+    }*/
 
     public override void Update()
     {
@@ -121,11 +180,11 @@ public class Enemy : Unit
 
         distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
 
-        if (distanceToPlayer < followDistance)
+        if (distanceToPlayer <= followDistance)
         {
             Astar.canMove = true;
         }
-        else
+        else if(distanceToPlayer > followDistance)
         {
             Astar.canMove = false;
         }
@@ -143,14 +202,15 @@ public class Enemy : Unit
 
         }
 
-        if (yDistance < noJumpHeight)
+        
+        /*if (yDistance < noJumpHeight)
         {
             speed = stopSpeed;
         }
         else
         {
             speed = normalSpeed;
-        }
+        }*/
 
         /*if (onPlatform == true)
         {
@@ -274,6 +334,7 @@ public class Enemy : Unit
         if (other.gameObject.tag=="swordLight")
         {
             TakeDamage(player.GetComponent<Player>().meleeAttackDamage);
+            //myHealth -= 1;
             //Tyler Added code
             if(myHealth <= 0)
             {
@@ -304,6 +365,7 @@ public class Enemy : Unit
         {
             
             TakeDamage(player.GetComponent<Player>().meleeAttackDamage * 2);
+            //myHealth -= 2;
             hitOnRight = player.GetComponent<Player>().facingRightLocal;
             
 

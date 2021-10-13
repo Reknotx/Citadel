@@ -198,7 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6.7
   jumpFroce: 1.62
-  maxHealth: 0
+  maxHealth: 5
   _groundCollider: {fileID: 1065828198705947069}
   _platformCollider: {fileID: 0}
   _hitboxCollider: {fileID: 1065828198705947069}
@@ -231,6 +231,9 @@ MonoBehaviour:
   playerLife: {fileID: 0}
   orcAttack_L: {fileID: 1065828199163735791}
   orcAttack_R: {fileID: 1065828199501566337}
+  dashDistance: 7
+  dashSpeed: 25
+  howFarToDash: 100
 --- !u!54 &1065828198705947067
 Rigidbody:
   m_ObjectHideFlags: 0
