@@ -230,6 +230,8 @@ MonoBehaviour:
   wallRenderer: {fileID: 1103918509092910013}
   castRigidbody: {fileID: 1103918510936984277}
   changed: 0
+  ballParticles: {fileID: 5365726603366380035}
+  wallParticles: {fileID: 7223173894497608097}
 --- !u!54 &1103918510936984277
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -301,8 +303,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirewallEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 7337099988486216876, guid: 04ac2ef9496f989478f11da7323e357e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04ac2ef9496f989478f11da7323e357e, type: 3}
+--- !u!1 &7223173894497608097 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7337099988486216876, guid: 04ac2ef9496f989478f11da7323e357e, type: 3}
+  m_PrefabInstance: {fileID: 139404827839560973}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7223173894497608100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7337099988486216873, guid: 04ac2ef9496f989478f11da7323e357e, type: 3}
@@ -369,6 +380,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7a4a0073aea6f64488d5edd291473bf, type: 3}
+--- !u!1 &5365726603366380035 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7337099988486216876, guid: b7a4a0073aea6f64488d5edd291473bf, type: 3}
+  m_PrefabInstance: {fileID: 3433007880104210095}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5365726603366380038 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7337099988486216873, guid: b7a4a0073aea6f64488d5edd291473bf, type: 3}
