@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldHandler: {fileID: 0}
+  player: {fileID: 0}
   playerSoftGold: 0
   playerHardGold: 0
   startingSoftGold: 0
@@ -52,8 +53,19 @@ MonoBehaviour:
   numMiner: 1
   startingNumCart: 0
   startingNumMiner: 1
-  updated: 0
+  goldUpdated: 0
+  statsUpdated: 0
   sceneChanged: 0
   playerDead: 0
   currentSceneName: 
   lastSceneName: 
+  playerSpeed: 5
+  playerMaxHealth: 100
+  playerMaxMana: 100
+  playerAttackDamage: 1
+  playerAttackRange: 1
+  startingSpeed: 5
+  startingMaxHealth: 100
+  startingMaxMana: 100
+  startingAttackDamage: 1
+  startingAttackRange: 1
