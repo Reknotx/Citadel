@@ -95,7 +95,7 @@ public class Orc : Enemy
     IEnumerator WaitBetweenAttack()
     {
         canAttack = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         canAttack = true;
     }
 
@@ -104,7 +104,7 @@ public class Orc : Enemy
     IEnumerator StunPlayer()
     {
         thePlayer.canMove = false;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         thePlayer.canMove = true;
     }
 
