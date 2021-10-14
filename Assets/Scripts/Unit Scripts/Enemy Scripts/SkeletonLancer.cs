@@ -85,7 +85,7 @@ public class SkeletonLancer : Enemy
     IEnumerator Dash()
     {
         isDashing = true;
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(1f);
         isDashing = false;
     }
 
@@ -95,4 +95,6 @@ public class SkeletonLancer : Enemy
         yield return new WaitForSeconds(5f);
         canDash = true;
     }
+
+
 }
