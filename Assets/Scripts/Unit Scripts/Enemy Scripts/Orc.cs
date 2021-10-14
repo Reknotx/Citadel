@@ -34,7 +34,7 @@ public class Orc : Enemy
 
     #endregion
 
-    
+    public Player thePlayer;
 
 
     // Start is called before the first frame update
@@ -48,7 +48,7 @@ public class Orc : Enemy
 
         playerLife = GameObject.FindGameObjectWithTag("HealthManaHandler").GetComponent<LifeManaHandler>();
 
-        
+        thePlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -63,6 +63,7 @@ public class Orc : Enemy
             if (canAttack)
             {
                 OrcAttack();
+                StartCoroutine(StunPlayer());
             }
         }
         
@@ -100,7 +101,12 @@ public class Orc : Enemy
 
     
 
-    
+    IEnumerator StunPlayer()
+    {
+        thePlayer.canMove = false;
+        yield return new WaitForSeconds(3f);
+        thePlayer.canMove = true;
+    }
 
     IEnumerator WaitBetweenVisual_Right()
     {
