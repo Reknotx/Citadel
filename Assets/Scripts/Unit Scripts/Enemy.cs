@@ -105,7 +105,7 @@ public class Enemy : Unit
     [Tooltip("Activate this only to immediately kill the enemy.")]
     public bool killThis = false;
 
-    public void Start()
+    public virtual void Start()
     {
         normalSpeed = speed;
         //Tyler Added code
@@ -302,10 +302,10 @@ public class Enemy : Unit
     {
         if (seenByCamera)
         {
-            if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+           /* if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
             {
                 transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-            }
+            }*/
 
             if (transform.position.x - player.transform.position.x > 0)
             {

@@ -24,8 +24,10 @@ public class SkeletonLancer : Enemy
 
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
+        base.Start();
+
         isDashing = false;
         canDash = true;
         
