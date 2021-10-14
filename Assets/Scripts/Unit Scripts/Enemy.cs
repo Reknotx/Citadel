@@ -80,11 +80,11 @@ public class Enemy : Unit
 
     public float nextWaypointDistance = 3f;
 
-    Path path;
+    //Path path;
 
-    int currentWaypoint = 0;
+    //int currentWaypoint = 0;
 
-    bool reachedEndOfPath = false;
+    //bool reachedEndOfPath = false;
 
     Seeker seeker;
 
@@ -116,7 +116,7 @@ public class Enemy : Unit
         Astar = GetComponent<AIPath>();
         seeker = GetComponent<Seeker>();
 
-        InvokeRepeating("UpdatePath", 0f, .5f);
+        //InvokeRepeating("UpdatePath", 0f, .5f);
         
     }
 
