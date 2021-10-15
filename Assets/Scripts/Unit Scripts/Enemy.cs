@@ -9,6 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class Enemy : Unit
 {
@@ -74,6 +75,10 @@ public class Enemy : Unit
     public float noJumpHeight;
 
     Vector2 currentDirection;
+
+    public float distanceToPlayer;
+
+    public AIPath Astar;
     #endregion
 
     #endregion
@@ -95,6 +100,8 @@ public class Enemy : Unit
         normalSpeed = speed;
         //Tyler Added code
         player = GameObject.FindGameObjectWithTag("Player");
+
+        Astar = GetComponent<AIPath>();
     }
 
     public override void Update()
@@ -112,7 +119,16 @@ public class Enemy : Unit
 
         yDistance = Mathf.Abs(transform.position.y - player.transform.position.y);
 
+        distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
 
+        if (distanceToPlayer < followDistance)
+        {
+            Astar.canMove = true;
+        }
+        else
+        {
+            Astar.canMove = false;
+        }
 
         if (isGrounded)
         {
