@@ -19,8 +19,8 @@ namespace ShopSystem
         public ShopStatUpgrade spellPotencyUpInfo;
 
         //hunter added
-        public ShopUpgradeItem healthPotions;
-        public ShopUpgradeItem manaPotions;
+        public ShopStatUpgrade healthPotions;
+        public ShopStatUpgrade manaPotions;
         //ends
 
         [Space(10)]
