@@ -165,18 +165,24 @@ public class Player : Unit
     public bool shieldActive;
 
     #endregion
-            #region Bool Equipment
+            #region Bool/int Equipment
 
     [Header("player equipment")]
     public bool shuues = false;
     public bool undying = false;
     public bool spellStone = false;
     public bool floatingShield = false;
-
     [HideInInspector]
     public GameObject flotingShieldObj;
+
+    public int healthPotions = 0;
+    public int manaPotions = 0;
+    public int potionMax = 2;
+    public int healthPotionMax = 2;
+    public int manaPotionMax = 2;
+
     #endregion
-            #region Animations
+    #region Animations
     [Header("player animations")]
     public Animator animator;
     private bool triggered = false;

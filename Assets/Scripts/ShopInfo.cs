@@ -16,6 +16,11 @@ namespace ShopSystem
         public ShopUpgradeItem manaUpInfo;
         public ShopUpgradeItem spellPotencyUpInfo;
 
+        //hunter added
+        public ShopUpgradeItem healthPotions;
+        public ShopUpgradeItem manaPotions;
+        //ends
+
         [Space(10)]
         public SpellItem fireWall;
     }
@@ -42,6 +47,11 @@ namespace ShopSystem
 
         [Tooltip("The amount that the stat is increased by.")]
         public float increaseValueBy;
+
+        //hunter added
+        [Tooltip("the base cost value of potions")]
+        public int potionCost;
+        //ends
 
         private int _level = 0;
 
