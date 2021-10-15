@@ -24,6 +24,12 @@ namespace ShopSystem
         public Button spell2Button;
         public Button spell3Button;
 
+        //hunter added
+        public Button healthPotionButton;
+        public Button manaPotionButton;
+        //ends
+
+
         public GameObject popupDisplay;
 
         List<Button> shopButtons;
@@ -51,12 +57,24 @@ namespace ShopSystem
             shopButtons.Add(spell2Button);
             shopButtons.Add(spell3Button);
 
+            //hunter added
+            shopButtons.Add(healthPotionButton);
+            shopButtons.Add(manaPotionButton);
+            //ends
+
+
             healthUpButton.onClick.AddListener(() => Buy(info.healthUpInfo));
             attackUpButton.onClick.AddListener(() => Buy(info.attackUpInfo));
             attackRangeUpButton.onClick.AddListener(() => Buy(info.attackRangeUpInfo));
             speedUpButton.onClick.AddListener(() => Buy(info.speedUpInfo));
             manaUpButton.onClick.AddListener(() => Buy(info.manaUpInfo));
             spellPotencyUpButton.onClick.AddListener(() => Buy(info.spellPotencyUpInfo));
+
+            //hunter added
+            healthPotionButton.onClick.AddListener(() => BuyHealthPotion());
+            manaPotionButton.onClick.AddListener(() => BuyManaPotion());
+            //ends
+
 
             spell1Button.onClick.AddListener(() => Buy(info.spell1Info));
             spell2Button.onClick.AddListener(() => Buy(info.spell2Info));
@@ -136,8 +154,46 @@ namespace ShopSystem
             manaUpButton.interactable = hardGold > info.manaUpInfo.upgradeCost;
             spellPotencyUpButton.interactable = hardGold > info.spellPotencyUpInfo.upgradeCost;
 
+            //hunter added
+            healthPotionButton.interactable = hardGold > info.healthPotions.potionCost;
+            manaPotionButton.interactable = hardGold > info.manaPotions.potionCost;
+            //ends
+
+
             spell1Button.interactable = hardGold > info.spell1Info.spellCost;
         }
+
+
+        //hunter added
+        public void BuyHealthPotion()
+        {
+            if (Player.Instance.healthPotions < Player.Instance.healthPotionMax && Player.Instance.healthPotions < Player.Instance.potionMax)
+            {
+                Player.Instance.healthPotions += 1;
+            }
+            else
+            {
+                Debug.Log("You are carrying the max amount of potions possible");
+
+            }
+
+        }
+
+        public void BuyManaPotion()
+        {
+            if (Player.Instance.manaPotions < Player.Instance.manaPotionMax && Player.Instance.manaPotions < Player.Instance.potionMax)
+            {
+                Player.Instance.manaPotions += 1;
+            }
+            else
+            {
+                Debug.Log("You are carrying the max amount of potions possible");
+
+            }
+
+        }
+        //ends
+
         //public void BuySpell()
         //{
         //    Player.Instance.fireWall_prefab = info.fireWall.spellPrefab;
