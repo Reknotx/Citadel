@@ -172,6 +172,7 @@ public class Player : Unit
     public bool undying = false;
     public bool spellStone = false;
     public bool floatingShield = false;
+    public bool medicineStash = false;
     [HideInInspector]
     public GameObject flotingShieldObj;
 
@@ -263,6 +264,12 @@ public class Player : Unit
         if(floatingShield)
         {
             flotingShieldObj.SetActive(true);
+        }
+        if(medicineStash == true)
+        {
+            manaPotionMax = 3;
+            healthPotionMax = 3;
+            potionMax = 4;
         }
         
 
