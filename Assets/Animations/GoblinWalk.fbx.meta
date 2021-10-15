@@ -1,0 +1,991 @@
+fileFormatVersion: 2
+guid: 796026491a3399943ac5e3b5966e0dd4
+ModelImporter:
+  serializedVersion: 20200
+  internalIDToNameTable:
+  - first:
+      74: 1827226128182048838
+    second: GoblinWalk
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: GoblinWalk
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 1
+      lastFrame: 17
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 1
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human:
+    - boneName: goblin_for_animating:Pelvis
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Thigh_L
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Thigh_R
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Calf_L
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Calf_R
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Foot_L
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Foot_R
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Spine
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Spine1
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Clav_L
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Clav_R
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Bicep_L
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Bicep_R
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:ForeArm_L
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:ForeArm_R
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Hand_L
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Hand_R
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Toe_L
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Toe_R
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Eye_L
+      humanName: LeftEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Eye_R
+      humanName: RightEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Jaw
+      humanName: Jaw
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Finger1_L
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Finger11_L
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Finger2_L
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Finger21_L
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Finger3_L
+      humanName: Left Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Finger31_L
+      humanName: Left Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Finger4_L
+      humanName: Left Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Finger1_R
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Finger11_R
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Finger2_R
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Finger21_R
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Finger3_R
+      humanName: Right Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Finger31_R
+      humanName: Right Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Finger4_R
+      humanName: Right Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: goblin_for_animating:Spine2
+      humanName: UpperChest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: GoblinWalk(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:gob_bod
+      parentName: GoblinWalk(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 100, y: 100, z: 100}
+    - name: goblin_for_animating:gob_armature
+      parentName: GoblinWalk(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: goblin_for_animating:Root
+      parentName: goblin_for_animating:gob_armature
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.7071068, y: -0.0000000842937, z: -0.00000008429369, w: 0.7071067}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: goblin_for_animating:Pelvis
+      parentName: goblin_for_animating:Root
+      position: {x: 0.0000000046599813, y: 0.0054046344, z: -0.00040603016}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Spine
+      parentName: goblin_for_animating:Pelvis
+      position: {x: -4.087099e-10, y: 0.0006151253, z: 0.00022834893}
+      rotation: {x: 0.24593547, y: 0.0000000013299939, z: 0.000000004742553, w: 0.9692862}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Spine1
+      parentName: goblin_for_animating:Spine
+      position: {x: 7.958336e-11, y: 0.0007748464, z: -0.0000001816742}
+      rotation: {x: -0.025398433, y: 0.000000009581986, z: 0.000000013809712, w: 0.9996774}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Spine2
+      parentName: goblin_for_animating:Spine1
+      position: {x: 1.2446871e-10, y: 0.0009645644, z: 0.00004284271}
+      rotation: {x: 0.042783927, y: 0.000000017565558, z: 0.000000016067322, w: 0.99908435}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Clav_L
+      parentName: goblin_for_animating:Spine2
+      position: {x: -0.0002519873, y: 0.0008247033, z: 0.0004807378}
+      rotation: {x: -0.090728045, y: -0.1200496, z: 0.7728963, w: 0.61643153}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Bicep_L
+      parentName: goblin_for_animating:Clav_L
+      position: {x: -0.00005117927, y: 0.00094654615, z: 0.00012685083}
+      rotation: {x: 0.17982483, y: 0.6950339, z: 0.064654015, w: 0.69311666}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:ForeArm_L
+      parentName: goblin_for_animating:Bicep_L
+      position: {x: 0.000015115393, y: 0.0025437926, z: 0.00004780257}
+      rotation: {x: 0.07775158, y: -0.0826304, z: -0.013956703, w: 0.9934446}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Hand_L
+      parentName: goblin_for_animating:ForeArm_L
+      position: {x: -0.000096731485, y: 0.0026518102, z: -0.00014205166}
+      rotation: {x: -0.014129749, y: 0.2988733, z: -0.03203139, w: 0.9536504}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Finger1_L
+      parentName: goblin_for_animating:Hand_L
+      position: {x: -0.00012046719, y: 0.00085251476, z: 0.0002508091}
+      rotation: {x: 0.013444729, y: 0.0052050636, z: 0.042661563, w: 0.9989855}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Finger11_L
+      parentName: goblin_for_animating:Finger1_L
+      position: {x: -0.000033194217, y: 0.00096994825, z: -0.000034259334}
+      rotation: {x: -0.21090232, y: -0.042211488, z: 0.23319887, w: 0.9483442}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Finger2_L
+      parentName: goblin_for_animating:Hand_L
+      position: {x: 0.0000055529636, y: 0.0008447579, z: 0.000076779965}
+      rotation: {x: 0.006327187, y: 0.0018212199, z: 0.022670733, w: 0.9997213}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Finger21_L
+      parentName: goblin_for_animating:Finger2_L
+      position: {x: -0.00005844675, y: 0.0011567568, z: -0.000038465812}
+      rotation: {x: -0.17870457, y: -0.061132442, z: 0.22841954, w: 0.9550665}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Finger3_L
+      parentName: goblin_for_animating:Hand_L
+      position: {x: 0.00011984033, y: 0.0008268282, z: -0.000068656016}
+      rotation: {x: 0.0024804508, y: 0.011851249, z: 0.028038837, w: 0.9995335}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Finger31_L
+      parentName: goblin_for_animating:Finger3_L
+      position: {x: -0.000027884018, y: 0.0007913214, z: -0.000012632778}
+      rotation: {x: -0.124478236, y: -0.0666583, z: 0.30526733, w: 0.94173974}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Finger4_L
+      parentName: goblin_for_animating:Hand_L
+      position: {x: 0.00010600168, y: 0.0008292625, z: -0.00029191258}
+      rotation: {x: -0.30967417, y: 0.0038572408, z: 0.22835477, w: 0.9230066}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Neck
+      parentName: goblin_for_animating:Spine2
+      position: {x: 1.2480017e-10, y: 0.0007762934, z: -0.00003464381}
+      rotation: {x: -0.21829729, y: 0, z: -0, w: 0.9758823}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Head
+      parentName: goblin_for_animating:Neck
+      position: {x: 6.359337e-11, y: 0.0006642615, z: -0.000032040163}
+      rotation: {x: -0.27315834, y: 0, z: -0, w: 0.9619691}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Jaw
+      parentName: goblin_for_animating:Head
+      position: {x: 3.995861e-10, y: 0.00006051232, z: 0.00033519714}
+      rotation: {x: 0.7773091, y: -0.00000037498216, z: -0.0000013899345, w: 0.62911886}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Ear_L
+      parentName: goblin_for_animating:Head
+      position: {x: -0.0008171143, y: 0.0007754051, z: 0.00016658669}
+      rotation: {x: 0.63528, y: -0.5084608, z: 0.57219595, w: -0.10236628}
+      scale: {x: 1, y: 0.9999998, z: 0.9999999}
+    - name: goblin_for_animating:Eye_L
+      parentName: goblin_for_animating:Head
+      position: {x: -0.00054601335, y: 0.0010689166, z: 0.00075282826}
+      rotation: {x: -0.46143308, y: 0.6416368, z: 0.49628773, w: -0.35927752}
+      scale: {x: 0.99999994, y: 0.9999998, z: 0.9999999}
+    - name: goblin_for_animating:Ear_R
+      parentName: goblin_for_animating:Head
+      position: {x: 0.0008171148, y: 0.0007754051, z: 0.00016658474}
+      rotation: {x: 0.6352794, y: 0.50846064, z: -0.57219666, w: -0.10236701}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: goblin_for_animating:Eye_R
+      parentName: goblin_for_animating:Head
+      position: {x: 0.0005460151, y: 0.0010689166, z: 0.000752827}
+      rotation: {x: 0.46143377, y: 0.64163727, z: 0.49628702, w: 0.35927668}
+      scale: {x: 1, y: 1.0000004, z: 1.0000001}
+    - name: goblin_for_animating:Clav_R
+      parentName: goblin_for_animating:Spine2
+      position: {x: 0.00025198766, y: 0.00082470354, z: 0.00048073704}
+      rotation: {x: -0.090728335, y: 0.1200501, z: -0.7728968, w: 0.6164307}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Bicep_R
+      parentName: goblin_for_animating:Clav_R
+      position: {x: 0.000051178537, y: 0.0009465461, z: 0.00012685132}
+      rotation: {x: 0.17575407, y: -0.5579154, z: -0.018458823, w: 0.81086385}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:ForeArm_R
+      parentName: goblin_for_animating:Bicep_R
+      position: {x: -0.000015116592, y: 0.0025437933, z: 0.000047800106}
+      rotation: {x: 0.07958601, y: 0.07781885, z: 0.014159361, w: 0.99368495}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Hand_R
+      parentName: goblin_for_animating:ForeArm_R
+      position: {x: 0.00009672594, y: 0.0026518116, z: -0.00014204369}
+      rotation: {x: -0.02362165, y: -0.42561513, z: 0.039253674, w: 0.90374386}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Finger1_R
+      parentName: goblin_for_animating:Hand_R
+      position: {x: 0.000120467244, y: 0.0008525149, z: 0.00025080907}
+      rotation: {x: 0.01344428, y: -0.0052048564, z: -0.04266252, w: 0.9989855}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Finger11_R
+      parentName: goblin_for_animating:Finger1_R
+      position: {x: 0.00003319448, y: 0.00096994865, z: -0.00003425913}
+      rotation: {x: -0.21090257, y: 0.042211205, z: -0.23319831, w: 0.9483443}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Finger2_R
+      parentName: goblin_for_animating:Hand_R
+      position: {x: -0.000005552386, y: 0.0008447573, z: 0.00007677991}
+      rotation: {x: 0.006326502, y: -0.0018214285, z: -0.022671852, w: 0.9997213}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Finger21_R
+      parentName: goblin_for_animating:Finger2_R
+      position: {x: 0.000058447135, y: 0.0011567569, z: -0.000038464994}
+      rotation: {x: -0.17870449, y: 0.0611322, z: -0.22841944, w: 0.95506656}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Finger3_R
+      parentName: goblin_for_animating:Hand_R
+      position: {x: -0.000119839766, y: 0.00082682807, z: -0.00006865592}
+      rotation: {x: 0.0024797448, y: -0.011850981, z: -0.028040854, w: 0.9995334}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Finger31_R
+      parentName: goblin_for_animating:Finger3_R
+      position: {x: 0.000027884036, y: 0.00079132145, z: -0.000012632876}
+      rotation: {x: -0.12447822, y: 0.06665778, z: -0.3052674, w: 0.94173974}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Finger4_R
+      parentName: goblin_for_animating:Hand_R
+      position: {x: -0.00011194497, y: 0.00083545264, z: -0.0003090642}
+      rotation: {x: -0.32502195, y: -0.009837273, z: -0.29613414, w: 0.8980916}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Thigh_L
+      parentName: goblin_for_animating:Pelvis
+      position: {x: -0.00063686084, y: -0.00020537758, z: 0.00040603062}
+      rotation: {x: 0.19595338, y: 0.056023467, z: 0.9748541, w: 0.090128556}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Calf_L
+      parentName: goblin_for_animating:Thigh_L
+      position: {x: -0.0001335566, y: 0.0024128994, z: -0.00021127559}
+      rotation: {x: -0.08287327, y: 0.05486379, z: 0.06539524, w: 0.9928975}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Foot_L
+      parentName: goblin_for_animating:Calf_L
+      position: {x: 0.00006093812, y: 0.0018939996, z: 0.00017051114}
+      rotation: {x: 0.37214774, y: -0.0037803093, z: -0.13446827, w: 0.91837364}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Toe_L
+      parentName: goblin_for_animating:Foot_L
+      position: {x: 0.000019870316, y: 0.001122896, z: 0.000075238284}
+      rotation: {x: 0.38278577, y: -0.011824036, z: -0.10315019, w: 0.91798437}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Thigh_R
+      parentName: goblin_for_animating:Pelvis
+      position: {x: 0.00063686137, y: -0.00020537681, z: 0.00040603016}
+      rotation: {x: -0.19594812, y: 0.055918194, z: 0.9748649, w: -0.09008893}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Calf_R
+      parentName: goblin_for_animating:Thigh_R
+      position: {x: 0.00013355595, y: 0.0024128982, z: -0.00021127363}
+      rotation: {x: -0.08264948, y: -0.05487907, z: -0.0652748, w: 0.99292326}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Foot_R
+      parentName: goblin_for_animating:Calf_R
+      position: {x: -0.00006093852, y: 0.0018939995, z: 0.00017051231}
+      rotation: {x: 0.37202996, y: 0.0037885376, z: 0.13440931, w: 0.91843}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Toe_R
+      parentName: goblin_for_animating:Foot_R
+      position: {x: -0.000019870573, y: 0.001122896, z: 0.00007523867}
+      rotation: {x: 0.3827858, y: 0.011823849, z: 0.103150204, w: 0.91798437}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:gob_hoodie
+      parentName: GoblinWalk(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 100, y: 100, z: 100}
+    - name: goblin_for_animating:Character1_Ctrl_Reference
+      parentName: GoblinWalk(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_HipsEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.0000004887581, y: 0.5047791, z: -0.17138532}
+      rotation: {x: 0.00000012438686, y: -4.6827908e-14, z: 0.0000003764699, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftAnkleEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.11451457, y: 0.075426236, z: -0.15315995}
+      rotation: {x: 3.404855e-31, y: -0.00000018025422, z: -1.2246467e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightAnkleEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.114514604, y: 0.075425394, z: -0.15315998}
+      rotation: {x: 2.4973618e-30, y: -0.00000026246778, z: -1.2246467e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftWristEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.6205231, y: 0.7021621, z: -0.12287693}
+      rotation: {x: -0.39519402, y: -0.47356445, z: -0.40691218, w: 0.67378104}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightWristEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.61996543, y: 0.7048505, z: -0.12674734}
+      rotation: {x: -0.35476714, y: 0.46122167, z: 0.41674694, w: 0.6983816}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftKneeEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.096972436, y: 0.2647171, z: -0.16100101}
+      rotation: {x: -0.24683139, y: -0.003918883, z: -0.015050037, w: 0.96893364}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightKneeEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.09696153, y: 0.26471224, z: -0.1610734}
+      rotation: {x: -0.24800263, y: 0.0038727438, z: 0.015057578, w: 0.9686346}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftElbowEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.35873425, y: 0.7307704, z: -0.1584376}
+      rotation: {x: -0.14171638, y: -0.5287307, z: -0.2273115, w: 0.8054129}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightElbowEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.35861975, y: 0.73640335, z: -0.16306826}
+      rotation: {x: -0.0073268, y: 0.45616904, z: 0.3225552, w: 0.8293457}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_ChestOriginEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.00000043431515, y: 0.5760925, z: -0.21568394}
+      rotation: {x: 0.00000020809182, y: -0.000000016393992, z: -0.000000009974736, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_ChestEndEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.00000042915343, y: 0.7785335, z: -0.07702482}
+      rotation: {x: 0.00000020809183, y: -0.000000009381811, z: -0.000000013088516, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftShoulderEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.10926427, y: 0.7622776, z: -0.11963089}
+      rotation: {x: -0.4092313, y: -0.38001522, z: -0.5439765, w: 0.6262649}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightShoulderEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.10926514, y: 0.7622776, z: -0.11963085}
+      rotation: {x: -0.2887006, y: 0.28509903, z: 0.5872398, w: 0.70037127}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_HeadEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.0000004267514, y: 0.8715356, z: -0.11019585}
+      rotation: {x: 0.0000000055136393, y: -0.000000018457554, z: -1.01768295e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftHipEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.06368569, y: 0.50477904, z: -0.1713853}
+      rotation: {x: 0.19132932, y: -0.042964797, z: 0.022014953, w: 0.980338}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightHipEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.06368667, y: 0.50477916, z: -0.17138535}
+      rotation: {x: 0.19224732, y: 0.043112956, z: -0.022026949, w: 0.98015153}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftHandIndexEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.79690415, y: 0.71062887, z: -0.073323846}
+      rotation: {x: -0.44333163, y: -0.5828689, z: -0.2936054, w: 0.614424}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftHandMiddleEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.80906147, y: 0.673978, z: -0.079789616}
+      rotation: {x: -0.425499, y: -0.59440136, z: -0.31436345, w: 0.60565114}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftHandRingEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.76601064, y: 0.6607456, z: -0.09741977}
+      rotation: {x: -0.39683956, y: -0.6073665, z: -0.331698, w: 0.6029932}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftHandPinkyEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.7043701, y: 0.67561173, z: -0.1331736}
+      rotation: {x: 0.7153918, y: 0.14465305, z: 0.60738516, w: -0.31364515}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightHandIndexEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.79586643, y: 0.7021199, z: -0.07489334}
+      rotation: {x: -0.40117753, y: 0.57541037, z: 0.3110281, w: 0.64126515}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightHandMiddleEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.80678624, y: 0.6658114, z: -0.08465798}
+      rotation: {x: -0.3832101, y: 0.58410347, z: 0.33293533, w: 0.6333461}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightHandRingEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.76352537, y: 0.6558869, z: -0.10387511}
+      rotation: {x: -0.35466182, y: 0.5921201, z: 0.35179594, w: 0.63233566}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightHandPinkyEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.70357376, y: 0.6748151, z: -0.13970357}
+      rotation: {x: 0.6725045, y: -0.16798156, z: -0.598486, w: -0.40166453}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftFootExtraFingerEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.12593967, y: -0.0000030183792, z: -0.07039881}
+      rotation: {x: -0.000000014901159, y: -0.00000017462297, z: -2.6020848e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightFootExtraFingerEffector
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.12593961, y: -0.0000038290023, z: -0.07039882}
+      rotation: {x: -0.0000001490116, y: -0.00000026077032, z: -3.8857802e-14, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_Hips
+      parentName: goblin_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.0000004804929, y: 0.5104837, z: -0.21652807}
+      rotation: {x: -0.17045853, y: 0.00000006398196, z: 0.0000003698587, w: 0.98536485}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftUpLeg
+      parentName: goblin_for_animating:Character1_Ctrl_Hips
+      position: {x: -0.0636861, y: -0.02053772, z: 0.040603027}
+      rotation: {x: 0.3560558, y: -0.04616373, z: 0.014327733, w: 0.9332138}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftLeg
+      parentName: goblin_for_animating:Character1_Ctrl_LeftUpLeg
+      position: {x: -0.038552064, y: -0.21630356, z: 0.1028204}
+      rotation: {x: -0.42903084, y: 0.040438756, z: -0.02461784, w: 0.9020484}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftFoot
+      parentName: goblin_for_animating:Character1_Ctrl_LeftLeg
+      position: {x: -0.012276106, y: -0.17033556, z: -0.083876625}
+      rotation: {x: 0.24740003, y: 0.0039013007, z: 0.015010837, w: 0.9687893}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftFootExtraFinger1
+      parentName: goblin_for_animating:Character1_Ctrl_LeftFoot
+      position: {x: -0.011425066, y: -0.075429246, z: 0.08276113}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightUpLeg
+      parentName: goblin_for_animating:Character1_Ctrl_Hips
+      position: {x: 0.063686095, y: -0.02053772, z: 0.040603027}
+      rotation: {x: 0.35619423, y: 0.046183117, z: -0.0143477665, w: 0.93315965}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightLeg
+      parentName: goblin_for_animating:Character1_Ctrl_RightUpLeg
+      position: {x: 0.038552098, y: -0.21630353, z: 0.102820344}
+      rotation: {x: -0.42933828, y: -0.04046022, z: 0.024653027, w: 0.9019002}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightFoot
+      parentName: goblin_for_animating:Character1_Ctrl_RightLeg
+      position: {x: 0.012276115, y: -0.1703355, z: -0.083876684}
+      rotation: {x: 0.24758506, y: -0.003896058, z: -0.015037883, w: 0.9687416}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightFootExtraFinger1
+      parentName: goblin_for_animating:Character1_Ctrl_RightFoot
+      position: {x: 0.0114250565, y: -0.07542925, z: 0.082761124}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_Spine
+      parentName: goblin_for_animating:Character1_Ctrl_Hips
+      position: {x: 1.9319562e-15, y: 0.061512526, z: 0.022834873}
+      rotation: {x: -0.0000015837275, y: -0.000000020406649, z: -0.0000003764686, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_Spine1
+      parentName: goblin_for_animating:Character1_Ctrl_Spine
+      position: {x: 6.404368e-15, y: 0.06619499, z: 0.04027517}
+      rotation: {x: -0.000000028070405, y: -1.2274476e-16, z: -2.1437696e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_Spine2
+      parentName: goblin_for_animating:Character1_Ctrl_Spine1
+      position: {x: -1.4429255e-14, y: 0.073174015, z: 0.06299016}
+      rotation: {x: 0.000000028070405, y: -1.9403984e-16, z: -1.5968157e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftShoulder
+      parentName: goblin_for_animating:Character1_Ctrl_Spine2
+      position: {x: -0.025198743, y: 0.004727707, z: 0.09534197}
+      rotation: {x: -0.000000028070405, y: -2.7755576e-17, z: 2.927346e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftArm
+      parentName: goblin_for_animating:Character1_Ctrl_LeftShoulder
+      position: {x: -0.084065855, y: -0.0009986114, z: -0.04559093}
+      rotation: {x: -0.29714403, y: -0.29301265, z: -0.5743289, w: 0.70426935}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftForeArm
+      parentName: goblin_for_animating:Character1_Ctrl_LeftArm
+      position: {x: -0.067034476, y: -0.24411376, z: -0.025470302}
+      rotation: {x: 0.402875, y: 0.00006532709, z: 0.11846951, w: 0.9075554}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftHand
+      parentName: goblin_for_animating:Character1_Ctrl_LeftForeArm
+      position: {x: -0.058072336, y: -0.16810414, z: 0.1974461}
+      rotation: {x: -0.3144167, y: -0.1961455, z: 0.05932043, w: 0.92690355}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftHandIndex1
+      parentName: goblin_for_animating:Character1_Ctrl_LeftHand
+      position: {x: 0.007472629, y: -0.073486, z: 0.050852258}
+      rotation: {x: 0.00000020797741, y: -0.0000003706598, z: 0.00000040950457, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftHandIndex2
+      parentName: goblin_for_animating:Character1_Ctrl_LeftHandIndex1
+      position: {x: 0.0027022553, y: -0.094580255, z: 0.021864032}
+      rotation: {x: -0.00000008129659, y: -0.00000017883261, z: -0.00000008703034, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftHandMiddle1
+      parentName: goblin_for_animating:Character1_Ctrl_LeftHand
+      position: {x: -0.01028778, y: -0.074727975, z: 0.038798217}
+      rotation: {x: 0.00000008356257, y: -0.00000003959096, z: 0.000000032272123, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftHandMiddle2
+      parentName: goblin_for_animating:Character1_Ctrl_LeftHandMiddle1
+      position: {x: 0.005752239, y: -0.11562352, z: 0.005284729}
+      rotation: {x: 0.0000002530442, y: -0.0000002437334, z: -0.00000011307791, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftHandRing1
+      parentName: goblin_for_animating:Character1_Ctrl_LeftHand
+      position: {x: -0.025786495, y: -0.074480094, z: 0.028547667}
+      rotation: {x: -0.00000021274094, y: -0.000000081936506, z: -0.00000005970208, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftHandRing2
+      parentName: goblin_for_animating:Character1_Ctrl_LeftHandRing1
+      position: {x: 0.011670246, y: -0.07738015, z: -0.012140112}
+      rotation: {x: -0.00000018823916, y: -0.000000041144666, z: 0.000000015978673, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_LeftHandPinky1
+      parentName: goblin_for_animating:Character1_Ctrl_LeftHand
+      position: {x: -0.032591324, y: -0.08188814, z: 0.008567028}
+      rotation: {x: 0.000000024283741, y: -0.00000029821302, z: -0.0000004249695, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightShoulder
+      parentName: goblin_for_animating:Character1_Ctrl_Spine2
+      position: {x: 0.025198743, y: 0.004727707, z: 0.095341966}
+      rotation: {x: -0.000000028070405, y: 1.3877788e-16, z: 6.982262e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightArm
+      parentName: goblin_for_animating:Character1_Ctrl_RightShoulder
+      position: {x: 0.08406588, y: -0.0009986114, z: -0.045590885}
+      rotation: {x: -0.15841842, y: 0.18517596, z: 0.601234, w: 0.76100665}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightForeArm
+      parentName: goblin_for_animating:Character1_Ctrl_RightArm
+      position: {x: 0.06703443, y: -0.24411385, z: -0.025470385}
+      rotation: {x: 0.3677271, y: 0.000009532738, z: -0.10815516, w: 0.9236229}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightHand
+      parentName: goblin_for_animating:Character1_Ctrl_RightForeArm
+      position: {x: 0.058072336, y: -0.16810423, z: 0.19744602}
+      rotation: {x: -0.30681902, y: 0.3049503, z: -0.13604766, w: 0.8912679}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightHandIndex1
+      parentName: goblin_for_animating:Character1_Ctrl_RightHand
+      position: {x: -0.0074726483, y: -0.07348602, z: 0.05085225}
+      rotation: {x: -0.00000019526422, y: -0.00000013488646, z: 0.00000022938175, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightHandIndex2
+      parentName: goblin_for_animating:Character1_Ctrl_RightHandIndex1
+      position: {x: -0.0027022935, y: -0.09458024, z: 0.021863993}
+      rotation: {x: -0.00000020230223, y: 0.0000004819998, z: 0.0000007265223, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightHandMiddle1
+      parentName: goblin_for_animating:Character1_Ctrl_RightHand
+      position: {x: 0.0102877235, y: -0.07472799, z: 0.038798187}
+      rotation: {x: -0.00000019526422, y: -0.00000013488643, z: 0.00000022938175, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightHandMiddle2
+      parentName: goblin_for_animating:Character1_Ctrl_RightHandMiddle1
+      position: {x: -0.005752296, y: -0.11562351, z: 0.00528471}
+      rotation: {x: 0.00000007785883, y: 0.000000395296, z: -0.00000006849554, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightHandRing1
+      parentName: goblin_for_animating:Character1_Ctrl_RightHand
+      position: {x: 0.025786456, y: -0.07448011, z: 0.028547658}
+      rotation: {x: -0.00000021143929, y: -0.000000226263, z: 0.00000013599893, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightHandRing2
+      parentName: goblin_for_animating:Character1_Ctrl_RightHandRing1
+      position: {x: -0.011670246, y: -0.07738015, z: -0.012140178}
+      rotation: {x: 0.000000039133436, y: 0.00000047335715, z: -1.7796159e-14, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_RightHandPinky1
+      parentName: goblin_for_animating:Character1_Ctrl_RightHand
+      position: {x: 0.033848494, y: -0.08281906, z: 0.007457447}
+      rotation: {x: -0.00000019526422, y: -0.00000013488643, z: 0.00000022938175, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_Neck
+      parentName: goblin_for_animating:Character1_Ctrl_Spine2
+      position: {x: -6.3204087e-15, y: 0.045270994, z: 0.0631573}
+      rotation: {x: -0.0000025259549, y: -8.5546715e-17, z: -2.5345619e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: goblin_for_animating:Character1_Ctrl_Head
+      parentName: goblin_for_animating:Character1_Ctrl_Neck
+      position: {x: -3.8127894e-14, y: 0.058197174, z: 0.032183707}
+      rotation: {x: 3.0616168e-17, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 3
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
