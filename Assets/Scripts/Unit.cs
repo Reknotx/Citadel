@@ -66,7 +66,7 @@ public class Unit : MonoBehaviour
     protected Collider _groundCollider;
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
-    protected Collider _platformCollider;
+    protected  Collider _platformCollider;
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
@@ -97,7 +97,7 @@ public class Unit : MonoBehaviour
     #region Unit's bool determinates 
 
     ///<summary>This determines whether the unit is on the ground or not.</summary>
-    [HideInInspector]
+    [SerializeField]
     protected bool isGrounded;
 
     ///<summary>This determines whether the unit is on a platform or not.</summary>

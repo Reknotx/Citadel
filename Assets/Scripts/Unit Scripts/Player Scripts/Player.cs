@@ -82,13 +82,13 @@ public class Player : Unit
             #region Player's Ground/Directional Detection Stats
 
     ///<summary>This is the range of detection to the ground.</summary>
-    private float _Reach = 2f;
+    private float _Reach = 1f;
 
     ///<summary>This tracks what the ground detection raycast hits.</summary>
    private RaycastHit hit;
 
     ///<summary>This tracks what direction the player is facing.</summary>
-    [HideInInspector]
+    //[HideInInspector]
     public bool facingRightLocal;
 
     #endregion
@@ -160,6 +160,10 @@ public class Player : Unit
     [HideInInspector]
     public bool isAttacking = false;
 
+    public bool isJumping = false;
+
+    public bool shieldActive;
+
     #endregion
             #region Bool Equipment
 
@@ -167,7 +171,10 @@ public class Player : Unit
     public bool shuues = false;
     public bool undying = false;
     public bool spellStone = false;
-    public bool backShield = false;
+    public bool floatingShield = false;
+
+    [HideInInspector]
+    public GameObject flotingShieldObj;
     #endregion
             #region Animations
     [Header("player animations")]
@@ -200,8 +207,9 @@ public class Player : Unit
 
 
     #endregion
-
-
+    public float jumpTime;
+    public float jumpTimeCounter;
+    public bool dmgPlayerByTick = false;
 
     #endregion
 
@@ -214,6 +222,7 @@ public class Player : Unit
 
         Health = maxHealth;
         myMana = maxMana;
+        
         #region Player Movement Important Connectors
         ///<summary>The following is used to track player inputs and controls.</summary>
         playerInputActions = new PlayerInputActions();
@@ -230,7 +239,7 @@ public class Player : Unit
 
     }
 
-    public bool dmgPlayerByTick = false;
+   
     public override void Update()
     {
         Application.targetFrameRate = 60;
@@ -245,7 +254,10 @@ public class Player : Unit
 
         base.Update();
 
-        
+        if(floatingShield)
+        {
+            flotingShieldObj.SetActive(true);
+        }
         
 
         #region Player Stat controls
@@ -308,7 +320,8 @@ public class Player : Unit
         if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "platform")
         {
             onPlatform = true;
-            
+            isJumping = false;
+
         }
         else
         {
@@ -321,6 +334,7 @@ public class Player : Unit
         if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "ground")
         {
             isGrounded = true;
+            isJumping = false;
         }
         else
         {
@@ -458,13 +472,17 @@ public class Player : Unit
     {
         if (this != null)
         {
-            if (isGrounded == true )
+            isJumping = true;
+            if (context.performed && isGrounded == true )
             {
-              
+                
                 _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
+                jumpTimeCounter = jumpTime;
                 canDoubleJump = true;
                StartCoroutine(Jumped());
-
+               
+                
+                
             }
             else if(shuues == true )
             {

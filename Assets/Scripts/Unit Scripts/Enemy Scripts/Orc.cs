@@ -65,16 +65,37 @@ public class Orc : Enemy
     {
         if (facingRight)
         {
-            StartCoroutine(WaitBetweenVisual_Right());
-            playerLife.TakeDamage(orcDamage);
-            StartCoroutine(WaitBetweenAttack());
+            if(player.GetComponent<Player>().facingRightLocal ==false && player.GetComponent<Player>().shieldActive )
+            {
+                StartCoroutine(WaitBetweenVisual_Right());
+                player.GetComponentInChildren<FloatingShieldScript>().isHit = true;
+                StartCoroutine(WaitBetweenAttack());
+            }
+            else
+            {
+                StartCoroutine(WaitBetweenVisual_Right());
+                playerLife.TakeDamage(orcDamage);
+                StartCoroutine(WaitBetweenAttack());
+            }
+            
             
         }
         else
         {
-            StartCoroutine(WaitBetweenVisual_Left());
-            playerLife.TakeDamage(orcDamage);
-            StartCoroutine(WaitBetweenAttack());
+            if (player.GetComponent<Player>().facingRightLocal && player.GetComponent<Player>().shieldActive)
+            {
+                StartCoroutine(WaitBetweenVisual_Left());
+                player.GetComponentInChildren<FloatingShieldScript>().isHit = true;
+                StartCoroutine(WaitBetweenAttack());
+            }
+            else
+            {
+                StartCoroutine(WaitBetweenVisual_Left());
+                playerLife.TakeDamage(orcDamage);
+                StartCoroutine(WaitBetweenAttack());
+            }
+
+          
         }
     }
 

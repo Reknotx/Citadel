@@ -24,7 +24,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""id"": ""fba601af-8a96-4a96-92ff-a6991b312909"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Hold""
                 },
                 {
                     ""name"": ""Drop"",
@@ -80,7 +80,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""37bc5a42-8eb9-4515-ae69-893ccd75de71"",
                     ""path"": ""<Keyboard>/w"",
-                    ""interactions"": ""Press(behavior=1)"",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",

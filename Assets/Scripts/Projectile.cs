@@ -58,6 +58,12 @@ public class Projectile : MonoBehaviour
         {
             DestroyProjectile();
         }
+
+        if(other.gameObject.tag == "FloatingShield")
+        {
+            other.GetComponent<FloatingShieldScript>().isHit = true;
+            DestroyProjectile();
+        }
     }
 }
    
