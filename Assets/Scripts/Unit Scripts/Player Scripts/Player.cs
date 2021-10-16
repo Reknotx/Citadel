@@ -606,6 +606,10 @@ public class Player : Unit
         {
             myVelocity.y = groundedGravity;
         }
+        else if(onPlatform)
+        {
+            myVelocity.y = groundedGravity;
+        }
         else if(isFalling)
         {
             float previousYVelocity = myVelocity.y;
@@ -623,15 +627,43 @@ public class Player : Unit
     }
     void handleJump()
     {
-        if(!isJumping && isGrounded && isJumpPressed)
+        if(!isJumping && isGrounded  && isJumpPressed)
         {
             isJumping = true;
             myVelocity.y = initialJumpVelocity * .5f;
+            canDoubleJump = true;
+            StartCoroutine(Jumped());
+        }
+        else if(isJumping && isJumpPressed && shuues && canDoubleJump)
+        {
+            myVelocity.y = initialJumpVelocity * .5f;
+            canDoubleJump = false;
+            StartCoroutine(Jumped());
         }
         else if(!isJumpPressed && isGrounded && isJumping)
         {
             isJumping = false;
         }
+
+        if (!isJumping && onPlatform && isJumpPressed)
+        {
+            isJumping = true;
+            myVelocity.y = initialJumpVelocity * .5f;
+            canDoubleJump = true;
+            StartCoroutine(Jumped());
+        }
+        else if (isJumping && isJumpPressed && shuues && canDoubleJump)
+        {
+            myVelocity.y = initialJumpVelocity * .5f;
+            canDoubleJump = false;
+            StartCoroutine(Jumped());
+        }
+        else if (!isJumpPressed && onPlatform && isJumping)
+        {
+            isJumping = false;
+        }
+
+
     }
 
     ///<summary>This triggers the unit to drop down if they are on a platform.</summary>

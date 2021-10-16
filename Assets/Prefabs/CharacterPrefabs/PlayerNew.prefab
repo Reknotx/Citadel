@@ -446,6 +446,7 @@ MonoBehaviour:
   grounded: 0
   isRunning: 0
   isAttacking: 0
+  dmgPlayerByTick: 0
   shieldActive: 0
   shuues: 0
   undying: 0
@@ -469,11 +470,10 @@ MonoBehaviour:
   isJumping: 0
   isJumpPressed: 0
   initialJumpVelocity: 0
-  maxJumpHeight: 0
-  maxJumpTime: 0
+  maxJumpHeight: 4
+  maxJumpTime: 1.25
   movementVelocity: {x: 0, y: 0, z: 0}
   myVelocity: {x: 0, y: 0, z: 0}
-  dmgPlayerByTick: 0
 --- !u!114 &493934281067369750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,8 +502,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 493934281067369769}
-        m_TargetAssemblyTypeName: Unit, Assembly-CSharp
-        m_MethodName: Jump
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Jump2
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -534,8 +534,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 493934281067369769}
-        m_TargetAssemblyTypeName: Unit, Assembly-CSharp
-        m_MethodName: movement
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: movement2
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
