@@ -160,7 +160,7 @@ public class Player : Unit
     [HideInInspector]
     public bool isAttacking = false;
 
-    public bool isJumping = false;
+    public bool dmgPlayerByTick = false;
 
     public bool shieldActive;
 
@@ -214,9 +214,27 @@ public class Player : Unit
 
 
     #endregion
-    public float jumpTime;
-    public float jumpTimeCounter;
-    public bool dmgPlayerByTick = false;
+    [Header("player attack names")]
+    public string Attack1;
+    public string Attack2;
+    public string Attack3;
+
+    [Header("player improved jumping ")]
+    float gravity = -9.8f;
+    float groundedGravity = -.05f;
+
+    public bool isJumping = false;
+    public bool isJumpPressed = false;
+    public float initialJumpVelocity;
+    public float maxJumpHeight;
+    public float maxJumpTime;
+
+    public Vector3 movementVelocity;
+    public Vector3 myVelocity;
+
+
+
+   
 
     #endregion
 
@@ -234,10 +252,11 @@ public class Player : Unit
         ///<summary>The following is used to track player inputs and controls.</summary>
         playerInputActions = new PlayerInputActions();
          playerInputActions.PlayerControl.Enable();
-         playerInputActions.PlayerControl.Jump.performed += Jump;
-         //playerInputActions.PlayerControl.Movement.performed += movement;
-         playerInputActions.PlayerControl.Drop.performed += Drop;
-
+         playerInputActions.PlayerControl.Jump.started += Jump;
+        playerInputActions.PlayerControl.Jump.canceled += Jump;
+        //playerInputActions.PlayerControl.Movement.performed += movement;
+        playerInputActions.PlayerControl.Drop.performed += Drop;
+        setJumpVariables();
         
 
 
@@ -251,7 +270,7 @@ public class Player : Unit
     {
         Application.targetFrameRate = 60;
         facingRightLocal = facingRight;
-
+        _rigidBody.velocity = myVelocity;
         if (dmgPlayerByTick)
         {
             dmgPlayerByTick = false;
@@ -290,7 +309,8 @@ public class Player : Unit
             StartCoroutine(InteractCoroutine());
         }
 
-
+        handleGravity();
+        handleJump();
         
 
         #endregion
@@ -378,7 +398,7 @@ public class Player : Unit
         {
             StartCoroutine(dropDown());
             _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 6);
-            //_rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
+            
         }
 
 
@@ -453,6 +473,7 @@ public class Player : Unit
             {
                
                     Vector2 inputVector = context.ReadValue<Vector2>();
+                
                     _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
                     if (inputVector.x > 0)
                     {
@@ -480,17 +501,52 @@ public class Player : Unit
         }
     }
 
+    public void movement2(InputAction.CallbackContext context)
+    {
+        if (canMove == true)
+        {
+            if (this != null)
+            {
+                Vector2 inputVector = context.ReadValue<Vector2>();
+                myVelocity.x = inputVector.x;
+                myVelocity.z = inputVector.y;
+
+                if (inputVector.x > 0)
+                {
+                    facingRight = true;
+
+                }
+                if (inputVector.x < 0)
+                {
+                    facingRight = false;
+                }
+
+                if (inputVector.x == 0)
+                {
+                    isRunning = false;
+                }
+                else
+                {
+
+                    isRunning = true;
+
+                }
+
+            }
+        }
+    }
+
     ///<summary>This triggers the unit to jump up.</summary>
     public void Jump(InputAction.CallbackContext context)
     {
         if (this != null)
         {
-            isJumping = true;
+            
             if (context.performed && isGrounded == true )
             {
                 
                 _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
-                jumpTimeCounter = jumpTime;
+                
                 canDoubleJump = true;
                StartCoroutine(Jumped());
                
@@ -528,6 +584,53 @@ public class Player : Unit
                 
             }
 
+        }
+    }
+
+    public void Jump2(InputAction.CallbackContext context)
+    {
+        isJumpPressed = context.ReadValueAsButton();
+    }
+    void setJumpVariables()
+    {
+        float timeToApex = maxJumpTime / 2;
+        gravity = (-2 * maxJumpHeight) / Mathf.Pow(timeToApex, 2);
+        initialJumpVelocity = (2 * maxJumpHeight) / timeToApex;
+    }
+
+    void handleGravity()
+    {
+        bool isFalling = myVelocity.y <= 0.0f || !isJumpPressed;
+        float fallMultiplier = 2.0f;
+        if(isGrounded)
+        {
+            myVelocity.y = groundedGravity;
+        }
+        else if(isFalling)
+        {
+            float previousYVelocity = myVelocity.y;
+            float newYVelocity = myVelocity.y + (gravity * fallMultiplier*Time.deltaTime);
+            float nextYVelocity = Mathf.Max((previousYVelocity + newYVelocity) * .5f, -20.0f);
+            myVelocity.y = nextYVelocity;
+        }
+        else
+        {
+            float previousYVelocity = myVelocity.y;
+            float newYVelocity = myVelocity.y + (gravity * Time.deltaTime);
+            float nextYVelocity = (previousYVelocity + newYVelocity) * .5f;
+            myVelocity.y = nextYVelocity ;
+        }
+    }
+    void handleJump()
+    {
+        if(!isJumping && isGrounded && isJumpPressed)
+        {
+            isJumping = true;
+            myVelocity.y = initialJumpVelocity * .5f;
+        }
+        else if(!isJumpPressed && isGrounded && isJumping)
+        {
+            isJumping = false;
         }
     }
 
@@ -575,11 +678,6 @@ public class Player : Unit
                     ReduceMana(fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost);
                 }
 
-
-
-
-
-
                 ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>
                 if (facingRight == true)
                 {
@@ -612,7 +710,7 @@ public class Player : Unit
     #endregion
     #region Unit Melee Attacks
     /// <summary> This is the attacking function  </summary>
-    public void lightAttack(InputAction.CallbackContext context)
+    public void lightAttack()
     {
         //Tyler made an edit to 1.0f y from 0.3fy
         _lightCollider.gameObject.transform.localScale = new Vector3(1f, meleeAttackRange, 1f) ;
@@ -670,7 +768,7 @@ public class Player : Unit
 
     /// <summary> This is the attacking function  </summary>
 
-    public void heavyAttack(InputAction.CallbackContext context)
+    public void heavyAttack()
     {
         //Tyler made an edit to 1.0f y from 0.3fy
         _heavyCollider.gameObject.transform.localScale = new Vector3(2.0f, meleeAttackRange, 1.0f);
@@ -732,7 +830,57 @@ public class Player : Unit
 
     #endregion
 
+    #region actionCheckers
+    public void actionCheck1()
+    {
+        if(Attack1 == "Light Attack")
+        {
+            lightAttack();
+        }
+        if (Attack1 == "Heavy Attack")
+        {
+            heavyAttack();
+        }
+        if (Attack1 == "Fire Wall")
+        {
+            fireWall();
+        }
+    }
+    public void actionCheck2()
+    {
+        if (Attack2 == "Light Attack")
+        {
+            lightAttack();
+        }
+        if (Attack2 == "Heavy Attack")
+        {
+            heavyAttack();
+        }
+        if (Attack2 == "Fire Wall")
+        {
+            fireWall();
+        }
+    }
+    public void actionCheck3()
+    {
+        if (Attack3 == "Light Attack")
+        {
+            lightAttack();
+        }
+        if (Attack3 == "Heavy Attack")
+        {
+            heavyAttack();
+        }
+        if (Attack3 == "Fire Wall")
+        {
+            fireWall();
+        }
+    }
 
+    #endregion
+
+   
+    
     #region Collision Detection
     public void OnTriggerStay(Collider other)
     {

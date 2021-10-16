@@ -243,7 +243,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4788754908606882353}
-  - {fileID: 493934281248266235}
   - {fileID: 493934281263560466}
   - {fileID: 493934281473032324}
   - {fileID: 493934282083378963}
@@ -447,20 +446,33 @@ MonoBehaviour:
   grounded: 0
   isRunning: 0
   isAttacking: 0
-  isJumping: 0
   shieldActive: 0
   shuues: 0
   undying: 0
   spellStone: 0
   floatingShield: 0
+  medicineStash: 0
   flotingShieldObj: {fileID: 1959013442573681910}
+  healthPotions: 0
+  manaPotions: 0
+  potionMax: 2
+  healthPotionMax: 2
+  manaPotionMax: 2
   animator: {fileID: 1483161897260169291}
   healthBar: {fileID: 0}
   manaBar: {fileID: 0}
   healthText: {fileID: 0}
   manaText: {fileID: 0}
-  jumpTime: 0
-  jumpTimeCounter: 0
+  Attack1: Light Attack
+  Attack2: Heavy Attack
+  Attack3: Fire Wall
+  isJumping: 0
+  isJumpPressed: 0
+  initialJumpVelocity: 0
+  maxJumpHeight: 0
+  maxJumpTime: 0
+  movementVelocity: {x: 0, y: 0, z: 0}
+  myVelocity: {x: 0, y: 0, z: 0}
   dmgPlayerByTick: 0
 --- !u!114 &493934281067369750
 MonoBehaviour:
@@ -538,9 +550,9 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 493934281067369769}
-        m_TargetAssemblyTypeName: Unit, Assembly-CSharp
-        m_MethodName: lightAttack
-        m_Mode: 0
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: actionCheck1
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -554,9 +566,9 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 493934281067369769}
-        m_TargetAssemblyTypeName: Unit, Assembly-CSharp
-        m_MethodName: heavyAttack
-        m_Mode: 0
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: actionCheck2
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -570,8 +582,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 493934281067369769}
-        m_TargetAssemblyTypeName: Unit, Assembly-CSharp
-        m_MethodName: fireWall
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: actionCheck3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -599,6 +611,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2220fc03-f45c-4321-970a-3215eb00f551
     m_ActionName: PlayerControl/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5533b8c5-b7bc-468c-b35e-aff62119790e
+    m_ActionName: PlayerControl/Health Potion[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e2f623b6-cedb-4880-be24-601d76f4f819
+    m_ActionName: PlayerControl/Mana Potion[/Keyboard/t]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControl
@@ -716,121 +736,6 @@ MonoBehaviour:
   heavyCollider: {fileID: 493934281022271344}
   lightRenderer: {fileID: 493934281109704241}
   heavyRenderer: {fileID: 493934281022271345}
---- !u!1 &493934281248266236
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 493934281248266235}
-  - component: {fileID: 493934281248266234}
-  - component: {fileID: 493934281248266237}
-  - component: {fileID: 493934281248266232}
-  - component: {fileID: 493934281248266233}
-  m_Layer: 0
-  m_Name: Main Camera
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &493934281248266235
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 493934281248266236}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.22, z: -10.11}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 493934281067369771}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!20 &493934281248266234
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 493934281248266236}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 1
-  orthographic size: 4
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
---- !u!81 &493934281248266237
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 493934281248266236}
-  m_Enabled: 1
---- !u!54 &493934281248266232
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 493934281248266236}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!114 &493934281248266233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 493934281248266236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 287d35e98e86fa64faa7669b4a7c6dbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 493934281067369775}
-  CameraDist: 12
 --- !u!1 &493934281263560469
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,7 +764,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 493934281067369771}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &493934281473032327
 GameObject:
@@ -889,7 +794,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 493934281067369771}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &493934282083378962
 GameObject:
@@ -919,7 +824,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 493934281067369771}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &537108135501616330
 GameObject:
@@ -1991,7 +1896,7 @@ Transform:
   - {fileID: 493934281109704253}
   - {fileID: 493934281022271346}
   m_Father: {fileID: 493934281067369771}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4814999144458982999
 GameObject:
@@ -2099,7 +2004,7 @@ GameObject:
   - component: {fileID: 8120821034734583275}
   m_Layer: 0
   m_Name: Player Model
-  m_TagString: Untagged
+  m_TagString: PlayerModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3078,14 +2983,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4224d74309dba6547b087092b5f0ed7a, type: 3}
---- !u!4 &4472121233815734709 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5542828544056276418, guid: 4224d74309dba6547b087092b5f0ed7a, type: 3}
-  m_PrefabInstance: {fileID: 8285567374326709367}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3844941850089739023 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5163312776070754168, guid: 4224d74309dba6547b087092b5f0ed7a, type: 3}
+  m_PrefabInstance: {fileID: 8285567374326709367}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4472121233815734709 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5542828544056276418, guid: 4224d74309dba6547b087092b5f0ed7a, type: 3}
   m_PrefabInstance: {fileID: 8285567374326709367}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &3340270480468636378 stripped

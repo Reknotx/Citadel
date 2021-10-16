@@ -1793,6 +1793,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6828961332771415570, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: orthographic size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654808307378994801, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654808307378994801, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: offset.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654808307378994801, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: offset.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654808307378994801, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: smoothSpeed
+      value: 0.125
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
 --- !u!1001 &6839536119485156944
@@ -1806,9 +1826,73 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369750, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369750, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369750, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Jump2
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369750, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: movement2
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369750, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: actionCheck1
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369750, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: actionCheck2
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369750, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: actionCheck3
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369750, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Player, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369750, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Player, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369750, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Player, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369750, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Player, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369750, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Player, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369768, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: myMana
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: Attack1
+      value: Light Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: Attack2
+      value: Fire Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: Attack3
+      value: Heavy Attack
       objectReference: {fileID: 0}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: manaBar
@@ -1839,8 +1923,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1150024952}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: maxJumpTime
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: startingMana
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: maxJumpHeight
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: _heavyCollider
@@ -1861,6 +1953,10 @@ PrefabInstance:
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: meleeAttackDamage
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: initialJumpVelocity
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 493934281067369771, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: m_RootOrder

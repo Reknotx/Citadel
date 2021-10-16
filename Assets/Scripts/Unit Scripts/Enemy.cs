@@ -95,7 +95,7 @@ public class Enemy : Unit
     [Tooltip("Activate this only to immediately kill the enemy.")]
     public bool killThis = false;
 
-    private void Start()
+    private void Awake()
     {
         normalSpeed = speed;
         //Tyler Added code
