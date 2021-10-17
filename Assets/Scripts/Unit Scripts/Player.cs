@@ -203,6 +203,8 @@ public class Player : Unit
         Application.targetFrameRate = 60;
         facingRightLocal = facingRight;
 
+        Debug.Log(Health);
+
         if (dmgPlayerByTick)
         {
             dmgPlayerByTick = false;
