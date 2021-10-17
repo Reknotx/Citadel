@@ -382,7 +382,8 @@ public class Enemy : Unit
         }
         if (other.gameObject.tag == "Player")
         {
-            TakeDamage(player.GetComponent<Player>().playerCollisionDamage); 
+            //TakeDamage(player.GetComponent<Player>().playerCollisionDamage);
+            return;
         }
 
         if (other.gameObject.tag == "FireWallCast")

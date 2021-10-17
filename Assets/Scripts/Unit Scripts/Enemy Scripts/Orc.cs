@@ -23,7 +23,7 @@ public class Orc : Enemy
 
     #region Life Handler for Player
 
-    public LifeManaHandler playerLife;
+    public Player playerLife;
 
     #endregion
 
@@ -33,8 +33,6 @@ public class Orc : Enemy
     public GameObject orcAttack_R;
 
     #endregion
-
-    public Player thePlayer;
 
 
     // Start is called before the first frame update
@@ -46,9 +44,7 @@ public class Orc : Enemy
         orcAttack_L.SetActive(false);
         orcAttack_R.SetActive(false);
 
-        playerLife = GameObject.FindGameObjectWithTag("HealthManaHandler").GetComponent<LifeManaHandler>();
-
-        thePlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -56,56 +52,37 @@ public class Orc : Enemy
     {
         base.Update();
 
-        
-
-        if (distanceToPlayer <= orcMeleeRange)
+        if(Vector2.Distance(transform.position, player.transform.position) <= orcMeleeRange)
         {
             if (canAttack)
             {
                 OrcAttack();
-                StartCoroutine(StunPlayer());
             }
         }
-        
     }
-
-   
 
     private void OrcAttack()
     {
         if (facingRight)
         {
-
-            StartCoroutine(WaitBetweenVisual_Left());
-            playerLife.Damage(orcDamage);
+            StartCoroutine(WaitBetweenVisual_Right());
+            playerLife.TakeDamage(orcDamage);
             StartCoroutine(WaitBetweenAttack());
+            
         }
         else
         {
-            
-
-            StartCoroutine(WaitBetweenVisual_Right());
-            playerLife.Damage(orcDamage);
+            StartCoroutine(WaitBetweenVisual_Left());
+            playerLife.TakeDamage(orcDamage);
             StartCoroutine(WaitBetweenAttack());
         }
     }
-
-    
 
     IEnumerator WaitBetweenAttack()
     {
         canAttack = false;
-        yield return new WaitForSeconds(3f);
-        canAttack = true;
-    }
-
-    
-
-    IEnumerator StunPlayer()
-    {
-        thePlayer.canMove = false;
         yield return new WaitForSeconds(1f);
-        thePlayer.canMove = true;
+        canAttack = true;
     }
 
     IEnumerator WaitBetweenVisual_Right()

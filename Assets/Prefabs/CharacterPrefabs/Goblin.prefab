@@ -30,6 +30,25 @@ Transform:
   m_Father: {fileID: 3145674282413693683}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &4454102316253064672
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2394455277905674713}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 62e9e57d65f853545947562525f6063e, type: 3}
+  m_Controller: {fileID: 9100000, guid: 6bc3ecd8505dc5d43b9851023509f2c1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1547997984418519886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,7 +399,7 @@ MonoBehaviour:
   spellLocationRight: {fileID: 2196509789945972066}
   spellLocationCenter: {fileID: 0}
   facingRight: 0
-  enemyLootTable: {fileID: 0}
+  enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
   myHealth: 5
   _rigidBody: {fileID: 3145674282413693686}
   facingRightLocal: 0
@@ -392,7 +411,7 @@ MonoBehaviour:
   stoppingDistance: 3
   noJumpHeight: 5
   distanceToPlayer: 0
-  Astar: {fileID: 3145674282413693580}
+  Astar: {fileID: 0}
   m_render: {fileID: 3145674282413693681}
   seenByCamera: 0
   debug: 0

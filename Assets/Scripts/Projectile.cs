@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour
     private Transform player;
     private Vector3 target;
 
-    public LifeManaHandler playerHealth;
+    public Player playerHealth;
 
     [SerializeField]
     private float projectileDamage;
@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
 
         target = new Vector3(player.position.x, player.position.y, player.position.z);
 
-        playerHealth = GameObject.FindGameObjectWithTag("HealthManaHandler").GetComponent<LifeManaHandler>();
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
     }
 
@@ -50,8 +50,8 @@ public class Projectile : MonoBehaviour
         if (other.tag == "Player")
         {
             DestroyProjectile();
-            playerHealth.Damage(projectileDamage);
-
+            playerHealth.TakeDamage(projectileDamage);
+            
         }
 
         /*if (other.tag == "ground")
@@ -64,6 +64,5 @@ public class Projectile : MonoBehaviour
     {
         DestroyProjectile();
     }
-
 }
    

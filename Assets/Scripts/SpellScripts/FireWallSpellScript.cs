@@ -24,7 +24,7 @@ public class FireWallSpellScript : MonoBehaviour
 
     public float spellDuration;
 
-
+   
 
         #endregion
         #region Fire Wall Colliders/Renderers
@@ -40,6 +40,9 @@ public class FireWallSpellScript : MonoBehaviour
 
     #endregion
 
+    public GameObject ballParticles;
+    public GameObject wallParticles;
+
     #endregion
 
     public void FixedUpdate()
@@ -47,6 +50,8 @@ public class FireWallSpellScript : MonoBehaviour
         ///<summary> switches the colliders and renderers enabled state of the cast's to the wall's</summary>
         if (changed == true)
         {
+            ballParticles.SetActive(false);
+            wallParticles.SetActive(true);
             castCollider.enabled = false;
             wallCollider.enabled = true;
             castRenderer.enabled = false;
