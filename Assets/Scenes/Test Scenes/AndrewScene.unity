@@ -304,7 +304,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &77839126
 RectTransform:
   m_ObjectHideFlags: 0
@@ -438,6 +438,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89276419}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &112064932 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7113758564083867711, guid: a3577932eab4c824584e07bb91b1a89e, type: 3}
+  m_PrefabInstance: {fileID: 5913636541991058443}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &112064933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112064932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35857196bc26ad6439fa4436aa7d4698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLife: {fileID: 367821610}
+  lanceDamage: 2
 --- !u!1 &133824790
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,7 +826,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &245883542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1153,7 +1172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   jumpFroce: 10
-  maxHealth: 0
+  maxHealth: 5
   _groundCollider: {fileID: 367821614}
   _platformCollider: {fileID: 367821612}
   _hitboxCollider: {fileID: 367821613}
@@ -1164,7 +1183,7 @@ MonoBehaviour:
   spellLocationCenter: {fileID: 1345994872}
   facingRight: 0
   myHealth: 5
-  startingHealth: 0
+  startingHealth: 5
   myMana: 0
   maxMana: 0
   startingMana: 0
@@ -1451,8 +1470,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 171176569}
     - target: {fileID: 4164641213947438829, guid: b52e07313918d364bbc57db27fa8577c, type: 3}
+      propertyPath: maxHealth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4164641213947438829, guid: b52e07313918d364bbc57db27fa8577c, type: 3}
       propertyPath: knockbackForce
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4164641213947438829, guid: b52e07313918d364bbc57db27fa8577c, type: 3}
+      propertyPath: startingHealth
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4164641213947438829, guid: b52e07313918d364bbc57db27fa8577c, type: 3}
       propertyPath: meleeAttackRange
@@ -1636,6 +1663,25 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &652185896 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 221454583019037556, guid: a3577932eab4c824584e07bb91b1a89e, type: 3}
+  m_PrefabInstance: {fileID: 5913636541991058443}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &652185897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652185896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35857196bc26ad6439fa4436aa7d4698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLife: {fileID: 367821610}
+  lanceDamage: 2
 --- !u!1 &674835377
 GameObject:
   m_ObjectHideFlags: 0
@@ -2399,7 +2445,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1283978843
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3926,7 +3972,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1872370943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4626,6 +4672,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 367821608}
+    - target: {fileID: 5913636541873719888, guid: a3577932eab4c824584e07bb91b1a89e, type: 3}
+      propertyPath: dashForce
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 5913636541873719888, guid: a3577932eab4c824584e07bb91b1a89e, type: 3}
       propertyPath: _heavyCollider
       value: 

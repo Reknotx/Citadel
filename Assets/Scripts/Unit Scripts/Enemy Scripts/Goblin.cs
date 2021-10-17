@@ -109,16 +109,18 @@ public class Goblin : Enemy
     {
         if (facingRight)
         {
-            StartCoroutine(WaitBetweenVisual_Right());
+            
+
+            StartCoroutine(WaitBetweenVisual_Left());
             playerLife.Damage(goblinDamage);
             StartCoroutine(WaitBetweenAttack());
 
 
-            GoblinMeleeAttack();
+            //GoblinMeleeAttack();
         }
         else
         {
-            StartCoroutine(WaitBetweenVisual_Left());
+            StartCoroutine(WaitBetweenVisual_Right());
             playerLife.Damage(goblinDamage);
             StartCoroutine(WaitBetweenAttack());
         }

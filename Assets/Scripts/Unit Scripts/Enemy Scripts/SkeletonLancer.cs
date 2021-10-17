@@ -92,7 +92,7 @@ public class SkeletonLancer : Enemy
         yield return new WaitForSeconds(1f);
         Astar.canMove = true;
         _rigidBody.AddForce(-transform.right * dashForce);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         Lance_R.SetActive(false);
     }
 
@@ -103,7 +103,7 @@ public class SkeletonLancer : Enemy
         yield return new WaitForSeconds(1f);
         Astar.canMove = true;
         _rigidBody.AddForce(transform.right * dashForce);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         Lance_L.SetActive(false);
     }
 
