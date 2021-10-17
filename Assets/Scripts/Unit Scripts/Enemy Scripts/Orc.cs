@@ -36,8 +36,9 @@ public class Orc : Enemy
 
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
+        base.Start();
         //Tyler added code
         player = GameObject.FindGameObjectWithTag("Player");
         //end
@@ -57,6 +58,7 @@ public class Orc : Enemy
             if (canAttack)
             {
                 OrcAttack();
+                StartCoroutine(StunPlayer());
             }
         }
     }
@@ -81,7 +83,7 @@ public class Orc : Enemy
     IEnumerator WaitBetweenAttack()
     {
         canAttack = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         canAttack = true;
     }
 
@@ -97,5 +99,12 @@ public class Orc : Enemy
         orcAttack_L.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         orcAttack_L.SetActive(false);
+    }
+
+    IEnumerator StunPlayer()
+    {
+        playerLife.canMove = false;
+        yield return new WaitForSeconds(1f);
+        playerLife.canMove = true;
     }
 }
