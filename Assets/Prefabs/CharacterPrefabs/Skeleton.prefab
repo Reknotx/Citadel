@@ -135,7 +135,11 @@ MonoBehaviour:
   player: {fileID: 0}
   followDistance: 12
   stoppingDistance: 5
+  normalSpeed: 0
   noJumpHeight: 0
+  distanceToPlayer: 0
+  Astar: {fileID: 2982838568778839166}
+  nextWaypointDistance: 3
   m_render: {fileID: 2982838568778839163}
   seenByCamera: 0
   debug: 0
@@ -263,7 +267,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2982838568907107736}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.68, y: 0, z: 0}
+  m_LocalPosition: {x: -0.68, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2982838568778839165}

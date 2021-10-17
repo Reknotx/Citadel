@@ -218,7 +218,11 @@ MonoBehaviour:
   player: {fileID: 0}
   followDistance: 12
   stoppingDistance: 3
+  normalSpeed: 0
   noJumpHeight: 5
+  distanceToPlayer: 0
+  Astar: {fileID: 1065828198705947010}
+  nextWaypointDistance: 3
   m_render: {fileID: 1065828198705947070}
   seenByCamera: 0
   debug: 0
@@ -229,9 +233,6 @@ MonoBehaviour:
   playerLife: {fileID: 0}
   orcAttack_L: {fileID: 1065828199163735791}
   orcAttack_R: {fileID: 1065828199501566337}
-  dashDistance: 7
-  dashSpeed: 25
-  howFarToDash: 100
 --- !u!54 &1065828198705947067
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -307,7 +308,7 @@ MonoBehaviour:
   rotationSpeed: 360
   slowdownDistance: 2.5
   pickNextWaypointDist: 1.35
-  endReachedDistance: 3
+  endReachedDistance: 1.5
   alwaysDrawGizmos: 1
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
