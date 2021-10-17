@@ -48,8 +48,8 @@ public class MinesShop : MonoBehaviour
 
     public void Update()
     {
-        minecartCost.text = "Purchase Mine Cart: " + baseCartCost;
-        minerCost.text = "Purchase Miner: " + baseMinerCost;
+        minecartCost.text = "Purchase Mine Cart: " + baseCartCost + " | Miner Carts Owned: " + gold.numOfCarts;
+        minerCost.text = "Purchase Miner: " + baseMinerCost + " | Miners Owned: " + gold.numOfMiners;
     }
 
     public void PurchaseMiner()

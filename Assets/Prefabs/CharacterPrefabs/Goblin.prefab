@@ -389,7 +389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2.15
   jumpFroce: 25.1
-  maxHealth: 0
+  maxHealth: 5
   _groundCollider: {fileID: 3145674282413693680}
   _platformCollider: {fileID: 0}
   _hitboxCollider: {fileID: 3145674282413693680}
@@ -409,9 +409,11 @@ MonoBehaviour:
   player: {fileID: 0}
   followDistance: 12
   stoppingDistance: 3
+  normalSpeed: 0
   noJumpHeight: 5
   distanceToPlayer: 0
-  Astar: {fileID: 0}
+  Astar: {fileID: 3145674282413693580}
+  nextWaypointDistance: 3
   m_render: {fileID: 3145674282413693681}
   seenByCamera: 0
   debug: 0
@@ -497,7 +499,7 @@ MonoBehaviour:
   rotationSpeed: 360
   slowdownDistance: 2.5
   pickNextWaypointDist: 1.35
-  endReachedDistance: 3.17
+  endReachedDistance: 1.5
   alwaysDrawGizmos: 1
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
