@@ -47,23 +47,28 @@ namespace Map
 
         private int roomSize = 31;
 
+        /// <summary> A private int of the number of columns on the grid. </summary>
         private int columns;
 
+        /// <summary> A private int of the number of rows on the grid. </summary>
         private int rows;
 
+        [Tooltip("The container of all rooms that are going to be spawned on the map.")]
         public RoomContainer roomCont;
 
-        /// <summary>
-        /// 
-        /// </summary>
         private Vector2 SpawnRoomPos, SpawnRoomGridPos;
         private Vector2 BossRoomPos, BossRoomGridPos;
+        
+        /// <summary> Used to represent the size of the grid for easier reference. </summary>
+        /// <remarks> One will be added to the x value to put in an extra column to aid in making a full map.</remarks>
         private Vector2 trueGridSize;
 
+        /// <summary> The info for the grid we want to spawn. </summary>
         public GridInfo gridInfo = new GridInfo();
 
+        /// <summary> List of all special rooms spawned on the grid. </summary>
         [HideInInspector]
-        public static List<Room> specialRooms;
+        public List<Room> specialRooms = new List<Room>();
 
         [Header("Enable this if we want to only have one row on the map.")]
         public bool OneRowOnly = false;
@@ -78,8 +83,6 @@ namespace Map
 
             if (specialRooms == null)
                 specialRooms = new List<Room>();
-            else if (specialRooms.Count > 0 && specialRooms[0] == null)
-                specialRooms.Clear();
 
             if (roomCont == null)
                 Debug.LogError("Room Container is empty. Please insert the scriptable object.");
@@ -126,47 +129,9 @@ namespace Map
             Vector2 tempGridPos;
             RoomInfo tempRoomInfo;
 
-            #region Spawning the spawn room
-            int SRY = Random.Range(0, (int)trueGridSize.y);
+            CreateSpawnRoom();
 
-            GameObject spawnRoom = SpawnRoom(roomCont.SpawnRooms[Random.Range(0, roomCont.SpawnRooms.Count)], new Vector2(0, SRY), "Spawn Room");
-            AddSpecialRoomToList(spawnRoom);
-
-            tempRoomInfo = spawnRoom.GetComponent<Room>().roomInfo;
-            spawnRoom.GetComponent<Room>().fogEnabledOnStart = false;
-
-            conceptGrid[(int)SpawnRoomGridPos.y, 0] = new GridNode(SpawnRoomGridPos,
-                                                                   GridNode.RoomType.Spawn,
-                                                                   tempRoomInfo.CalcDoorsLeftSide(),
-                                                                   tempRoomInfo.CalcDoorsRightSide(),
-                                                                   tempRoomInfo.CalcDoorsTopSide(),
-                                                                   tempRoomInfo.CalcDoorsBottomSide());
-            #endregion
-
-            #region Spawning Boss Room
-            Vector3 BRPos;
-            do
-            {
-                int BRGX = Random.Range(1, (int)trueGridSize.x);
-                int BRGY = Random.Range(0, (int)trueGridSize.y);
-
-                BRPos = new Vector3(BRGX * roomSize, BRGY * roomSize);
-            } while (!gridInfo.CheckSpawnBossDist(SpawnRoomPos, BRPos));
-
-            BossRoomGridPos = new Vector2(BRPos.x / roomSize, BRPos.y / roomSize);
-
-            GameObject bossRoom = SpawnRoom(roomCont.BossRooms[Random.Range(0, roomCont.BossRooms.Count)], BossRoomGridPos, "Boss Room");
-            AddSpecialRoomToList(bossRoom);
-
-            BossRoomPos = bossRoom.transform.position;
-
-            conceptGrid[(int)BossRoomGridPos.y, (int)BossRoomGridPos.x] = new GridNode(BossRoomGridPos,
-                                                                                       GridNode.RoomType.Boss,
-                                                                                       tempRoomInfo.CalcDoorsLeftSide(),
-                                                                                       tempRoomInfo.CalcDoorsRightSide(),
-                                                                                       tempRoomInfo.CalcDoorsTopSide(),
-                                                                                       tempRoomInfo.CalcDoorsBottomSide());
-            #endregion
+            CreateBossRoom();
 
             ///Need to write down notes on how to implement this randomness into generation. 
             ///Perhaps a RNG value that will determine if we follow the quickest path or 
@@ -207,7 +172,7 @@ namespace Map
             CreatePath(AStar(conceptGrid[(int)SpawnRoomGridPos.y, 0],
                              conceptGrid[(int)BossRoomGridPos.y, (int)BossRoomGridPos.x]));
 
-
+                
             #region Spawn in rooms that will go on the path
 
 
@@ -244,6 +209,53 @@ namespace Map
             }
 
             #endregion
+
+
+            void CreateSpawnRoom()
+            {
+                int SRY = Random.Range(0, (int)trueGridSize.y);
+
+                GameObject spawnRoom = SpawnRoom(roomCont.SpawnRooms[Random.Range(0, roomCont.SpawnRooms.Count)], new Vector2(0, SRY), "Spawn Room");
+                AddSpecialRoomToList(spawnRoom);
+
+                tempRoomInfo = spawnRoom.GetComponent<Room>().roomInfo;
+                spawnRoom.GetComponent<Room>().fogEnabledOnStart = false;
+
+                conceptGrid[(int)SpawnRoomGridPos.y, 0] = new GridNode(SpawnRoomGridPos,
+                                                                       GridNode.RoomType.Spawn,
+                                                                       tempRoomInfo.CalcDoorsLeftSide(),
+                                                                       tempRoomInfo.CalcDoorsRightSide(),
+                                                                       tempRoomInfo.CalcDoorsTopSide(),
+                                                                       tempRoomInfo.CalcDoorsBottomSide());
+            }
+
+            void CreateBossRoom()
+            {
+                Vector3 BRPos;
+                do
+                {
+                    int BRGX = Random.Range(1, (int)trueGridSize.x);
+                    int BRGY = Random.Range(0, (int)trueGridSize.y);
+
+                    BRPos = new Vector3(BRGX * roomSize, BRGY * roomSize);
+                } while (!gridInfo.CheckSpawnBossDist(SpawnRoomPos, BRPos));
+
+                BossRoomGridPos = new Vector2(BRPos.x / roomSize, BRPos.y / roomSize);
+
+                GameObject bossRoom = SpawnRoom(roomCont.BossRooms[Random.Range(0, roomCont.BossRooms.Count)], BossRoomGridPos, "Boss Room");
+                AddSpecialRoomToList(bossRoom);
+
+                BossRoomPos = bossRoom.transform.position;
+
+                conceptGrid[(int)BossRoomGridPos.y, (int)BossRoomGridPos.x] = new GridNode(BossRoomGridPos,
+                                                                                           GridNode.RoomType.Boss,
+                                                                                           tempRoomInfo.CalcDoorsLeftSide(),
+                                                                                           tempRoomInfo.CalcDoorsRightSide(),
+                                                                                           tempRoomInfo.CalcDoorsTopSide(),
+                                                                                           tempRoomInfo.CalcDoorsBottomSide());
+            }
+
+
         }
 
         /// <summary> 
@@ -274,19 +286,27 @@ namespace Map
                 }
                 else if (name.Equals("Boss Room"))
                 {
-
+                    BossRoomGridPos = gridCord;
+                    BossRoomPos = spawnedRoom.transform.position;
                 }
             }
 
             return spawnedRoom;
         }
 
-
+        /// <summary>
+        /// Add a special room to a list. These are shops, treasure rooms, and the boss room.
+        /// </summary>
+        /// <param name="roomObj">The room to add a reference to in the list.</param>
         private void AddSpecialRoomToList(GameObject roomObj)
         {
             specialRooms.Add(roomObj.GetComponent<Room>());
         }
 
+        /// <summary>
+        /// Turn off the fog for all special rooms so they are visible 
+        /// on the minimap instantly
+        /// </summary>
         public void ExposeSpecialRooms()
         {
             foreach (Room room in specialRooms)
@@ -398,6 +418,12 @@ namespace Map
             }
 
             #region Helper Functions
+            
+            ///Determines the direction between two nodes and then assigns a random
+            ///number of openings on the appropriate sides so a connection can be
+            ///formed.
+            ///
+            ///Early on this was forced to be only one as we had a lack of rooms made
             void DetermineDir(GridNode currNode, GridNode prevNode, bool onlyOneOpening = false)
             {
                 int numOpenings = 1;
@@ -434,6 +460,10 @@ namespace Map
                 }
             }
 
+            ///This helps in comparing the number of openings a node has
+            ///to the brought in room info that was located on the prefab.
+            ///This helps ensure that we are going to be spawning rooms that match
+            ///the exact number of openings we need each and every single time.
             bool CompareNodeToRoom(GridNode node, RoomInfo roomInfo)
             {
                 if (node == null) Debug.LogError("Help node null");
@@ -482,23 +512,17 @@ namespace Map
                             {
                                 case DoorPositions.RightTop:
                                     if (currPos == DoorPositions.LeftTop)
-                                    {
                                         lineUp = true;
-                                    }
                                     break;
 
                                 case DoorPositions.RightMiddle:
                                     if (currPos == DoorPositions.LeftMiddle)
-                                    {
                                         lineUp = true;
-                                    }
                                     break;
 
                                 case DoorPositions.RightBottom:
                                     if (currPos == DoorPositions.LeftBottom)
-                                    {
                                         lineUp = true;
-                                    }
                                     break;
                             }
                         }
@@ -509,23 +533,17 @@ namespace Map
                             {
                                 case DoorPositions.LeftTop:
                                     if (currPos == DoorPositions.RightTop)
-                                    {
                                         lineUp = true;
-                                    }
                                     break;
 
                                 case DoorPositions.LeftMiddle:
                                     if (currPos == DoorPositions.RightMiddle)
-                                    {
                                         lineUp = true;
-                                    }
                                     break;
 
                                 case DoorPositions.LeftBottom:
                                     if (currPos == DoorPositions.RightBottom)
-                                    {
                                         lineUp = true;
-                                    }
                                     break;
                             }
                         }
@@ -536,23 +554,17 @@ namespace Map
                             {
                                 case DoorPositions.TopLeft:
                                     if (currPos == DoorPositions.BottomLeft)
-                                    {
                                         lineUp = true;
-                                    }
                                     break;
 
                                 case DoorPositions.TopMiddle:
                                     if (currPos == DoorPositions.BottomMiddle)
-                                    {
                                         lineUp = true;
-                                    }
                                     break;
 
                                 case DoorPositions.TopRight:
                                     if (currPos == DoorPositions.BottomRight)
-                                    {
                                         lineUp = true;
-                                    }
                                     break;
                             }
                         }
@@ -565,23 +577,17 @@ namespace Map
                             {
                                 case DoorPositions.BottomLeft:
                                     if (currPos == DoorPositions.TopLeft)
-                                    {
                                         lineUp = true;
-                                    }
                                     break;
 
                                 case DoorPositions.BottomMiddle:
                                     if (currPos == DoorPositions.TopMiddle)
-                                    {
                                         lineUp = true;
-                                    }
                                     break;
 
                                 case DoorPositions.BottomRight:
                                     if (currPos == DoorPositions.TopRight)
-                                    {
                                         lineUp = true;
-                                    }
                                     break;
                             }
                         }
@@ -592,6 +598,7 @@ namespace Map
                 return lineUp;
             }
 
+            ///Gets the previous direction that we came from
             Dir GetPrevRoomDir(Vector2 currRoomPos, Vector2 prevRoomPos)
             {
                 //Debug.Log(currRoomPos);
@@ -622,6 +629,13 @@ namespace Map
         }
 
         #region Grid concept Astar
+        /// <summary>
+        /// Uses the Astar algorithm to find a path from the start to the end
+        /// through the map.
+        /// </summary>
+        /// <param name="start">The node we are starting the path on.</param>
+        /// <param name="end">The node we wish to reach.</param>
+        /// <returns>A list of the path from <paramref name="start"/> to <paramref name="end"/>.</returns>
         public List<GridNode> AStar(GridNode start, GridNode end)
         {
             List<GridNode> frontier = new List<GridNode>(0);

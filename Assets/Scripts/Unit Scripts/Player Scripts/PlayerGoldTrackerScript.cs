@@ -45,6 +45,12 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     public int startingAttackDamage;
     public float startingAttackRange;
 
+    [Header("player equipment")]
+    public bool shuues = false;
+    public bool undying = false;
+    public bool spellStone = false;
+    public bool floatingShield = false;
+
     private void Awake()
     {
 
@@ -153,7 +159,8 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     public void updatePlayerStats()
     {
         if (statsUpdated == false && currentSceneName != "MainMenuScene" && currentSceneName != "MineScene")
-        {
+        { 
+            statsUpdated = true;
             if (playerDead == true)
             {
                     playerSpeed =  startingSpeed;
@@ -171,7 +178,12 @@ public class PlayerGoldTrackerScript : MonoBehaviour
             player.GetComponent<Player>().meleeAttackDamage = playerAttackDamage;
             player.GetComponent<Player>().meleeAttackRange = playerAttackRange;
 
-            statsUpdated = true;
+            player.GetComponent<Player>().shuues = shuues;
+            player.GetComponent<Player>().floatingShield = floatingShield;
+            player.GetComponent<Player>().undying = undying;
+            player.GetComponent<Player>().spellStone = spellStone;
+
+           
         }
     }
 
@@ -184,6 +196,11 @@ public class PlayerGoldTrackerScript : MonoBehaviour
             playerSpeed = player.GetComponent<Player>().speed;
             playerAttackDamage = player.GetComponent<Player>().meleeAttackDamage;
             playerAttackRange = player.GetComponent<Player>().meleeAttackRange;
+
+            shuues = player.GetComponent<Player>().shuues;
+            floatingShield = player.GetComponent<Player>().floatingShield;
+            undying = player.GetComponent<Player>().undying;
+            spellStone = player.GetComponent<Player>().spellStone;
         }
     }
 }
