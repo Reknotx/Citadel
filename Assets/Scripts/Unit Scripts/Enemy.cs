@@ -86,7 +86,7 @@ public class Enemy : Unit
 
     //bool reachedEndOfPath = false;
 
-    Seeker seeker;
+    protected Seeker seeker;
 
 
     #endregion

@@ -373,13 +373,19 @@ public class Player : Unit
 
     private void FixedUpdate()
     {
-        calculateHealth = Health / maxHealth;
-        healthBar.fillAmount = Mathf.MoveTowards(healthBar.fillAmount, calculateHealth, Time.deltaTime);
-        healthText.text = "" + (int)myHealth;
+        if (healthBar != null)
+        {
+            calculateHealth = Health / maxHealth;
+            healthBar.fillAmount = Mathf.MoveTowards(healthBar.fillAmount, calculateHealth, Time.deltaTime);
+            healthText.text = "" + (int)myHealth;
+        }
 
-        calculateMana = myMana / maxMana;
-        manaBar.fillAmount = Mathf.MoveTowards(manaBar.fillAmount, calculateMana, Time.deltaTime);
-        manaText.text = "" + myMana;
+        if (manaBar != null)
+        {
+            calculateMana = myMana / maxMana;
+            manaBar.fillAmount = Mathf.MoveTowards(manaBar.fillAmount, calculateMana, Time.deltaTime);
+            manaText.text = "" + myMana;
+        }
     }
 
 
