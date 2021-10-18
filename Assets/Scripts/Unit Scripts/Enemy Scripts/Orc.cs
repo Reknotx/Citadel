@@ -37,6 +37,9 @@ public class Orc : Enemy
 
     public Image orcHealth;
 
+    public Image HealthIMG;
+
+    private float calculateHealth;
 
     // Start is called before the first frame update
     public override void Start()
@@ -49,6 +52,7 @@ public class Orc : Enemy
         orcAttack_R.SetActive(false);
 
         playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        HealthIMG.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -59,7 +63,12 @@ public class Orc : Enemy
         if (Health < maxHealth)
         {
             orcHealth.gameObject.SetActive(true);
-            orcHealth.fillAmount = Mathf.MoveTowards(orcHealth.fillAmount, Health, Time.deltaTime);
+            calculateHealth = (float)myHealth / maxHealth;
+            orcHealth.fillAmount = Mathf.MoveTowards(orcHealth.fillAmount, calculateHealth, Time.deltaTime);
+        }
+        else
+        {
+            HealthIMG.gameObject.SetActive(false);
         }
 
         if (Vector2.Distance(transform.position, player.transform.position) <= orcMeleeRange)
