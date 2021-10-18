@@ -45,13 +45,15 @@ public class Orc : Enemy
         orcAttack_R.SetActive(false);
 
         playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        Health = maxHealth;
     }
 
     // Update is called once per frame
     public override void Update()
     {
         base.Update();
-
+        myHealth = Health;
         if(Vector2.Distance(transform.position, player.transform.position) <= orcMeleeRange)
         {
             if (canAttack)
