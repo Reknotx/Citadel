@@ -38,6 +38,7 @@ public class Unit : MonoBehaviour
     public float maxHealth;
 
     ///<summary>This is the units health.</summary>
+    [SerializeField]
     public virtual float Health
     {
         get => _health;
