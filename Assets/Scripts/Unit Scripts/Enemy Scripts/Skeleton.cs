@@ -30,12 +30,13 @@ public class Skeleton : Enemy
         //Tyler Added Code
         player = GameObject.FindGameObjectWithTag("Player");
         //End
+        Health = maxHealth;
     }
 
     public override void Update()
     {
         base.Update();
-
+        myHealth = Health;
         if (Vector2.Distance(transform.position, player.transform.position) <= skeletonShootingDistance)
         {
             if (canShoot)
