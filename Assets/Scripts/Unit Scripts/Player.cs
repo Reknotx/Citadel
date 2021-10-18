@@ -884,4 +884,11 @@ public class Player : Unit
         invulnerable = false;
     }
 
+    public IEnumerator StunPlayer()
+    {
+        canMove = false;
+        yield return new WaitForSeconds(1f);
+        canMove = true;
+    }
+
 }

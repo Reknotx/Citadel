@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SkeletonLancer : Enemy
 {
@@ -24,6 +25,12 @@ public class SkeletonLancer : Enemy
     public float howFarToDash;
 
     public float dashForce;
+
+    public Image skeletonHealth;
+
+    public Image HealthIMG;
+
+    private float calculateHealth;
 
 
     #endregion
@@ -46,13 +53,26 @@ public class SkeletonLancer : Enemy
 
         isDashing = false;
         canDash = true;
-        
+
+        HealthIMG.gameObject.SetActive(false);
+
     }
 
     // Update is called once per frame
     public override void Update()
     {
         base.Update();
+
+        if (myHealth < maxHealth)
+        {
+            HealthIMG.gameObject.SetActive(true);
+            calculateHealth = (float)myHealth / maxHealth;
+            skeletonHealth.fillAmount = Mathf.MoveTowards(skeletonHealth.fillAmount, calculateHealth, Time.deltaTime);
+        }
+        else
+        {
+            HealthIMG.gameObject.SetActive(false);
+        }
 
         if (isDashing)
         {
