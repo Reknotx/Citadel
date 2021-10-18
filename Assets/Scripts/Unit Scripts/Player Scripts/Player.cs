@@ -252,9 +252,9 @@ public class Player : Unit
         ///<summary>The following is used to track player inputs and controls.</summary>
         playerInputActions = new PlayerInputActions();
          playerInputActions.PlayerControl.Enable();
-         playerInputActions.PlayerControl.Jump.started += Jump;
-        playerInputActions.PlayerControl.Jump.canceled += Jump;
-        //playerInputActions.PlayerControl.Movement.performed += movement;
+         playerInputActions.PlayerControl.Jump.started += Jump2;
+        playerInputActions.PlayerControl.Jump.canceled += Jump2;
+        playerInputActions.PlayerControl.Movement.performed += movement2;
         playerInputActions.PlayerControl.Drop.performed += Drop;
         setJumpVariables();
         
@@ -464,6 +464,7 @@ public class Player : Unit
 
 
     #region Player Movement Actions
+    /*
     /// <summary> This moves the player from side to side on the x axis  /// </summary>
     public void movement(InputAction.CallbackContext context)
     {
@@ -500,7 +501,7 @@ public class Player : Unit
             }
         }
     }
-
+    */
     public void movement2(InputAction.CallbackContext context)
     {
         if (canMove == true)
@@ -536,6 +537,7 @@ public class Player : Unit
         }
     }
 
+    /*
     ///<summary>This triggers the unit to jump up.</summary>
     public void Jump(InputAction.CallbackContext context)
     {
@@ -586,7 +588,7 @@ public class Player : Unit
 
         }
     }
-
+    */
     public void Jump2(InputAction.CallbackContext context)
     {
         isJumpPressed = context.ReadValueAsButton();

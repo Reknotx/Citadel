@@ -95,13 +95,14 @@ public class Enemy : Unit
     [Tooltip("Activate this only to immediately kill the enemy.")]
     public bool killThis = false;
 
-    private void Awake()
+    public virtual void Start()
     {
         normalSpeed = speed;
         //Tyler Added code
         player = GameObject.FindGameObjectWithTag("Player");
 
         Astar = GetComponent<AIPath>();
+        Health = maxHealth;
     }
 
     public override void Update()
@@ -112,6 +113,7 @@ public class Enemy : Unit
         if (debug) return;
 
         base.Update();
+        myHealth = Health;
 
         #region Enemy AI Movement
         Move();

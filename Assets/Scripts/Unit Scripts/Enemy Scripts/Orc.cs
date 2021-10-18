@@ -77,7 +77,7 @@ public class Orc : Enemy
             {
                 OrcAttack();
                 
-                StartCoroutine(playerLife.StunPlayer());
+               // StartCoroutine(playerLife.StunPlayer());
                 
             }
         }
