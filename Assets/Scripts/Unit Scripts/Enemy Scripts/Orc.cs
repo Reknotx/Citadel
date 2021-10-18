@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Orc : Enemy
 {
@@ -34,6 +35,8 @@ public class Orc : Enemy
 
     #endregion
 
+    public Image orcHealth;
+
 
     // Start is called before the first frame update
     public override void Start()
@@ -53,7 +56,13 @@ public class Orc : Enemy
     {
         base.Update();
 
-        if(Vector2.Distance(transform.position, player.transform.position) <= orcMeleeRange)
+        if (Health < maxHealth)
+        {
+            orcHealth.gameObject.SetActive(true);
+            orcHealth.fillAmount = Mathf.MoveTowards(orcHealth.fillAmount, Health, Time.deltaTime);
+        }
+
+        if (Vector2.Distance(transform.position, player.transform.position) <= orcMeleeRange)
         {
             if (canAttack)
             {
