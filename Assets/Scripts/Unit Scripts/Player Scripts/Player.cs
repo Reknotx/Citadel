@@ -155,6 +155,9 @@ public class Player : Unit
     public bool isRunning = false;
 
     [HideInInspector]
+    public bool isFalling = false;
+
+    [HideInInspector]
     public bool isAttacking = false;
 
     public bool dmgPlayerByTick = false;
@@ -252,7 +255,8 @@ public class Player : Unit
          playerInputActions.PlayerControl.Jump.started += Jump2;
         playerInputActions.PlayerControl.Jump.canceled += Jump2;
         playerInputActions.PlayerControl.Movement.performed += movement2;
-        playerInputActions.PlayerControl.Drop.performed += Drop;
+        playerInputActions.PlayerControl.Drop.started += Drop;
+        playerInputActions.PlayerControl.Drop.canceled += Drop;
         setJumpVariables();
         
 
@@ -322,7 +326,12 @@ public class Player : Unit
             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
             
             if (animator != null)
+            {
                 animator.SetBool("isRunning", isRunning);
+                animator.SetBool("isJumping", isJumping);
+                animator.SetBool("isFalling", isFalling);
+            }
+                
             
         }
         else
@@ -330,6 +339,11 @@ public class Player : Unit
             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
 
+
+        if (onPlatform == true)
+        {
+            isGrounded = true;
+        }
         if(isGrounded == true)
         {
             canDoubleJump = true;
@@ -595,9 +609,12 @@ public class Player : Unit
     public void Jump2(InputAction.CallbackContext context)
     {
         isJumpPressed = context.ReadValueAsButton();
+        float jumpTime = Time.deltaTime;
     }
     void setJumpVariables()
     {
+        bool atApex = false;
+        
         float timeToApex = maxJumpTime / 2;
         gravity = (-2 * maxJumpHeight) / Mathf.Pow(timeToApex, 2);
         initialJumpVelocity = (2 * maxJumpHeight) / timeToApex;
@@ -605,10 +622,15 @@ public class Player : Unit
 
     void handleGravity()
     {
-        bool isFalling = myVelocity.y <= 0.0f || !isJumpPressed;
+        if (onPlatform)
+        {
+            isGrounded = true;
+        }
+        isFalling = myVelocity.y <= 0.0f || !isJumpPressed;
         float fallMultiplier = 2.0f;
         if(isGrounded)
         {
+            isJumping = false;
             myVelocity.y = groundedGravity;
         }
         else if(onPlatform)
@@ -617,6 +639,7 @@ public class Player : Unit
         }
         else if(isFalling)
         {
+            isJumping = false;
             float previousYVelocity = myVelocity.y;
             float newYVelocity = myVelocity.y + (gravity * fallMultiplier*Time.deltaTime);
             float nextYVelocity = Mathf.Max((previousYVelocity + newYVelocity) * .5f, -20.0f);
@@ -676,7 +699,10 @@ public class Player : Unit
     {
         if (onPlatform == true)
         {
+            onPlatform = false;
+            isGrounded = false;
             StartCoroutine(dropDown());
+            myVelocity = new Vector2(_rigidBody.velocity.x, -16);
         }
     }
 
@@ -1073,6 +1099,8 @@ public class Player : Unit
 
     }
 
+  
+
     public IEnumerator IFrames()
     {
         float startTime = Time.time;
@@ -1102,6 +1130,22 @@ public class Player : Unit
 
 
         invulnerable = false;
+    }
+
+    /// <summary> this allows units to drop through platforms </summary>
+    public IEnumerator dropDown()
+    {
+        
+        _platformCollider.enabled = false;
+        _groundCollider.enabled = false;
+        onPlatform = false;
+        isGrounded = false;
+        isFalling = true;
+        
+      
+        yield return new WaitForSeconds(2f);
+        _groundCollider.enabled = true;
+        _platformCollider.enabled = true;
     }
 
 }
