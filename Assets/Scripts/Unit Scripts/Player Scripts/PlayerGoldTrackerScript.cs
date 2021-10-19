@@ -72,14 +72,16 @@ public class PlayerGoldTrackerScript : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-
+        _instance = this;
+        findReference();
+        currentSceneName = SceneManager.GetActiveScene().name;
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
         }
-        _instance = this;
+       
 
         
 
@@ -104,7 +106,7 @@ public class PlayerGoldTrackerScript : MonoBehaviour
 
 
 
-        findReference();
+        
         trackGold();
         trackStats();
 
