@@ -29,9 +29,6 @@ public class Player : Unit
     ///<summary>This is the units health.</summary>
     public float myHealth;
 
-    ///<summary>This is the maximum units health.</summary>
-   // public float maxHealth; //
-
     public override float Health 
     { 
         get => base.Health; 

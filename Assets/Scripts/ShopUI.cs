@@ -115,6 +115,8 @@ namespace ShopSystem
                 case "spell 3": item = info.spell3Info; break;
             }
 
+            if (item == null) Debug.LogError("What's going on here");
+
             popupDisplay.GetComponent<Popup.PopupDisplay>().DescriptionText = item.ToString();
         }
 
