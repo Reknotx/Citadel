@@ -274,7 +274,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6.7
   jumpFroce: 1.62
-  maxHealth: 10
+  _health: 0
+  maxHealth: 30
   _groundCollider: {fileID: 1065828198705947069}
   _platformCollider: {fileID: 0}
   _hitboxCollider: {fileID: 1065828198705947069}
@@ -286,7 +287,7 @@ MonoBehaviour:
   isGrounded: 0
   facingRight: 0
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
-  myHealth: 5
+  myHealth: 30
   _rigidBody: {fileID: 1065828198705947067}
   facingRightLocal: 0
   yDistance: 0
@@ -298,6 +299,7 @@ MonoBehaviour:
   noJumpHeight: 5
   distanceToPlayer: 0
   Astar: {fileID: 1065828198705947010}
+  nextWaypointDistance: 3
   m_render: {fileID: 1065828198705947070}
   seenByCamera: 0
   debug: 0
