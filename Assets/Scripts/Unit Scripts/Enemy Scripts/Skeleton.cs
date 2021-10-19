@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Skeleton : Enemy
 {
@@ -25,16 +26,41 @@ public class Skeleton : Enemy
     public Transform shootLocation;
     #endregion
 
-    private void Start()
+    public Image skeletonHealth;
+
+    public Image HealthIMG;
+
+    private float calculateHealth;
+
+    public float currentHealth;
+
+    public override void Start()
     {
+        base.Start();
         //Tyler Added Code
         player = GameObject.FindGameObjectWithTag("Player");
         //End
+
+        HealthIMG.gameObject.SetActive(false);
     }
 
     public override void Update()
     {
         base.Update();
+
+        Debug.Log(myHealth);
+        Debug.Log(maxHealth);
+
+        if (myHealth < maxHealth)
+        {
+            HealthIMG.gameObject.SetActive(true);
+            calculateHealth = (float)myHealth / maxHealth;
+            skeletonHealth.fillAmount = Mathf.MoveTowards(skeletonHealth.fillAmount, calculateHealth, Time.deltaTime);
+        }
+        else
+        {
+            HealthIMG.gameObject.SetActive(false);
+        }
 
         if (Vector2.Distance(transform.position, player.transform.position) <= skeletonShootingDistance)
         {

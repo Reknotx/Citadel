@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Orc : Enemy
 {
@@ -34,10 +35,16 @@ public class Orc : Enemy
 
     #endregion
 
+    public Image orcHealth;
+
+    public Image HealthIMG;
+
+    private float calculateHealth;
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
+        base.Start();
         //Tyler added code
         player = GameObject.FindGameObjectWithTag("Player");
         //end
@@ -45,6 +52,7 @@ public class Orc : Enemy
         orcAttack_R.SetActive(false);
 
         playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        HealthIMG.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -52,11 +60,25 @@ public class Orc : Enemy
     {
         base.Update();
 
-        if(Vector2.Distance(transform.position, player.transform.position) <= orcMeleeRange)
+        if (myHealth < maxHealth)
+        {
+            HealthIMG.gameObject.SetActive(true);
+            calculateHealth = (float)myHealth / maxHealth;
+            orcHealth.fillAmount = Mathf.MoveTowards(orcHealth.fillAmount, calculateHealth, Time.deltaTime);
+        }
+        else
+        {
+            HealthIMG.gameObject.SetActive(false);
+        }
+
+        if (Vector2.Distance(transform.position, player.transform.position) <= orcMeleeRange)
         {
             if (canAttack)
             {
                 OrcAttack();
+                
+               // StartCoroutine(playerLife.StunPlayer());
+                
             }
         }
     }
@@ -81,7 +103,7 @@ public class Orc : Enemy
     IEnumerator WaitBetweenAttack()
     {
         canAttack = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         canAttack = true;
     }
 
@@ -98,4 +120,6 @@ public class Orc : Enemy
         yield return new WaitForSeconds(0.5f);
         orcAttack_L.SetActive(false);
     }
+
+    
 }
