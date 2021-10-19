@@ -108,8 +108,11 @@ public class Player : Unit
 
     /// <summary>this is the physical gameobject that is cast during the firewall spell</summary>
     public GameObject fireWall_prefab;
+
+    /// <summary>this is the physical gameobject that is cast during the icicle spell</summary>
+    public GameObject icicle_prefab;
     #endregion
-            #region Bool Determinates 
+    #region Bool Determinates 
     [Header("player bool determinates")]
     /// <summary> determines if the player can move or not </summary>
     [HideInInspector]
@@ -330,6 +333,7 @@ public class Player : Unit
                 animator.SetBool("isRunning", isRunning);
                 animator.SetBool("isJumping", isJumping);
                 animator.SetBool("isFalling", isFalling);
+                animator.SetBool("isGrounded", isGrounded);
             }
                 
             
@@ -609,7 +613,7 @@ public class Player : Unit
     public void Jump2(InputAction.CallbackContext context)
     {
         isJumpPressed = context.ReadValueAsButton();
-        float jumpTime = Time.deltaTime;
+        float jumpTimeFrame = Time.deltaTime + maxJumpTime;
     }
     void setJumpVariables()
     {
@@ -770,6 +774,47 @@ public class Player : Unit
 
 
     }
+
+    public void icicle()
+    {
+        if (canCast == true)
+        {
+
+            if (myMana >= 10)
+            {
+                if (spellStone == true)
+                {
+
+                    ReduceMana(7);
+                }
+                else
+                {
+
+                    ReduceMana(10);
+                }
+
+                ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
+                if (facingRight == true)
+                {
+
+                    var icicleSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().icicle_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
+                    icicleSpell.GetComponent<Rigidbody>().velocity = icicleSpell.transform.right * 12;
+                  
+                    canCast = false;
+                }
+                else
+                {
+
+                    var icicleSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().icicle_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
+                    icicleSpell.GetComponent<Rigidbody>().velocity = icicleSpell.transform.right * -12;
+                   
+                    canCast = false;
+                }
+            }
+        }
+
+
+    }
     #endregion
     #region Unit Melee Attacks
     /// <summary> This is the attacking function  </summary>
@@ -908,6 +953,10 @@ public class Player : Unit
         {
             fireWall();
         }
+        if (Attack1 == "Icicle")
+        {
+            icicle();
+        }
     }
     public void actionCheck2()
     {
@@ -923,6 +972,10 @@ public class Player : Unit
         {
             fireWall();
         }
+        if (Attack2 == "Icicle")
+        {
+            icicle();
+        }
     }
     public void actionCheck3()
     {
@@ -937,6 +990,10 @@ public class Player : Unit
         if (Attack3 == "Fire Wall")
         {
             fireWall();
+        }
+        if (Attack3 == "Icicle")
+        {
+            icicle();
         }
     }
 
