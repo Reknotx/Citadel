@@ -60,9 +60,9 @@ public class Orc : Enemy
     {
         base.Update();
 
-        if (Health < maxHealth)
+        if (myHealth < maxHealth)
         {
-            orcHealth.gameObject.SetActive(true);
+            HealthIMG.gameObject.SetActive(true);
             calculateHealth = (float)myHealth / maxHealth;
             orcHealth.fillAmount = Mathf.MoveTowards(orcHealth.fillAmount, calculateHealth, Time.deltaTime);
         }
@@ -76,7 +76,9 @@ public class Orc : Enemy
             if (canAttack)
             {
                 OrcAttack();
-                StartCoroutine(StunPlayer());
+                
+               // StartCoroutine(playerLife.StunPlayer());
+                
             }
         }
     }
@@ -119,10 +121,5 @@ public class Orc : Enemy
         orcAttack_L.SetActive(false);
     }
 
-    IEnumerator StunPlayer()
-    {
-        playerLife.canMove = false;
-        yield return new WaitForSeconds(1f);
-        playerLife.canMove = true;
-    }
+    
 }

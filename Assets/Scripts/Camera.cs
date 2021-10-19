@@ -13,25 +13,25 @@ using UnityEngine;
 public class Camera : MonoBehaviour
 {
     ///<summary>This targets the camera to the player.</summary>
-    public GameObject target;
+    public Transform target;
 
-    ///<summary>This is the camera's distance from the player.</summary>
-    [Range(0, 20)]
-    public int CameraDist;
+    public float smoothSpeed;
 
-   
-    // Update is called once per frame
-    void FixedUpdate()
+    public Vector3 offset;
+
+
+    private void Awake()
     {
-        ///<summary>This resets the camera position.</summary>
-        Vector3 pos = Vector3.zero;
-
-        ///<summary>This sets the camera's position based on the inputted range.</summary>
-        pos.x = target.transform.position.x;
-        pos.z = -CameraDist;
-        pos.y = target.transform.position.y;
-
-        ///<summary>This actually changed the camera's position.</summary>
-        GetComponent<Transform>().position = pos;
+        target = GameObject.FindGameObjectWithTag("PlayerModel").transform;
     }
+
+
+    private void LateUpdate()
+    {
+        Vector3 desiredPos = target.position + offset;
+        Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
+        transform.position =  smoothedPos;
+    }
+
+
 }
