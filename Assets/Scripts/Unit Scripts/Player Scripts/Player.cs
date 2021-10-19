@@ -242,6 +242,8 @@ public class Player : Unit
         if(Instance != null && Instance != this)
             Destroy(Instance.gameObject);
 
+        Instance = this;
+
         Health = maxHealth;
         myMana = maxMana;
         
