@@ -26,7 +26,7 @@ public abstract class Spell : MonoBehaviour
         Move();
     }
 
-    public void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 31)
             Destroy(gameObject);
