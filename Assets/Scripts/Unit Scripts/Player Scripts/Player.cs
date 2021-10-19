@@ -715,7 +715,7 @@ public class Player : Unit
                     ReduceMana(fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost);
                 }
 
-                ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>
+                ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
                 if (facingRight == true)
                 {
 
