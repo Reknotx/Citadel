@@ -23,6 +23,12 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     public int numMiner;
     public int startingNumCart;
     public int startingNumMiner = 2;
+    public int numMoles;
+    public int startingNumMolest;
+    public int numPicks;
+    public int startingNumPicks;
+    public int numWizard;
+    public int startingNumWizard;
 
     public bool goldUpdated = false;
     public bool statsUpdated = false;
@@ -124,7 +130,7 @@ public class PlayerGoldTrackerScript : MonoBehaviour
                 //playerHardGold = startingHardGold;
                 playerSoftGold = startingSoftGold;
                 //numCart = startingNumCart;
-                // numMiner = startingNumMiner;
+                 //numMiner = startingNumMiner;
                 playerDead = false;
             }
 
@@ -132,6 +138,9 @@ public class PlayerGoldTrackerScript : MonoBehaviour
             goldHandler.GetComponent<GoldHandler>()._mySoftGold = playerSoftGold;
             goldHandler.GetComponent<GoldHandler>().numOfCarts = numCart;
             goldHandler.GetComponent<GoldHandler>().numOfMiners = numMiner;
+            goldHandler.GetComponent<GoldHandler>().numOfMoles = numMoles;
+            goldHandler.GetComponent<GoldHandler>().numOfPicks = numPicks;
+            goldHandler.GetComponent<GoldHandler>().numOfWizards =numWizard;
 
             goldUpdated = true;
         }
@@ -146,6 +155,11 @@ public class PlayerGoldTrackerScript : MonoBehaviour
             playerSoftGold = goldHandler.GetComponent<GoldHandler>().MySoftGold;
             numCart = goldHandler.GetComponent<GoldHandler>().numOfCarts;
             numMiner = goldHandler.GetComponent<GoldHandler>().numOfMiners;
+
+            numMoles = goldHandler.GetComponent<GoldHandler>().numOfMoles;
+            numPicks = goldHandler.GetComponent<GoldHandler>().numOfPicks;
+            numWizard = goldHandler.GetComponent<GoldHandler>().numOfWizards;
+
         }
 
     }
