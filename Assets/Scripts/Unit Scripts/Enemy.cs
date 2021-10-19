@@ -79,6 +79,18 @@ public class Enemy : Unit
     public float distanceToPlayer;
 
     public AIPath Astar;
+
+    public float nextWaypointDistance = 3f;
+
+    //Path path;
+
+    //int currentWaypoint = 0;
+
+    //bool reachedEndOfPath = false;
+
+    protected Seeker seeker;
+
+
     #endregion
 
     #endregion

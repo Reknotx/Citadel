@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class IcicleSpell : Spell
 {
-
-    public override void TriggerSpell()
+    public override void Move()
     {
-        throw new System.NotImplementedException();
+        ///Activate the movement logic here
     }
+
+    public override void TriggerSpell(GameObject target)
+    {
+        target.GetComponent<Enemy>().TakeDamage(stats.damage);
+    }
+
+    
 }
