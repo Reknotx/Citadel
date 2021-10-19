@@ -103,7 +103,7 @@ public class Unit : MonoBehaviour
     protected bool isGrounded;
 
     ///<summary>This determines whether the unit is on a platform or not.</summary>
-    [HideInInspector]
+    [SerializeField]
     protected bool onPlatform;
 
     [HideInInspector]
@@ -250,8 +250,8 @@ public class Unit : MonoBehaviour
 
     }
 
-        #endregion
-        
+    #endregion
+
     #endregion
 
     /*#region Unit Melee Attacks
@@ -310,15 +310,7 @@ public class Unit : MonoBehaviour
     #endregion
     */
     #region IEnumerator Coroutines
-    /// <summary> this allows units to drop through platforms </summary>
-    public IEnumerator dropDown()
-    {
-        _platformCollider.enabled = false;
-        _groundCollider.enabled = false;
-        yield return new WaitForSeconds(1f);
-        _groundCollider.enabled = true;
-        _platformCollider.enabled = true;
-    }
+   
 
 
     /// <summary> this allows the weapons collider to interact with things </summary>
