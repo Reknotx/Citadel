@@ -24,9 +24,6 @@ namespace ShopSystem
         public Button spell2Button;
         public Button spell3Button;
 
-
-
-
         public GameObject popupDisplay;
 
         List<Button> shopButtons;

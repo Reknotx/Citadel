@@ -32,6 +32,7 @@ public class Unit : MonoBehaviour
     public float jumpFroce;
     #endregion
     #region Health
+    [SerializeField]
     protected float _health;
 
     ///<summary>This is the maximum units health.</summary>
