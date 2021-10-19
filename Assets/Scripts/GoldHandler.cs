@@ -94,6 +94,11 @@ public class GoldHandler : MonoBehaviour
     /// number of miners the player currently owns
     /// </summary>
     public int numOfMiners;
+    
+    /// <summary>
+    /// number of picks the player currently owns
+    /// </summary>
+    public int numOfPicks;
 
     /// <summary>
     /// The base increase the player gets passively
@@ -104,6 +109,16 @@ public class GoldHandler : MonoBehaviour
     /// Number of minecarts the player currently owns
     /// </summary>
     public int numOfCarts;
+    
+    /// <summary>
+    /// Number of moles the player currently owns
+    /// </summary>
+    public int numOfMoles;
+    
+    /// <summary>
+    /// Number of wizards the player currently owns
+    /// </summary>
+    public int numOfWizards;
 
     /// <summary>
     /// The increase in the player's revenue for every miner they own
@@ -116,6 +131,21 @@ public class GoldHandler : MonoBehaviour
     /// </summary>
     [SerializeField]
     private int cartIncrease;
+    
+    /// <summary>
+    /// The increase in the player's revenue for every pick they own
+    /// </summary>
+    [SerializeField]
+    private int pickIncrease;
+    
+    /// <summary>
+    /// The increase in the player's revenue for every mole they own
+    /// </summary>
+    [SerializeField]
+    private int moleIncrease;
+
+    [SerializeField]
+    private int wizardIncrease;
 
     /// <summary>
     /// The player's current revenue (passively gained gold)
@@ -148,14 +178,6 @@ public class GoldHandler : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
-        
-        
-
-        ///Updates soft and hard gold text object
-        //softGoldText.text = "Soft Gold: " + (int)MySoftGold;
-
-        //hardGoldText.text = "Hard Gold: " + (int)MyHardGold;
 
         ///Checks which scene is active and displays the correct gold value
         if (castleSceneName == currentScene.name )
@@ -175,7 +197,7 @@ public class GoldHandler : MonoBehaviour
         {
             if (!(mainMenuName == currentScene.name))
             {
-                revenue = baseGoldIncrease + (numOfMiners * minerIncrease) + (numOfCarts * cartIncrease);
+                revenue = baseGoldIncrease + (numOfMiners * minerIncrease) + (numOfCarts * cartIncrease) + (numOfPicks * pickIncrease) + (numOfMoles * moleIncrease) + (numOfWizards * wizardIncrease);
                 AddHardGold(revenue);
             }
             elapsed = 0f;
