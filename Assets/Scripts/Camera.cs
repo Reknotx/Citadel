@@ -23,12 +23,13 @@ public class Camera : MonoBehaviour
     public string sceneName;
 
 
-    private void Awake()
+    private void Start()
     {
         sceneName = SceneManager.GetActiveScene().name;
         if (sceneName != "MineScene")
         {
-            target = GameObject.FindGameObjectWithTag("PlayerModel").transform;
+            //target = GameObject.FindGameObjectWithTag("PlayerModel").transform;
+            target = Player.Instance.transform;
         }
     }
 

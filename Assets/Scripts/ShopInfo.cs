@@ -205,7 +205,7 @@ namespace ShopSystem
 
         public override void Buy()
         {
-
+            Player.Instance.Attack1 = spellPrefab.name;
         }
 
         public override string ToString()
@@ -329,9 +329,6 @@ namespace ShopSystem
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("purchaseableSpells").GetArrayElementAtIndex(index), GUIContent.none);
 
                     EditorGUILayout.EndHorizontal();
-
-
-
                 }
             }
         }
