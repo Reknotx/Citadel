@@ -66,9 +66,7 @@ public class Unit : MonoBehaviour
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
     protected Collider _groundCollider;
-    ///<summary>This is the unit's collider that detects the ground.</summary>
-    [SerializeField]
-    protected  Collider _platformCollider;
+   
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
@@ -99,11 +97,11 @@ public class Unit : MonoBehaviour
     #region Unit's bool determinates 
 
     ///<summary>This determines whether the unit is on the ground or not.</summary>
-    [SerializeField]
+    [HideInInspector]
     protected bool isGrounded;
 
     ///<summary>This determines whether the unit is on a platform or not.</summary>
-    [SerializeField]
+    [HideInInspector]
     protected bool onPlatform;
 
     [HideInInspector]
@@ -204,9 +202,10 @@ public class Unit : MonoBehaviour
     
     #region Unit Actions
 
-        #region Unit Melee Attacks
-    /// <summary> This is the attacking function /// </summary>
-    public void lightAttack(InputAction.CallbackContext context)
+      
+    #region Unit Melee Attacks
+   /* /// <summary> This is the attacking function /// </summary>
+    public void lightAttack()
     {
 
         if (Time.time >= nextDamageEvent)
@@ -226,7 +225,7 @@ public class Unit : MonoBehaviour
         }
         
     }
-
+    */
     /// <summary> This is the attacking function /// </summary>
 
     public void heavyAttack(InputAction.CallbackContext context)

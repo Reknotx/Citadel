@@ -26,9 +26,10 @@ public class Player : Unit
             #region Player's Base Stats/Important controls
     [Header ("player base stats")]
 
-    ///<summary>This is the units health.</summary>
+    ///<summary>This is the players tracked health.</summary>
     public float myHealth;
 
+    ///<summary>This is the units actual health.</summary>
     public override float Health 
     { 
         get => base.Health; 
@@ -55,8 +56,12 @@ public class Player : Unit
     ///<summary>This is the  units starting health.</summary>
     public float startingHealth;
 
+    ///<summary> the players calculated health for the health bar </summary>
+    [HideInInspector]
     private float calculateHealth;
 
+    ///<summary>  the players calculated mana for the mana bar </summary>
+    [HideInInspector]
     private float calculateMana;
 
     ///<summary>This is the units mana for magic casting.</summary>
@@ -75,7 +80,46 @@ public class Player : Unit
     [SerializeField]
     public Rigidbody _rigidBody;
 
-    #endregion
+      ///<summary> the players current velocity</summary>
+    [HideInInspector]
+    public Vector3 myVelocity;
+
+
+            #endregion
+            #region player jumping stats and controls
+    [Header("player improved jumping ")]
+
+    ///<summary>the players gravity value while in the air </summary>
+    [HideInInspector]
+    float gravity = -9.8f;
+
+    ///<summary> the players gravity value while on the ground</summary>
+     [HideInInspector]
+    float groundedGravity = -.05f;
+
+    ///<summary> determines if the player is moving up in their jump</summary>
+    [HideInInspector]
+    public bool isJumping = false;
+
+    ///<summary> determines if the player is holding the jump key down</summary>
+    [HideInInspector]
+    public bool isJumpPressed = false;
+
+    ///<summary> the initial velocity applied to the player when they jump</summary>
+    [HideInInspector]
+    public float initialJumpVelocity;
+
+    ///<summary> the maximum height the player can jump</summary>
+    [HideInInspector]
+    public float maxJumpHeight;
+
+    ///<summary> the maximum time the player will be in the air during the jump</summary>
+    [HideInInspector]
+    public float maxJumpTime;
+
+
+  
+            #endregion
             #region Player's Ground/Directional Detection Stats
 
     ///<summary>This is the range of detection to the ground.</summary>
@@ -101,18 +145,20 @@ public class Player : Unit
     ///<summary>This determines the damage of the player's melee attack.</summary>
     public int meleeAttackDamage; //
 
-    ///<summary>This determines the damage the player deals to an enemy when they collide.</summary>
-    public int playerCollisionDamage;
-
-    public GameObject ManaHealthController;
 
     /// <summary>this is the physical gameobject that is cast during the firewall spell</summary>
     public GameObject fireWall_prefab;
 
     /// <summary>this is the physical gameobject that is cast during the icicle spell</summary>
     public GameObject icicle_prefab;
+
+    [Header("player attack names")]
+    public string Attack1;
+    public string Attack2;
+    public string Attack3;
+
     #endregion
-    #region Bool Determinates 
+            #region Bool Determinates 
     [Header("player bool determinates")]
     /// <summary> determines if the player can move or not </summary>
     [HideInInspector]
@@ -165,7 +211,10 @@ public class Player : Unit
 
     public bool dmgPlayerByTick = false;
 
+    [HideInInspector]
     public bool shieldActive;
+
+    public bool usingPotion = false;
 
     #endregion
             #region Bool/int Equipment
@@ -186,7 +235,7 @@ public class Player : Unit
     public int manaPotionMax = 2;
 
     #endregion
-    #region Animations
+            #region Animations
     [Header("player animations")]
     public Animator animator;
     private bool triggered = false;
@@ -217,27 +266,11 @@ public class Player : Unit
 
 
     #endregion
-    [Header("player attack names")]
-    public string Attack1;
-    public string Attack2;
-    public string Attack3;
 
-    [Header("player improved jumping ")]
-    float gravity = -9.8f;
-    float groundedGravity = -.05f;
-
-    public bool isJumping = false;
-    public bool isJumpPressed = false;
-    public float initialJumpVelocity;
-    public float maxJumpHeight;
-    public float maxJumpTime;
-
-    public Vector3 movementVelocity;
-    public Vector3 myVelocity;
+    
 
 
 
-   
 
     #endregion
 
@@ -274,6 +307,15 @@ public class Player : Unit
    
     public override void Update()
     {
+      
+
+
+        base.Update();
+
+
+
+
+        #region Player Stat/Item controls
         Application.targetFrameRate = 60;
         facingRightLocal = facingRight;
         _rigidBody.velocity = myVelocity;
@@ -283,23 +325,7 @@ public class Player : Unit
             TakeDamage(1);
         }
 
-
-        base.Update();
-
-        if(floatingShield)
-        {
-            flotingShieldObj.SetActive(true);
-        }
-        if(medicineStash == true)
-        {
-            manaPotionMax = 3;
-            healthPotionMax = 3;
-            potionMax = 4;
-        }
-        
-
-        #region Player Stat controls
-       myHealth = Health;
+        myHealth = Health;
         if(myHealth <= 0)
         {
             ResetGame();
@@ -317,7 +343,25 @@ public class Player : Unit
 
         handleGravity();
         handleJump();
-        
+
+        ///<summary>this sets the rate for how quickly players can cast spells </summary>
+        spellCastDelay -= Time.deltaTime * spellCastRate;
+        if (spellCastDelay <= 0)
+        {
+            canCast = true;
+            spellCastDelay = 3f;
+        }
+
+        if (floatingShield)
+        {
+            flotingShieldObj.SetActive(true);
+        }
+        if (medicineStash == true)
+        {
+            manaPotionMax = 3;
+            healthPotionMax = 3;
+            potionMax = 4;
+        }
 
         #endregion
 
@@ -345,17 +389,19 @@ public class Player : Unit
             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
 
-
+        ///standing on a platform is the same as standing on the ground 
         if (onPlatform == true)
         {
             isGrounded = true;
         }
+        grounded = isGrounded;
+        ///when you are back on the ground, it resets whether or not you can double jump or not is you have the shuues
         if(isGrounded == true)
         {
             canDoubleJump = true;
             hasDoubleJump = false;
         }
-        grounded = isGrounded;
+        
 
         
 
@@ -424,13 +470,7 @@ public class Player : Unit
 
         #endregion
 
-        ///<summary>this sets the rate for how quickly players can cast spells </summary>
-        spellCastDelay -= Time.deltaTime * spellCastRate;
-        if (spellCastDelay <= 0)
-        {
-            canCast = true;
-            spellCastDelay = 3f;
-        }
+        
     }
 
     private void FixedUpdate()
@@ -451,6 +491,11 @@ public class Player : Unit
     }
 
 
+    #region health/mana reduction + reset methods
+
+    /// <summary>
+    /// resets the players soft gold and returns them to the camp
+    /// </summary>
     public void ResetGame()
     {
         maxHealth = startingHealth;
@@ -468,6 +513,10 @@ public class Player : Unit
 
     }
 
+    /// <summary>
+    /// reduces player health and makes them invulnerable for a short time 
+    /// </summary>
+    /// <param name="amount"> the amount of damage delt </param>
     public override void TakeDamage(float amount)
     {
         if (invulnerable)
@@ -482,9 +531,13 @@ public class Player : Unit
     }
 
    
+      /// <param name="mana">Amount of mana lost by the player for casting a spell</param>
+    public void ReduceMana(float mana)
+    {
+        myMana -= mana;
+    }
 
-   
-
+    #endregion
 
     #region Player Movement Actions
     /*
@@ -939,6 +992,57 @@ public class Player : Unit
     }
 
     #endregion
+    #region Player using potions
+
+    public void useHealthPotion()
+    {
+        if(Health < maxHealth)
+        {
+            if (healthPotions > 0)
+            {
+                if (!usingPotion)
+                {
+                    usingPotion = true;
+                    healthPotions--;
+                    Health = Health + (maxHealth * 0.4f);
+                    StartCoroutine(usePotionCoroutine());
+                }
+
+            }
+        }
+        
+    }
+
+    public void useManaPotion()
+    {
+        if(myMana < maxMana)
+        {
+            if (manaPotions > 0)
+            {
+                if (!usingPotion)
+                {
+                    usingPotion = true;
+                    manaPotions--;
+                    myMana = myMana + (maxMana * 0.4f);
+                    StartCoroutine(usePotionCoroutine());
+                }
+
+            }
+        }
+        
+    }
+
+    public void restockPotions()
+    {
+       if(medicineStash)
+        {
+            healthPotions = 1;
+            manaPotions = 1;
+        }
+
+       
+    }
+    #endregion
 
     #region actionCheckers
     public void actionCheck1()
@@ -947,17 +1051,21 @@ public class Player : Unit
         {
             lightAttack();
         }
-        if (Attack1 == "Heavy Attack")
+        else if (Attack1 == "Heavy Attack")
         {
             heavyAttack();
         }
-        if (Attack1 == "Fire Wall")
+        else if (Attack1 == "Fire Wall")
         {
             fireWall();
         }
-        if (Attack1 == "Icicle")
+        else if (Attack1 == "Icicle")
         {
             icicle();
+        }
+        else
+        {
+            lightAttack();
         }
     }
     public void actionCheck2()
@@ -966,17 +1074,21 @@ public class Player : Unit
         {
             lightAttack();
         }
-        if (Attack2 == "Heavy Attack")
+        else if (Attack2 == "Heavy Attack")
         {
             heavyAttack();
         }
-        if (Attack2 == "Fire Wall")
+        else if (Attack2 == "Fire Wall")
         {
             fireWall();
         }
-        if (Attack2 == "Icicle")
+        else if (Attack2 == "Icicle")
         {
             icicle();
+        }
+        else
+        {
+            lightAttack();
         }
     }
     public void actionCheck3()
@@ -985,17 +1097,21 @@ public class Player : Unit
         {
             lightAttack();
         }
-        if (Attack3 == "Heavy Attack")
+        else if (Attack3 == "Heavy Attack")
         {
             heavyAttack();
         }
-        if (Attack3 == "Fire Wall")
+        else if (Attack3 == "Fire Wall")
         {
             fireWall();
         }
-        if (Attack3 == "Icicle")
+        else if (Attack3 == "Icicle")
         {
             icicle();
+        }
+        else
+        {
+            lightAttack();
         }
     }
 
@@ -1086,7 +1202,8 @@ public class Player : Unit
     {
         if (other.gameObject.tag == "platform")
         {
-            _platformCollider.enabled = true;
+            _groundCollider.enabled = true;
+          
         }
  
         if (other.gameObject.tag == "MineEntrance")
@@ -1123,13 +1240,10 @@ public class Player : Unit
 
 
 
-    /// <param name="mana">Amount of mana lost by the player for casting a spell</param>
-    public void ReduceMana(float mana)
-    {
-        myMana -= mana;
-    }
+  
 
 
+    #region player IEnumerators
     public IEnumerator InteractCoroutine()
     {
        
@@ -1158,7 +1272,19 @@ public class Player : Unit
 
     }
 
-  
+    public IEnumerator usePotionCoroutine()
+    {
+       
+        yield return new WaitForSeconds(.3f);
+        if (usingPotion)
+            usingPotion = false;
+      
+
+
+    }
+
+
+
 
     public IEnumerator IFrames()
     {
@@ -1195,7 +1321,7 @@ public class Player : Unit
     public IEnumerator dropDown()
     {
         
-        _platformCollider.enabled = false;
+      
         _groundCollider.enabled = false;
         onPlatform = false;
         isGrounded = false;
@@ -1204,7 +1330,7 @@ public class Player : Unit
       
         yield return new WaitForSeconds(2f);
         _groundCollider.enabled = true;
-        _platformCollider.enabled = true;
+       
     }
-
+    #endregion
 }

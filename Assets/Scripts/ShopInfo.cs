@@ -122,10 +122,7 @@ namespace ShopSystem
         [Tooltip("The description of this stat and how much it increases that stat on purchase.")]
         public string description;
 
-        //hunter added
-        [Tooltip("the base cost value of potions")]
-        public int potionCost;
-        //ends
+       
 
         private int _level = 0;
 

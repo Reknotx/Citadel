@@ -400,10 +400,10 @@ public class Enemy : Unit
     /// <summary> this allows units to drop through platforms </summary>
     public IEnumerator dropDown()
     {
-        _platformCollider.enabled = false;
+       
         _groundCollider.enabled = false;
         yield return new WaitForSeconds(1f);
         _groundCollider.enabled = true;
-        _platformCollider.enabled = true;
+        
     }
 }
