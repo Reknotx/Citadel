@@ -61,10 +61,10 @@ public class Orc : Enemy
         if (player == null) {  return; }
         base.Update();
 
-        if (myHealth < maxHealth)
+        if (Health < maxHealth)
         {
             HealthIMG.gameObject.SetActive(true);
-            calculateHealth = (float)myHealth / maxHealth;
+            calculateHealth = (float)Health / maxHealth;
             orcHealth.fillAmount = Mathf.MoveTowards(orcHealth.fillAmount, calculateHealth, Time.deltaTime);
         }
         else

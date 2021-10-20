@@ -118,9 +118,20 @@ public class Player : Unit
     public float maxJumpTime;
 
 
-  
-            #endregion
-            #region Player's Ground/Directional Detection Stats
+
+    #endregion
+    #region Player's Ground/Directional Detection Stats
+    [Header("unit colliders/ground detection")]
+
+
+    ///<summary>This is the unit's collider that detects the ground.</summary>
+    [SerializeField]
+    protected Collider _groundCollider;
+
+
+    ///<summary>This is the unit's collider that detects the ground.</summary>
+    [SerializeField]
+    protected Collider _hitboxCollider;
 
     ///<summary>This is the range of detection to the ground.</summary>
     private float _Reach = 1f;
@@ -151,6 +162,22 @@ public class Player : Unit
 
     /// <summary>this is the physical gameobject that is cast during the icicle spell</summary>
     public GameObject icicle_prefab;
+
+    ///<summary>This is the location spells will be cast on the left side of the unit.</summary>
+    [SerializeField]
+    protected GameObject spellLocationLeft;
+
+    ///<summary>this is the location spells will cast on the right side of the unit.</summary>
+    [SerializeField]
+    protected GameObject spellLocationRight;
+
+    ///<summary>This is the location spell will be cast from the center of the unit.</summary>
+    [SerializeField]
+    protected GameObject spellLocationCenter;
+
+    ///<summary>This dis the units collider for their heavy attack.</summary>
+    [SerializeField]
+    protected Collider _heavyCollider;
 
     [Header("player attack names")]
     public string Attack1;
@@ -230,8 +257,14 @@ public class Player : Unit
 
     public int healthPotions = 0;
     public int manaPotions = 0;
+
+    [HideInInspector]
     public int potionMax = 2;
+
+    [HideInInspector]
     public int healthPotionMax = 2;
+
+    [HideInInspector]
     public int manaPotionMax = 2;
 
     #endregion
@@ -540,44 +573,7 @@ public class Player : Unit
     #endregion
 
     #region Player Movement Actions
-    /*
-    /// <summary> This moves the player from side to side on the x axis  /// </summary>
-    public void movement(InputAction.CallbackContext context)
-    {
-        if (canMove == true)
-        {
-            if (this != null)
-            {
-               
-                    Vector2 inputVector = context.ReadValue<Vector2>();
-                
-                    _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
-                    if (inputVector.x > 0)
-                    {
-                        facingRight = true;
-
-                    }
-                    if (inputVector.x < 0)
-                    {
-                        facingRight = false;
-                    }
-
-                    if(inputVector.x == 0)
-                    {
-                        isRunning = false;
-                    }
-                    else
-                    {
-                    
-                        isRunning = true;
-                    
-                    }
-                
-                
-            }
-        }
-    }
-    */
+   
     public void movement2(InputAction.CallbackContext context)
     {
         if (canMove == true)
@@ -613,58 +609,7 @@ public class Player : Unit
         }
     }
 
-    /*
-    ///<summary>This triggers the unit to jump up.</summary>
-    public void Jump(InputAction.CallbackContext context)
-    {
-        if (this != null)
-        {
-            
-            if (context.performed && isGrounded == true )
-            {
-                
-                _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
-                
-                canDoubleJump = true;
-               StartCoroutine(Jumped());
-               
-                
-                
-            }
-            else if(shuues == true )
-            {
-                if(canDoubleJump == true)
-                {
-                    _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
-                    canDoubleJump = false;
-                    StartCoroutine(Jumped());
-                }
-                
-            }
-
-
-            if (onPlatform == true)
-            {
-
-                _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
-                canDoubleJump = true;
-                StartCoroutine(Jumped());
-
-            }
-            else if (  shuues == true )
-            {
-                if(canDoubleJump == true)
-                {
-                    _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
-                    canDoubleJump = false;
-                    StartCoroutine(Jumped());
-                }
-                
-            }
-
-        }
-    }
-    */
+    
     public void Jump2(InputAction.CallbackContext context)
     {
         isJumpPressed = context.ReadValueAsButton();
@@ -876,38 +821,22 @@ public class Player : Unit
 
         if (Time.time >= nextDamageEvent)
         {
-            nextDamageEvent = Time.time + attackCoolDown;
+            nextDamageEvent = Time.time + attackCoolDown/2;
             triggered = true;
             if (facingRight == true)
             {
-                //10/4/21 Tyler Added this to fix the problems with sword position and rotation
-                /* _lightCollider.transform.position = spellLocationRight.transform.position;
-                _lightCollider.transform.position = _lightCollider.transform.position;
                 
-                StartCoroutine(lightAttackCoroutine());
-                //Tyler commented this out to fix the problems with sword pos and rtotation
-                 */
-
-                //_lightCollider.transform.position = spellLocationRight.transform.position;
                 _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale/2);
-                //_lightCollider.transform.eulerAngles = new Vector3(0.0f, 0.0f, 270.0f);
+                
                 _lightCollider.transform.localPosition = new Vector3(0f, 0f, 0f);
                 StartCoroutine(lightAttackCoroutine());
               
             }
             else
             {
-                //10/4/21 Tyler Added this to fix the problems with sword position and rotation
-               /*  _lightCollider.transform.position = spellLocationLeft.transform.position;
-                _lightCollider.transform.position = _lightCollider.transform.position;
-                
-                StartCoroutine(lightAttackCoroutine());
-                //Tyler commented this out to fix the problems with sword pos and rtotation
-               */
-
-                //_lightCollider.transform.position = spellLocationLeft.transform.position;
+               
                 _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
-                //_lightCollider.transform.eulerAngles = new Vector3(180.0f, 0.0f, 90.0f);
+                
                 _lightCollider.transform.localPosition = new Vector3(0f, 0f, 0f);
                 StartCoroutine(lightAttackCoroutine());
                 
@@ -941,16 +870,9 @@ public class Player : Unit
 
             if (facingRight == true)
             {
-                //10/4/21 Tyler Added this to fix the problems with sword position and rotation
-              /*  _heavyCollider.transform.position = spellLocationRight.transform.position;
-                _heavyCollider.transform.position = _heavyCollider.transform.position;
-                _heavyCollider.transform.eulerAngles = new Vector3(0.0f, 0.0f, 270.0f);
-                StartCoroutine(heavyAttackCoroutine());
-                //Tyler commented this out to fix the problems with sword pos and rtotation
-               */ 
-               // _heavyCollider.transform.position = spellLocationRight.transform.position;
+               
                 _heavyCollider.transform.position = _heavyCollider.transform.position + (_heavyCollider.gameObject.transform.localScale / 2);
-                //_heavyCollider.transform.eulerAngles = new Vector3(0.0f, 0.0f, 270.0f);
+                
                 _heavyCollider.transform.localPosition = new Vector3(0f, 0f, 0f); ;
                 StartCoroutine(heavyAttackCoroutine());
                
@@ -958,16 +880,9 @@ public class Player : Unit
             }
             else
             {
-                //10/4/21 Tyler Added this to fix the problems with sword position and rotation
-               /* _heavyCollider.transform.position = spellLocationLeft.transform.position;
-                _heavyCollider.transform.position = _heavyCollider.transform.position;
-                _heavyCollider.transform.eulerAngles = new Vector3(180.0f, 0.0f, 90.0f);
-                StartCoroutine(heavyAttackCoroutine());
-                //Tyler commented this out to fix the problems with sword pos and rtotation
-                */
-                //_heavyCollider.transform.position = spellLocationLeft.transform.position;
+                
                 _heavyCollider.transform.position = _heavyCollider.transform.position - (_heavyCollider.gameObject.transform.localScale / 2);
-                //_heavyCollider.transform.eulerAngles = new Vector3(180.0f, 0.0f, 90.0f);
+                
                 _heavyCollider.transform.localPosition = new Vector3(0f, 0f, 0f);
                 StartCoroutine(heavyAttackCoroutine());
                
@@ -1150,25 +1065,6 @@ public class Player : Unit
         }
 
 
-       
-
-
-       
-
-        //if (other.gameObject.tag == "CampShopEntrance")
-        //{
-        //    GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
-        //    buttonController.GetComponent<SceneButtonControllerScript>().enterCampShopBTN.SetActive(true);
-
-        //    if (Interacting == true)
-        //    {
-        //        Interacting = false;
-        //        canMove = false;
-        //        other.GetComponent<CampShopEntranceInteractScript>().Interact();
-
-        //    }
-        //}
-
         #endregion
 
         #region Enemy Collisions
@@ -1279,6 +1175,14 @@ public class Player : Unit
 
     }
 
+    /// <summary> this allows the weapons collider to interact with things </summary>
+    public IEnumerator heavyAttackCoroutine()
+    {
+        _heavyCollider.enabled = true;
+        yield return new WaitForSeconds(.9f);
+        _heavyCollider.enabled = false;
+    }
+
 
 
 
@@ -1327,6 +1231,13 @@ public class Player : Unit
         yield return new WaitForSeconds(2f);
         _groundCollider.enabled = true;
        
+    }
+
+    public IEnumerator InvicibilityFrames()
+    {
+        _hitboxCollider.enabled = false;
+        yield return new WaitForSeconds(1f);
+        _hitboxCollider.enabled = true;
     }
     #endregion
 }
