@@ -34,6 +34,10 @@ public class Skeleton : Enemy
 
     public float currentHealth;
 
+    public float runAwayDistance;
+
+    public float runAwayForce;
+
     public override void Start()
     {
         base.Start();
@@ -47,9 +51,6 @@ public class Skeleton : Enemy
     public override void Update()
     {
         base.Update();
-
-        Debug.Log(myHealth);
-        Debug.Log(maxHealth);
 
         if (myHealth < maxHealth)
         {
@@ -69,6 +70,18 @@ public class Skeleton : Enemy
                 //transform.LookAt(player.transform);
                 Instantiate(projectile, shootLocation.position, Quaternion.identity);
                 StartCoroutine(ProjectileCooldown());
+            }
+        }
+
+        if (Vector2.Distance(transform.position, player.transform.position) <= runAwayDistance)
+        {
+            if (facingRight)
+            {
+                _rigidBody.AddForce(-transform.right * runAwayForce);
+            }
+            else
+            {
+                _rigidBody.AddForce(transform.right * runAwayForce);
             }
         }
     }
