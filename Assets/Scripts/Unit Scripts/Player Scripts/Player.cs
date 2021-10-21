@@ -120,7 +120,7 @@ public class Player : Unit
 
 
     #endregion
-    #region Player's Ground/Directional Detection Stats
+            #region Player's Ground/Directional Detection Stats
     [Header("unit colliders/ground detection")]
 
 
@@ -299,11 +299,6 @@ public class Player : Unit
 
 
     #endregion
-
-    
-
-
-
 
     #endregion
 
@@ -490,7 +485,7 @@ public class Player : Unit
 
 
         ///<summary>this checks if the unit is trying to pass up through a platform and will assist.</summary>
-        if (throughPlatform == true && justJumped == true)
+        if (throughPlatform == true && justJumped == true && !isGrounded)
         {
             StartCoroutine(dropDown());
             _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 6);
@@ -613,7 +608,7 @@ public class Player : Unit
     public void Jump2(InputAction.CallbackContext context)
     {
         isJumpPressed = context.ReadValueAsButton();
-        float jumpTimeFrame = Time.deltaTime + maxJumpTime;
+         float jumpTimeFrame = Time.deltaTime + maxJumpTime;
     }
     void setJumpVariables()
     {
@@ -639,6 +634,7 @@ public class Player : Unit
         }
         else if(onPlatform)
         {
+            isJumping = false;
             myVelocity.y = groundedGravity;
         }
         else if(isFalling)
@@ -1228,7 +1224,7 @@ public class Player : Unit
         isFalling = true;
         
       
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(.5f);
         _groundCollider.enabled = true;
        
     }

@@ -193,13 +193,6 @@ public class Unit : MonoBehaviour
 
 
 
-   
-
-    public IEnumerator Stun()
-    {
-        yield return new WaitForSeconds(2f);
-    }
-
     
 
     public IEnumerator onFireCoroutine ()

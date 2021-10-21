@@ -18,7 +18,7 @@ public class Enemy : Unit
 
     #region Enemy Stats
 
-            #region Enemy's Base Stats/Important Controls
+    #region Enemy's Base Stats/Important Controls
  
 
     ///<summary>This is the players Input system.</summary>
