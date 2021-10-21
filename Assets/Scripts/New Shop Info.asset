@@ -13,67 +13,83 @@ MonoBehaviour:
   m_Name: New Shop Info
   m_EditorClassIdentifier: 
   healthUpInfo:
-    upgradeCost: 2
-    rateOfCostGrowth: 2
-    increaseStatBy: 0
+    upgradeCost: 50
+    rateOfCostGrowth: 25
+    increaseStatBy: 25
     description: Increases player health
+    potionCost: 0
     statToIncrease: 0
   attackUpInfo:
-    upgradeCost: 2
-    rateOfCostGrowth: 0
-    increaseStatBy: 0
+    upgradeCost: 100
+    rateOfCostGrowth: 35
+    increaseStatBy: 1
     description: Increases player attack
+    potionCost: 0
     statToIncrease: 1
   attackRangeUpInfo:
-    upgradeCost: 2
-    rateOfCostGrowth: 3
-    increaseStatBy: 0
+    upgradeCost: 200
+    rateOfCostGrowth: 60
+    increaseStatBy: 0.1
     description: Increases player attack range
+    potionCost: 0
     statToIncrease: 2
   speedUpInfo:
-    upgradeCost: 2
-    rateOfCostGrowth: 0
-    increaseStatBy: 0
+    upgradeCost: 50
+    rateOfCostGrowth: 50
+    increaseStatBy: 1
     description: Increases player speed
+    potionCost: 0
     statToIncrease: 3
   manaUpInfo:
-    upgradeCost: 2
-    rateOfCostGrowth: 0
-    increaseStatBy: 0
+    upgradeCost: 50
+    rateOfCostGrowth: 25
+    increaseStatBy: 25
     description: Increases player mana
+    potionCost: 0
     statToIncrease: 4
   spellPotencyUpInfo:
-    upgradeCost: 2
+    upgradeCost: 200
+    rateOfCostGrowth: 60
+    increaseStatBy: 1
+    description: Increases player spell potency
+    potionCost: 0
+    statToIncrease: 5
+  healthPotions:
+    upgradeCost: 0
     rateOfCostGrowth: 0
     increaseStatBy: 0
-    description: Increases player spell potency
-    statToIncrease: 5
+    description: 
+    potionCost: 0
+    statToIncrease: 0
+  manaPotions:
+    upgradeCost: 0
+    rateOfCostGrowth: 0
+    increaseStatBy: 0
+    description: 
+    potionCost: 0
+    statToIncrease: 0
   spell1Info:
-    name: 1x3 Floor
-    spellCost: 0
-    spellPrefab: {fileID: 8916113085486979954, guid: 4861a057fe66e5b45adb130979347306, type: 3}
-    description: 
+    name: Firewall
+    spellCost: 20
+    spellPrefab: {fileID: 1103918510936984276, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
+    description: Unleash a ball of fire that expands into a wall.
   spell2Info:
-    name: fireWall-Cast
-    spellCost: 5
-    spellPrefab: {fileID: 1103918510936984276, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
-    description: 
+    name: Icicle
+    spellCost: 25
+    spellPrefab: {fileID: 9107153429648986007, guid: bde62944ba9d4444b81a10b35cf4ba4b, type: 3}
+    description: Unleash a sharp icicle that penetrates enemies.
   spell3Info:
-    name: 1x1 Floor
-    spellCost: 3
-    spellPrefab: {fileID: 255129749715192178, guid: 8dbed03062722e74bb581801fed6d26a, type: 3}
-    description: 
-  numOfSpells: 3
+    name: 
+    spellCost: 25
+    spellPrefab: {fileID: 9107153429648986007, guid: bde62944ba9d4444b81a10b35cf4ba4b, type: 3}
+    description: Unleash a sharp icicle that penetrates enemies.
+  numOfSpells: 2
   purchaseableSpells:
-  - name: fireWall-Cast
-    spellCost: 5
+  - name: Firewall
+    spellCost: 20
     spellPrefab: {fileID: 1103918510936984276, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
-    description: 
-  - name: 1x1 Floor
-    spellCost: 3
-    spellPrefab: {fileID: 255129749715192178, guid: 8dbed03062722e74bb581801fed6d26a, type: 3}
-    description: 
-  - name: 1x3 Floor
-    spellCost: 0
-    spellPrefab: {fileID: 8916113085486979954, guid: 4861a057fe66e5b45adb130979347306, type: 3}
-    description: 
+    description: Unleash a ball of fire that expands into a wall.
+  - name: Icicle
+    spellCost: 25
+    spellPrefab: {fileID: 9107153429648986007, guid: bde62944ba9d4444b81a10b35cf4ba4b, type: 3}
+    description: Unleash a sharp icicle that penetrates enemies.

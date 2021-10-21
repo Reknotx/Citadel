@@ -23,6 +23,12 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     public int numMiner;
     public int startingNumCart;
     public int startingNumMiner = 2;
+    public int numMoles;
+    public int startingNumMolest;
+    public int numPicks;
+    public int startingNumPicks;
+    public int numWizard;
+    public int startingNumWizard;
 
     public bool goldUpdated = false;
     public bool statsUpdated = false;
@@ -45,6 +51,12 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     public int startingAttackDamage;
     public float startingAttackRange;
 
+    [Header("player equipment")]
+    public bool shuues = false;
+    public bool undying = false;
+    public bool spellStone = false;
+    public bool floatingShield = false;
+
     private void Awake()
     {
 
@@ -66,14 +78,16 @@ public class PlayerGoldTrackerScript : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-
+        _instance = this;
+        findReference();
+        currentSceneName = SceneManager.GetActiveScene().name;
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
         }
-        _instance = this;
+       
 
         
 
@@ -98,7 +112,7 @@ public class PlayerGoldTrackerScript : MonoBehaviour
 
 
 
-        findReference();
+        
         trackGold();
         trackStats();
 
@@ -116,7 +130,7 @@ public class PlayerGoldTrackerScript : MonoBehaviour
                 //playerHardGold = startingHardGold;
                 playerSoftGold = startingSoftGold;
                 //numCart = startingNumCart;
-                // numMiner = startingNumMiner;
+                 //numMiner = startingNumMiner;
                 playerDead = false;
             }
 
@@ -124,6 +138,9 @@ public class PlayerGoldTrackerScript : MonoBehaviour
             goldHandler.GetComponent<GoldHandler>()._mySoftGold = playerSoftGold;
             goldHandler.GetComponent<GoldHandler>().numOfCarts = numCart;
             goldHandler.GetComponent<GoldHandler>().numOfMiners = numMiner;
+            goldHandler.GetComponent<GoldHandler>().numOfMoles = numMoles;
+            goldHandler.GetComponent<GoldHandler>().numOfPicks = numPicks;
+            goldHandler.GetComponent<GoldHandler>().numOfWizards =numWizard;
 
             goldUpdated = true;
         }
@@ -138,6 +155,11 @@ public class PlayerGoldTrackerScript : MonoBehaviour
             playerSoftGold = goldHandler.GetComponent<GoldHandler>().MySoftGold;
             numCart = goldHandler.GetComponent<GoldHandler>().numOfCarts;
             numMiner = goldHandler.GetComponent<GoldHandler>().numOfMiners;
+
+            numMoles = goldHandler.GetComponent<GoldHandler>().numOfMoles;
+            numPicks = goldHandler.GetComponent<GoldHandler>().numOfPicks;
+            numWizard = goldHandler.GetComponent<GoldHandler>().numOfWizards;
+
         }
 
     }
@@ -153,7 +175,8 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     public void updatePlayerStats()
     {
         if (statsUpdated == false && currentSceneName != "MainMenuScene" && currentSceneName != "MineScene")
-        {
+        { 
+            statsUpdated = true;
             if (playerDead == true)
             {
                     playerSpeed =  startingSpeed;
@@ -171,7 +194,12 @@ public class PlayerGoldTrackerScript : MonoBehaviour
             player.GetComponent<Player>().meleeAttackDamage = playerAttackDamage;
             player.GetComponent<Player>().meleeAttackRange = playerAttackRange;
 
-            statsUpdated = true;
+            player.GetComponent<Player>().shuues = shuues;
+            player.GetComponent<Player>().floatingShield = floatingShield;
+            player.GetComponent<Player>().undying = undying;
+            player.GetComponent<Player>().spellStone = spellStone;
+
+           
         }
     }
 
@@ -184,6 +212,11 @@ public class PlayerGoldTrackerScript : MonoBehaviour
             playerSpeed = player.GetComponent<Player>().speed;
             playerAttackDamage = player.GetComponent<Player>().meleeAttackDamage;
             playerAttackRange = player.GetComponent<Player>().meleeAttackRange;
+
+            shuues = player.GetComponent<Player>().shuues;
+            floatingShield = player.GetComponent<Player>().floatingShield;
+            undying = player.GetComponent<Player>().undying;
+            spellStone = player.GetComponent<Player>().spellStone;
         }
     }
 }

@@ -18,6 +18,11 @@ namespace ShopSystem
         public ShopStatUpgrade manaUpInfo;
         public ShopStatUpgrade spellPotencyUpInfo;
 
+        //hunter added
+        public ShopStatUpgrade healthPotions;
+        public ShopStatUpgrade manaPotions;
+        //ends
+
         [Space(10)]
         public SpellItem spell1Info;
         public SpellItem spell2Info;
@@ -117,6 +122,11 @@ namespace ShopSystem
         [Tooltip("The description of this stat and how much it increases that stat on purchase.")]
         public string description;
 
+        //hunter added
+        [Tooltip("the base cost value of potions")]
+        public int potionCost;
+        //ends
+
         private int _level = 0;
 
         public StatToIncrease statToIncrease;
@@ -198,7 +208,7 @@ namespace ShopSystem
 
         public override void Buy()
         {
-
+            Player.Instance.Attack1 = spellPrefab.name;
         }
 
         public override string ToString()
@@ -322,9 +332,6 @@ namespace ShopSystem
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("purchaseableSpells").GetArrayElementAtIndex(index), GUIContent.none);
 
                     EditorGUILayout.EndHorizontal();
-
-
-
                 }
             }
         }
