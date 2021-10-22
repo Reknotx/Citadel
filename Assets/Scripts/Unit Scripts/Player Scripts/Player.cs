@@ -29,9 +29,6 @@ public class Player : Unit
     ///<summary>This is the units health.</summary>
     public float myHealth;
 
-    ///<summary>This is the maximum units health.</summary>
-   // public float maxHealth; //
-
     public override float Health 
     { 
         get => base.Health; 
@@ -111,8 +108,11 @@ public class Player : Unit
 
     /// <summary>this is the physical gameobject that is cast during the firewall spell</summary>
     public GameObject fireWall_prefab;
+
+    /// <summary>this is the physical gameobject that is cast during the icicle spell</summary>
+    public GameObject icicle_prefab;
     #endregion
-            #region Bool Determinates 
+    #region Bool Determinates 
     [Header("player bool determinates")]
     /// <summary> determines if the player can move or not </summary>
     [HideInInspector]
@@ -156,6 +156,9 @@ public class Player : Unit
 
     [HideInInspector]
     public bool isRunning = false;
+
+    [HideInInspector]
+    public bool isFalling = false;
 
     [HideInInspector]
     public bool isAttacking = false;
@@ -245,6 +248,8 @@ public class Player : Unit
         if(Instance != null && Instance != this)
             Destroy(Instance.gameObject);
 
+        Instance = this;
+
         Health = maxHealth;
         myMana = maxMana;
         
@@ -255,7 +260,8 @@ public class Player : Unit
          playerInputActions.PlayerControl.Jump.started += Jump2;
         playerInputActions.PlayerControl.Jump.canceled += Jump2;
         playerInputActions.PlayerControl.Movement.performed += movement2;
-        playerInputActions.PlayerControl.Drop.performed += Drop;
+        playerInputActions.PlayerControl.Drop.started += Drop;
+        playerInputActions.PlayerControl.Drop.canceled += Drop;
         setJumpVariables();
         
 
@@ -325,7 +331,13 @@ public class Player : Unit
             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
             
             if (animator != null)
+            {
                 animator.SetBool("isRunning", isRunning);
+                animator.SetBool("isJumping", isJumping);
+                animator.SetBool("isFalling", isFalling);
+                animator.SetBool("isGrounded", isGrounded);
+            }
+                
             
         }
         else
@@ -333,6 +345,11 @@ public class Player : Unit
             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
 
+
+        if (onPlatform == true)
+        {
+            isGrounded = true;
+        }
         if(isGrounded == true)
         {
             canDoubleJump = true;
@@ -418,13 +435,19 @@ public class Player : Unit
 
     private void FixedUpdate()
     {
-        calculateHealth = Health / maxHealth;
-        healthBar.fillAmount = Mathf.MoveTowards(healthBar.fillAmount, calculateHealth, Time.deltaTime);
-        healthText.text = "" + (int)myHealth;
+        if (healthBar != null)
+        {
+            calculateHealth = Health / maxHealth;
+            healthBar.fillAmount = Mathf.MoveTowards(healthBar.fillAmount, calculateHealth, Time.deltaTime);
+            healthText.text = "" + (int)myHealth;
+        }
 
-        calculateMana = myMana / maxMana;
-        manaBar.fillAmount = Mathf.MoveTowards(manaBar.fillAmount, calculateMana, Time.deltaTime);
-        manaText.text = "" + myMana;
+        if (manaBar != null)
+        {
+            calculateMana = myMana / maxMana;
+            manaBar.fillAmount = Mathf.MoveTowards(manaBar.fillAmount, calculateMana, Time.deltaTime);
+            manaText.text = "" + myMana;
+        }
     }
 
 
@@ -592,9 +615,12 @@ public class Player : Unit
     public void Jump2(InputAction.CallbackContext context)
     {
         isJumpPressed = context.ReadValueAsButton();
+        float jumpTimeFrame = Time.deltaTime + maxJumpTime;
     }
     void setJumpVariables()
     {
+        bool atApex = false;
+        
         float timeToApex = maxJumpTime / 2;
         gravity = (-2 * maxJumpHeight) / Mathf.Pow(timeToApex, 2);
         initialJumpVelocity = (2 * maxJumpHeight) / timeToApex;
@@ -602,10 +628,15 @@ public class Player : Unit
 
     void handleGravity()
     {
-        bool isFalling = myVelocity.y <= 0.0f || !isJumpPressed;
+        if (onPlatform)
+        {
+            isGrounded = true;
+        }
+        isFalling = myVelocity.y <= 0.0f || !isJumpPressed;
         float fallMultiplier = 2.0f;
         if(isGrounded)
         {
+            isJumping = false;
             myVelocity.y = groundedGravity;
         }
         else if(onPlatform)
@@ -614,6 +645,7 @@ public class Player : Unit
         }
         else if(isFalling)
         {
+            isJumping = false;
             float previousYVelocity = myVelocity.y;
             float newYVelocity = myVelocity.y + (gravity * fallMultiplier*Time.deltaTime);
             float nextYVelocity = Mathf.Max((previousYVelocity + newYVelocity) * .5f, -20.0f);
@@ -673,7 +705,10 @@ public class Player : Unit
     {
         if (onPlatform == true)
         {
+            onPlatform = false;
+            isGrounded = false;
             StartCoroutine(dropDown());
+            myVelocity = new Vector2(_rigidBody.velocity.x, -16);
         }
     }
 
@@ -712,7 +747,7 @@ public class Player : Unit
                     ReduceMana(fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost);
                 }
 
-                ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>
+                ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
                 if (facingRight == true)
                 {
 
@@ -736,6 +771,43 @@ public class Player : Unit
                     }
                     canCast = false;
                 }
+            }
+        }
+
+
+    }
+
+    public void icicle()
+    {
+        if (canCast == true && myMana >= 10)
+        {
+            if (spellStone == true)
+            {
+
+                ReduceMana(7);
+            }
+            else
+            {
+
+                ReduceMana(10);
+            }
+
+            ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
+            if (facingRight == true)
+            {
+
+                var icicleSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().icicle_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
+                icicleSpell.GetComponent<Rigidbody>().velocity = icicleSpell.transform.right * 12;
+                  
+                canCast = false;
+            }
+            else
+            {
+
+                var icicleSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().icicle_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
+                icicleSpell.GetComponent<Rigidbody>().velocity = icicleSpell.transform.right * -12;
+                   
+                canCast = false;
             }
         }
 
@@ -879,6 +951,10 @@ public class Player : Unit
         {
             fireWall();
         }
+        if (Attack1 == "Icicle")
+        {
+            icicle();
+        }
     }
     public void actionCheck2()
     {
@@ -894,6 +970,10 @@ public class Player : Unit
         {
             fireWall();
         }
+        if (Attack2 == "Icicle")
+        {
+            icicle();
+        }
     }
     public void actionCheck3()
     {
@@ -908,6 +988,10 @@ public class Player : Unit
         if (Attack3 == "Fire Wall")
         {
             fireWall();
+        }
+        if (Attack3 == "Icicle")
+        {
+            icicle();
         }
     }
 
@@ -1070,6 +1154,8 @@ public class Player : Unit
 
     }
 
+  
+
     public IEnumerator IFrames()
     {
         float startTime = Time.time;
@@ -1099,6 +1185,22 @@ public class Player : Unit
 
 
         invulnerable = false;
+    }
+
+    /// <summary> this allows units to drop through platforms </summary>
+    public IEnumerator dropDown()
+    {
+        
+        _platformCollider.enabled = false;
+        _groundCollider.enabled = false;
+        onPlatform = false;
+        isGrounded = false;
+        isFalling = true;
+        
+      
+        yield return new WaitForSeconds(2f);
+        _groundCollider.enabled = true;
+        _platformCollider.enabled = true;
     }
 
 }

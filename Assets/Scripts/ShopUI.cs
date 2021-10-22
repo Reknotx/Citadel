@@ -24,9 +24,6 @@ namespace ShopSystem
         public Button spell2Button;
         public Button spell3Button;
 
-
-
-
         public GameObject popupDisplay;
 
         List<Button> shopButtons;
@@ -122,6 +119,8 @@ namespace ShopSystem
 
                 case "spell 3": item = info.spell3Info; break;
             }
+
+            if (item == null) Debug.LogError("What's going on here");
 
             popupDisplay.GetComponent<Popup.PopupDisplay>().DescriptionText = item.ToString();
         }

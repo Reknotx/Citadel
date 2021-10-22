@@ -199,7 +199,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 961cf7001b4e2c94b90de678fff959ed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -281,7 +281,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 961cf7001b4e2c94b90de678fff959ed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -467,7 +467,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2.15
   jumpFroce: 25.1
-  maxHealth: 5
+  _health: 0
+  maxHealth: 15
   _groundCollider: {fileID: 3145674282413693680}
   _platformCollider: {fileID: 0}
   _hitboxCollider: {fileID: 3145674282413693680}
@@ -479,7 +480,7 @@ MonoBehaviour:
   isGrounded: 0
   facingRight: 0
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
-  myHealth: 0
+  myHealth: 15
   _rigidBody: {fileID: 3145674282413693686}
   facingRightLocal: 0
   yDistance: 0
@@ -491,6 +492,7 @@ MonoBehaviour:
   noJumpHeight: 5
   distanceToPlayer: 0
   Astar: {fileID: 3145674282413693580}
+  nextWaypointDistance: 3
   m_render: {fileID: 3145674282413693681}
   seenByCamera: 0
   debug: 0

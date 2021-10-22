@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657916, g: 0.49641508, b: 0.57481635, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465788, g: 0.4964143, b: 0.5748152, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1769,6 +1769,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5935659707937159026, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 124.5917
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935659707937159026, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 55.1424
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935659707937159026, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 163.02385
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935659707937159027, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935659707937159029, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5935659708264913103, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
       propertyPath: m_TagString
       value: PlayerGoldHandler
@@ -1892,11 +1912,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: Attack2
-      value: Fire Wall
+      value: Heavy Attack
       objectReference: {fileID: 0}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: Attack3
-      value: Heavy Attack
+      value: Fire Wall
       objectReference: {fileID: 0}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: manaBar
@@ -1938,6 +1958,10 @@ PrefabInstance:
       propertyPath: startingMana
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
+      propertyPath: icicle_prefab
+      value: 
+      objectReference: {fileID: 9107153429648986007, guid: bde62944ba9d4444b81a10b35cf4ba4b, type: 3}
     - target: {fileID: 493934281067369769, guid: bc3c73a44734db94d89405debba08ef0, type: 3}
       propertyPath: maxJumpHeight
       value: 4
