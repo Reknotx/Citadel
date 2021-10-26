@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 2982838568778839152}
   - component: {fileID: 2982838568778839167}
   - component: {fileID: 2982838568778839166}
+  - component: {fileID: 3066621981445321807}
   m_Layer: 8
   m_Name: Skeleton
   m_TagString: Untagged
@@ -174,7 +175,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2982838568778839143}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
@@ -192,22 +193,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2.81
-  jumpFroce: 0
   _health: 0
   maxHealth: 10
-  _groundCollider: {fileID: 2982838568778839162}
-  _platformCollider: {fileID: 0}
-  _hitboxCollider: {fileID: 2982838568778839162}
   _lightCollider: {fileID: 0}
-  _heavyCollider: {fileID: 0}
-  spellLocationLeft: {fileID: 0}
-  spellLocationRight: {fileID: 0}
-  spellLocationCenter: {fileID: 0}
-  isGrounded: 0
   facingRight: 0
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
-  myHealth: 10
   _rigidBody: {fileID: 2982838568778839160}
+  m_render: {fileID: 2982838568778839163}
   facingRightLocal: 0
   yDistance: 0
   jumpVelocity: 7
@@ -219,7 +211,6 @@ MonoBehaviour:
   distanceToPlayer: 0
   Astar: {fileID: 2982838568778839166}
   nextWaypointDistance: 3
-  m_render: {fileID: 2982838568778839163}
   seenByCamera: 0
   debug: 0
   killThis: 0
@@ -325,6 +316,19 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
+--- !u!65 &3066621981445321807
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2982838568778839143}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.16, z: 1}
+  m_Center: {x: 0, y: 0.08, z: 0}
 --- !u!1 &2982838568907107736
 GameObject:
   m_ObjectHideFlags: 0

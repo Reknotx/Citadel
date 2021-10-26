@@ -364,6 +364,7 @@ GameObject:
   - component: {fileID: 3145674282413693581}
   - component: {fileID: 3145674282413693580}
   - component: {fileID: 3145674282413693582}
+  - component: {fileID: 8910809872295166691}
   m_Layer: 8
   m_Name: Goblin
   m_TagString: Untagged
@@ -448,7 +449,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3145674282413693685}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.52, y: 1, z: 1}
@@ -466,22 +467,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2.15
-  jumpFroce: 25.1
   _health: 0
   maxHealth: 15
-  _groundCollider: {fileID: 3145674282413693680}
-  _platformCollider: {fileID: 0}
-  _hitboxCollider: {fileID: 3145674282413693680}
   _lightCollider: {fileID: 2183600217950263024}
-  _heavyCollider: {fileID: 0}
-  spellLocationLeft: {fileID: 6759457102546678098}
-  spellLocationRight: {fileID: 2196509789945972066}
-  spellLocationCenter: {fileID: 0}
-  isGrounded: 0
   facingRight: 0
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
-  myHealth: 15
   _rigidBody: {fileID: 3145674282413693686}
+  m_render: {fileID: 3145674282413693681}
   facingRightLocal: 0
   yDistance: 0
   jumpVelocity: 7
@@ -493,7 +485,6 @@ MonoBehaviour:
   distanceToPlayer: 0
   Astar: {fileID: 3145674282413693580}
   nextWaypointDistance: 3
-  m_render: {fileID: 3145674282413693681}
   seenByCamera: 0
   debug: 0
   killThis: 0
@@ -519,7 +510,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 2
-  m_Constraints: 112
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!114 &3145674282413693581
 MonoBehaviour:
@@ -600,6 +591,19 @@ MonoBehaviour:
   version: 1
   target: {fileID: 0}
   m_renderer: {fileID: 0}
+--- !u!65 &8910809872295166691
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3145674282413693685}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.57, y: 0.16, z: 0.0098420335}
+  m_Center: {x: 0, y: -0.45, z: 0.004924336}
 --- !u!1 &3145674282712512809
 GameObject:
   m_ObjectHideFlags: 0

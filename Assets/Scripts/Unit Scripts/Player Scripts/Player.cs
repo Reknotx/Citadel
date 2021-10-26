@@ -106,15 +106,15 @@ public class Player : Unit
     public bool isJumpPressed = false;
 
     ///<summary> the initial velocity applied to the player when they jump</summary>
-    [HideInInspector]
+    //[HideInInspector]
     public float initialJumpVelocity;
 
     ///<summary> the maximum height the player can jump</summary>
-    [HideInInspector]
+    //[HideInInspector]
     public float maxJumpHeight;
 
     ///<summary> the maximum time the player will be in the air during the jump</summary>
-    [HideInInspector]
+   // [HideInInspector]
     public float maxJumpTime;
 
 
@@ -128,6 +128,7 @@ public class Player : Unit
     [SerializeField]
     protected Collider _groundCollider;
 
+    public Collider _wallCollider;
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
@@ -224,13 +225,16 @@ public class Player : Unit
     /// <summary> this keeps track of if the player is in the mine shop or not  </summary>
     public bool inMineShop = false;
 
-    [HideInInspector]
+   // [HideInInspector]
     public bool grounded;
+
+    public bool hittingWallRight = false;
+    public bool hittingWallLeft = false;
 
     [HideInInspector]
     public bool isRunning = false;
 
-    [HideInInspector]
+   // [HideInInspector]
     public bool isFalling = false;
 
     [HideInInspector]
@@ -395,30 +399,36 @@ public class Player : Unit
 
         #region Player Movement Detection
         ///<summary>This moves the player constantly while the input is held.</summary>
+      if(!hittingWallLeft || !hittingWallRight)
+      {
+
         if (canMove == true)
         {
             
-            Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
-            _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
-            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-            
-            if (animator != null)
-            {
+                Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
+                _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
+                _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+          
+           
+
+
+              if (animator != null)
+              {
                 animator.SetBool("isRunning", isRunning);
                 animator.SetBool("isJumping", isJumping);
                 animator.SetBool("isFalling", isFalling);
                 animator.SetBool("isGrounded", isGrounded);
-            }
+              }
                 
-            
         }
+      }
         else
         {
             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
 
         ///standing on a platform is the same as standing on the ground 
-        if (onPlatform == true)
+        if (onPlatform == true && !isJumpPressed)
         {
             isGrounded = true;
         }
@@ -429,9 +439,27 @@ public class Player : Unit
             canDoubleJump = true;
             hasDoubleJump = false;
         }
-        
 
-        
+        if(hittingWallLeft && isJumpPressed)
+        {
+            isGrounded = false;
+        }
+        else if(hittingWallLeft && !isJumpPressed)
+        {
+            isFalling = true;
+        }
+
+        if (hittingWallRight && isJumpPressed)
+        {
+            isGrounded = false;
+        }
+        else if (hittingWallRight && !isJumpPressed)
+        {
+            isFalling = true;
+        }
+
+
+
 
 
 
@@ -455,7 +483,7 @@ public class Player : Unit
 
         ///<summary>This determines whether the unit is on the ground or not.</summary>
         Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
-        if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "ground")
+        if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "ground" && !isJumpPressed)
         {
             isGrounded = true;
             isJumping = false;
@@ -465,7 +493,33 @@ public class Player : Unit
             isGrounded = false;
         }
 
-        
+        int layermask = 1 << 30;
+
+        ///<summary>This determines whether the unit is on the ground or not.</summary>
+        var wallCheck = transform.TransformDirection(Vector3.right);
+        Debug.DrawRay(transform.position, wallCheck * _Reach, Color.red);
+        if (Physics.BoxCast(_wallCollider.transform.position, _wallCollider.transform.position/2, wallCheck, transform.rotation,_Reach, layermask) && hit.transform.tag == "ground" )
+        {
+            
+            hittingWallRight = true;
+        }
+        else
+        {
+            hittingWallRight = false;
+        }
+
+        var wallCheck2 = transform.TransformDirection(Vector3.left);
+        Debug.DrawRay(transform.position, wallCheck2 * _Reach, Color.red);
+        if (Physics.Raycast(transform.position, wallCheck2, out hit, _Reach) && hit.transform.tag == "ground")
+        {
+           
+            hittingWallLeft = true;
+        }
+        else
+        {
+            hittingWallLeft = false;
+        }
+
 
 
 
@@ -571,10 +625,14 @@ public class Player : Unit
    
     public void movement2(InputAction.CallbackContext context)
     {
+      if (!hittingWallRight || !hittingWallLeft)
+      {
         if (canMove == true)
-        {
-            if (this != null)
-            {
+        {   
+          if (this != null)
+          {
+            
+
                 Vector2 inputVector = context.ReadValue<Vector2>();
                 myVelocity.x = inputVector.x;
                 myVelocity.z = inputVector.y;
@@ -600,8 +658,9 @@ public class Player : Unit
 
                 }
 
-            }
+          }
         }
+      }
     }
 
     
@@ -642,7 +701,7 @@ public class Player : Unit
             isJumping = false;
             float previousYVelocity = myVelocity.y;
             float newYVelocity = myVelocity.y + (gravity * fallMultiplier*Time.deltaTime);
-            float nextYVelocity = Mathf.Max((previousYVelocity + newYVelocity) * .5f, -20.0f);
+            float nextYVelocity = Mathf.Max((previousYVelocity + newYVelocity) * .5f, -10.0f);
             myVelocity.y = nextYVelocity;
         }
         else
