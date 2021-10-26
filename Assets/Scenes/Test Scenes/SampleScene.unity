@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -278,7 +278,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &177943907
 GameObject:
@@ -581,10 +581,16 @@ MonoBehaviour:
   castleSceneName: SampleScene
   mainMenuName: MainMenu
   numOfMiners: 1
+  numOfPicks: 0
   baseGoldIncrease: 0
   numOfCarts: 0
+  numOfMoles: 0
+  numOfWizards: 0
   minerIncrease: 2
   cartIncrease: 5
+  pickIncrease: 0
+  moleIncrease: 0
+  wizardIncrease: 0
   revenue: 0
 --- !u!4 &443644420
 Transform:
@@ -598,7 +604,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &447683078
 GameObject:
@@ -642,7 +648,7 @@ RectTransform:
   - {fileID: 1522646614}
   - {fileID: 312785811}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -936,7 +942,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519255294
 GameObject:
@@ -1655,7 +1661,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &867639586
 GameObject:
@@ -2932,177 +2938,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085631749}
   m_CullTransparentMesh: 1
---- !u!1 &2102305755
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2102305759}
-  - component: {fileID: 2102305758}
-  - component: {fileID: 2102305757}
-  - component: {fileID: 2102305756}
-  - component: {fileID: 2102305760}
-  m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!65 &2102305756
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102305755}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &2102305757
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102305755}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &2102305758
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102305755}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &2102305759
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102305755}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.16, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2102305760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102305755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bab5b1c800e967e40bb5417b637118fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2.9
-  jumpFroce: 0
-  maxHealth: 0
-  _groundCollider: {fileID: 0}
-  _platformCollider: {fileID: 0}
-  _hitboxCollider: {fileID: 0}
-  _lightCollider: {fileID: 0}
-  _heavyCollider: {fileID: 0}
-  spellLocationLeft: {fileID: 0}
-  spellLocationRight: {fileID: 0}
-  spellLocationCenter: {fileID: 0}
-  isGrounded: 0
-  facingRight: 0
-  myHealth: 0
-  startingHealth: 0
-  myMana: 0
-  maxMana: 0
-  startingMana: 0
-  _rigidBody: {fileID: 0}
-  facingRightLocal: 0
-  knockbackForce: 0
-  meleeAttackRange: 1
-  meleeAttackDamage: 0
-  playerCollisionDamage: 0
-  ManaHealthController: {fileID: 0}
-  fireWall_prefab: {fileID: 0}
-  canMove: 1
-  canDoubleJump: 1
-  hasDoubleJump: 0
-  invulnerable: 0
-  Interacting: 0
-  canInteract: 1
-  inCampShop: 0
-  inMine: 0
-  inMineShop: 0
-  grounded: 0
-  isRunning: 0
-  isAttacking: 0
-  dmgPlayerByTick: 0
-  shieldActive: 0
-  shuues: 0
-  undying: 0
-  spellStone: 0
-  floatingShield: 0
-  medicineStash: 0
-  flotingShieldObj: {fileID: 0}
-  healthPotions: 0
-  manaPotions: 0
-  potionMax: 2
-  healthPotionMax: 2
-  manaPotionMax: 2
-  animator: {fileID: 0}
-  healthBar: {fileID: 0}
-  manaBar: {fileID: 0}
-  healthText: {fileID: 0}
-  manaText: {fileID: 0}
-  Attack1: 
-  Attack2: 
-  Attack3: 
-  isJumping: 0
-  isJumpPressed: 0
-  initialJumpVelocity: 0
-  maxJumpHeight: 0
-  maxJumpTime: 0
-  movementVelocity: {x: 0, y: 0, z: 0}
-  myVelocity: {x: 0, y: 0, z: 0}
