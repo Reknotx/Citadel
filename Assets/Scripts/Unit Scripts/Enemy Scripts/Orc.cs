@@ -50,6 +50,7 @@ public class Orc : Enemy
     // Update is called once per frame
     public override void Update()
     {
+        if (player == null) {  return; }
         base.Update();
 
         if(Vector2.Distance(transform.position, player.transform.position) <= orcMeleeRange)

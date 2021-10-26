@@ -9,29 +9,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Camera : MonoBehaviour
 {
     ///<summary>This targets the camera to the player.</summary>
-    public GameObject target;
+    public Transform target;
 
-    ///<summary>This is the camera's distance from the player.</summary>
-    [Range(0, 20)]
-    public int CameraDist;
+    public float smoothSpeed;
 
-   
-    // Update is called once per frame
-    void FixedUpdate()
+    public Vector3 offset;
+
+    public string sceneName;
+
+
+    private void Start()
     {
-        ///<summary>This resets the camera position.</summary>
-        Vector3 pos = Vector3.zero;
-
-        ///<summary>This sets the camera's position based on the inputted range.</summary>
-        pos.x = target.transform.position.x;
-        pos.z = -CameraDist;
-        pos.y = target.transform.position.y;
-
-        ///<summary>This actually changed the camera's position.</summary>
-        GetComponent<Transform>().position = pos;
+        sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName != "MineScene")
+        {
+            //target = GameObject.FindGameObjectWithTag("PlayerModel").transform;
+            target = Player.Instance.transform;
+        }
     }
+
+
+    private void LateUpdate()
+    {
+        sceneName = SceneManager.GetActiveScene().name;
+
+        if(sceneName != "MineScene")
+        {
+
+        
+        Vector3 desiredPos = target.position + offset;
+        Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
+        transform.position =  smoothedPos;
+        }
+    }
+
+
 }

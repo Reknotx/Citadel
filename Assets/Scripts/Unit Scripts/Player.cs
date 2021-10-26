@@ -29,9 +29,6 @@ public class Player : Unit
     ///<summary>This is the units health.</summary>
     public float myHealth;
 
-    ///<summary>This is the maximum units health.</summary>
-   // public float maxHealth; //
-
     public override float Health 
     { 
         get => base.Health; 
@@ -82,13 +79,13 @@ public class Player : Unit
             #region Player's Ground/Directional Detection Stats
 
     ///<summary>This is the range of detection to the ground.</summary>
-    private float _Reach = 2f;
+    private float _Reach = 1f;
 
     ///<summary>This tracks what the ground detection raycast hits.</summary>
    private RaycastHit hit;
 
     ///<summary>This tracks what direction the player is facing.</summary>
-    [HideInInspector]
+    //[HideInInspector]
     public bool facingRightLocal;
 
     #endregion
@@ -111,8 +108,11 @@ public class Player : Unit
 
     /// <summary>this is the physical gameobject that is cast during the firewall spell</summary>
     public GameObject fireWall_prefab;
+
+    /// <summary>this is the physical gameobject that is cast during the icicle spell</summary>
+    public GameObject icicle_prefab;
     #endregion
-            #region Bool Determinates 
+    #region Bool Determinates 
     [Header("player bool determinates")]
     /// <summary> determines if the player can move or not </summary>
     [HideInInspector]
@@ -158,18 +158,35 @@ public class Player : Unit
     public bool isRunning = false;
 
     [HideInInspector]
+    public bool isFalling = false;
+
+    [HideInInspector]
     public bool isAttacking = false;
 
+    public bool dmgPlayerByTick = false;
+
+    public bool shieldActive;
+
     #endregion
-            #region Bool Equipment
+            #region Bool/int Equipment
 
     [Header("player equipment")]
     public bool shuues = false;
     public bool undying = false;
     public bool spellStone = false;
-    public bool backShield = false;
+    public bool floatingShield = false;
+    public bool medicineStash = false;
+    [HideInInspector]
+    public GameObject flotingShieldObj;
+
+    public int healthPotions = 0;
+    public int manaPotions = 0;
+    public int potionMax = 2;
+    public int healthPotionMax = 2;
+    public int manaPotionMax = 2;
+
     #endregion
-            #region Animations
+    #region Animations
     [Header("player animations")]
     public Animator animator;
     private bool triggered = false;
@@ -200,8 +217,27 @@ public class Player : Unit
 
 
     #endregion
+    [Header("player attack names")]
+    public string Attack1;
+    public string Attack2;
+    public string Attack3;
+
+    [Header("player improved jumping ")]
+    float gravity = -9.8f;
+    float groundedGravity = -.05f;
+
+    public bool isJumping = false;
+    public bool isJumpPressed = false;
+    public float initialJumpVelocity;
+    public float maxJumpHeight;
+    public float maxJumpTime;
+
+    public Vector3 movementVelocity;
+    public Vector3 myVelocity;
 
 
+
+   
 
     #endregion
 
@@ -212,16 +248,21 @@ public class Player : Unit
         if(Instance != null && Instance != this)
             Destroy(Instance.gameObject);
 
+        Instance = this;
+
         Health = maxHealth;
         myMana = maxMana;
+        
         #region Player Movement Important Connectors
         ///<summary>The following is used to track player inputs and controls.</summary>
         playerInputActions = new PlayerInputActions();
          playerInputActions.PlayerControl.Enable();
-         playerInputActions.PlayerControl.Jump.performed += Jump;
-         //playerInputActions.PlayerControl.Movement.performed += movement;
-         playerInputActions.PlayerControl.Drop.performed += Drop;
-
+         playerInputActions.PlayerControl.Jump.started += Jump2;
+        playerInputActions.PlayerControl.Jump.canceled += Jump2;
+        playerInputActions.PlayerControl.Movement.performed += movement2;
+        playerInputActions.PlayerControl.Drop.started += Drop;
+        playerInputActions.PlayerControl.Drop.canceled += Drop;
+        setJumpVariables();
         
 
 
@@ -230,12 +271,12 @@ public class Player : Unit
 
     }
 
-    public bool dmgPlayerByTick = false;
+   
     public override void Update()
     {
         Application.targetFrameRate = 60;
         facingRightLocal = facingRight;
-
+        _rigidBody.velocity = myVelocity;
         if (dmgPlayerByTick)
         {
             dmgPlayerByTick = false;
@@ -245,7 +286,16 @@ public class Player : Unit
 
         base.Update();
 
-        
+        if(floatingShield)
+        {
+            flotingShieldObj.SetActive(true);
+        }
+        if(medicineStash == true)
+        {
+            manaPotionMax = 3;
+            healthPotionMax = 3;
+            potionMax = 4;
+        }
         
 
         #region Player Stat controls
@@ -265,7 +315,8 @@ public class Player : Unit
             StartCoroutine(InteractCoroutine());
         }
 
-
+        handleGravity();
+        handleJump();
         
 
         #endregion
@@ -280,7 +331,13 @@ public class Player : Unit
             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
             
             if (animator != null)
+            {
                 animator.SetBool("isRunning", isRunning);
+                animator.SetBool("isJumping", isJumping);
+                animator.SetBool("isFalling", isFalling);
+                animator.SetBool("isGrounded", isGrounded);
+            }
+                
             
         }
         else
@@ -288,6 +345,11 @@ public class Player : Unit
             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
 
+
+        if (onPlatform == true)
+        {
+            isGrounded = true;
+        }
         if(isGrounded == true)
         {
             canDoubleJump = true;
@@ -308,7 +370,8 @@ public class Player : Unit
         if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "platform")
         {
             onPlatform = true;
-            
+            isJumping = false;
+
         }
         else
         {
@@ -321,6 +384,7 @@ public class Player : Unit
         if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "ground")
         {
             isGrounded = true;
+            isJumping = false;
         }
         else
         {
@@ -351,7 +415,7 @@ public class Player : Unit
         {
             StartCoroutine(dropDown());
             _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 6);
-            //_rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
+            
         }
 
 
@@ -371,13 +435,19 @@ public class Player : Unit
 
     private void FixedUpdate()
     {
-        calculateHealth = Health / maxHealth;
-        healthBar.fillAmount = Mathf.MoveTowards(healthBar.fillAmount, calculateHealth, Time.deltaTime);
-        healthText.text = "" + (int)myHealth;
+        if (healthBar != null)
+        {
+            calculateHealth = Health / maxHealth;
+            healthBar.fillAmount = Mathf.MoveTowards(healthBar.fillAmount, calculateHealth, Time.deltaTime);
+            healthText.text = "" + (int)myHealth;
+        }
 
-        calculateMana = myMana / maxMana;
-        manaBar.fillAmount = Mathf.MoveTowards(manaBar.fillAmount, calculateMana, Time.deltaTime);
-        manaText.text = "" + myMana;
+        if (manaBar != null)
+        {
+            calculateMana = myMana / maxMana;
+            manaBar.fillAmount = Mathf.MoveTowards(manaBar.fillAmount, calculateMana, Time.deltaTime);
+            manaText.text = "" + myMana;
+        }
     }
 
 
@@ -417,6 +487,7 @@ public class Player : Unit
 
 
     #region Player Movement Actions
+    /*
     /// <summary> This moves the player from side to side on the x axis  /// </summary>
     public void movement(InputAction.CallbackContext context)
     {
@@ -426,6 +497,7 @@ public class Player : Unit
             {
                
                     Vector2 inputVector = context.ReadValue<Vector2>();
+                
                     _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
                     if (inputVector.x > 0)
                     {
@@ -452,19 +524,59 @@ public class Player : Unit
             }
         }
     }
+    */
+    public void movement2(InputAction.CallbackContext context)
+    {
+        if (canMove == true)
+        {
+            if (this != null)
+            {
+                Vector2 inputVector = context.ReadValue<Vector2>();
+                myVelocity.x = inputVector.x;
+                myVelocity.z = inputVector.y;
 
+                if (inputVector.x > 0)
+                {
+                    facingRight = true;
+
+                }
+                if (inputVector.x < 0)
+                {
+                    facingRight = false;
+                }
+
+                if (inputVector.x == 0)
+                {
+                    isRunning = false;
+                }
+                else
+                {
+
+                    isRunning = true;
+
+                }
+
+            }
+        }
+    }
+
+    /*
     ///<summary>This triggers the unit to jump up.</summary>
     public void Jump(InputAction.CallbackContext context)
     {
         if (this != null)
         {
-            if (isGrounded == true )
+            
+            if (context.performed && isGrounded == true )
             {
-              
+                
                 _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
+                
                 canDoubleJump = true;
                StartCoroutine(Jumped());
-
+               
+                
+                
             }
             else if(shuues == true )
             {
@@ -499,13 +611,104 @@ public class Player : Unit
 
         }
     }
+    */
+    public void Jump2(InputAction.CallbackContext context)
+    {
+        isJumpPressed = context.ReadValueAsButton();
+        float jumpTimeFrame = Time.deltaTime + maxJumpTime;
+    }
+    void setJumpVariables()
+    {
+        bool atApex = false;
+        
+        float timeToApex = maxJumpTime / 2;
+        gravity = (-2 * maxJumpHeight) / Mathf.Pow(timeToApex, 2);
+        initialJumpVelocity = (2 * maxJumpHeight) / timeToApex;
+    }
+
+    void handleGravity()
+    {
+        if (onPlatform)
+        {
+            isGrounded = true;
+        }
+        isFalling = myVelocity.y <= 0.0f || !isJumpPressed;
+        float fallMultiplier = 2.0f;
+        if(isGrounded)
+        {
+            isJumping = false;
+            myVelocity.y = groundedGravity;
+        }
+        else if(onPlatform)
+        {
+            myVelocity.y = groundedGravity;
+        }
+        else if(isFalling)
+        {
+            isJumping = false;
+            float previousYVelocity = myVelocity.y;
+            float newYVelocity = myVelocity.y + (gravity * fallMultiplier*Time.deltaTime);
+            float nextYVelocity = Mathf.Max((previousYVelocity + newYVelocity) * .5f, -20.0f);
+            myVelocity.y = nextYVelocity;
+        }
+        else
+        {
+            float previousYVelocity = myVelocity.y;
+            float newYVelocity = myVelocity.y + (gravity * Time.deltaTime);
+            float nextYVelocity = (previousYVelocity + newYVelocity) * .5f;
+            myVelocity.y = nextYVelocity ;
+        }
+    }
+    void handleJump()
+    {
+        if(!isJumping && isGrounded  && isJumpPressed)
+        {
+            isJumping = true;
+            myVelocity.y = initialJumpVelocity * .5f;
+            canDoubleJump = true;
+            StartCoroutine(Jumped());
+        }
+        else if(isJumping && isJumpPressed && shuues && canDoubleJump)
+        {
+            myVelocity.y = initialJumpVelocity * .5f;
+            canDoubleJump = false;
+            StartCoroutine(Jumped());
+        }
+        else if(!isJumpPressed && isGrounded && isJumping)
+        {
+            isJumping = false;
+        }
+
+        if (!isJumping && onPlatform && isJumpPressed)
+        {
+            isJumping = true;
+            myVelocity.y = initialJumpVelocity * .5f;
+            canDoubleJump = true;
+            StartCoroutine(Jumped());
+        }
+        else if (isJumping && isJumpPressed && shuues && canDoubleJump)
+        {
+            myVelocity.y = initialJumpVelocity * .5f;
+            canDoubleJump = false;
+            StartCoroutine(Jumped());
+        }
+        else if (!isJumpPressed && onPlatform && isJumping)
+        {
+            isJumping = false;
+        }
+
+
+    }
 
     ///<summary>This triggers the unit to drop down if they are on a platform.</summary>
     public void Drop(InputAction.CallbackContext context)
     {
         if (onPlatform == true)
         {
+            onPlatform = false;
+            isGrounded = false;
             StartCoroutine(dropDown());
+            myVelocity = new Vector2(_rigidBody.velocity.x, -16);
         }
     }
 
@@ -530,42 +733,80 @@ public class Player : Unit
     {
         if (canCast == true)
         {
-            var manaCost = 20f;
+           
+            if (myMana >= fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost)
+            {
+                if (spellStone == true)
+                {
+
+                    ReduceMana((fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost * 0.75f));
+                }
+                else
+                {
+
+                    ReduceMana(fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost);
+                }
+
+                ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
+                if (facingRight == true)
+                {
+
+                    var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
+                    fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * 12 + fireWallSpell.transform.up * -2;
+                    if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
+                    {
+                        fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+                    }
+                    canCast = false;
+                }
+                else
+                {
+
+                    var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
+                    fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * -12 + fireWallSpell.transform.up * -2;
+
+                    if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
+                    {
+                        fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+                    }
+                    canCast = false;
+                }
+            }
+        }
+
+
+    }
+
+    public void icicle()
+    {
+        if (canCast == true && myMana >= 10)
+        {
             if (spellStone == true)
             {
-                
-                ReduceMana((manaCost*0.75f));
+
+                ReduceMana(7);
             }
             else
             {
-                
-                ReduceMana(manaCost);
+
+                ReduceMana(10);
             }
-            
 
-
-            ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>
+            ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
             if (facingRight == true)
             {
-                
-                var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
-                fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * 12 + fireWallSpell.transform.up * -2;
-                if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
-                {
-                    fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
-                }
+
+                var icicleSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().icicle_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
+                icicleSpell.GetComponent<Rigidbody>().velocity = icicleSpell.transform.right * 12;
+                  
                 canCast = false;
             }
             else
             {
-                
-                var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
-                fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * -12 + fireWallSpell.transform.up * -2;
-               
-                if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
-                {
-                    fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
-                }
+
+                var icicleSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().icicle_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
+                icicleSpell.GetComponent<Rigidbody>().velocity = icicleSpell.transform.right * -12;
+                   
                 canCast = false;
             }
         }
@@ -575,7 +816,7 @@ public class Player : Unit
     #endregion
     #region Unit Melee Attacks
     /// <summary> This is the attacking function  </summary>
-    public void lightAttack(InputAction.CallbackContext context)
+    public void lightAttack()
     {
         //Tyler made an edit to 1.0f y from 0.3fy
         _lightCollider.gameObject.transform.localScale = new Vector3(1f, meleeAttackRange, 1f) ;
@@ -633,7 +874,7 @@ public class Player : Unit
 
     /// <summary> This is the attacking function  </summary>
 
-    public void heavyAttack(InputAction.CallbackContext context)
+    public void heavyAttack()
     {
         //Tyler made an edit to 1.0f y from 0.3fy
         _heavyCollider.gameObject.transform.localScale = new Vector3(2.0f, meleeAttackRange, 1.0f);
@@ -695,7 +936,69 @@ public class Player : Unit
 
     #endregion
 
+    #region actionCheckers
+    public void actionCheck1()
+    {
+        if(Attack1 == "Light Attack")
+        {
+            lightAttack();
+        }
+        if (Attack1 == "Heavy Attack")
+        {
+            heavyAttack();
+        }
+        if (Attack1 == "Fire Wall")
+        {
+            fireWall();
+        }
+        if (Attack1 == "Icicle")
+        {
+            icicle();
+        }
+    }
+    public void actionCheck2()
+    {
+        if (Attack2 == "Light Attack")
+        {
+            lightAttack();
+        }
+        if (Attack2 == "Heavy Attack")
+        {
+            heavyAttack();
+        }
+        if (Attack2 == "Fire Wall")
+        {
+            fireWall();
+        }
+        if (Attack2 == "Icicle")
+        {
+            icicle();
+        }
+    }
+    public void actionCheck3()
+    {
+        if (Attack3 == "Light Attack")
+        {
+            lightAttack();
+        }
+        if (Attack3 == "Heavy Attack")
+        {
+            heavyAttack();
+        }
+        if (Attack3 == "Fire Wall")
+        {
+            fireWall();
+        }
+        if (Attack3 == "Icicle")
+        {
+            icicle();
+        }
+    }
 
+    #endregion
+
+   
+    
     #region Collision Detection
     public void OnTriggerStay(Collider other)
     {
@@ -851,6 +1154,8 @@ public class Player : Unit
 
     }
 
+  
+
     public IEnumerator IFrames()
     {
         float startTime = Time.time;
@@ -880,6 +1185,22 @@ public class Player : Unit
 
 
         invulnerable = false;
+    }
+
+    /// <summary> this allows units to drop through platforms </summary>
+    public IEnumerator dropDown()
+    {
+        
+        _platformCollider.enabled = false;
+        _groundCollider.enabled = false;
+        onPlatform = false;
+        isGrounded = false;
+        isFalling = true;
+        
+      
+        yield return new WaitForSeconds(2f);
+        _groundCollider.enabled = true;
+        _platformCollider.enabled = true;
     }
 
 }

@@ -36,7 +36,7 @@ public class GoldHandler : MonoBehaviour
         {
             _mySoftGold = value;
             if (softGoldText != null)
-                softGoldText.text = "Soft Gold: " + (int)MySoftGold;
+                softGoldText.text = (int)MySoftGold + "g";
         }
     }
 
@@ -51,7 +51,7 @@ public class GoldHandler : MonoBehaviour
         {
             _myHardGold = value;
             if (hardGoldText != null)
-                hardGoldText.text = "Hard Gold: " + (int)MyHardGold;
+                hardGoldText.text = (int)MyHardGold + "g";
         }
     }
 

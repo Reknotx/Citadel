@@ -32,15 +32,13 @@ public class Eyeball : Enemy
     public Transform playerTrans;
 
     public float seekerSpeed = 200f;
-    public float nextWaypointDistance = 3f;
+    //public float nextWaypointDistance = 3f;
 
     Path path;
 
     int currentWaypoint = 0;
     bool reachedEndOfPath = false;
-
-    Seeker seeker;
-
+    
     public GameObject enemyModel;
     #endregion
 
@@ -69,7 +67,7 @@ public class Eyeball : Enemy
         set => _spottedPlayer = value;
     }
 
-    private void Start()
+    public override void Start()
     {
         playerTrans = Player.Instance.transform;
         Bob();
@@ -187,37 +185,6 @@ public class Eyeball : Enemy
         }
     }
 
-
-    private void WallDetection()
-    {
-        float maxX = 1f, minX = -1f, maxY = 1f, minY = -1f;
-
-        bool northHit = Physics.Raycast(transform.position, new Vector2(0, 1).normalized, out RaycastHit northHitInfo, 1, 1 << 31);
-        bool northEastHit = Physics.Raycast(transform.position, new Vector2(1, 1).normalized, out RaycastHit northEastHitInfo, 1, 1 << 31);
-        bool northWestHit = Physics.Raycast(transform.position, new Vector2(-1, 1).normalized, out RaycastHit northWestHitInfo, 1, 1 << 31);
-        bool southHit = Physics.Raycast(transform.position, new Vector2(0, -1).normalized, out RaycastHit southHitInfo, 1, 1 << 31);
-        bool eastHit = Physics.Raycast(transform.position, new Vector2(1, 0).normalized, out RaycastHit eastHitInfo, 1, 1<<31);
-        bool westHit = Physics.Raycast(transform.position, new Vector2(-1, 0).normalized, out RaycastHit westHitInfo, 1, 1<<31);
-        bool southWestHit = Physics.Raycast(transform.position, new Vector2(-1, -1).normalized, out RaycastHit southWestHitInfo, 1, 1<<31);
-        bool southEastHit = Physics.Raycast(transform.position, new Vector2(1, -1).normalized, out RaycastHit southEastHitInfo, 1, 1<<31);
-
-        if (southEastHit || southWestHit || southHit)
-        {
-
-        }
-
-
-        ///I could use these rays to place a limit on the range of movement that the enemy can have
-        ///For example. If the north one returns positive, then y can't be a certain value. To be more clear
-        ///the movement vector can't be any value between north east and north west.
-        ///If north returns true then x can't be between sqrt(2)/2 and -sqrt(2)/2
-        ///     In terms of what I'm thinking of x can only be positive 1 or negative 1 
-        ///     Of course this means that the movement direction vector will need to be adjusted as the vector
-        ///     will be aimed towards the player at all times.
-
-
-    }
-
     public void DmgPlayer()
     {
         ///Damage the player and set attacking to false
@@ -274,8 +241,6 @@ public class Eyeball : Enemy
         Vector3 startPos = transform.position;
         Vector3 p1 = playerTrans.position;
         Vector3 p01;
-
-        Vector3 moveDir = Vector3.zero;
 
         while(moving)
         {
