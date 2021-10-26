@@ -131,13 +131,16 @@ public class Enemy : Unit
         Move();
         #endregion
 
-        yDistance = Mathf.Abs(transform.position.y - player.transform.position.y);
+        yDistance = player.transform.position.y - transform.position.y;
 
-        distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+        distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
         if (distanceToPlayer < followDistance)
         {
-            Astar.canMove = true;
+            if (Mathf.Abs(yDistance) < 9)
+            {
+                Astar.canMove = true;
+            }
         }
         else
         {
