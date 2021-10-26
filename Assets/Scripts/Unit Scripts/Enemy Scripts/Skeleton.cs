@@ -36,7 +36,9 @@ public class Skeleton : Enemy
 
     public float runAwayDistance;
 
-    public float runAwayForce;
+    public float runAwaySpeed;
+
+    public bool los = false;
 
     public override void Start()
     {
@@ -67,24 +69,60 @@ public class Skeleton : Enemy
         {
             if (canShoot)
             {
-                //transform.LookAt(player.transform);
-                Instantiate(projectile, shootLocation.position, Quaternion.identity);
-                StartCoroutine(ProjectileCooldown());
+                
+                if (Mathf.Abs(yDistance) < 2)
+                {
+                    //transform.LookAt(player.transform);
+                    Instantiate(projectile, shootLocation.position, Quaternion.identity);
+                    StartCoroutine(ProjectileCooldown());
+                }
             }
         }
 
-        if (Vector2.Distance(transform.position, player.transform.position) <= runAwayDistance)
+        if (Vector2.Distance(transform.position, player.transform.position) < runAwayDistance)
         {
-            if (facingRight)
+            Astar.canMove = false;
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, -1 * runAwaySpeed * Time.deltaTime);
+        }
+        else
+        {
+            Astar.canMove = true;
+        }
+    }
+
+    /*private bool CanSeePlayer(float distance)
+    {
+        bool val = false;
+
+        float castDist = distance;
+
+        if (facingRight)
+        {
+            castDist = -distance;
+        }
+
+        Vector2 endPos = shootLocation.position + Vector3.right * castDist;
+
+        RaycastHit2D hit = Physics2D.Linecast(shootLocation.position, endPos, 1 << LayerMask.NameToLayer("Default"));
+
+        if (hit.collider != null)
+        {
+            
+            if (hit.collider.gameObject.CompareTag("Player"))
             {
-                _rigidBody.AddForce(-transform.right * runAwayForce);
+                val = true;
             }
             else
             {
-                _rigidBody.AddForce(transform.right * runAwayForce);
+                val = false;
             }
         }
-    }
+        
+
+        Debug.DrawLine(shootLocation.position, endPos, Color.blue);
+
+        return val;
+    }*/
 
     IEnumerator ProjectileCooldown()
     {
