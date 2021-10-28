@@ -26,11 +26,11 @@ public class SkeletonLancer : Enemy
 
     public float dashForce;
 
-    public Image skeletonHealth;
+    /*public Image skeletonHealth;
 
     public Image HealthIMG;
 
-    private float calculateHealth;
+    private float calculateHealth;*/
 
 
     #endregion

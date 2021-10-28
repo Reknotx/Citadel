@@ -26,11 +26,11 @@ public class Skeleton : Enemy
     public Transform shootLocation;
     #endregion
 
-    public Image skeletonHealth;
+    /*public Image skeletonHealth;
 
     public Image HealthIMG;
 
-    private float calculateHealth;
+    private float calculateHealth;*/
 
     public float currentHealth;
 

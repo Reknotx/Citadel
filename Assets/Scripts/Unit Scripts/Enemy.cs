@@ -137,6 +137,8 @@ public class Enemy : Unit
 
         Astar = GetComponent<AIPath>();
         Health = maxHealth;
+
+        HealthIMG.gameObject.SetActive(false);
     }
 
     public override void Update()

@@ -25,11 +25,11 @@ public class Goblin : Enemy
 
     #endregion
 
-    public Image goblinHealth;
+    /*public Image goblinHealth;
 
     public Image HealthIMG;
 
-    private float calculateHealth;
+    private float calculateHealth;*/
 
     #region Life Handler for Player
 
