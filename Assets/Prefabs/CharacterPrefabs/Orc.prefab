@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 1065828198705947011}
   - component: {fileID: 1065828198705947010}
   - component: {fileID: 1065828198705947009}
+  - component: {fileID: 3771356397962019349}
   m_Layer: 8
   m_Name: Orc
   m_TagString: Untagged
@@ -255,7 +256,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065828198705947066}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1.75, z: 1}
@@ -273,22 +274,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6.7
-  jumpFroce: 1.62
   _health: 0
   maxHealth: 30
-  _groundCollider: {fileID: 1065828198705947069}
-  _platformCollider: {fileID: 0}
-  _hitboxCollider: {fileID: 1065828198705947069}
   _lightCollider: {fileID: 0}
-  _heavyCollider: {fileID: 0}
-  spellLocationLeft: {fileID: 0}
-  spellLocationRight: {fileID: 0}
-  spellLocationCenter: {fileID: 0}
-  isGrounded: 0
   facingRight: 0
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
-  myHealth: 30
   _rigidBody: {fileID: 1065828198705947067}
+  m_render: {fileID: 1065828198705947070}
   facingRightLocal: 0
   yDistance: 0
   jumpVelocity: 7
@@ -300,7 +292,6 @@ MonoBehaviour:
   distanceToPlayer: 0
   Astar: {fileID: 1065828198705947010}
   nextWaypointDistance: 3
-  m_render: {fileID: 1065828198705947070}
   seenByCamera: 0
   debug: 0
   killThis: 0
@@ -326,7 +317,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 2
-  m_Constraints: 80
+  m_Constraints: 88
   m_CollisionDetection: 0
 --- !u!114 &1065828198705947011
 MonoBehaviour:
@@ -407,6 +398,19 @@ MonoBehaviour:
   version: 1
   target: {fileID: 0}
   m_renderer: {fileID: 0}
+--- !u!65 &3771356397962019349
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065828198705947066}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.14, z: 1}
+  m_Center: {x: 0, y: 0.06, z: 0.008150744}
 --- !u!1 &1065828199163735791
 GameObject:
   m_ObjectHideFlags: 0

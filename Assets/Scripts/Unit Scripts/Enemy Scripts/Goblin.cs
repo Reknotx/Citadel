@@ -64,10 +64,10 @@ public class Goblin : Enemy
     {
         base.Update();
 
-        if(myHealth < maxHealth)
+        if(Health < maxHealth)
         {
             HealthIMG.gameObject.SetActive(true);
-            calculateHealth = (float)myHealth / maxHealth;
+            calculateHealth = (float)Health / maxHealth;
             goblinHealth.fillAmount = Mathf.MoveTowards(goblinHealth.fillAmount, calculateHealth, Time.deltaTime);
         }
         else
@@ -171,14 +171,14 @@ public class Goblin : Enemy
             nextDamageEvent = Time.time + attackCoolDown;
             if (facingRight == true)
             {
-                _lightCollider.transform.position = spellLocationRight.transform.position;
+                _lightCollider.transform.position = goblinAttack_R.transform.position;
                 _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale / 2);
                 StartCoroutine(lightAttackCoroutine());
 
             }
             else
             {
-                _lightCollider.transform.position = spellLocationLeft.transform.position;
+                _lightCollider.transform.position = goblinAttack_L.transform.position;
                 _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
                 StartCoroutine(lightAttackCoroutine());
             }
