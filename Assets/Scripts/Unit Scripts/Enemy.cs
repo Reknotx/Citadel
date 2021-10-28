@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using UnityEngine.UI;
 
 public class Enemy : Unit
 {
@@ -120,6 +121,12 @@ public class Enemy : Unit
     [Tooltip("Activate this only to immediately kill the enemy.")]
     public bool killThis = false;
 
+    public Image enemyHealth;
+
+    public Image HealthIMG;
+
+    private float calculateHealth;
+
     public virtual void Start()
     {
 
@@ -129,6 +136,9 @@ public class Enemy : Unit
         player = GameObject.FindGameObjectWithTag("Player");
 
         Astar = GetComponent<AIPath>();
+        Health = maxHealth;
+
+        HealthIMG.gameObject.SetActive(false);
     }
 
     public override void Update()
@@ -139,7 +149,18 @@ public class Enemy : Unit
         if (debug) return;
 
         base.Update();
-        
+
+        if (Health < maxHealth)
+        {
+            HealthIMG.gameObject.SetActive(true);
+            calculateHealth = (float)Health / maxHealth;
+            enemyHealth.fillAmount = Mathf.MoveTowards(enemyHealth.fillAmount, calculateHealth, Time.deltaTime);
+        }
+        else
+        {
+            HealthIMG.gameObject.SetActive(false);
+        }
+
 
         #region Enemy AI Movement
         Move();

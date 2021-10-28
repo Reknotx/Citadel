@@ -38,8 +38,9 @@ public class Orc : Enemy
 
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
+        base.Start();
         //Tyler added code
         player = GameObject.FindGameObjectWithTag("Player");
         //end

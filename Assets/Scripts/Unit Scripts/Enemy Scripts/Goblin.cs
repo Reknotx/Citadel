@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Goblin : Enemy
 {
     #region Goblin Stats
@@ -20,12 +20,16 @@ public class Goblin : Enemy
 
     private bool canAttack = true;
 
-    
-    
+
+
 
     #endregion
 
+    /*public Image goblinHealth;
 
+    public Image HealthIMG;
+
+    private float calculateHealth;*/
 
     #region Life Handler for Player
 
@@ -43,15 +47,16 @@ public class Goblin : Enemy
 
 
     // Start is called before the first frame update
-    void Start()
+    public  override void Start()
     {
+        base.Start();
         //Tyler Added code
         player = GameObject.FindGameObjectWithTag("Player");
         //end
         goblinAttack_L.SetActive(false);
         goblinAttack_R.SetActive(false);
         playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        
+        HealthIMG.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -59,7 +64,7 @@ public class Goblin : Enemy
     {
         base.Update();
 
-        if(Health < maxHealth)
+       /* if(Health < maxHealth)
         {
             HealthIMG.gameObject.SetActive(true);
             calculateHealth = (float)Health / maxHealth;
@@ -68,7 +73,7 @@ public class Goblin : Enemy
         else
         {
             HealthIMG.gameObject.SetActive(false);
-        }
+        }*/
 
         if (Vector2.Distance(transform.position, player.transform.position) <= goblinMeleeRange)
         {
