@@ -466,23 +466,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2.15
-  jumpFroce: 25.1
   _health: 0
   maxHealth: 15
-  _groundCollider: {fileID: 3145674282413693680}
-  _platformCollider: {fileID: 0}
-  _hitboxCollider: {fileID: 3145674282413693680}
   _lightCollider: {fileID: 2183600217950263024}
-  _heavyCollider: {fileID: 0}
-  spellLocationLeft: {fileID: 6759457102546678098}
-  spellLocationRight: {fileID: 2196509789945972066}
-  spellLocationCenter: {fileID: 0}
-  isGrounded: 0
-  onPlatform: 0
   facingRight: 0
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
-  myHealth: 15
   _rigidBody: {fileID: 3145674282413693686}
+  m_render: {fileID: 3145674282413693681}
   facingRightLocal: 0
   yDistance: 0
   jumpVelocity: 7
@@ -494,15 +484,14 @@ MonoBehaviour:
   distanceToPlayer: 0
   Astar: {fileID: 3145674282413693580}
   nextWaypointDistance: 3
-  m_render: {fileID: 3145674282413693681}
   seenByCamera: 0
   debug: 0
   killThis: 0
+  enemyHealth: {fileID: 7954525600206823398}
+  HealthIMG: {fileID: 5299853063858695808}
   percentChanceToDropItem: 40
   goblinMeleeRange: 1
   goblinDamage: 10
-  goblinHealth: {fileID: 7954525600206823398}
-  HealthIMG: {fileID: 5299853063858695808}
   playerLife: {fileID: 0}
   goblinAttack_L: {fileID: 3145674281901039601}
   goblinAttack_R: {fileID: 3145674281824328900}

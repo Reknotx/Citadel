@@ -192,23 +192,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2.81
-  jumpFroce: 0
   _health: 0
   maxHealth: 10
-  _groundCollider: {fileID: 2982838568778839162}
-  _platformCollider: {fileID: 0}
-  _hitboxCollider: {fileID: 2982838568778839162}
   _lightCollider: {fileID: 0}
-  _heavyCollider: {fileID: 0}
-  spellLocationLeft: {fileID: 0}
-  spellLocationRight: {fileID: 0}
-  spellLocationCenter: {fileID: 0}
-  isGrounded: 0
-  onPlatform: 0
   facingRight: 0
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
-  myHealth: 10
   _rigidBody: {fileID: 2982838568778839160}
+  m_render: {fileID: 2982838568778839163}
   facingRightLocal: 0
   yDistance: 0
   jumpVelocity: 7
@@ -220,19 +210,19 @@ MonoBehaviour:
   distanceToPlayer: 0
   Astar: {fileID: 2982838568778839166}
   nextWaypointDistance: 3
-  m_render: {fileID: 2982838568778839163}
   seenByCamera: 0
   debug: 0
   killThis: 0
+  enemyHealth: {fileID: 8222136454470860100}
+  HealthIMG: {fileID: 8488871177338055584}
   percentChanceToDropItem: 40
   skeletonShootingDistance: 7
   projectile: {fileID: 8009402920651334389, guid: 4be439661164c2546bd08a2cd8834521, type: 3}
   shootLocation: {fileID: 2982838568907107737}
-  skeletonHealth: {fileID: 8222136454470860100}
-  HealthIMG: {fileID: 8488871177338055584}
   currentHealth: 0
   runAwayDistance: 4
   runAwaySpeed: 3
+  los: 0
 --- !u!54 &2982838568778839160
 Rigidbody:
   m_ObjectHideFlags: 0
