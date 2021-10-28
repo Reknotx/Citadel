@@ -41,16 +41,19 @@ public class PlatformColliderControllerScript : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            if (Player.GetComponent<Player>().dropping  && Player.GetComponent<Player>().isDropPressed)
+            if ( Player.GetComponent<Player>().isDropPressed)
             {
-                StartCoroutine(PassThroughCoroutine());
+                myCollider.enabled = false;
                 Player.GetComponent<Player>().myVelocity = new Vector2(Player.GetComponent<Player>().myVelocity.x, -16);
             }
 
             if (Player.GetComponent<Player>().throughPlatform && Player.GetComponent<Player>().isJumpPressed)
             {
-                StartCoroutine(PassThroughCoroutine());
+                myCollider.enabled = false;
+                Player.GetComponent<Player>().myVelocity = new Vector2(Player.GetComponent<Player>().myVelocity.x, 6);
             }
         }
     }
+
+    
 }
