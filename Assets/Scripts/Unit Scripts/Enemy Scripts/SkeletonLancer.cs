@@ -63,7 +63,7 @@ public class SkeletonLancer : Enemy
     {
         base.Update();
 
-        if (Health < maxHealth)
+        /*if (Health < maxHealth)
         {
             HealthIMG.gameObject.SetActive(true);
             calculateHealth = (float)Health / maxHealth;
@@ -72,7 +72,7 @@ public class SkeletonLancer : Enemy
         else
         {
             HealthIMG.gameObject.SetActive(false);
-        }
+        }*/
 
         if (isDashing)
         {
