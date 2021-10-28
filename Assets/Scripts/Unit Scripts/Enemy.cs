@@ -109,6 +109,8 @@ public class Enemy : Unit
 
     public virtual void Start()
     {
+
+
         normalSpeed = speed;
         //Tyler Added code
         player = GameObject.FindGameObjectWithTag("Player");
