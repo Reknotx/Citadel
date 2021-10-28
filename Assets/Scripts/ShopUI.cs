@@ -113,6 +113,8 @@ namespace ShopSystem
                 case "spell 2": item = info.spell2Info; break;
 
                 case "spell 3": item = info.spell3Info; break;
+
+                   
             }
 
             if (item == null) Debug.LogError("What's going on here");
@@ -144,6 +146,48 @@ namespace ShopSystem
         //{
         //    Player.Instance.fireWall_prefab = info.fireWall.spellPrefab;
         //}
+
+        ///Hunter added code here down
+        
+        public void addHealthPotion()
+        {
+            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            if(player.healthPotions < player.healthPotionMax && player.healthPotions < player.potionMax)
+            {
+                player.healthPotions++;
+
+                if(player.manaPotions + player.healthPotions > player.potionMax)
+                {
+                    player.manaPotions--;
+                }
+               
+            }
+            else
+            {
+                Debug.Log("you have the maximum health potions you can carry");
+            }
+        }
+
+
+        public void addManaPotion()
+        {
+            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            if (player.manaPotions < player.manaPotionMax && player.manaPotions < player.potionMax)
+            {
+                player.manaPotions++;
+                if (player.manaPotions + player.healthPotions > player.potionMax)
+                {
+                    player.healthPotions--;
+                }
+                
+            }
+            else
+            {
+                Debug.Log("you have the maximum mana potions you can carry");
+            }
+        }
+
+
     }
 
 }

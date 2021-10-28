@@ -26,9 +26,10 @@ public class Player : Unit
             #region Player's Base Stats/Important controls
     [Header ("player base stats")]
 
-    ///<summary>This is the units health.</summary>
+    ///<summary>This is the players tracked health.</summary>
     public float myHealth;
 
+    ///<summary>This is the units actual health.</summary>
     public override float Health 
     { 
         get => base.Health; 
@@ -55,8 +56,12 @@ public class Player : Unit
     ///<summary>This is the  units starting health.</summary>
     public float startingHealth;
 
+    ///<summary> the players calculated health for the health bar </summary>
+    [HideInInspector]
     private float calculateHealth;
 
+    ///<summary>  the players calculated mana for the mana bar </summary>
+    [HideInInspector]
     private float calculateMana;
 
     ///<summary>This is the units mana for magic casting.</summary>
@@ -75,8 +80,63 @@ public class Player : Unit
     [SerializeField]
     public Rigidbody _rigidBody;
 
+      ///<summary> the players current velocity</summary>
+    [HideInInspector]
+    public Vector3 myVelocity;
+
+
+            #endregion
+            #region player jumping stats and controls
+    [Header("player improved jumping ")]
+
+    ///<summary>the players gravity value while in the air </summary>
+    [HideInInspector]
+    float gravity = -9.8f;
+
+    ///<summary> the players gravity value while on the ground</summary>
+     [HideInInspector]
+    float groundedGravity = -.05f;
+
+    ///<summary> determines if the player is moving up in their jump</summary>
+    [HideInInspector]
+    public bool isJumping = false;
+
+    ///<summary> determines if the player is holding the jump key down</summary>
+    [HideInInspector]
+    public bool isJumpPressed = false;
+
+    ///<summary> determines if the player is holding the jump key down</summary>
+    //[HideInInspector]
+    public bool isDropPressed = false;
+
+    ///<summary> the initial velocity applied to the player when they jump</summary>
+    //[HideInInspector]
+    public float initialJumpVelocity;
+
+    ///<summary> the maximum height the player can jump</summary>
+    //[HideInInspector]
+    public float maxJumpHeight;
+
+    ///<summary> the maximum time the player will be in the air during the jump</summary>
+   // [HideInInspector]
+    public float maxJumpTime;
+
+
+
     #endregion
             #region Player's Ground/Directional Detection Stats
+    [Header("unit colliders/ground detection")]
+
+
+    ///<summary>This is the unit's collider that detects the ground.</summary>
+    [SerializeField]
+    protected Collider _groundCollider;
+
+    public Collider _wallCollider;
+
+    ///<summary>This is the unit's collider that detects the ground.</summary>
+    [SerializeField]
+    protected Collider _hitboxCollider;
 
     ///<summary>This is the range of detection to the ground.</summary>
     private float _Reach = 1f;
@@ -101,18 +161,36 @@ public class Player : Unit
     ///<summary>This determines the damage of the player's melee attack.</summary>
     public int meleeAttackDamage; //
 
-    ///<summary>This determines the damage the player deals to an enemy when they collide.</summary>
-    public int playerCollisionDamage;
-
-    public GameObject ManaHealthController;
 
     /// <summary>this is the physical gameobject that is cast during the firewall spell</summary>
     public GameObject fireWall_prefab;
 
     /// <summary>this is the physical gameobject that is cast during the icicle spell</summary>
     public GameObject icicle_prefab;
+
+    ///<summary>This is the location spells will be cast on the left side of the unit.</summary>
+    [SerializeField]
+    protected GameObject spellLocationLeft;
+
+    ///<summary>this is the location spells will cast on the right side of the unit.</summary>
+    [SerializeField]
+    protected GameObject spellLocationRight;
+
+    ///<summary>This is the location spell will be cast from the center of the unit.</summary>
+    [SerializeField]
+    protected GameObject spellLocationCenter;
+
+    ///<summary>This dis the units collider for their heavy attack.</summary>
+    [SerializeField]
+    protected Collider _heavyCollider;
+
+    [Header("player attack names")]
+    public string Attack1;
+    public string Attack2;
+    public string Attack3;
+
     #endregion
-    #region Bool Determinates 
+            #region Bool Determinates 
     [Header("player bool determinates")]
     /// <summary> determines if the player can move or not </summary>
     [HideInInspector]
@@ -151,13 +229,22 @@ public class Player : Unit
     /// <summary> this keeps track of if the player is in the mine shop or not  </summary>
     public bool inMineShop = false;
 
-    [HideInInspector]
+   // [HideInInspector]
     public bool grounded;
+
+    [HideInInspector]
+    ///<summary>This determines whether the unit is going through a platform or not.</summary>
+    public new bool throughPlatform;
+
+    public bool dropping = false;
+
+    public bool hittingWallRight = false;
+    public bool hittingWallLeft = false;
 
     [HideInInspector]
     public bool isRunning = false;
 
-    [HideInInspector]
+   // [HideInInspector]
     public bool isFalling = false;
 
     [HideInInspector]
@@ -165,7 +252,10 @@ public class Player : Unit
 
     public bool dmgPlayerByTick = false;
 
+    [HideInInspector]
     public bool shieldActive;
+
+    public bool usingPotion = false;
 
     #endregion
             #region Bool/int Equipment
@@ -181,12 +271,18 @@ public class Player : Unit
 
     public int healthPotions = 0;
     public int manaPotions = 0;
+
+    [HideInInspector]
     public int potionMax = 2;
+
+    [HideInInspector]
     public int healthPotionMax = 2;
+
+    [HideInInspector]
     public int manaPotionMax = 2;
 
     #endregion
-    #region Animations
+            #region Animations
     [Header("player animations")]
     public Animator animator;
     private bool triggered = false;
@@ -217,27 +313,6 @@ public class Player : Unit
 
 
     #endregion
-    [Header("player attack names")]
-    public string Attack1;
-    public string Attack2;
-    public string Attack3;
-
-    [Header("player improved jumping ")]
-    float gravity = -9.8f;
-    float groundedGravity = -.05f;
-
-    public bool isJumping = false;
-    public bool isJumpPressed = false;
-    public float initialJumpVelocity;
-    public float maxJumpHeight;
-    public float maxJumpTime;
-
-    public Vector3 movementVelocity;
-    public Vector3 myVelocity;
-
-
-
-   
 
     #endregion
 
@@ -274,6 +349,15 @@ public class Player : Unit
    
     public override void Update()
     {
+      
+
+
+        base.Update();
+
+
+
+
+        #region Player Stat/Item controls
         Application.targetFrameRate = 60;
         facingRightLocal = facingRight;
         _rigidBody.velocity = myVelocity;
@@ -283,23 +367,7 @@ public class Player : Unit
             TakeDamage(1);
         }
 
-
-        base.Update();
-
-        if(floatingShield)
-        {
-            flotingShieldObj.SetActive(true);
-        }
-        if(medicineStash == true)
-        {
-            manaPotionMax = 3;
-            healthPotionMax = 3;
-            potionMax = 4;
-        }
-        
-
-        #region Player Stat controls
-       myHealth = Health;
+        myHealth = Health;
         if(myHealth <= 0)
         {
             ResetGame();
@@ -317,47 +385,91 @@ public class Player : Unit
 
         handleGravity();
         handleJump();
-        
+
+        ///<summary>this sets the rate for how quickly players can cast spells </summary>
+        spellCastDelay -= Time.deltaTime * spellCastRate;
+        if (spellCastDelay <= 0)
+        {
+            canCast = true;
+            spellCastDelay = 3f;
+        }
+
+        if (floatingShield)
+        {
+            flotingShieldObj.SetActive(true);
+        }
+        if (medicineStash == true)
+        {
+            manaPotionMax = 3;
+            healthPotionMax = 3;
+            potionMax = 4;
+        }
 
         #endregion
 
         #region Player Movement Detection
         ///<summary>This moves the player constantly while the input is held.</summary>
+      if(!hittingWallLeft || !hittingWallRight)
+      {
+
         if (canMove == true)
         {
             
-            Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
-            _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
-            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-            
-            if (animator != null)
-            {
+                Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
+                _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
+                _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+          
+           
+
+
+              if (animator != null)
+              {
                 animator.SetBool("isRunning", isRunning);
                 animator.SetBool("isJumping", isJumping);
                 animator.SetBool("isFalling", isFalling);
                 animator.SetBool("isGrounded", isGrounded);
-            }
+              }
                 
-            
         }
+      }
         else
         {
             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
 
-
-        if (onPlatform == true)
+        ///standing on a platform is the same as standing on the ground 
+        if (onPlatform == true && !isJumpPressed)
         {
             isGrounded = true;
         }
+        grounded = isGrounded;
+        ///when you are back on the ground, it resets whether or not you can double jump or not is you have the shuues
         if(isGrounded == true)
         {
             canDoubleJump = true;
             hasDoubleJump = false;
         }
-        grounded = isGrounded;
 
-        
+        if(hittingWallLeft && isJumpPressed)
+        {
+            isGrounded = false;
+        }
+        else if(hittingWallLeft && !isJumpPressed)
+        {
+            isFalling = true;
+        }
+
+        if (hittingWallRight && isJumpPressed)
+        {
+            isGrounded = false;
+        }
+        else if (hittingWallRight && !isJumpPressed)
+        {
+            isFalling = true;
+        }
+
+
+
 
 
 
@@ -371,17 +483,21 @@ public class Player : Unit
         {
             onPlatform = true;
             isJumping = false;
+            dropping = true;
+
+
 
         }
         else
         {
+            dropping = false;
             onPlatform = false;
            
         }
 
         ///<summary>This determines whether the unit is on the ground or not.</summary>
         Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
-        if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "ground")
+        if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "ground" && !isJumpPressed)
         {
             isGrounded = true;
             isJumping = false;
@@ -391,7 +507,33 @@ public class Player : Unit
             isGrounded = false;
         }
 
-        
+        int layermask = 1 << 30;
+
+        ///<summary>This determines whether the unit is on the ground or not.</summary>
+        var wallCheck = transform.TransformDirection(Vector3.right);
+        Debug.DrawRay(transform.position, wallCheck * _Reach, Color.red);
+        if (Physics.BoxCast(_wallCollider.transform.position, _wallCollider.transform.position/2, wallCheck, transform.rotation,_Reach, layermask) && hit.transform.tag == "ground" )
+        {
+            
+            hittingWallRight = true;
+        }
+        else
+        {
+            hittingWallRight = false;
+        }
+
+        var wallCheck2 = transform.TransformDirection(Vector3.left);
+        Debug.DrawRay(transform.position, wallCheck2 * _Reach, Color.red);
+        if (Physics.Raycast(transform.position, wallCheck2, out hit, _Reach) && hit.transform.tag == "ground")
+        {
+           
+            hittingWallLeft = true;
+        }
+        else
+        {
+            hittingWallLeft = false;
+        }
+
 
 
 
@@ -401,20 +543,22 @@ public class Player : Unit
         if (Physics.Raycast(transform.position, roofCheck, out hit, _Reach) && hit.transform.tag == "platform")
         {
             throughPlatform = true;
+            //hit.transform.gameObject.GetComponent<PlatformColliderControllerScript>().isPassing = true;
 
         }
         else
         {
             throughPlatform = false;
+            
 
         }
 
 
         ///<summary>this checks if the unit is trying to pass up through a platform and will assist.</summary>
-        if (throughPlatform == true && justJumped == true)
+        if (throughPlatform == true && justJumped == true && !isGrounded)
         {
-            StartCoroutine(dropDown());
-            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 6);
+            //StartCoroutine(dropDown());
+            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 12);
             
         }
 
@@ -424,13 +568,7 @@ public class Player : Unit
 
         #endregion
 
-        ///<summary>this sets the rate for how quickly players can cast spells </summary>
-        spellCastDelay -= Time.deltaTime * spellCastRate;
-        if (spellCastDelay <= 0)
-        {
-            canCast = true;
-            spellCastDelay = 3f;
-        }
+        
     }
 
     private void FixedUpdate()
@@ -451,6 +589,11 @@ public class Player : Unit
     }
 
 
+    #region health/mana reduction + reset methods
+
+    /// <summary>
+    /// resets the players soft gold and returns them to the camp
+    /// </summary>
     public void ResetGame()
     {
         maxHealth = startingHealth;
@@ -468,6 +611,10 @@ public class Player : Unit
 
     }
 
+    /// <summary>
+    /// reduces player health and makes them invulnerable for a short time 
+    /// </summary>
+    /// <param name="amount"> the amount of damage delt </param>
     public override void TakeDamage(float amount)
     {
         if (invulnerable)
@@ -482,55 +629,26 @@ public class Player : Unit
     }
 
    
+      /// <param name="mana">Amount of mana lost by the player for casting a spell</param>
+    public void ReduceMana(float mana)
+    {
+        myMana -= mana;
+    }
 
-   
-
+    #endregion
 
     #region Player Movement Actions
-    /*
-    /// <summary> This moves the player from side to side on the x axis  /// </summary>
-    public void movement(InputAction.CallbackContext context)
-    {
-        if (canMove == true)
-        {
-            if (this != null)
-            {
-               
-                    Vector2 inputVector = context.ReadValue<Vector2>();
-                
-                    _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, transform.position.y, 0) * speed * Time.deltaTime);
-                    if (inputVector.x > 0)
-                    {
-                        facingRight = true;
-
-                    }
-                    if (inputVector.x < 0)
-                    {
-                        facingRight = false;
-                    }
-
-                    if(inputVector.x == 0)
-                    {
-                        isRunning = false;
-                    }
-                    else
-                    {
-                    
-                        isRunning = true;
-                    
-                    }
-                
-                
-            }
-        }
-    }
-    */
+   
     public void movement2(InputAction.CallbackContext context)
     {
+      if (!hittingWallRight || !hittingWallLeft)
+      {
         if (canMove == true)
-        {
-            if (this != null)
-            {
+        {   
+          if (this != null)
+          {
+            
+
                 Vector2 inputVector = context.ReadValue<Vector2>();
                 myVelocity.x = inputVector.x;
                 myVelocity.z = inputVector.y;
@@ -556,66 +674,16 @@ public class Player : Unit
 
                 }
 
-            }
+          }
         }
+      }
     }
 
-    /*
-    ///<summary>This triggers the unit to jump up.</summary>
-    public void Jump(InputAction.CallbackContext context)
-    {
-        if (this != null)
-        {
-            
-            if (context.performed && isGrounded == true )
-            {
-                
-                _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
-                
-                canDoubleJump = true;
-               StartCoroutine(Jumped());
-               
-                
-                
-            }
-            else if(shuues == true )
-            {
-                if(canDoubleJump == true)
-                {
-                    _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
-                    canDoubleJump = false;
-                    StartCoroutine(Jumped());
-                }
-                
-            }
-
-
-            if (onPlatform == true)
-            {
-
-                _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
-                canDoubleJump = true;
-                StartCoroutine(Jumped());
-
-            }
-            else if (  shuues == true )
-            {
-                if(canDoubleJump == true)
-                {
-                    _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpFroce));
-                    canDoubleJump = false;
-                    StartCoroutine(Jumped());
-                }
-                
-            }
-
-        }
-    }
-    */
+    
     public void Jump2(InputAction.CallbackContext context)
     {
         isJumpPressed = context.ReadValueAsButton();
-        float jumpTimeFrame = Time.deltaTime + maxJumpTime;
+         float jumpTimeFrame = Time.deltaTime + maxJumpTime;
     }
     void setJumpVariables()
     {
@@ -641,6 +709,7 @@ public class Player : Unit
         }
         else if(onPlatform)
         {
+            isJumping = false;
             myVelocity.y = groundedGravity;
         }
         else if(isFalling)
@@ -648,7 +717,7 @@ public class Player : Unit
             isJumping = false;
             float previousYVelocity = myVelocity.y;
             float newYVelocity = myVelocity.y + (gravity * fallMultiplier*Time.deltaTime);
-            float nextYVelocity = Mathf.Max((previousYVelocity + newYVelocity) * .5f, -20.0f);
+            float nextYVelocity = Mathf.Max((previousYVelocity + newYVelocity) * .5f, -10.0f);
             myVelocity.y = nextYVelocity;
         }
         else
@@ -703,11 +772,15 @@ public class Player : Unit
     ///<summary>This triggers the unit to drop down if they are on a platform.</summary>
     public void Drop(InputAction.CallbackContext context)
     {
+        isDropPressed = context.ReadValueAsButton();
         if (onPlatform == true)
         {
+           
             onPlatform = false;
             isGrounded = false;
-            StartCoroutine(dropDown());
+            dropping = true;
+            //StartCoroutine(dropDown());
+            //throughPlatform = true;
             myVelocity = new Vector2(_rigidBody.velocity.x, -16);
         }
     }
@@ -823,38 +896,22 @@ public class Player : Unit
 
         if (Time.time >= nextDamageEvent)
         {
-            nextDamageEvent = Time.time + attackCoolDown;
+            nextDamageEvent = Time.time + attackCoolDown/2;
             triggered = true;
             if (facingRight == true)
             {
-                //10/4/21 Tyler Added this to fix the problems with sword position and rotation
-                /* _lightCollider.transform.position = spellLocationRight.transform.position;
-                _lightCollider.transform.position = _lightCollider.transform.position;
                 
-                StartCoroutine(lightAttackCoroutine());
-                //Tyler commented this out to fix the problems with sword pos and rtotation
-                 */
-
-                //_lightCollider.transform.position = spellLocationRight.transform.position;
                 _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale/2);
-                //_lightCollider.transform.eulerAngles = new Vector3(0.0f, 0.0f, 270.0f);
+                
                 _lightCollider.transform.localPosition = new Vector3(0f, 0f, 0f);
                 StartCoroutine(lightAttackCoroutine());
               
             }
             else
             {
-                //10/4/21 Tyler Added this to fix the problems with sword position and rotation
-               /*  _lightCollider.transform.position = spellLocationLeft.transform.position;
-                _lightCollider.transform.position = _lightCollider.transform.position;
-                
-                StartCoroutine(lightAttackCoroutine());
-                //Tyler commented this out to fix the problems with sword pos and rtotation
-               */
-
-                //_lightCollider.transform.position = spellLocationLeft.transform.position;
+               
                 _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
-                //_lightCollider.transform.eulerAngles = new Vector3(180.0f, 0.0f, 90.0f);
+                
                 _lightCollider.transform.localPosition = new Vector3(0f, 0f, 0f);
                 StartCoroutine(lightAttackCoroutine());
                 
@@ -888,16 +945,9 @@ public class Player : Unit
 
             if (facingRight == true)
             {
-                //10/4/21 Tyler Added this to fix the problems with sword position and rotation
-              /*  _heavyCollider.transform.position = spellLocationRight.transform.position;
-                _heavyCollider.transform.position = _heavyCollider.transform.position;
-                _heavyCollider.transform.eulerAngles = new Vector3(0.0f, 0.0f, 270.0f);
-                StartCoroutine(heavyAttackCoroutine());
-                //Tyler commented this out to fix the problems with sword pos and rtotation
-               */ 
-               // _heavyCollider.transform.position = spellLocationRight.transform.position;
+               
                 _heavyCollider.transform.position = _heavyCollider.transform.position + (_heavyCollider.gameObject.transform.localScale / 2);
-                //_heavyCollider.transform.eulerAngles = new Vector3(0.0f, 0.0f, 270.0f);
+                
                 _heavyCollider.transform.localPosition = new Vector3(0f, 0f, 0f); ;
                 StartCoroutine(heavyAttackCoroutine());
                
@@ -905,16 +955,9 @@ public class Player : Unit
             }
             else
             {
-                //10/4/21 Tyler Added this to fix the problems with sword position and rotation
-               /* _heavyCollider.transform.position = spellLocationLeft.transform.position;
-                _heavyCollider.transform.position = _heavyCollider.transform.position;
-                _heavyCollider.transform.eulerAngles = new Vector3(180.0f, 0.0f, 90.0f);
-                StartCoroutine(heavyAttackCoroutine());
-                //Tyler commented this out to fix the problems with sword pos and rtotation
-                */
-                //_heavyCollider.transform.position = spellLocationLeft.transform.position;
+                
                 _heavyCollider.transform.position = _heavyCollider.transform.position - (_heavyCollider.gameObject.transform.localScale / 2);
-                //_heavyCollider.transform.eulerAngles = new Vector3(180.0f, 0.0f, 90.0f);
+                
                 _heavyCollider.transform.localPosition = new Vector3(0f, 0f, 0f);
                 StartCoroutine(heavyAttackCoroutine());
                
@@ -935,6 +978,57 @@ public class Player : Unit
     }
 
     #endregion
+    #region Player using potions
+
+    public void useHealthPotion()
+    {
+        if(Health < maxHealth)
+        {
+            if (healthPotions > 0)
+            {
+                if (!usingPotion)
+                {
+                    usingPotion = true;
+                    healthPotions--;
+                    Health = Health + (maxHealth * 0.4f);
+                    StartCoroutine(usePotionCoroutine());
+                }
+
+            }
+        }
+        
+    }
+
+    public void useManaPotion()
+    {
+        if(myMana < maxMana)
+        {
+            if (manaPotions > 0)
+            {
+                if (!usingPotion)
+                {
+                    usingPotion = true;
+                    manaPotions--;
+                    myMana = myMana + (maxMana * 0.4f);
+                    StartCoroutine(usePotionCoroutine());
+                }
+
+            }
+        }
+        
+    }
+
+    public void restockPotions()
+    {
+       if(medicineStash)
+        {
+            healthPotions = 1;
+            manaPotions = 1;
+        }
+
+       
+    }
+    #endregion
 
     #region actionCheckers
     public void actionCheck1()
@@ -943,17 +1037,21 @@ public class Player : Unit
         {
             lightAttack();
         }
-        if (Attack1 == "Heavy Attack")
+        else if (Attack1 == "Heavy Attack")
         {
             heavyAttack();
         }
-        if (Attack1 == "Fire Wall")
+        else if (Attack1 == "Fire Wall")
         {
             fireWall();
         }
-        if (Attack1 == "Icicle")
+        else if (Attack1 == "Icicle")
         {
             icicle();
+        }
+        else
+        {
+            lightAttack();
         }
     }
     public void actionCheck2()
@@ -962,17 +1060,21 @@ public class Player : Unit
         {
             lightAttack();
         }
-        if (Attack2 == "Heavy Attack")
+        else if (Attack2 == "Heavy Attack")
         {
             heavyAttack();
         }
-        if (Attack2 == "Fire Wall")
+        else if (Attack2 == "Fire Wall")
         {
             fireWall();
         }
-        if (Attack2 == "Icicle")
+        else if (Attack2 == "Icicle")
         {
             icicle();
+        }
+        else
+        {
+            lightAttack();
         }
     }
     public void actionCheck3()
@@ -981,17 +1083,21 @@ public class Player : Unit
         {
             lightAttack();
         }
-        if (Attack3 == "Heavy Attack")
+        else if (Attack3 == "Heavy Attack")
         {
             heavyAttack();
         }
-        if (Attack3 == "Fire Wall")
+        else if (Attack3 == "Fire Wall")
         {
             fireWall();
         }
-        if (Attack3 == "Icicle")
+        else if (Attack3 == "Icicle")
         {
             icicle();
+        }
+        else
+        {
+            lightAttack();
         }
     }
 
@@ -1034,25 +1140,6 @@ public class Player : Unit
         }
 
 
-       
-
-
-       
-
-        //if (other.gameObject.tag == "CampShopEntrance")
-        //{
-        //    GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
-        //    buttonController.GetComponent<SceneButtonControllerScript>().enterCampShopBTN.SetActive(true);
-
-        //    if (Interacting == true)
-        //    {
-        //        Interacting = false;
-        //        canMove = false;
-        //        other.GetComponent<CampShopEntranceInteractScript>().Interact();
-
-        //    }
-        //}
-
         #endregion
 
         #region Enemy Collisions
@@ -1082,7 +1169,8 @@ public class Player : Unit
     {
         if (other.gameObject.tag == "platform")
         {
-            _platformCollider.enabled = true;
+            _groundCollider.enabled = true;
+          
         }
  
         if (other.gameObject.tag == "MineEntrance")
@@ -1119,13 +1207,10 @@ public class Player : Unit
 
 
 
-    /// <param name="mana">Amount of mana lost by the player for casting a spell</param>
-    public void ReduceMana(float mana)
-    {
-        myMana -= mana;
-    }
+  
 
 
+    #region player IEnumerators
     public IEnumerator InteractCoroutine()
     {
        
@@ -1154,7 +1239,27 @@ public class Player : Unit
 
     }
 
-  
+    public IEnumerator usePotionCoroutine()
+    {
+       
+        yield return new WaitForSeconds(.3f);
+        if (usingPotion)
+            usingPotion = false;
+      
+
+
+    }
+
+    /// <summary> this allows the weapons collider to interact with things </summary>
+    public IEnumerator heavyAttackCoroutine()
+    {
+        _heavyCollider.enabled = true;
+        yield return new WaitForSeconds(.9f);
+        _heavyCollider.enabled = false;
+    }
+
+
+
 
     public IEnumerator IFrames()
     {
@@ -1191,16 +1296,43 @@ public class Player : Unit
     public IEnumerator dropDown()
     {
         
-        _platformCollider.enabled = false;
-        _groundCollider.enabled = false;
+      
+       // _groundCollider.enabled = false;
         onPlatform = false;
         isGrounded = false;
         isFalling = true;
-        
-      
-        yield return new WaitForSeconds(2f);
-        _groundCollider.enabled = true;
-        _platformCollider.enabled = true;
+
+        var groundCheck = transform.TransformDirection(Vector3.down);
+        Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
+        if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "platform")
+        {
+           
+            hit.transform.gameObject.GetComponent<PlatformColliderControllerScript>().isPassing = true;
+
+
+
+        }
+
+
+
+        yield return new WaitForSeconds(.5f);
+        var roofCheck = transform.TransformDirection(Vector3.up);
+        Debug.DrawRay(transform.position, roofCheck * _Reach, Color.red);
+        if (Physics.Raycast(transform.position, roofCheck, out hit, _Reach) && hit.transform.tag == "platform")
+        {
+            
+            hit.transform.gameObject.GetComponent<PlatformColliderControllerScript>().passingComplete = true;
+
+        }
+        //_groundCollider.enabled = true;
+
     }
 
+    public IEnumerator InvicibilityFrames()
+    {
+        _hitboxCollider.enabled = false;
+        yield return new WaitForSeconds(1f);
+        _hitboxCollider.enabled = true;
+    }
+    #endregion
 }

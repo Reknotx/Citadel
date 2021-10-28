@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4934962293358792181}
   - component: {fileID: 3530581918379121319}
+  - component: {fileID: 3274388241295193644}
   m_Layer: 0
   m_Name: 3x1 Platform Update
   m_TagString: platform
@@ -45,8 +46,25 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 0.25937307, z: 0.69236577}
+  m_Size: {x: 3, y: 0.25937307, z: 2}
   m_Center: {x: 1, y: 0.12364346, z: 0.007408425}
+--- !u!114 &3274388241295193644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806634364532910362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd2aaa9156eac8499e7ced60760004b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPassing: 0
+  passingComplete: 0
+  myCollider: {fileID: 3530581918379121319}
+  passTime: 0.5
+  Player: {fileID: 0}
 --- !u!1001 &3675984208870492881
 PrefabInstance:
   m_ObjectHideFlags: 0

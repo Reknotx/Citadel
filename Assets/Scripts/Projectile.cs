@@ -54,15 +54,38 @@ public class Projectile : MonoBehaviour
             
         }
 
-        /*if (other.tag == "ground")
+        if (other.tag == "ground")
         {
             DestroyProjectile();
-        }*/
-    }
+        }
 
+        if(other.tag == "ground")
+        {
+            DestroyProjectile();
+        }
+
+        if(other.tag == "Trap")
+        {
+            DestroyProjectile();
+        }
+
+        if(other.tag == "platform")
+        {
+            DestroyProjectile();
+        }
+
+        if(other.tag == "Pot")
+        {
+            DestroyProjectile();
+        }
+
+        
+    }
+/*
     public void OnCollisionEnter(Collision collision)
     {
         DestroyProjectile();
     }
+    */
 }
    

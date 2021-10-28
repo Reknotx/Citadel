@@ -204,6 +204,7 @@ MonoBehaviour:
   spellLocationRight: {fileID: 0}
   spellLocationCenter: {fileID: 0}
   isGrounded: 0
+  onPlatform: 0
   facingRight: 0
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
   myHealth: 10
@@ -230,6 +231,8 @@ MonoBehaviour:
   skeletonHealth: {fileID: 8222136454470860100}
   HealthIMG: {fileID: 8488871177338055584}
   currentHealth: 0
+  runAwayDistance: 4
+  runAwaySpeed: 3
 --- !u!54 &2982838568778839160
 Rigidbody:
   m_ObjectHideFlags: 0
