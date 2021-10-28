@@ -83,6 +83,7 @@ public class Goblin : Enemy
             {
                 GoblinAttack();
             }
+            //add lunge (jump) attack
         }
 
         
