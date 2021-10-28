@@ -105,6 +105,12 @@ public class GoldHandler : MonoBehaviour
     /// </summary>
     public int numOfCarts;
 
+    public int numOfMoles;
+
+    public int numOfPicks;
+
+    public int numOfWizards;
+
     /// <summary>
     /// The increase in the player's revenue for every miner they own
     /// </summary>

@@ -107,7 +107,7 @@ public class Enemy : Unit
     [Tooltip("Activate this only to immediately kill the enemy.")]
     public bool killThis = false;
 
-    private void Start()
+    public virtual void Start()
     {
         normalSpeed = speed;
         //Tyler Added code

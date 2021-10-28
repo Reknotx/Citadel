@@ -24,7 +24,7 @@ public class FireWallSpellScript : MonoBehaviour
 
     public float spellDuration;
 
-   
+    public float manaCost;
 
         #endregion
         #region Fire Wall Colliders/Renderers
