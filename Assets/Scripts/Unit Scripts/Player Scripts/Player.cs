@@ -105,6 +105,10 @@ public class Player : Unit
     [HideInInspector]
     public bool isJumpPressed = false;
 
+    ///<summary> determines if the player is holding the jump key down</summary>
+    //[HideInInspector]
+    public bool isDropPressed = false;
+
     ///<summary> the initial velocity applied to the player when they jump</summary>
     //[HideInInspector]
     public float initialJumpVelocity;
@@ -227,6 +231,12 @@ public class Player : Unit
 
    // [HideInInspector]
     public bool grounded;
+
+    [HideInInspector]
+    ///<summary>This determines whether the unit is going through a platform or not.</summary>
+    public new bool throughPlatform;
+
+    public bool dropping = false;
 
     public bool hittingWallRight = false;
     public bool hittingWallLeft = false;
@@ -473,10 +483,14 @@ public class Player : Unit
         {
             onPlatform = true;
             isJumping = false;
+            dropping = true;
+
+
 
         }
         else
         {
+            dropping = false;
             onPlatform = false;
            
         }
@@ -529,11 +543,13 @@ public class Player : Unit
         if (Physics.Raycast(transform.position, roofCheck, out hit, _Reach) && hit.transform.tag == "platform")
         {
             throughPlatform = true;
+            //hit.transform.gameObject.GetComponent<PlatformColliderControllerScript>().isPassing = true;
 
         }
         else
         {
             throughPlatform = false;
+            
 
         }
 
@@ -541,8 +557,8 @@ public class Player : Unit
         ///<summary>this checks if the unit is trying to pass up through a platform and will assist.</summary>
         if (throughPlatform == true && justJumped == true && !isGrounded)
         {
-            StartCoroutine(dropDown());
-            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 6);
+            //StartCoroutine(dropDown());
+            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 12);
             
         }
 
@@ -756,11 +772,15 @@ public class Player : Unit
     ///<summary>This triggers the unit to drop down if they are on a platform.</summary>
     public void Drop(InputAction.CallbackContext context)
     {
+        isDropPressed = context.ReadValueAsButton();
         if (onPlatform == true)
         {
+           
             onPlatform = false;
             isGrounded = false;
-            StartCoroutine(dropDown());
+            dropping = true;
+            //StartCoroutine(dropDown());
+            //throughPlatform = true;
             myVelocity = new Vector2(_rigidBody.velocity.x, -16);
         }
     }
@@ -1277,15 +1297,35 @@ public class Player : Unit
     {
         
       
-        _groundCollider.enabled = false;
+       // _groundCollider.enabled = false;
         onPlatform = false;
         isGrounded = false;
         isFalling = true;
-        
-      
+
+        var groundCheck = transform.TransformDirection(Vector3.down);
+        Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
+        if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "platform")
+        {
+           
+            hit.transform.gameObject.GetComponent<PlatformColliderControllerScript>().isPassing = true;
+
+
+
+        }
+
+
+
         yield return new WaitForSeconds(.5f);
-        _groundCollider.enabled = true;
-       
+        var roofCheck = transform.TransformDirection(Vector3.up);
+        Debug.DrawRay(transform.position, roofCheck * _Reach, Color.red);
+        if (Physics.Raycast(transform.position, roofCheck, out hit, _Reach) && hit.transform.tag == "platform")
+        {
+            
+            hit.transform.gameObject.GetComponent<PlatformColliderControllerScript>().passingComplete = true;
+
+        }
+        //_groundCollider.enabled = true;
+
     }
 
     public IEnumerator InvicibilityFrames()
