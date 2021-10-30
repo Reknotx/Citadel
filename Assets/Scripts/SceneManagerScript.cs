@@ -15,7 +15,7 @@ using UnityEngine.UI;
 public class SceneManagerScript : MonoBehaviour
 {
     #region Bool Determinates 
-    
+
 
     /// <summary> this stores the ingame objects of the camp ui buttons  </summary>
     public GameObject campButtons;
@@ -67,6 +67,7 @@ public class SceneManagerScript : MonoBehaviour
     private void Awake()
     {
         GameObject player = GameObject.FindWithTag("Player");
+        
     }
 
     private void Update()

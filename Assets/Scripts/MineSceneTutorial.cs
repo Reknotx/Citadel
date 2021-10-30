@@ -25,19 +25,32 @@ public class MineSceneTutorial : MonoBehaviour
 
     private bool closeTut = false;
 
+
+
+    
+
+
     #endregion
+
+    
 
     // Start is called before the first frame update
     void Start()
     {
         currentScene = SceneManager.GetActiveScene().name;
-        
+        //PlayerPrefs.SetInt("TutorialHasPlayed", 0); <------DO NOT UNCOMMENT, here for testing purposes only
+
+
         index = 0;
-        if (currentScene == "MineScene")
+        if (PlayerPrefs.GetInt("TutorialHasPlayed", 0) <= 0)
         {
-            instroTracker[index].gameObject.SetActive(true);
-            TipButton.gameObject.SetActive(true);
-            
+            if (currentScene == "MineScene")
+            {
+                instroTracker[index].gameObject.SetActive(true);
+                TipButton.gameObject.SetActive(true);
+                TutButton.gameObject.SetActive(true);
+
+            }
         }
     }
 
@@ -51,12 +64,15 @@ public class MineSceneTutorial : MonoBehaviour
 
         if (closeTut)
         {
+            PlayerPrefs.SetInt("TutorialHasPlayed", 1);
             for (int i = 0; i < instroTracker.Length; i++)
             {
                 instroTracker[index].gameObject.SetActive(false);
                 TutButton.gameObject.SetActive(false);
                 TipButton.gameObject.SetActive(false);
+                
             }
+            
         }
     }
 
