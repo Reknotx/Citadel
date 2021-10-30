@@ -34,6 +34,8 @@ public class SceneManagerScript : MonoBehaviour
     public string activeSceneName;
     #endregion
 
+    
+
     GameObject player;
    public GameObject shopUI;
 
@@ -135,6 +137,7 @@ public class SceneManagerScript : MonoBehaviour
        // player.GetComponent<Player>().canMove = false;
             //campButtons.SetActive(false);wda
             SceneManager.LoadScene(6);
+            
 
             
 
