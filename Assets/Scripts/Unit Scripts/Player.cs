@@ -129,9 +129,6 @@ public class Player : Unit
 
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
-    [SerializeField]
-    protected Collider _groundCollider;
-
     public Collider _wallCollider;
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
