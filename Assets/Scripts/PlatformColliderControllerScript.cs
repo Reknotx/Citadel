@@ -35,10 +35,10 @@ public class PlatformColliderControllerScript : MonoBehaviour
         if (isColliding && dropPressed == true && canPass)
         {
 
-
+            StartCoroutine(PassThroughCoroutine());
             Player.transform.position = new Vector3(Player.transform.position.x, downPos.position.y, Player.transform.position.z);
 
-            StartCoroutine(PassThroughCoroutine());
+            
             Player.GetComponent<Player>().myVelocity = new Vector2(Player.GetComponent<Player>().myVelocity.x, -10);
         }
 
@@ -57,7 +57,7 @@ public class PlatformColliderControllerScript : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             isColliding = true;
-            canPass = true;
+            
             if ( jumpPressed)
             {
                 Player.transform.position = new Vector3(Player.transform.position.x, topPos.transform.position.y, Player.transform.position.z);

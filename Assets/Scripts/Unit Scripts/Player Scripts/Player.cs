@@ -242,7 +242,7 @@ public class Player : Unit
     public bool hittingWallRight = false;
     public bool hittingWallLeft = false;
 
-    [HideInInspector]
+    //[HideInInspector]
     public bool isRunning = false;
 
    // [HideInInspector]
@@ -260,10 +260,10 @@ public class Player : Unit
 
     public new bool onPlatform;
 
-    public bool collidingPlatform;
+    
 
     #endregion
-    #region Bool/int Equipment
+            #region Bool/int Equipment
 
     [Header("player equipment")]
     public bool shuues = false;
@@ -419,10 +419,13 @@ public class Player : Unit
 
         if (canMove == true)
         {
-            
-                Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
-                _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
-                _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+            if(isRunning && !hittingWallLeft && !hittingWallRight)
+            {
+                    Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
+                    _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
+                    _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+            }
+               
                 
            
 
@@ -473,6 +476,12 @@ public class Player : Unit
             isFalling = true;
         }
 
+        if(isGrounded)
+        {
+            hittingWallLeft = false;
+            hittingWallRight = false;
+        }
+
         
 
 
@@ -512,33 +521,48 @@ public class Player : Unit
             isGrounded = false;
         }
 
-        int layermask = 1 << 30;
-
+       
         ///<summary>This determines whether the unit is on the ground or not.</summary>
         var wallCheck = transform.TransformDirection(Vector3.right);
-        Debug.DrawRay(transform.position, wallCheck * _Reach, Color.red);
-        if (Physics.BoxCast(_wallCollider.transform.position, _wallCollider.transform.position/2, wallCheck, transform.rotation,_Reach, layermask) && hit.transform.tag == "ground" )
+        Debug.DrawRay(transform.position, wallCheck * _Reach/2, Color.red);
+        if (Physics.Raycast(transform.position, wallCheck, out hit, _Reach/2) && hit.transform.tag == "ground")
         {
+            if(facingRight && !isGrounded)
+            {
+                hittingWallRight = true;
+            }
+            else
+            {
+               hittingWallRight = false;
+            }
             
-            hittingWallRight = true;
+        
+        
         }
-        else
+        else if(isGrounded)
         {
             hittingWallRight = false;
         }
 
         var wallCheck2 = transform.TransformDirection(Vector3.left);
-        Debug.DrawRay(transform.position, wallCheck2 * _Reach, Color.red);
-        if (Physics.Raycast(transform.position, wallCheck2, out hit, _Reach) && hit.transform.tag == "ground")
+        Debug.DrawRay(transform.position, wallCheck2 * _Reach/2, Color.red);
+        if (Physics.Raycast(transform.position, wallCheck2, out hit, _Reach/2) && hit.transform.tag == "ground")
         {
-           
-            hittingWallLeft = true;
+           if(!facingRight && !isGrounded)
+           {
+                hittingWallLeft = true;
+           }
+           else
+           {
+              hittingWallLeft = false;
+           }
+       
+        
         }
-        else
+        else if (isGrounded)
         {
             hittingWallLeft = false;
         }
-
 
 
 
@@ -1157,11 +1181,7 @@ public class Player : Unit
         #region ground/platform/camp collisions
 
 
-        if (other.gameObject.tag == "platform")
-        {
-            collidingPlatform = true;
-
-        }
+       
 
         if (other.gameObject.tag =="ground")
         {
@@ -1172,11 +1192,7 @@ public class Player : Unit
 
    public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "platform")
-        {
-            _groundCollider.enabled = true;
-            collidingPlatform = false;
-        }
+        
  
         if (other.gameObject.tag == "MineEntrance")
         {
@@ -1298,40 +1314,7 @@ public class Player : Unit
     }
 
     /// <summary> this allows units to drop through platforms </summary>
-    public IEnumerator dropDown()
-    {
-        
-      
-       // _groundCollider.enabled = false;
-        onPlatform = false;
-        isGrounded = false;
-        isFalling = true;
-
-        var groundCheck = transform.TransformDirection(Vector3.down);
-        Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
-        if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "platform")
-        {
-           
-            hit.transform.gameObject.GetComponent<PlatformColliderControllerScript>().isPassing = true;
-
-
-
-        }
-
-
-
-        yield return new WaitForSeconds(.5f);
-        var roofCheck = transform.TransformDirection(Vector3.up);
-        Debug.DrawRay(transform.position, roofCheck * _Reach, Color.red);
-        if (Physics.Raycast(transform.position, roofCheck, out hit, _Reach) && hit.transform.tag == "platform")
-        {
-            
-            hit.transform.gameObject.GetComponent<PlatformColliderControllerScript>().passingComplete = true;
-
-        }
-        //_groundCollider.enabled = true;
-
-    }
+    
 
     public IEnumerator InvicibilityFrames()
     {
