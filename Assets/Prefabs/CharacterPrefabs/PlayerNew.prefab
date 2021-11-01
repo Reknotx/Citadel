@@ -207,7 +207,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9952388, y: 1.5920182, z: 1}
+  m_Size: {x: 0.9952388, y: 1.67, z: 1}
   m_Center: {x: 0.050293744, y: -0.09204024, z: 0}
 --- !u!65 &8699123244142488910
 BoxCollider:
@@ -264,6 +264,7 @@ MonoBehaviour:
   myVelocity: {x: 0, y: 0, z: 0}
   isJumping: 0
   isJumpPressed: 0
+  isDropPressed: 0
   initialJumpVelocity: 0
   maxJumpHeight: 4
   maxJumpTime: 1.25
@@ -293,6 +294,8 @@ MonoBehaviour:
   inMine: 0
   inMineShop: 0
   grounded: 0
+  throughPlatform: 0
+  dropping: 0
   hittingWallRight: 0
   hittingWallLeft: 0
   isRunning: 0
@@ -301,6 +304,8 @@ MonoBehaviour:
   dmgPlayerByTick: 0
   shieldActive: 0
   usingPotion: 0
+  onPlatform: 0
+  collidingPlatform: 0
   shuues: 0
   undying: 0
   spellStone: 0

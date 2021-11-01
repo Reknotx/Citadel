@@ -148,6 +148,7 @@ public class Player : Unit
     //[HideInInspector]
     public bool facingRightLocal;
 
+
     #endregion
             #region Player's Attack Stats/Spell Prefabs
 
@@ -257,8 +258,12 @@ public class Player : Unit
 
     public bool usingPotion = false;
 
+    public new bool onPlatform;
+
+    public bool collidingPlatform;
+
     #endregion
-            #region Bool/int Equipment
+    #region Bool/int Equipment
 
     [Header("player equipment")]
     public bool shuues = false;
@@ -418,7 +423,7 @@ public class Player : Unit
                 Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
                 _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
                 _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-          
+                
            
 
 
@@ -468,7 +473,7 @@ public class Player : Unit
             isFalling = true;
         }
 
-
+        
 
 
 
@@ -483,14 +488,14 @@ public class Player : Unit
         {
             onPlatform = true;
             isJumping = false;
-            dropping = true;
+            
 
-
+           
 
         }
         else
         {
-            dropping = false;
+            
             onPlatform = false;
            
         }
@@ -772,17 +777,10 @@ public class Player : Unit
     ///<summary>This triggers the unit to drop down if they are on a platform.</summary>
     public void Drop(InputAction.CallbackContext context)
     {
+       
         isDropPressed = context.ReadValueAsButton();
-        if (onPlatform == true)
-        {
-           
-            onPlatform = false;
-            isGrounded = false;
-            dropping = true;
-            //StartCoroutine(dropDown());
-            //throughPlatform = true;
-            myVelocity = new Vector2(_rigidBody.velocity.x, -16);
-        }
+        
+
     }
 
     public void Interact(InputAction.CallbackContext context)
@@ -1158,6 +1156,13 @@ public class Player : Unit
 
         #region ground/platform/camp collisions
 
+
+        if (other.gameObject.tag == "platform")
+        {
+            collidingPlatform = true;
+
+        }
+
         if (other.gameObject.tag =="ground")
         {
             _groundCollider.enabled = true;
@@ -1170,7 +1175,7 @@ public class Player : Unit
         if (other.gameObject.tag == "platform")
         {
             _groundCollider.enabled = true;
-          
+            collidingPlatform = false;
         }
  
         if (other.gameObject.tag == "MineEntrance")
