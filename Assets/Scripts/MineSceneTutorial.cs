@@ -38,7 +38,7 @@ public class MineSceneTutorial : MonoBehaviour
     void Start()
     {
         currentScene = SceneManager.GetActiveScene().name;
-        //PlayerPrefs.SetInt("TutorialHasPlayed", 0); <------DO NOT UNCOMMENT, here for testing purposes only
+        //PlayerPrefs.SetInt("TutorialHasPlayed", 0); //<------DO NOT UNCOMMENT, here for testing purposes only
 
 
         index = 0;
