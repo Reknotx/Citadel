@@ -127,6 +127,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7116494045925834707}
+  - {fileID: 7718667375149264916}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -187,20 +188,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  jumpFroce: 0
+  _health: 0
   maxHealth: 0
   _groundCollider: {fileID: 0}
   _platformCollider: {fileID: 0}
-  _hitboxCollider: {fileID: 0}
   _lightCollider: {fileID: 0}
-  _heavyCollider: {fileID: 0}
-  spellLocationLeft: {fileID: 0}
-  spellLocationRight: {fileID: 0}
-  spellLocationCenter: {fileID: 0}
   facingRight: 0
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
-  myHealth: 0
   _rigidBody: {fileID: 7116494046359205883}
+  m_render: {fileID: 0}
   facingRightLocal: 0
   yDistance: 0
   jumpVelocity: 0
@@ -209,16 +205,19 @@ MonoBehaviour:
   followDistance: 0
   stoppingDistance: 0
   noJumpHeight: 0
-  m_render: {fileID: 0}
+  distanceToPlayer: 0
+  Astar: {fileID: 0}
+  nextWaypointDistance: 3
   seenByCamera: 0
   debug: 0
   killThis: 0
+  enemyHealth: {fileID: 0}
+  HealthIMG: {fileID: 0}
   percentChanceToDropItem: 40
   attackRate: 5
   lurchDist: 5
   playerTrans: {fileID: 0}
   seekerSpeed: 200
-  nextWaypointDistance: 3
   enemyModel: {fileID: 7116494045925834704}
   BobDistance: 0.35
 --- !u!135 &6625780130842779017
@@ -234,3 +233,83 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &6761680663335819236
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6941709184590899886}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.77
+  m_Center: {x: 0, y: 1.22, z: 0}
+--- !u!1001 &7824035031681488895
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7116494046359205882}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 7b65bf3220e9f7a4b92abced065de6ca, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b65bf3220e9f7a4b92abced065de6ca, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.028230667
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b65bf3220e9f7a4b92abced065de6ca, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b65bf3220e9f7a4b92abced065de6ca, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.013154976
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b65bf3220e9f7a4b92abced065de6ca, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9927048
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b65bf3220e9f7a4b92abced065de6ca, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b65bf3220e9f7a4b92abced065de6ca, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.120570086
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b65bf3220e9f7a4b92abced065de6ca, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b65bf3220e9f7a4b92abced065de6ca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b65bf3220e9f7a4b92abced065de6ca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -13.85
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b65bf3220e9f7a4b92abced065de6ca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7b65bf3220e9f7a4b92abced065de6ca, type: 3}
+      propertyPath: m_Name
+      value: SeraphFlyng
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7b65bf3220e9f7a4b92abced065de6ca, type: 3}
+--- !u!1 &6941709184590899886 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7b65bf3220e9f7a4b92abced065de6ca, type: 3}
+  m_PrefabInstance: {fileID: 7824035031681488895}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7718667375149264916 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7b65bf3220e9f7a4b92abced065de6ca, type: 3}
+  m_PrefabInstance: {fileID: 7824035031681488895}
+  m_PrefabAsset: {fileID: 0}
