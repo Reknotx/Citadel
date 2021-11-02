@@ -26,10 +26,7 @@ public class Unit : MonoBehaviour
     [Tooltip("This is the unit's speed.")]
     public float speed;
 
-    ///<summary>This determines the unit's jump height.</summary>
-    [Range(0, 30f)]
-    [Tooltip("This determines the unit's jump height.")]
-    public float jumpFroce;
+   
     #endregion
     #region Health
     [SerializeField]
@@ -39,7 +36,6 @@ public class Unit : MonoBehaviour
     public float maxHealth;
 
     ///<summary>This is the units health.</summary>
-    [SerializeField]
     public virtual float Health
     {
         get => _health;
@@ -68,42 +64,27 @@ public class Unit : MonoBehaviour
     protected Collider _groundCollider;
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
-    protected  Collider _platformCollider;
+    protected Collider _platformCollider;
 
-    ///<summary>This is the unit's collider that detects the ground.</summary>
-    [SerializeField]
-    protected Collider _hitboxCollider;
 
     ///<summary>This dis the units collider for their light attack.</summary>
     [SerializeField]
     protected Collider _lightCollider;
 
-    ///<summary>This dis the units collider for their heavy attack.</summary>
-    [SerializeField]
-    protected Collider _heavyCollider;
+    
 
-    ///<summary>This is the location spells will be cast on the left side of the unit.</summary>
-    [SerializeField]
-    protected GameObject spellLocationLeft;
-
-    ///<summary>this is the location spells will cast on the right side of the unit.</summary>
-    [SerializeField]
-    protected GameObject spellLocationRight;
-
-    ///<summary>This is the location spell will be cast from the center of the unit.</summary>
-    [SerializeField]
-    protected GameObject spellLocationCenter;
+   
 
             #endregion
     
     #region Unit's bool determinates 
 
     ///<summary>This determines whether the unit is on the ground or not.</summary>
-    [SerializeField]
+    [HideInInspector]
     protected bool isGrounded;
 
     ///<summary>This determines whether the unit is on a platform or not.</summary>
-    [SerializeField]
+    [HideInInspector]
     protected bool onPlatform;
 
     [HideInInspector]
@@ -169,9 +150,6 @@ public class Unit : MonoBehaviour
     [HideInInspector]
     protected float onFireDamageDelay = 2f;
 
-
-
-
     #endregion
     public virtual void Update()
     {
@@ -202,113 +180,7 @@ public class Unit : MonoBehaviour
         Health -= amount;
     }
     
-    #region Unit Actions
-
-        #region Unit Melee Attacks
-    /// <summary> This is the attacking function /// </summary>
-    public void lightAttack(InputAction.CallbackContext context)
-    {
-
-        if (Time.time >= nextDamageEvent)
-        {
-            nextDamageEvent = Time.time + attackCoolDown;
-            if (facingRight == true)
-            {
-                _lightCollider.transform.position = spellLocationRight.transform.position;
-                StartCoroutine(lightAttackCoroutine());
-
-            }
-            else
-            {
-                _lightCollider.transform.position = spellLocationLeft.transform.position;
-                StartCoroutine(lightAttackCoroutine());
-            }
-        }
-        
-    }
-
-    /// <summary> This is the attacking function /// </summary>
-
-    public void heavyAttack(InputAction.CallbackContext context)
-    {
-        if (Time.time >= nextDamageEvent)
-        {
-            nextDamageEvent = Time.time + attackCoolDown;
-            if (facingRight == true)
-            {
-                _heavyCollider.transform.position = spellLocationRight.transform.position;
-                StartCoroutine(heavyAttackCoroutine());
-
-            }
-            else
-            {
-                _heavyCollider.transform.position = spellLocationLeft.transform.position;
-                StartCoroutine(heavyAttackCoroutine());
-            }
-        }
-        
-
-    }
-
-    #endregion
-
-    #endregion
-
-    /*#region Unit Melee Attacks
-    /// <summary> This is the attacking function /// </summary>
-    public void lightAttack(InputAction.CallbackContext context)
-    {
-        _lightCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange, .3f, 1.5f);
-
-        if (Time.time >= nextDamageEvent)
-        {
-            nextDamageEvent = Time.time + attackCoolDown;
-            if (facingRight == true)
-            {
-                _lightCollider.transform.position = spellLocationRight.transform.position;
-                _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale / 2);
-                StartCoroutine(lightAttackCoroutine());
-
-            }
-            else
-            {
-                _lightCollider.transform.position = spellLocationLeft.transform.position;
-                _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
-                StartCoroutine(lightAttackCoroutine());
-            }
-        }
-
-    }
-
-    /// <summary> This is the attacking function /// </summary>
-
-    public void heavyAttack(InputAction.CallbackContext context)
-    {
-        _heavyCollider.gameObject.transform.localScale = new Vector3(meleeAttackRange, .3f, 1.5f);
-
-        if (Time.time >= nextDamageEvent)
-        {
-            nextDamageEvent = Time.time + attackCoolDown;
-            if (facingRight == true)
-            {
-                _heavyCollider.transform.position = spellLocationRight.transform.position;
-                _heavyCollider.transform.position = _heavyCollider.transform.position + (_heavyCollider.gameObject.transform.localScale / 2);
-                StartCoroutine(heavyAttackCoroutine());
-
-            }
-            else
-            {
-                _heavyCollider.transform.position = spellLocationLeft.transform.position;
-                _heavyCollider.transform.position = _heavyCollider.transform.position - (_heavyCollider.gameObject.transform.localScale / 2);
-                StartCoroutine(heavyAttackCoroutine());
-            }
-        }
-
-
-    }
-
-    #endregion
-    */
+   
     #region IEnumerator Coroutines
    
 
@@ -321,27 +193,9 @@ public class Unit : MonoBehaviour
         _lightCollider.enabled = false;
     }
 
-    /// <summary> this allows the weapons collider to interact with things </summary>
-    public IEnumerator heavyAttackCoroutine()
-    {
-        _heavyCollider.enabled = true;
-        yield return new WaitForSeconds(.9f);
-        _heavyCollider.enabled = false;
-    }
 
-   
 
-    public IEnumerator Stun()
-    {
-        yield return new WaitForSeconds(2f);
-    }
-
-    public IEnumerator InvicibilityFrames()
-    {
-        _hitboxCollider.enabled = false;
-        yield return new WaitForSeconds(1f);
-        _hitboxCollider.enabled = true;
-    }
+    
 
     public IEnumerator onFireCoroutine ()
     {

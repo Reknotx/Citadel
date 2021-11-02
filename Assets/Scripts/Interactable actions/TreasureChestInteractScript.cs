@@ -18,6 +18,7 @@ namespace Interactables
         public GameObject undyingPickup;
         public GameObject spellStonePickup;
         public GameObject backShieldPickup;
+        public GameObject MedicineSashPickup;
 
         private Collider myCollider;
 
@@ -37,7 +38,7 @@ namespace Interactables
                 {
                     myCollider.enabled = false;
                     randomSpawn();
-                    lid.transform.rotation = Quaternion.Euler(60, 0, 0);
+                    lid.transform.localRotation = Quaternion.Euler(-60, 0, 0);
                 }
             }
         }
@@ -52,7 +53,7 @@ namespace Interactables
 
         private void randomSpawn()
         {
-            var number = Random.Range(1, 5);
+            var number = Random.Range(1, 6);
 
             if (number == 1)
             {
@@ -69,6 +70,10 @@ namespace Interactables
             if (number == 4)
             {
                 var backShield = (GameObject)Instantiate(backShieldPickup, dropSpawnPos.position, dropSpawnPos.rotation);
+            }
+            if (number == 5)
+            {
+                var medicineSash = (GameObject)Instantiate(MedicineSashPickup, dropSpawnPos.position, dropSpawnPos.rotation);
             }
 
             dropped = true;

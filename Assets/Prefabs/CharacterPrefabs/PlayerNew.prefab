@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 493934281067369773}
   - component: {fileID: 5825066762222092166}
   - component: {fileID: 765126238638186167}
-  - component: {fileID: 4891480402314770311}
+  - component: {fileID: 8699123244142488910}
   - component: {fileID: 493934281067369768}
   - component: {fileID: 493934281067369769}
   - component: {fileID: 493934281067369750}
@@ -194,8 +194,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.46059236, y: 1.5339557, z: 1}
-  m_Center: {x: 0.024308965, y: -0.12107152, z: 0}
+  m_Size: {x: 0.98840207, y: 1.5919878, z: 1}
+  m_Center: {x: 0.060975045, y: -0.09205547, z: 0}
 --- !u!65 &765126238638186167
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -207,9 +207,9 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.46059236, y: 1.5339557, z: 1}
-  m_Center: {x: 0.024308965, y: -0.12107152, z: 0}
---- !u!65 &4891480402314770311
+  m_Size: {x: 0.9952388, y: 1.67, z: 1}
+  m_Center: {x: 0.050293744, y: -0.09204024, z: 0}
+--- !u!65 &8699123244142488910
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -217,11 +217,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 493934281067369775}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.46059236, y: 1.5339557, z: 1}
-  m_Center: {x: 0.024308965, y: -0.12107152, z: 0}
+  m_Size: {x: 1.36, y: 0.82, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &493934281067369768
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -251,32 +251,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  jumpFroce: 2.5
   _health: 0
-  maxHealth: 10
-  _groundCollider: {fileID: 5825066762222092166}
-  _platformCollider: {fileID: 4891480402314770311}
-  _hitboxCollider: {fileID: 765126238638186167}
+  maxHealth: 100
   _lightCollider: {fileID: 7296636179755792671}
-  _heavyCollider: {fileID: 9002045093130673485}
-  spellLocationLeft: {fileID: 493934281263560469}
-  spellLocationRight: {fileID: 493934282083378962}
-  spellLocationCenter: {fileID: 493934281473032327}
-  isGrounded: 0
   facingRight: 0
   myHealth: 5
   startingHealth: 3
   myMana: 5
-  maxMana: 10
+  maxMana: 100
   startingMana: 3
   _rigidBody: {fileID: 493934281067369768}
+  myVelocity: {x: 0, y: 0, z: 0}
+  isJumping: 0
+  isJumpPressed: 0
+  isDropPressed: 0
+  initialJumpVelocity: 3
+  maxJumpHeight: 5
+  maxJumpTime: 1.75
+  _groundCollider: {fileID: 5825066762222092166}
+  _wallCollider: {fileID: 8699123244142488910}
+  _hitboxCollider: {fileID: 765126238638186167}
   facingRightLocal: 0
-  knockbackForce: 5
+  knockbackForce: 10
   meleeAttackRange: 1
-  meleeAttackDamage: 0
-  playerCollisionDamage: 0
-  ManaHealthController: {fileID: 0}
+  meleeAttackDamage: 5
   fireWall_prefab: {fileID: 1103918510936984276, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
+  icicle_prefab: {fileID: 9107153429648986007, guid: bde62944ba9d4444b81a10b35cf4ba4b, type: 3}
+  Aerorang_prefab: {fileID: 0}
+  spellLocationLeft: {fileID: 493934281263560469}
+  spellLocationRight: {fileID: 493934282083378962}
+  spellLocationCenter: {fileID: 493934281473032327}
+  _heavyCollider: {fileID: 9002045093130673485}
+  Attack1: Light Attack
+  Attack2: Heavy Attack
+  Attack3: Fire Wall
   canMove: 1
   canDoubleJump: 1
   hasDoubleJump: 0
@@ -287,36 +295,35 @@ MonoBehaviour:
   inMine: 0
   inMineShop: 0
   grounded: 0
+  throughPlatform: 0
+  dropping: 0
+  hittingWallRight: 0
+  hittingWallLeft: 0
   isRunning: 0
+  isFalling: 0
   isAttacking: 0
   dmgPlayerByTick: 0
   shieldActive: 0
+  usingPotion: 0
+  onPlatform: 0
+  canPass: 1
   shuues: 0
   undying: 0
   spellStone: 0
   floatingShield: 0
   medicineStash: 0
   flotingShieldObj: {fileID: 1959013442573681910}
-  healthPotions: 0
-  manaPotions: 0
+  healthPotions: 1
+  manaPotions: 1
   potionMax: 2
   healthPotionMax: 2
   manaPotionMax: 2
   animator: {fileID: 1483161897260169291}
+  isCastingIcicle: 0
   healthBar: {fileID: 0}
   manaBar: {fileID: 0}
   healthText: {fileID: 0}
   manaText: {fileID: 0}
-  Attack1: Light Attack
-  Attack2: Heavy Attack
-  Attack3: Fire Wall
-  isJumping: 0
-  isJumpPressed: 0
-  initialJumpVelocity: 0
-  maxJumpHeight: 4
-  maxJumpTime: 1.25
-  movementVelocity: {x: 0, y: 0, z: 0}
-  myVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &493934281067369750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,13 +462,53 @@ MonoBehaviour:
     m_ActionId: 2220fc03-f45c-4321-970a-3215eb00f551
     m_ActionName: PlayerControl/Interact[/Keyboard/e]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 493934281067369769}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: useHealthPotion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 5533b8c5-b7bc-468c-b35e-aff62119790e
     m_ActionName: PlayerControl/Health Potion[/Keyboard/r]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 493934281067369769}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: useManaPotion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: e2f623b6-cedb-4880-be24-601d76f4f819
     m_ActionName: PlayerControl/Mana Potion[/Keyboard/t]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 493934281067369769}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Escape
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4b68d066-c287-4cd1-9fde-9311f4102ea4
+    m_ActionName: PlayerControl/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControl
