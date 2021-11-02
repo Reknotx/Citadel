@@ -25,11 +25,11 @@ public class Goblin : Enemy
 
     #endregion
 
-    public Image goblinHealth;
+    /*public Image goblinHealth;
 
     public Image HealthIMG;
 
-    private float calculateHealth;
+    private float calculateHealth;*/
 
     #region Life Handler for Player
 
@@ -64,7 +64,7 @@ public class Goblin : Enemy
     {
         base.Update();
 
-        if(Health < maxHealth)
+       /* if(Health < maxHealth)
         {
             HealthIMG.gameObject.SetActive(true);
             calculateHealth = (float)Health / maxHealth;
@@ -73,7 +73,7 @@ public class Goblin : Enemy
         else
         {
             HealthIMG.gameObject.SetActive(false);
-        }
+        }*/
 
         if (Vector2.Distance(transform.position, player.transform.position) <= goblinMeleeRange)
         {
@@ -83,6 +83,7 @@ public class Goblin : Enemy
             {
                 GoblinAttack();
             }
+            //add lunge (jump) attack
         }
 
         

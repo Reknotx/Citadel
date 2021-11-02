@@ -364,7 +364,6 @@ GameObject:
   - component: {fileID: 3145674282413693581}
   - component: {fileID: 3145674282413693580}
   - component: {fileID: 3145674282413693582}
-  - component: {fileID: 8910809872295166691}
   m_Layer: 8
   m_Name: Goblin
   m_TagString: Untagged
@@ -449,7 +448,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3145674282413693685}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.52, y: 1, z: 1}
@@ -488,11 +487,11 @@ MonoBehaviour:
   seenByCamera: 0
   debug: 0
   killThis: 0
+  enemyHealth: {fileID: 7954525600206823398}
+  HealthIMG: {fileID: 5299853063858695808}
   percentChanceToDropItem: 40
   goblinMeleeRange: 1
   goblinDamage: 10
-  goblinHealth: {fileID: 7954525600206823398}
-  HealthIMG: {fileID: 5299853063858695808}
   playerLife: {fileID: 0}
   goblinAttack_L: {fileID: 3145674281901039601}
   goblinAttack_R: {fileID: 3145674281824328900}
@@ -510,7 +509,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 2
-  m_Constraints: 120
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &3145674282413693581
 MonoBehaviour:
@@ -591,19 +590,6 @@ MonoBehaviour:
   version: 1
   target: {fileID: 0}
   m_renderer: {fileID: 0}
---- !u!65 &8910809872295166691
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3145674282413693685}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.57, y: 0.16, z: 0.0098420335}
-  m_Center: {x: 0, y: -0.45, z: 0.004924336}
 --- !u!1 &3145674282712512809
 GameObject:
   m_ObjectHideFlags: 0
