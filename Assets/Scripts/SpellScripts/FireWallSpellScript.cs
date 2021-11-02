@@ -16,7 +16,7 @@ public class FireWallSpellScript : MonoBehaviour
     
 
     #region Fire Wall Stats
-        #region Fire Wall Base Stats
+    #region Fire Wall Base Stats
 
     public int fireWallCollideDamage;
 
@@ -24,9 +24,7 @@ public class FireWallSpellScript : MonoBehaviour
 
     public float spellDuration;
 
-    public float manaCost = 20f;
-
-   
+    public float manaCost;
 
         #endregion
         #region Fire Wall Colliders/Renderers

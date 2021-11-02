@@ -1641,7 +1641,6 @@ MonoBehaviour:
   numOfMiners: 1
   baseGoldGain: 150
   clickPercentage: 0
-  goldPerClick: {fileID: 0}
   gold: {fileID: 443644419}
 --- !u!4 &832621427
 Transform:
@@ -3042,7 +3041,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2.9
   jumpFroce: 0
-  maxHealth: 0
   _groundCollider: {fileID: 0}
   _platformCollider: {fileID: 0}
   _hitboxCollider: {fileID: 0}
@@ -3051,9 +3049,9 @@ MonoBehaviour:
   spellLocationLeft: {fileID: 0}
   spellLocationRight: {fileID: 0}
   spellLocationCenter: {fileID: 0}
-  isGrounded: 0
   facingRight: 0
   myHealth: 0
+  maxHealth: 0
   startingHealth: 0
   myMana: 0
   maxMana: 0
@@ -3064,45 +3062,10 @@ MonoBehaviour:
   meleeAttackRange: 1
   meleeAttackDamage: 0
   playerCollisionDamage: 0
-  ManaHealthController: {fileID: 0}
   fireWall_prefab: {fileID: 0}
   canMove: 1
-  canDoubleJump: 1
-  hasDoubleJump: 0
-  invulnerable: 0
   Interacting: 0
   canInteract: 1
   inCampShop: 0
   inMine: 0
   inMineShop: 0
-  grounded: 0
-  isRunning: 0
-  isAttacking: 0
-  dmgPlayerByTick: 0
-  shieldActive: 0
-  shuues: 0
-  undying: 0
-  spellStone: 0
-  floatingShield: 0
-  medicineStash: 0
-  flotingShieldObj: {fileID: 0}
-  healthPotions: 0
-  manaPotions: 0
-  potionMax: 2
-  healthPotionMax: 2
-  manaPotionMax: 2
-  animator: {fileID: 0}
-  healthBar: {fileID: 0}
-  manaBar: {fileID: 0}
-  healthText: {fileID: 0}
-  manaText: {fileID: 0}
-  Attack1: 
-  Attack2: 
-  Attack3: 
-  isJumping: 0
-  isJumpPressed: 0
-  initialJumpVelocity: 0
-  maxJumpHeight: 0
-  maxJumpTime: 0
-  movementVelocity: {x: 0, y: 0, z: 0}
-  myVelocity: {x: 0, y: 0, z: 0}

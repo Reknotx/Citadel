@@ -11,7 +11,6 @@ public class CartSpawnerScript : MonoBehaviour
 
     public int currentCarts;
     public int trackedCarts;
-    public GameObject tracker;
 
 
     // Start is called before the first frame update
@@ -23,7 +22,8 @@ public class CartSpawnerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        findReference();
+        var tracker = GameObject.FindGameObjectWithTag("GoldTracker");
+        trackedCarts = tracker.GetComponent<PlayerGoldTrackerScript>().numCart;
 
         if(currentCarts < trackedCarts)
         {
@@ -37,11 +37,5 @@ public class CartSpawnerScript : MonoBehaviour
     {
         var mineCart = (GameObject)Instantiate(this.gameObject.GetComponent<CartSpawnerScript>().mineCartPrefab, pos.transform.position, pos.transform.rotation);
         pos.transform.position += new Vector3(0, 5, 0);
-    }
-
-    public void findReference()
-    {
-        tracker = GameObject.FindGameObjectWithTag("GoldTracker");
-        trackedCarts = tracker.GetComponent<PlayerGoldTrackerScript>().numCart;
     }
 }
