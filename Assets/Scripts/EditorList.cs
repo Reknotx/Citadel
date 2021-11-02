@@ -17,7 +17,7 @@ public enum EditorListOption
 
 public static class EditorList
 {
-
+#if UNITY_EDITOR
 	private static GUIContent
 		moveButtonContent = new GUIContent("\u21b4", "move down"),
 		duplicateButtonContent = new GUIContent("+", "duplicate"),
@@ -117,4 +117,5 @@ public static class EditorList
 			}
 		}
 	}
+#endif
 }

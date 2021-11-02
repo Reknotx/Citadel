@@ -779,39 +779,35 @@ public class Player : Unit
 
     public void icicle()
     {
-        if (canCast == true)
+        if (canCast == true && myMana >= 10)
         {
-
-            if (myMana >= 10)
+            if (spellStone == true)
             {
-                if (spellStone == true)
-                {
 
-                    ReduceMana(7);
-                }
-                else
-                {
+                ReduceMana(7);
+            }
+            else
+            {
 
-                    ReduceMana(10);
-                }
+                ReduceMana(10);
+            }
 
-                ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
-                if (facingRight == true)
-                {
+            ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
+            if (facingRight == true)
+            {
 
-                    var icicleSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().icicle_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
-                    icicleSpell.GetComponent<Rigidbody>().velocity = icicleSpell.transform.right * 12;
+                var icicleSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().icicle_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
+                icicleSpell.GetComponent<Rigidbody>().velocity = icicleSpell.transform.right * 12;
                   
-                    canCast = false;
-                }
-                else
-                {
+                canCast = false;
+            }
+            else
+            {
 
-                    var icicleSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().icicle_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
-                    icicleSpell.GetComponent<Rigidbody>().velocity = icicleSpell.transform.right * -12;
+                var icicleSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().icicle_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
+                icicleSpell.GetComponent<Rigidbody>().velocity = icicleSpell.transform.right * -12;
                    
-                    canCast = false;
-                }
+                canCast = false;
             }
         }
 
