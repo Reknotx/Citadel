@@ -51,6 +51,9 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     public int startingAttackDamage;
     public float startingAttackRange;
 
+    [Tooltip ("the players initial jump velocity")]
+    public float playerJumpHeight;
+
     [Header("player equipment")]
     public bool shuues = false;
     public bool undying = false;
@@ -194,6 +197,9 @@ public class PlayerGoldTrackerScript : MonoBehaviour
             player.GetComponent<Player>().meleeAttackDamage = playerAttackDamage;
             player.GetComponent<Player>().meleeAttackRange = playerAttackRange;
 
+            player.GetComponent<Player>().initialJumpVelocity = playerJumpHeight;
+            
+
             player.GetComponent<Player>().shuues = shuues;
             player.GetComponent<Player>().floatingShield = floatingShield;
             player.GetComponent<Player>().undying = undying;
@@ -212,6 +218,9 @@ public class PlayerGoldTrackerScript : MonoBehaviour
             playerSpeed = player.GetComponent<Player>().speed;
             playerAttackDamage = player.GetComponent<Player>().meleeAttackDamage;
             playerAttackRange = player.GetComponent<Player>().meleeAttackRange;
+
+            playerJumpHeight = player.GetComponent<Player>().initialJumpVelocity;
+            
 
             shuues = player.GetComponent<Player>().shuues;
             floatingShield = player.GetComponent<Player>().floatingShield;

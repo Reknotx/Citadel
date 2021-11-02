@@ -18,6 +18,7 @@ public class PlatformColliderControllerScript : MonoBehaviour
 
     public bool isColliding = false;
     public bool canPass = true;
+    
 
     // Start is called before the first frame update
     void Awake()
@@ -30,7 +31,7 @@ public class PlatformColliderControllerScript : MonoBehaviour
     {
         dropPressed = Player.GetComponent<Player>().isDropPressed;
         jumpPressed = Player.GetComponent<Player>().isJumpPressed;
-
+        
 
         if (isColliding && dropPressed == true && canPass)
         {
@@ -58,7 +59,7 @@ public class PlatformColliderControllerScript : MonoBehaviour
         {
             isColliding = true;
             
-            if ( jumpPressed)
+            if ( jumpPressed )
             {
                 Player.transform.position = new Vector3(Player.transform.position.x, topPos.transform.position.y, Player.transform.position.z);
             }
