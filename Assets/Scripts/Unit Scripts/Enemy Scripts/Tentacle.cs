@@ -9,7 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tentacle : MonoBehaviour
+public class Tentacle : MonoBehaviour, IDamageable
 {
     public Vector3 idlePos;
     private Vector3 swipeStartPoint, swipeEndPoint;
@@ -36,9 +36,27 @@ public class Tentacle : MonoBehaviour
     ///later on and doesn't need to be spawned in. 
     ///
 
+    [SerializeField]
     private float _health;
 
-    public float Health { get => _health; set => _health = value; }
+    private float _maxHealth;
+
+    public float Health 
+    { 
+        get => _health; 
+        set
+        {
+            _health = value;
+
+            if (_health <= 0)
+            {
+                _health = 0;
+
+                gameObject.SetActive(false);
+            }
+
+        }
+    }
 
     private void Awake()
     {
@@ -62,7 +80,7 @@ public class Tentacle : MonoBehaviour
     public void Swipe()
     {
         ///Determine if swiping from left to right, or right to left
-
+        Squiggmar.Instance.tentacleSwiping = true;
         bool swipeFromRight = UnityEngine.Random.Range(0, 2) == 0;
 
         swipeStartPoint = new Vector3(swipeFromRight ? tentacleXOnRightWall : tentacleXOnLeftWall, 0, 0f);
@@ -83,6 +101,7 @@ public class Tentacle : MonoBehaviour
         transform.position = idlePos;
         transform.eulerAngles = Vector3.zero;
         attacking = false;
+        Squiggmar.Instance.tentacleSwiping = false;
     }
 
     public void OnTriggerEnter(Collider other)
@@ -123,5 +142,10 @@ public class Tentacle : MonoBehaviour
         }
 
         ReturnToIdle();
+    }
+
+    public void TakeDamage(float amount)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -10,7 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Squiggmar : MonoBehaviour
+public class Squiggmar : MonoBehaviour, IDamageable
 {
     ///Notes for Squiggmar
     ///1. The head needs to be invulnerable until all tentacles are killed.
@@ -48,6 +48,26 @@ public class Squiggmar : MonoBehaviour
     private int _minTentacleXPos = 3;
     private int _maxTentacleXPos = 27;
 
+    public float vulnerableTime = 7f;
+
+    public bool tentacleSwiping { get; set; }
+    private List<Tentacle> alreadyAttacked = new List<Tentacle>();
+
+    public int GetActiveTentacles
+    {
+        get
+        {
+            int count = 0;
+
+            foreach (Tentacle tentacle in tentacles)
+            {
+                if (tentacle.gameObject.activeSelf) count++;
+            }
+
+            return count;
+        }
+    }
+
     public float Health 
     { 
         get => _health; 
@@ -66,28 +86,34 @@ public class Squiggmar : MonoBehaviour
             Destroy(Instance);
 
         Instance = this;
+
     }
 
     public void Start()
     {
-        GameObject[] temp = GameObject.FindGameObjectsWithTag("Tentacle");
+        transform.GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1f, 1f, 1f, 0.5f);
 
-        foreach (GameObject item in temp)
+        foreach (Transform child in transform)
         {
-            tentacles.Add(item.GetComponent<Tentacle>());
+            if (child.GetComponent<Tentacle>() != null)
+                tentacles.Add(child.GetComponent<Tentacle>());
         }
     }
 
-    private List<Tentacle> alreadyAttacked = new List<Tentacle>();
+    public void FixedUpdate()
+    {
+        CombatLogic();
+    }
+
 
     public void CombatLogic()
     {
-        if (tentacles.Count == 0)
+        if (GetActiveTentacles == 0)
         {
             ///Squiggmar is now vulnerable
-            
+            StartCoroutine(HeadVulnerableTime());
         }
-        else
+        else if (!tentacleSwiping)
         {
             SelectTentacleForSwipe();
         }
@@ -96,11 +122,25 @@ public class Squiggmar : MonoBehaviour
 
     private void SelectTentacleForSwipe()
     {
-        int tentacleIndex = UnityEngine.Random.Range(0, tentacles.Count);
 
-        alreadyAttacked.Add(tentacles[tentacleIndex]);
-        tentacles[tentacleIndex].Swipe();
-        tentacles.RemoveAt(tentacleIndex);
+        while (true)
+        {
+            int tentacleIndex = UnityEngine.Random.Range(0, tentacles.Count);
+
+            if (alreadyAttacked.Contains(tentacles[tentacleIndex]))
+            {
+                continue;
+            }
+
+            alreadyAttacked.Add(tentacles[tentacleIndex]);
+            tentacles[tentacleIndex].Swipe();
+            break;
+        }
+
+        if(alreadyAttacked.Count == tentacles.Count)
+        {
+            alreadyAttacked.Clear();
+        }
     }
 
     IEnumerator MoveHeadToVulnerableSpot()
@@ -128,5 +168,22 @@ public class Squiggmar : MonoBehaviour
             yield return new WaitForFixedUpdate();
 
         }
+    }
+
+    IEnumerator HeadVulnerableTime()
+    {
+        transform.GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1f, 1f, 1f, 1f);
+        transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;
+
+        yield return new WaitForSeconds(vulnerableTime);
+
+        transform.GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1f, 1f, 1f, 0.5f);
+        transform.GetChild(0).GetComponent<BoxCollider>().enabled = false;
+
+    }
+
+    public void TakeDamage(float amount)
+    {
+        Health -= amount;
     }
 }

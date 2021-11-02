@@ -17,7 +17,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Interactables;
 
-public class Player : Unit
+public class Player : Unit, IDamageable
 {
 
     public static Player Instance;
@@ -233,10 +233,6 @@ public class Player : Unit
     [HideInInspector]
     public bool grounded;
 
-    [HideInInspector]
-    ///<summary>This determines whether the unit is going through a platform or not.</summary>
-    public new bool throughPlatform;
-
     public bool dropping = false;
 
     public bool hittingWallRight = false;
@@ -259,10 +255,7 @@ public class Player : Unit
 
     [HideInInspector]
     public bool usingPotion = false;
-
-    [HideInInspector]
-    public new bool onPlatform;
-
+    
     public bool canPass = true;
 
     
@@ -684,8 +677,8 @@ public class Player : Unit
         base.TakeDamage(amount);
     }
 
-   
-      /// <param name="mana">Amount of mana lost by the player for casting a spell</param>
+
+    /// <param name="mana">Amount of mana lost by the player for casting a spell</param>
     public void ReduceMana(float mana)
     {
         myMana -= mana;
