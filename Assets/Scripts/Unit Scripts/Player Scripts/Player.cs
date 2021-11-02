@@ -482,6 +482,15 @@ public class Player : Unit
             hittingWallRight = false;
         }
 
+        if (facingRight)
+        {
+            hittingWallLeft = false;
+        }
+        else
+        {
+            hittingWallRight = false;
+        }
+
         
 
 
@@ -815,10 +824,19 @@ public class Player : Unit
             
         }
     }
-    
 
 
-   
+
+    public void Escape(InputAction.CallbackContext context)
+    {
+
+        return;
+
+
+    }
+
+
+
 
     #endregion
     #region Player Spells

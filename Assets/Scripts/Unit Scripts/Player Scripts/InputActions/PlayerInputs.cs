@@ -89,6 +89,14 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""4b68d066-c287-4cd1-9fde-9311f4102ea4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -212,6 +220,17 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""action"": ""Mana Potion"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e6a0e355-fe88-4b09-96e9-3ecca218c3f5"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -229,6 +248,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         m_PlayerControl_Attack3 = m_PlayerControl.FindAction("Attack 3", throwIfNotFound: true);
         m_PlayerControl_HealthPotion = m_PlayerControl.FindAction("Health Potion", throwIfNotFound: true);
         m_PlayerControl_ManaPotion = m_PlayerControl.FindAction("Mana Potion", throwIfNotFound: true);
+        m_PlayerControl_Pause = m_PlayerControl.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -287,6 +307,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerControl_Attack3;
     private readonly InputAction m_PlayerControl_HealthPotion;
     private readonly InputAction m_PlayerControl_ManaPotion;
+    private readonly InputAction m_PlayerControl_Pause;
     public struct PlayerControlActions
     {
         private @PlayerInputs m_Wrapper;
@@ -300,6 +321,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         public InputAction @Attack3 => m_Wrapper.m_PlayerControl_Attack3;
         public InputAction @HealthPotion => m_Wrapper.m_PlayerControl_HealthPotion;
         public InputAction @ManaPotion => m_Wrapper.m_PlayerControl_ManaPotion;
+        public InputAction @Pause => m_Wrapper.m_PlayerControl_Pause;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControl; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -336,6 +358,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @ManaPotion.started -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnManaPotion;
                 @ManaPotion.performed -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnManaPotion;
                 @ManaPotion.canceled -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnManaPotion;
+                @Pause.started -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_PlayerControlActionsCallbackInterface = instance;
             if (instance != null)
@@ -367,6 +392,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @ManaPotion.started += instance.OnManaPotion;
                 @ManaPotion.performed += instance.OnManaPotion;
                 @ManaPotion.canceled += instance.OnManaPotion;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -382,5 +410,6 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         void OnAttack3(InputAction.CallbackContext context);
         void OnHealthPotion(InputAction.CallbackContext context);
         void OnManaPotion(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }
