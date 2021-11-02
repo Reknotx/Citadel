@@ -166,6 +166,9 @@ public class Player : Unit
     /// <summary>this is the physical gameobject that is cast during the icicle spell</summary>
     public GameObject icicle_prefab;
 
+    /// <summary>this is the physical gameobject that is cast during the aerorang spell</summary>
+    public GameObject Aerorang_prefab;
+
     ///<summary>This is the location spells will be cast on the left side of the unit.</summary>
     [SerializeField]
     protected GameObject spellLocationLeft;
@@ -227,7 +230,7 @@ public class Player : Unit
     /// <summary> this keeps track of if the player is in the mine shop or not  </summary>
     public bool inMineShop = false;
 
-   // [HideInInspector]
+    [HideInInspector]
     public bool grounded;
 
     [HideInInspector]
@@ -239,23 +242,28 @@ public class Player : Unit
     public bool hittingWallRight = false;
     public bool hittingWallLeft = false;
 
-    //[HideInInspector]
+    [HideInInspector]
     public bool isRunning = false;
 
-   // [HideInInspector]
+   [HideInInspector]
     public bool isFalling = false;
 
     [HideInInspector]
     public bool isAttacking = false;
 
+    [HideInInspector]
     public bool dmgPlayerByTick = false;
 
     [HideInInspector]
     public bool shieldActive;
 
+    [HideInInspector]
     public bool usingPotion = false;
 
+    [HideInInspector]
     public new bool onPlatform;
+
+    public bool canPass = true;
 
     
 
@@ -289,6 +297,8 @@ public class Player : Unit
     public Animator animator;
     private bool triggered = false;
     private float animationFinishTime = .5f;
+
+    public bool isCastingIcicle;
 
     #endregion
             #region health and mana bars
@@ -429,10 +439,11 @@ public class Player : Unit
 
               if (animator != null)
               {
-                animator.SetBool("isRunning", isRunning);
-                animator.SetBool("isJumping", isJumping);
-                animator.SetBool("isFalling", isFalling);
-                animator.SetBool("isGrounded", isGrounded);
+                    animator.SetBool("isRunning", isRunning);
+                    animator.SetBool("isJumping", isJumping);
+                    animator.SetBool("isFalling", isFalling);
+                    animator.SetBool("isGrounded", isGrounded);
+                    animator.SetBool("Icicle", isCastingIcicle);
               }
                 
         }
@@ -488,8 +499,14 @@ public class Player : Unit
             hittingWallRight = false;
         }
 
-        
+        if(isCastingIcicle)
+        {
+            StartCoroutine(IcicleCoroutine());
+        }
+       
 
+
+        
 
 
 
@@ -606,6 +623,8 @@ public class Player : Unit
         
     }
 
+    #region health and mana bar functionality
+
     private void FixedUpdate()
     {
         if (healthBar != null)
@@ -622,6 +641,8 @@ public class Player : Unit
             manaText.text = "" + myMana;
         }
     }
+
+    #endregion
 
 
     #region health/mana reduction + reset methods
@@ -807,8 +828,9 @@ public class Player : Unit
     ///<summary>This triggers the unit to drop down if they are on a platform.</summary>
     public void Drop(InputAction.CallbackContext context)
     {
-       
         isDropPressed = context.ReadValueAsButton();
+        
+        
         
 
     }
@@ -891,6 +913,7 @@ public class Player : Unit
     {
         if (canCast == true && myMana >= 10)
         {
+            isCastingIcicle = true;
             if (spellStone == true)
             {
 
@@ -920,9 +943,49 @@ public class Player : Unit
                 canCast = false;
             }
         }
-
+        
 
     }
+
+
+
+    public void aerorang()
+    {
+        if (canCast == true && myMana >= 10)
+        {
+            
+            if (spellStone == true)
+            {
+
+                ReduceMana(7);
+            }
+            else
+            {
+
+                ReduceMana(10);
+            }
+
+            ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
+            if (facingRight == true)
+            {
+
+                var Aerorang = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().Aerorang_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
+                //Aerorang.GetComponent<Rigidbody>().velocity = Aerorang.transform.right * 12;
+                
+
+                canCast = false;
+            }
+            else
+            {
+
+                var Aerorang = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().Aerorang_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
+               // Aerorang.GetComponent<Rigidbody>().velocity = Aerorang.transform.right * -12;
+
+                canCast = false;
+            }
+        }
+    }
+
     #endregion
     #region Unit Melee Attacks
     /// <summary> This is the attacking function  </summary>
@@ -1086,6 +1149,10 @@ public class Player : Unit
         {
             icicle();
         }
+        else if(Attack1 == "Aerorang")
+        {
+            aerorang();
+        }
         else
         {
             lightAttack();
@@ -1109,6 +1176,10 @@ public class Player : Unit
         {
             icicle();
         }
+        else if (Attack2 == "Aerorang")
+        {
+            aerorang();
+        }
         else
         {
             lightAttack();
@@ -1131,6 +1202,10 @@ public class Player : Unit
         else if (Attack3 == "Icicle")
         {
             icicle();
+        }
+        else if (Attack3 == "Aerorang")
+        {
+            aerorang();
         }
         else
         {
@@ -1336,6 +1411,23 @@ public class Player : Unit
         _hitboxCollider.enabled = false;
         yield return new WaitForSeconds(1f);
         _hitboxCollider.enabled = true;
+    }
+
+
+    public IEnumerator PassThroughCoroutine()
+    {
+        //canPass = false;
+        yield return new WaitForSeconds(.5f);
+        
+        canPass = true;
+    }
+
+    public IEnumerator IcicleCoroutine()
+    {
+        
+        yield return new WaitForSeconds(.3f);
+
+        isCastingIcicle = false ;
     }
     #endregion
 }
