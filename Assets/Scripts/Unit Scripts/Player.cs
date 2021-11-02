@@ -11,11 +11,11 @@
 
 
 using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using Interactables;
+using UnityEngine.UI;
 
 public class Player : Unit
 {
@@ -129,8 +129,7 @@ public class Player : Unit
 
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
-    [SerializeField]
-    protected Collider _groundCollider;
+   
 
    // public Collider _wallCollider;
 
@@ -236,9 +235,7 @@ public class Player : Unit
     [HideInInspector]
     public bool grounded;
 
-    [HideInInspector]
-    ///<summary>This determines whether the unit is going through a platform or not.</summary>
-    public new bool throughPlatform;
+    
 
     [HideInInspector]
     public bool dropping = false;
@@ -267,8 +264,7 @@ public class Player : Unit
     [HideInInspector]
     public bool usingPotion = false;
 
-    [HideInInspector]
-    public new bool onPlatform;
+  
 
     [HideInInspector]
     public bool canPass = true;
@@ -284,8 +280,8 @@ public class Player : Unit
     public bool spellStone = false;
     public bool floatingShield = false;
     public bool medicineStash = false;
-    [HideInInspector]
-    public GameObject flotingShieldObj;
+    //[HideInInspector]
+    public GameObject floatingShieldObj;
 
     public int healthPotions = 0;
     public int manaPotions = 0;
@@ -309,6 +305,7 @@ public class Player : Unit
     public bool isCastingIcicle;
 
     #endregion
+    
             #region health and mana bars
     [Header("player health and mana bars")]
     /// <summary>
@@ -333,7 +330,7 @@ public class Player : Unit
 
 
     #endregion
-
+        
     #endregion
 
 
@@ -416,7 +413,7 @@ public class Player : Unit
 
         if (floatingShield)
         {
-            flotingShieldObj.SetActive(true);
+            floatingShieldObj.SetActive(true);
         }
         if (medicineStash == true)
         {

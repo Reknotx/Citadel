@@ -61,7 +61,7 @@ public class Unit : MonoBehaviour
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
-    protected Collider _groundCollider;
+    public Collider _groundCollider;
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
     protected Collider _platformCollider;
@@ -85,11 +85,11 @@ public class Unit : MonoBehaviour
 
     ///<summary>This determines whether the unit is on a platform or not.</summary>
     [HideInInspector]
-    protected bool onPlatform;
+    public bool onPlatform;
 
     [HideInInspector]
     ///<summary>This determines whether the unit is going through a platform or not.</summary>
-    protected bool throughPlatform;
+    public bool throughPlatform;
 
     ///<summary>This determines if the unit just preformed a jump or not.</summary>
     [HideInInspector]
