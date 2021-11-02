@@ -32,6 +32,9 @@ public class SceneManagerScript : MonoBehaviour
     /// <summary> this tracks what the active scene name is  </summary>
     public Scene activeScene;
     public string activeSceneName;
+
+    ///<summary> Makes it so camp shop tutorial only appears when the player opens the camp shop</summary>
+    public CampShopTutorial CST;
     #endregion
 
     
@@ -67,7 +70,7 @@ public class SceneManagerScript : MonoBehaviour
     private void Awake()
     {
         GameObject player = GameObject.FindWithTag("Player");
-        
+
     }
 
     private void Update()
@@ -115,10 +118,12 @@ public class SceneManagerScript : MonoBehaviour
     /// <summary> this takes the player to the camp shop scene </summary>
     public void goToCampShop()
     {
+        CST.openCampShop = true;
         GameObject player = GameObject.FindWithTag("Player");
         player.GetComponent<Player>().inCampShop = true;
         campButtons.SetActive(false);
         campShopButtons.SetActive(true);
+        
 
         
       
