@@ -103,9 +103,7 @@ GameObject:
   - component: {fileID: 493934281067369771}
   - component: {fileID: 493934281067369770}
   - component: {fileID: 493934281067369773}
-  - component: {fileID: 5825066762222092166}
   - component: {fileID: 765126238638186167}
-  - component: {fileID: 8699123244142488910}
   - component: {fileID: 493934281067369768}
   - component: {fileID: 493934281067369769}
   - component: {fileID: 493934281067369750}
@@ -183,7 +181,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5825066762222092166
+--- !u!65 &765126238638186167
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,34 +192,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.98840207, y: 1.5919878, z: 1}
-  m_Center: {x: 0.060975045, y: -0.09205547, z: 0}
---- !u!65 &765126238638186167
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 493934281067369775}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
   m_Size: {x: 0.9952388, y: 1.67, z: 1}
   m_Center: {x: 0.050293744, y: -0.09204024, z: 0}
---- !u!65 &8699123244142488910
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 493934281067369775}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.36, y: 0.82, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &493934281067369768
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -268,16 +240,14 @@ MonoBehaviour:
   initialJumpVelocity: 3
   maxJumpHeight: 5
   maxJumpTime: 1.75
-  _groundCollider: {fileID: 5825066762222092166}
-  _wallCollider: {fileID: 8699123244142488910}
-  _hitboxCollider: {fileID: 765126238638186167}
+  _groundCollider: {fileID: 765126238638186167}
   facingRightLocal: 0
   knockbackForce: 10
   meleeAttackRange: 1
   meleeAttackDamage: 5
   fireWall_prefab: {fileID: 1103918510936984276, guid: 3d2119971a3e0e042b4dc94353ce58a0, type: 3}
   icicle_prefab: {fileID: 9107153429648986007, guid: bde62944ba9d4444b81a10b35cf4ba4b, type: 3}
-  Aerorang_prefab: {fileID: 0}
+  Aerorang_prefab: {fileID: 6795688506467570295, guid: 4d97e0fc82bb5984896eae02182fb4da, type: 3}
   spellLocationLeft: {fileID: 493934281263560469}
   spellLocationRight: {fileID: 493934282083378962}
   spellLocationCenter: {fileID: 493934281473032327}
@@ -307,6 +277,7 @@ MonoBehaviour:
   usingPotion: 0
   onPlatform: 0
   canPass: 1
+  invulnActive: 0
   shuues: 0
   undying: 0
   spellStone: 0

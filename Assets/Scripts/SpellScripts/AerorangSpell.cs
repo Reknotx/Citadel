@@ -32,6 +32,8 @@ public class AerorangSpell : MonoBehaviour
     [Tooltip("the spells movement speed")]
     public  float speed = 5f;
 
+    public float spellDamage;
+
    
     [HideInInspector]
     public float zPos;
@@ -108,21 +110,29 @@ public class AerorangSpell : MonoBehaviour
         }
         else
         {
-            targetPos = player.transform.position;
+            if (player != null)
+            {
+                targetPos = player.transform.position;
 
-            targetPos.z = Mathf.Round(targetPos.z * 10f) / 10f;
-            targetPos.x = Mathf.Round(targetPos.x * 10f) / 10f;
-            targetPos.y = Mathf.Round(targetPos.y * 10f) / 10f;
+                targetPos.z = Mathf.Round(targetPos.z * 10f) / 10f;
+                targetPos.x = Mathf.Round(targetPos.x * 10f) / 10f;
+                targetPos.y = Mathf.Round(targetPos.y * 10f) / 10f;
 
-            myTransform.LookAt(targetPos);
-            myTransform.Translate(Vector3.forward * Time.deltaTime*speed);
-           
-            
+                myTransform.LookAt(targetPos);
+                myTransform.Translate(Vector3.forward * Time.deltaTime * speed);
 
-            if (currentPos == targetPos)
+
+
+                if (currentPos == targetPos)
+                {
+                    Destroy(this.gameObject);
+                }
+            }
+            else
             {
                 Destroy(this.gameObject);
             }
+            
         }
     }
 
@@ -135,6 +145,11 @@ public class AerorangSpell : MonoBehaviour
             {
                 Destroy(this.gameObject);
             }
+        }
+
+        if(other.gameObject.tag == "ground")
+        {
+            Destroy(this.gameObject);
         }
     }
 

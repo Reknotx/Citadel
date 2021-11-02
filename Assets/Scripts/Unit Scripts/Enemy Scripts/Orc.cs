@@ -89,15 +89,25 @@ public class Orc : Enemy
         if (facingRight)
         {
             StartCoroutine(WaitBetweenVisual_Right());
-            playerLife.TakeDamage(orcDamage);
+           
             StartCoroutine(WaitBetweenAttack());
+
+            if(playerLife.invulnActive == false)
+            {
+                playerLife.TakeDamage(orcDamage);
+            }
             
         }
         else
         {
             StartCoroutine(WaitBetweenVisual_Left());
-            playerLife.TakeDamage(orcDamage);
+            
             StartCoroutine(WaitBetweenAttack());
+
+            if (playerLife.invulnActive == false)
+            {
+                playerLife.TakeDamage(orcDamage);
+            }
         }
     }
 

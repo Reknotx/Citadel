@@ -126,8 +126,13 @@ public class Goblin : Enemy
         if (facingRight)
         {
             StartCoroutine(WaitBetweenVisual_Right());
-            playerLife.TakeDamage(goblinDamage);
+            
             StartCoroutine(WaitBetweenAttack());
+
+            if (playerLife.invulnActive == false)
+            {
+                playerLife.TakeDamage(goblinDamage);
+            }
 
 
             GoblinMeleeAttack();
@@ -135,8 +140,13 @@ public class Goblin : Enemy
         else
         {
             StartCoroutine(WaitBetweenVisual_Left());
-            playerLife.TakeDamage(goblinDamage);
+            
             StartCoroutine(WaitBetweenAttack());
+
+            if (playerLife.invulnActive == false)
+            {
+                playerLife.TakeDamage(goblinDamage);
+            }
         }
     }
 

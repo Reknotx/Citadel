@@ -132,11 +132,11 @@ public class Player : Unit
     [SerializeField]
     protected Collider _groundCollider;
 
-    public Collider _wallCollider;
+   // public Collider _wallCollider;
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
-    [SerializeField]
-    protected Collider _hitboxCollider;
+   // [SerializeField]
+   // protected Collider _hitboxCollider;
 
     ///<summary>This is the range of detection to the ground.</summary>
     private float _Reach = 1f;
@@ -240,9 +240,13 @@ public class Player : Unit
     ///<summary>This determines whether the unit is going through a platform or not.</summary>
     public new bool throughPlatform;
 
+    [HideInInspector]
     public bool dropping = false;
 
+    [HideInInspector]
     public bool hittingWallRight = false;
+
+    [HideInInspector]
     public bool hittingWallLeft = false;
 
     [HideInInspector]
@@ -266,9 +270,10 @@ public class Player : Unit
     [HideInInspector]
     public new bool onPlatform;
 
+    [HideInInspector]
     public bool canPass = true;
 
-    
+    public bool invulnActive = false;
 
     #endregion
             #region Bool/int Equipment
@@ -989,6 +994,37 @@ public class Player : Unit
         }
     }
 
+
+    public void invuln()
+    {
+        if (canCast == true && myMana >= 10 && !invulnActive)
+        {
+
+            if (spellStone == true)
+            {
+
+                ReduceMana(7);
+            }
+            else
+            {
+
+                ReduceMana(10);
+            }
+
+            ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
+            if (invulnActive == false)
+            {
+
+                invulnActive = true;
+                StartCoroutine(InvulnCoroutine());
+
+
+                canCast = false;
+            }
+            
+        }
+    }
+
     #endregion
     #region Unit Melee Attacks
     /// <summary> This is the attacking function  </summary>
@@ -1156,6 +1192,10 @@ public class Player : Unit
         {
             aerorang();
         }
+        else if (Attack1 == "Invuln")
+        {
+            invuln();
+        }
         else
         {
             lightAttack();
@@ -1183,6 +1223,10 @@ public class Player : Unit
         {
             aerorang();
         }
+        else if (Attack2 == "Invuln")
+        {
+            invuln();
+        }
         else
         {
             lightAttack();
@@ -1209,6 +1253,10 @@ public class Player : Unit
         else if (Attack3 == "Aerorang")
         {
             aerorang();
+        }
+        else if (Attack3 == "Invuln")
+        {
+            invuln();
         }
         else
         {
@@ -1320,10 +1368,6 @@ public class Player : Unit
     #endregion
 
 
-
-  
-
-
     #region player IEnumerators
     public IEnumerator InteractCoroutine()
     {
@@ -1404,8 +1448,10 @@ public class Player : Unit
 
 
         invulnerable = false;
+
     }
 
+    /*
     /// <summary> this allows units to drop through platforms </summary>
     
 
@@ -1416,7 +1462,7 @@ public class Player : Unit
         _hitboxCollider.enabled = true;
     }
 
-
+    */
     public IEnumerator PassThroughCoroutine()
     {
         //canPass = false;
@@ -1431,6 +1477,12 @@ public class Player : Unit
         yield return new WaitForSeconds(.3f);
 
         isCastingIcicle = false ;
+    }
+
+    public IEnumerator InvulnCoroutine()
+    {
+        yield return new WaitForSeconds(5f);
+        invulnActive = false;
     }
     #endregion
 }
