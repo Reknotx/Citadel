@@ -4,11 +4,13 @@ using UnityEngine;
 
 namespace Interactables
 {
-    public class BackShieldPickupInteractScript : Interactable
+    public class BackShieldPickupInteractScript : Item
     {
         public override void Interact()
         {
-            throw new System.NotImplementedException();
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.GetComponent<Player>().floatingShield = true;
+            base.Interact();
         }
     }
 }

@@ -24,7 +24,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""id"": ""fba601af-8a96-4a96-92ff-a6991b312909"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold""
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""Drop"",
@@ -73,22 +73,6 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
-                },
-                {
-                    ""name"": ""Health Potion"",
-                    ""type"": ""Button"",
-                    ""id"": ""5533b8c5-b7bc-468c-b35e-aff62119790e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Mana Potion"",
-                    ""type"": ""Button"",
-                    ""id"": ""e2f623b6-cedb-4880-be24-601d76f4f819"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -96,7 +80,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""37bc5a42-8eb9-4515-ae69-893ccd75de71"",
                     ""path"": ""<Keyboard>/w"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": ""Press(behavior=1)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",
@@ -190,28 +174,6 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f4d0c513-7702-4cf4-9260-5d511b2c93df"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Health Potion"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a871c80c-a46e-40c7-9368-b89ad17630e1"",
-                    ""path"": ""<Keyboard>/t"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Mana Potion"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -227,8 +189,6 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         m_PlayerControl_Attack1 = m_PlayerControl.FindAction("Attack 1", throwIfNotFound: true);
         m_PlayerControl_Attack2 = m_PlayerControl.FindAction("Attack 2", throwIfNotFound: true);
         m_PlayerControl_Attack3 = m_PlayerControl.FindAction("Attack 3", throwIfNotFound: true);
-        m_PlayerControl_HealthPotion = m_PlayerControl.FindAction("Health Potion", throwIfNotFound: true);
-        m_PlayerControl_ManaPotion = m_PlayerControl.FindAction("Mana Potion", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -285,8 +245,6 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerControl_Attack1;
     private readonly InputAction m_PlayerControl_Attack2;
     private readonly InputAction m_PlayerControl_Attack3;
-    private readonly InputAction m_PlayerControl_HealthPotion;
-    private readonly InputAction m_PlayerControl_ManaPotion;
     public struct PlayerControlActions
     {
         private @PlayerInputs m_Wrapper;
@@ -298,8 +256,6 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         public InputAction @Attack1 => m_Wrapper.m_PlayerControl_Attack1;
         public InputAction @Attack2 => m_Wrapper.m_PlayerControl_Attack2;
         public InputAction @Attack3 => m_Wrapper.m_PlayerControl_Attack3;
-        public InputAction @HealthPotion => m_Wrapper.m_PlayerControl_HealthPotion;
-        public InputAction @ManaPotion => m_Wrapper.m_PlayerControl_ManaPotion;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControl; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -330,12 +286,6 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @Attack3.started -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnAttack3;
                 @Attack3.performed -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnAttack3;
                 @Attack3.canceled -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnAttack3;
-                @HealthPotion.started -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnHealthPotion;
-                @HealthPotion.performed -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnHealthPotion;
-                @HealthPotion.canceled -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnHealthPotion;
-                @ManaPotion.started -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnManaPotion;
-                @ManaPotion.performed -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnManaPotion;
-                @ManaPotion.canceled -= m_Wrapper.m_PlayerControlActionsCallbackInterface.OnManaPotion;
             }
             m_Wrapper.m_PlayerControlActionsCallbackInterface = instance;
             if (instance != null)
@@ -361,12 +311,6 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @Attack3.started += instance.OnAttack3;
                 @Attack3.performed += instance.OnAttack3;
                 @Attack3.canceled += instance.OnAttack3;
-                @HealthPotion.started += instance.OnHealthPotion;
-                @HealthPotion.performed += instance.OnHealthPotion;
-                @HealthPotion.canceled += instance.OnHealthPotion;
-                @ManaPotion.started += instance.OnManaPotion;
-                @ManaPotion.performed += instance.OnManaPotion;
-                @ManaPotion.canceled += instance.OnManaPotion;
             }
         }
     }
@@ -380,7 +324,5 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         void OnAttack1(InputAction.CallbackContext context);
         void OnAttack2(InputAction.CallbackContext context);
         void OnAttack3(InputAction.CallbackContext context);
-        void OnHealthPotion(InputAction.CallbackContext context);
-        void OnManaPotion(InputAction.CallbackContext context);
     }
 }

@@ -25,11 +25,11 @@ public class Goblin : Enemy
 
     #endregion
 
-    public Image goblinHealth;
+    /*public Image goblinHealth;
 
     public Image HealthIMG;
 
-    private float calculateHealth;
+    private float calculateHealth;*/
 
     #region Life Handler for Player
 
@@ -64,16 +64,16 @@ public class Goblin : Enemy
     {
         base.Update();
 
-        if(myHealth < maxHealth)
+       /* if(Health < maxHealth)
         {
             HealthIMG.gameObject.SetActive(true);
-            calculateHealth = (float)myHealth / maxHealth;
+            calculateHealth = (float)Health / maxHealth;
             goblinHealth.fillAmount = Mathf.MoveTowards(goblinHealth.fillAmount, calculateHealth, Time.deltaTime);
         }
         else
         {
             HealthIMG.gameObject.SetActive(false);
-        }
+        }*/
 
         if (Vector2.Distance(transform.position, player.transform.position) <= goblinMeleeRange)
         {
@@ -83,6 +83,7 @@ public class Goblin : Enemy
             {
                 GoblinAttack();
             }
+            //add lunge (jump) attack
         }
 
         
@@ -170,14 +171,14 @@ public class Goblin : Enemy
             nextDamageEvent = Time.time + attackCoolDown;
             if (facingRight == true)
             {
-                _lightCollider.transform.position = spellLocationRight.transform.position;
+                _lightCollider.transform.position = goblinAttack_R.transform.position;
                 _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale / 2);
                 StartCoroutine(lightAttackCoroutine());
 
             }
             else
             {
-                _lightCollider.transform.position = spellLocationLeft.transform.position;
+                _lightCollider.transform.position = goblinAttack_L.transform.position;
                 _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
                 StartCoroutine(lightAttackCoroutine());
             }

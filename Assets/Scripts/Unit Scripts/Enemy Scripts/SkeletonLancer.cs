@@ -26,11 +26,11 @@ public class SkeletonLancer : Enemy
 
     public float dashForce;
 
-    public Image skeletonHealth;
+    /*public Image skeletonHealth;
 
     public Image HealthIMG;
 
-    private float calculateHealth;
+    private float calculateHealth;*/
 
 
     #endregion
@@ -63,16 +63,16 @@ public class SkeletonLancer : Enemy
     {
         base.Update();
 
-        if (myHealth < maxHealth)
+        /*if (Health < maxHealth)
         {
             HealthIMG.gameObject.SetActive(true);
-            calculateHealth = (float)myHealth / maxHealth;
+            calculateHealth = (float)Health / maxHealth;
             skeletonHealth.fillAmount = Mathf.MoveTowards(skeletonHealth.fillAmount, calculateHealth, Time.deltaTime);
         }
         else
         {
             HealthIMG.gameObject.SetActive(false);
-        }
+        }*/
 
         if (isDashing)
         {
