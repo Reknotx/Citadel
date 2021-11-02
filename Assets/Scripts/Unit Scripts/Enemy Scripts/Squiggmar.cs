@@ -42,6 +42,12 @@ public class Squiggmar : MonoBehaviour
     [Tooltip("The position squiggmar is at when he is vulnerable.")]
     public Transform vulnerablePosition;
 
+    private float tentacleXOnLeftWall = 1.5f;
+    private float tentacleXOnRightWall = 28.5f;
+
+    private int _minTentacleXPos = 3;
+    private int _maxTentacleXPos = 27;
+
     public float Health 
     { 
         get => _health; 
