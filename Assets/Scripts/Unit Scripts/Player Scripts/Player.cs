@@ -312,6 +312,11 @@ public class Player : Unit
     public Text manaText;
 
 
+    /// <summary>
+    /// Tracks the images shown depending on which spell the player has and which action slot the spell is assigned to
+    /// </summary>
+    
+
     #endregion
 
     #endregion
@@ -1036,22 +1041,27 @@ public class Player : Unit
         if(Attack1 == "Light Attack")
         {
             lightAttack();
+            
         }
         else if (Attack1 == "Heavy Attack")
         {
             heavyAttack();
+            
         }
         else if (Attack1 == "Fire Wall")
         {
             fireWall();
+            
         }
         else if (Attack1 == "Icicle")
         {
             icicle();
+            
         }
         else
         {
             lightAttack();
+            
         }
     }
     public void actionCheck2()
@@ -1059,22 +1069,27 @@ public class Player : Unit
         if (Attack2 == "Light Attack")
         {
             lightAttack();
+            
         }
         else if (Attack2 == "Heavy Attack")
         {
             heavyAttack();
+            
         }
         else if (Attack2 == "Fire Wall")
         {
             fireWall();
+            
         }
         else if (Attack2 == "Icicle")
         {
             icicle();
+            
         }
         else
         {
             lightAttack();
+            
         }
     }
     public void actionCheck3()
@@ -1082,6 +1097,7 @@ public class Player : Unit
         if (Attack3 == "Light Attack")
         {
             lightAttack();
+
         }
         else if (Attack3 == "Heavy Attack")
         {
@@ -1090,6 +1106,7 @@ public class Player : Unit
         else if (Attack3 == "Fire Wall")
         {
             fireWall();
+
         }
         else if (Attack3 == "Icicle")
         {
@@ -1098,6 +1115,7 @@ public class Player : Unit
         else
         {
             lightAttack();
+
         }
     }
 
