@@ -7,7 +7,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Skeleton : Enemy
 {
@@ -26,31 +25,32 @@ public class Skeleton : Enemy
     public Transform shootLocation;
     #endregion
 
-    public Image skeletonHealth;
+    /*public Image skeletonHealth;
 
     public Image HealthIMG;
 
-    private float calculateHealth;
+    private float calculateHealth;*/
 
     public float currentHealth;
 
+    public float runAwayDistance;
+
+    public float runAwaySpeed;
+
+    public bool los = false;
+
     public override void Start()
     {
-        base.Start();
         //Tyler Added Code
         player = GameObject.FindGameObjectWithTag("Player");
         //End
-
-        HealthIMG.gameObject.SetActive(false);
     }
 
     public override void Update()
     {
         base.Update();
 
-     
-
-        if (Health < maxHealth)
+        /*if (Health < maxHealth)
         {
             HealthIMG.gameObject.SetActive(true);
             calculateHealth = (float)Health / maxHealth;
@@ -59,18 +59,66 @@ public class Skeleton : Enemy
         else
         {
             HealthIMG.gameObject.SetActive(false);
-        }
+        }*/
 
         if (Vector2.Distance(transform.position, player.transform.position) <= skeletonShootingDistance)
         {
             if (canShoot)
             {
-                //transform.LookAt(player.transform);
-                Instantiate(projectile, shootLocation.position, Quaternion.identity);
-                StartCoroutine(ProjectileCooldown());
+                
+                if (Mathf.Abs(yDistance) < 2)
+                {
+                    //transform.LookAt(player.transform);
+                    Instantiate(projectile, shootLocation.position, Quaternion.identity);
+                    StartCoroutine(ProjectileCooldown());
+                }
             }
         }
+
+        if (Vector2.Distance(transform.position, player.transform.position) < runAwayDistance)
+        {
+            Astar.canMove = false;
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, -1 * runAwaySpeed * Time.deltaTime);
+        }
+        else
+        {
+            Astar.canMove = true;
+        }
     }
+
+    /*private bool CanSeePlayer(float distance)
+    {
+        bool val = false;
+
+        float castDist = distance;
+
+        if (facingRight)
+        {
+            castDist = -distance;
+        }
+
+        Vector2 endPos = shootLocation.position + Vector3.right * castDist;
+
+        RaycastHit2D hit = Physics2D.Linecast(shootLocation.position, endPos, 1 << LayerMask.NameToLayer("Default"));
+
+        if (hit.collider != null)
+        {
+            
+            if (hit.collider.gameObject.CompareTag("Player"))
+            {
+                val = true;
+            }
+            else
+            {
+                val = false;
+            }
+        }
+        
+
+        Debug.DrawLine(shootLocation.position, endPos, Color.blue);
+
+        return val;
+    }*/
 
     IEnumerator ProjectileCooldown()
     {

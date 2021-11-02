@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 2982838568778839152}
   - component: {fileID: 2982838568778839167}
   - component: {fileID: 2982838568778839166}
-  - component: {fileID: 3066621981445321807}
   m_Layer: 8
   m_Name: Skeleton
   m_TagString: Untagged
@@ -175,7 +174,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2982838568778839143}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
@@ -214,13 +213,16 @@ MonoBehaviour:
   seenByCamera: 0
   debug: 0
   killThis: 0
+  enemyHealth: {fileID: 8222136454470860100}
+  HealthIMG: {fileID: 8488871177338055584}
   percentChanceToDropItem: 40
   skeletonShootingDistance: 7
   projectile: {fileID: 8009402920651334389, guid: 4be439661164c2546bd08a2cd8834521, type: 3}
   shootLocation: {fileID: 2982838568907107737}
-  skeletonHealth: {fileID: 8222136454470860100}
-  HealthIMG: {fileID: 8488871177338055584}
   currentHealth: 0
+  runAwayDistance: 4
+  runAwaySpeed: 3
+  los: 0
 --- !u!54 &2982838568778839160
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -316,19 +318,6 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!65 &3066621981445321807
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2982838568778839143}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.16, z: 1}
-  m_Center: {x: 0, y: 0.08, z: 0}
 --- !u!1 &2982838568907107736
 GameObject:
   m_ObjectHideFlags: 0
