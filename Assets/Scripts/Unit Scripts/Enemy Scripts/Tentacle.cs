@@ -52,6 +52,9 @@ public class Tentacle : MonoBehaviour, IDamageable
             {
                 _health = 0;
 
+                StopAllCoroutines();
+                ReturnToIdle();
+
                 gameObject.SetActive(false);
             }
 
@@ -80,12 +83,12 @@ public class Tentacle : MonoBehaviour, IDamageable
     public void Swipe()
     {
         ///Determine if swiping from left to right, or right to left
-        Squiggmar.Instance.tentacleSwiping = true;
+        Squiggmar.Instance.TentacleSwiping = true;
         bool swipeFromRight = UnityEngine.Random.Range(0, 2) == 0;
 
         swipeStartPoint = new Vector3(swipeFromRight ? tentacleXOnRightWall : tentacleXOnLeftWall, 0, 0f);
         swipeEndPoint = new Vector3(swipeFromRight ? tentacleXOnLeftWall : tentacleXOnRightWall, 0, 0f);
-
+            
         transform.eulerAngles = new Vector3(0, 0, swipeFromRight ? 90 : -90);
 
         StartCoroutine(SwipeMovement());
@@ -101,7 +104,7 @@ public class Tentacle : MonoBehaviour, IDamageable
         transform.position = idlePos;
         transform.eulerAngles = Vector3.zero;
         attacking = false;
-        Squiggmar.Instance.tentacleSwiping = false;
+        Squiggmar.Instance.TentacleSwiping = false;
     }
 
     public void OnTriggerEnter(Collider other)
@@ -146,6 +149,9 @@ public class Tentacle : MonoBehaviour, IDamageable
 
     public void TakeDamage(float amount)
     {
-        throw new NotImplementedException();
+        if (attacking)
+            return;
+
+        Health -= amount;
     }
 }

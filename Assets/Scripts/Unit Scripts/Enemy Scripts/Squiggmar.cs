@@ -37,7 +37,6 @@ public class Squiggmar : MonoBehaviour, IDamageable
 
     public List<Tentacle> tentacles = new List<Tentacle>();
 
-    private float _health;
 
     [Tooltip("The position squiggmar is at when he is vulnerable.")]
     public Transform vulnerablePosition;
@@ -50,8 +49,25 @@ public class Squiggmar : MonoBehaviour, IDamageable
 
     public float vulnerableTime = 7f;
 
-    public bool tentacleSwiping { get; set; }
+    private bool _tentacleSwiping = false;
+    public bool TentacleSwiping 
+    { 
+        get => _tentacleSwiping;
+        set
+        {
+            _tentacleSwiping = value;
+            if (!value)
+                nextCombatLogicStart = Time.time + 2f;
+        }
+    }
     private List<Tentacle> alreadyAttacked = new List<Tentacle>();
+
+    float combatDelayTime = 5f;
+    float nextCombatLogicStart;
+
+    public GameObject endGameMenu;
+
+    private bool headVulnerable = false;
 
     public int GetActiveTentacles
     {
@@ -67,14 +83,19 @@ public class Squiggmar : MonoBehaviour, IDamageable
             return count;
         }
     }
+    private float _maxHealth;
 
+    [SerializeField]
+    private float _health;
     public float Health 
     { 
         get => _health; 
         set
         {
             _health = value;
-
+            Debug.Log("Squiggmar health is now " + _health);
+            endGameMenu.SetActive(true);
+            Destroy(gameObject);
             ///Perform death logic to end the game/proceed to
             ///the next level
         }
@@ -93,16 +114,23 @@ public class Squiggmar : MonoBehaviour, IDamageable
     {
         transform.GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1f, 1f, 1f, 0.5f);
 
+        _maxHealth = Health;
+
         foreach (Transform child in transform)
         {
             if (child.GetComponent<Tentacle>() != null)
                 tentacles.Add(child.GetComponent<Tentacle>());
         }
+
+        nextCombatLogicStart = Time.time + combatDelayTime;
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
     public void FixedUpdate()
     {
-        CombatLogic();
+
+        if (Time.time > nextCombatLogicStart)
+            CombatLogic();
     }
 
 
@@ -110,10 +138,14 @@ public class Squiggmar : MonoBehaviour, IDamageable
     {
         if (GetActiveTentacles == 0)
         {
-            ///Squiggmar is now vulnerable
-            StartCoroutine(HeadVulnerableTime());
+            if (!headVulnerable)
+            {
+                ///Squiggmar is now vulnerable
+                headVulnerable = true;
+                StartCoroutine(HeadVulnerableTime());
+            }
         }
-        else if (!tentacleSwiping)
+        else if (!TentacleSwiping)
         {
             SelectTentacleForSwipe();
         }
@@ -122,38 +154,35 @@ public class Squiggmar : MonoBehaviour, IDamageable
 
     private void SelectTentacleForSwipe()
     {
-
+        if (GetActiveTentacles == 0) return;
+        
         while (true)
         {
             int tentacleIndex = UnityEngine.Random.Range(0, tentacles.Count);
 
-            if (alreadyAttacked.Contains(tentacles[tentacleIndex]))
+            if (!tentacles[tentacleIndex].gameObject.activeSelf)
             {
+                alreadyAttacked.Add(tentacles[tentacleIndex]);
                 continue;
             }
 
-            alreadyAttacked.Add(tentacles[tentacleIndex]);
             tentacles[tentacleIndex].Swipe();
             break;
         }
 
-        if(alreadyAttacked.Count == tentacles.Count)
-        {
-            alreadyAttacked.Clear();
-        }
     }
 
-    IEnumerator MoveHeadToVulnerableSpot()
+    IEnumerator HeadVulnerableTime()
     {
-
         bool moving = true;
         float startTime = Time.time;
 
-        Vector3 p0 = transform.position, p1 = vulnerablePosition.position, p01;
+        transform.GetChild(0).gameObject.SetActive(true);
+        Vector3 invulnerablePos = transform.GetChild(0).position, vulnerablePos = vulnerablePosition.position, p01;
 
         while (moving)
         {
-            float u = (Time.time - startTime);
+            float u = (Time.time - startTime) * 2;
 
             if (u >= 1f)
             {
@@ -161,17 +190,15 @@ public class Squiggmar : MonoBehaviour, IDamageable
                 moving = false;
             }
 
-            p01 = (1 - u) * p0 + u * p1;
+            p01 = (1 - u) * invulnerablePos + u * vulnerablePos;
 
-            transform.position = p01;
+            transform.GetChild(0).position = p01;
 
             yield return new WaitForFixedUpdate();
 
         }
-    }
 
-    IEnumerator HeadVulnerableTime()
-    {
+        Debug.Log("Head made vulnerable.");
         transform.GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1f, 1f, 1f, 1f);
         transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;
 
@@ -179,6 +206,33 @@ public class Squiggmar : MonoBehaviour, IDamageable
 
         transform.GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1f, 1f, 1f, 0.5f);
         transform.GetChild(0).GetComponent<BoxCollider>().enabled = false;
+
+        moving = true;
+        startTime = Time.time;
+
+        while (moving)
+        {
+            float u = (Time.time - startTime) * 2;
+
+            if (u >= 1f)
+            {
+                u = 1;
+                moving = false;
+            }
+
+            p01 = (1 - u) * vulnerablePos + u * invulnerablePos;
+
+            transform.GetChild(0).position = p01;
+
+            yield return new WaitForFixedUpdate();
+
+        }
+
+        headVulnerable = false;
+        nextCombatLogicStart = Time.time + 2;
+        transform.GetChild(0).gameObject.SetActive(false);
+        Debug.Log("Head made invulnerable.");
+
 
     }
 

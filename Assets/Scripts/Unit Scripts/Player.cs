@@ -16,6 +16,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Interactables;
+using Menu;
 
 public class Player : Unit, IDamageable
 {
@@ -841,10 +842,8 @@ public class Player : Unit, IDamageable
 
     public void Escape(InputAction.CallbackContext context)
     {
-
+        PauseMenu.Instance.gameObject.SetActive(true);
         return;
-
-
     }
 
 
