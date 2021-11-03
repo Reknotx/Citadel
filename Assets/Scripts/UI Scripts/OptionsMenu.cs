@@ -31,7 +31,6 @@ namespace Menu
                 audioSettings[i].Initialize();
             }
 
-            gameObject.SetActive(false);
         }
 
         public void SetMasterVolume(float value)
