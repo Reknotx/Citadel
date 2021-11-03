@@ -20,6 +20,7 @@ namespace Map
             if (other.gameObject.layer == 8 && !parentRoomScript.enemies.Contains(other.gameObject))
             {
                 parentRoomScript.enemies.Add(other.gameObject);
+                other.gameObject.SetActive(false);
 
             }
 

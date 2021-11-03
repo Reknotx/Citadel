@@ -74,6 +74,12 @@ public class SwordBehavior : MonoBehaviour
             lightCollider.enabled = false;
             heavyCollider.enabled = false;
         }
+
+        if (other.GetComponent<IDamageable>() != null)
+            other.GetComponent<IDamageable>().TakeDamage(Player.Instance.meleeAttackDamage);
+        else if (other.transform.parent.GetComponent<IDamageable>() != null)
+            other.transform.parent.GetComponent<IDamageable>().TakeDamage(Player.Instance.meleeAttackDamage);
+
     }
 
     IEnumerator waitBetweenOpacity()

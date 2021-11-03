@@ -9,13 +9,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tentacle : MonoBehaviour
+public class Tentacle : MonoBehaviour, IDamageable
 {
-    public Transform idleLocation;
+    public Vector3 idlePos;
     private Vector3 swipeStartPoint, swipeEndPoint;
     public float swipeXPosRange;
     [Range(1, 5)]
     public float swipeCompletionTime = 1;
+
+    private float tentacleXOnLeftWall = 1.5f;
+    private float tentacleXOnRightWall = 28.5f;
+
+    private float attackDelay = 2f;
+    private bool trackPlayerY = false;
+
+    public Player player;
+
+    private bool attacking = false;
+    public int damage;
 
     ///Tentacles have their own individual health bars
     ///and are attached to squiggmar.
@@ -25,30 +36,91 @@ public class Tentacle : MonoBehaviour
     ///later on and doesn't need to be spawned in. 
     ///
 
+    [SerializeField]
     private float _health;
 
-    public float Health { get => _health; set => _health = value; }
+    private float _maxHealth;
+
+    public float Health 
+    { 
+        get => _health; 
+        set
+        {
+            _health = value;
+
+            if (_health <= 0)
+            {
+                _health = 0;
+
+                StopAllCoroutines();
+                ReturnToIdle();
+
+                gameObject.SetActive(false);
+            }
+
+        }
+    }
+
+    private void Awake()
+    {
+        idlePos = transform.position;
+    }
+
+    private void Start()
+    {
+        player = Player.Instance;
+    }
+
+    private void Update()
+    {
+        if (!trackPlayerY) return;
+
+        swipeStartPoint.y = player.transform.position.y;
+        swipeEndPoint.y = swipeStartPoint.y;
+        transform.position = new Vector3(swipeStartPoint.x, swipeStartPoint.y, 0f);
+    }
 
     public void Swipe()
     {
         ///Determine if swiping from left to right, or right to left
-
+        Squiggmar.Instance.TentacleSwiping = true;
         bool swipeFromRight = UnityEngine.Random.Range(0, 2) == 0;
 
-        swipeStartPoint = new Vector3(swipeFromRight ? swipeXPosRange : -swipeXPosRange, Player.Instance.transform.position.y, 0f);
-        swipeEndPoint = new Vector3(swipeStartPoint.x * -1, Player.Instance.transform.position.y, 0f);
+        swipeStartPoint = new Vector3(swipeFromRight ? tentacleXOnRightWall : tentacleXOnLeftWall, 0, 0f);
+        swipeEndPoint = new Vector3(swipeFromRight ? tentacleXOnLeftWall : tentacleXOnRightWall, 0, 0f);
+            
+        transform.eulerAngles = new Vector3(0, 0, swipeFromRight ? 90 : -90);
 
         StartCoroutine(SwipeMovement());
 
+        trackPlayerY = true;
         ///Find the player's y position and set the tentacle's y position to that value
         ///After swipe is complete go back to neutral state
-        
-
     }
 
 
+    void ReturnToIdle()
+    {
+        transform.position = idlePos;
+        transform.eulerAngles = Vector3.zero;
+        attacking = false;
+        Squiggmar.Instance.TentacleSwiping = false;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (!attacking) return;
+
+        if (other.gameObject == player.gameObject)
+            player.TakeDamage(damage);
+    }
+
     IEnumerator SwipeMovement()
     {
+        yield return new WaitForSeconds(attackDelay);
+        attacking = true;
+        trackPlayerY = false;
+
         bool moving = true;
         float startTime = Time.time;
 
@@ -70,7 +142,16 @@ public class Tentacle : MonoBehaviour
 
             yield return new WaitForFixedUpdate();
 
-        }       
+        }
 
+        ReturnToIdle();
+    }
+
+    public void TakeDamage(float amount)
+    {
+        if (attacking)
+            return;
+
+        Health -= amount;
     }
 }
