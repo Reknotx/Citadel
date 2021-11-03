@@ -11,12 +11,12 @@
 
 
 using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using Interactables;
 using Menu;
+using UnityEngine.UI;
 
 public class Player : Unit, IDamageable
 {
@@ -130,11 +130,13 @@ public class Player : Unit, IDamageable
 
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
-    public Collider _wallCollider;
+   
+
+   // public Collider _wallCollider;
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
-    [SerializeField]
-    protected Collider _hitboxCollider;
+   // [SerializeField]
+   // protected Collider _hitboxCollider;
 
     ///<summary>This is the range of detection to the ground.</summary>
     private float _Reach = 1f;
@@ -234,9 +236,15 @@ public class Player : Unit, IDamageable
     [HideInInspector]
     public bool grounded;
 
+    
+
+    [HideInInspector]
     public bool dropping = false;
 
+    [HideInInspector]
     public bool hittingWallRight = false;
+
+    [HideInInspector]
     public bool hittingWallLeft = false;
 
     [HideInInspector]
@@ -256,10 +264,11 @@ public class Player : Unit, IDamageable
 
     [HideInInspector]
     public bool usingPotion = false;
-    
+
+    [HideInInspector]
     public bool canPass = true;
 
-    
+    public bool invulnActive = false;
 
     #endregion
             #region Bool/int Equipment
@@ -270,8 +279,8 @@ public class Player : Unit, IDamageable
     public bool spellStone = false;
     public bool floatingShield = false;
     public bool medicineStash = false;
-    [HideInInspector]
-    public GameObject flotingShieldObj;
+    //[HideInInspector]
+    public GameObject floatingShieldObj;
 
     public int healthPotions = 0;
     public int manaPotions = 0;
@@ -292,9 +301,11 @@ public class Player : Unit, IDamageable
     private bool triggered = false;
     private float animationFinishTime = .5f;
 
+    [HideInInspector]
     public bool isCastingIcicle;
 
     #endregion
+    
             #region health and mana bars
     [Header("player health and mana bars")]
     /// <summary>
@@ -324,7 +335,7 @@ public class Player : Unit, IDamageable
     
 
     #endregion
-
+        
     #endregion
 
 
@@ -407,7 +418,7 @@ public class Player : Unit, IDamageable
 
         if (floatingShield)
         {
-            flotingShieldObj.SetActive(true);
+            floatingShieldObj.SetActive(true);
         }
         if (medicineStash == true)
         {
@@ -983,6 +994,37 @@ public class Player : Unit, IDamageable
         }
     }
 
+
+    public void invuln()
+    {
+        if (canCast == true && myMana >= 10 && !invulnActive)
+        {
+
+            if (spellStone == true)
+            {
+
+                ReduceMana(7);
+            }
+            else
+            {
+
+                ReduceMana(10);
+            }
+
+            ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
+            if (invulnActive == false)
+            {
+
+                invulnActive = true;
+                StartCoroutine(InvulnCoroutine());
+
+
+                canCast = false;
+            }
+            
+        }
+    }
+
     #endregion
     #region Unit Melee Attacks
     /// <summary> This is the attacking function  </summary>
@@ -1154,6 +1196,10 @@ public class Player : Unit, IDamageable
         {
             aerorang();
         }
+        else if (Attack1 == "Invuln")
+        {
+            invuln();
+        }
         else
         {
             lightAttack();
@@ -1186,6 +1232,10 @@ public class Player : Unit, IDamageable
         {
             aerorang();
         }
+        else if (Attack2 == "Invuln")
+        {
+            invuln();
+        }
         else
         {
             lightAttack();
@@ -1215,6 +1265,10 @@ public class Player : Unit, IDamageable
         else if (Attack3 == "Aerorang")
         {
             aerorang();
+        }
+        else if (Attack3 == "Invuln")
+        {
+            invuln();
         }
         else
         {
@@ -1327,10 +1381,6 @@ public class Player : Unit, IDamageable
     #endregion
 
 
-
-  
-
-
     #region player IEnumerators
     public IEnumerator InteractCoroutine()
     {
@@ -1411,8 +1461,10 @@ public class Player : Unit, IDamageable
 
 
         invulnerable = false;
+
     }
 
+    /*
     /// <summary> this allows units to drop through platforms </summary>
     
 
@@ -1423,7 +1475,7 @@ public class Player : Unit, IDamageable
         _hitboxCollider.enabled = true;
     }
 
-
+    */
     public IEnumerator PassThroughCoroutine()
     {
         //canPass = false;
@@ -1438,6 +1490,12 @@ public class Player : Unit, IDamageable
         yield return new WaitForSeconds(.3f);
 
         isCastingIcicle = false ;
+    }
+
+    public IEnumerator InvulnCoroutine()
+    {
+        yield return new WaitForSeconds(5f);
+        invulnActive = false;
     }
     #endregion
 }
