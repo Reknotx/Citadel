@@ -33,6 +33,14 @@ public class SwordBehavior : MonoBehaviour
             // lightCollider.gameObject.transform.localScale += new Vector3(player.GetComponent<Player>().meleeAttackRange, 0, 0);
             //lightCollider.gameObject.transform.localScale.x = player.GetComponent<Player>().meleeAttackRange;
             lightRenderer.enabled = true;
+            /*for(double i=0; i < 10;)
+            {
+                lightRenderer.material.color = new Color(1.0f, 1.0f, 1.0f, (float)i);
+                i += 0.1;
+            }*/
+            lightRenderer.material.color = new Color(1.0f, 1.0f, 1.0f, 0.1f);
+            
+            
         }
         else
         {
@@ -42,6 +50,13 @@ public class SwordBehavior : MonoBehaviour
         if (heavyCollider.enabled == true)
         {
             heavyRenderer.enabled = true;
+            /*for (double i = 0; i <= 10;)
+            {
+                heavyRenderer.material.color = new Color(1.0f, 1.0f, 1.0f, (float)i);
+                i += 0.1;
+            }*/
+
+
         }
         else
         {
@@ -65,6 +80,11 @@ public class SwordBehavior : MonoBehaviour
         else if (other.transform.parent.GetComponent<IDamageable>() != null)
             other.transform.parent.GetComponent<IDamageable>().TakeDamage(Player.Instance.meleeAttackDamage);
 
+    }
+
+    IEnumerator waitBetweenOpacity()
+    {
+        yield return new WaitForSeconds(0.5f);
     }
     #endregion
 }

@@ -38,7 +38,7 @@ public class CampShopTutorial : MonoBehaviour
     public void Start()
     {
         currentScene_camp = SceneManager.GetActiveScene().name;
-        PlayerPrefs.SetInt("TutorialHasPlayed_camp", 0); //<------DO NOT UNCOMMENT, here for testing purposes only
+        //PlayerPrefs.SetInt("TutorialHasPlayed_camp", 0); //<------DO NOT UNCOMMENT, here for testing purposes only
 
         
         

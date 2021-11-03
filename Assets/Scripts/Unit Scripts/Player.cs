@@ -318,6 +318,11 @@ public class Player : Unit, IDamageable
     public Text manaText;
 
 
+    /// <summary>
+    /// Tracks the images shown depending on which spell the player has and which action slot the spell is assigned to
+    /// </summary>
+    
+
     #endregion
 
     #endregion
@@ -1128,18 +1133,22 @@ public class Player : Unit, IDamageable
         if(Attack1 == "Light Attack")
         {
             lightAttack();
+            
         }
         else if (Attack1 == "Heavy Attack")
         {
             heavyAttack();
+            
         }
         else if (Attack1 == "Fire Wall")
         {
             fireWall();
+            
         }
         else if (Attack1 == "Icicle")
         {
             icicle();
+            
         }
         else if(Attack1 == "Aerorang")
         {
@@ -1148,6 +1157,7 @@ public class Player : Unit, IDamageable
         else
         {
             lightAttack();
+            
         }
     }
     public void actionCheck2()
@@ -1155,18 +1165,22 @@ public class Player : Unit, IDamageable
         if (Attack2 == "Light Attack")
         {
             lightAttack();
+            
         }
         else if (Attack2 == "Heavy Attack")
         {
             heavyAttack();
+            
         }
         else if (Attack2 == "Fire Wall")
         {
             fireWall();
+            
         }
         else if (Attack2 == "Icicle")
         {
             icicle();
+            
         }
         else if (Attack2 == "Aerorang")
         {
@@ -1175,6 +1189,7 @@ public class Player : Unit, IDamageable
         else
         {
             lightAttack();
+            
         }
     }
     public void actionCheck3()
@@ -1182,6 +1197,7 @@ public class Player : Unit, IDamageable
         if (Attack3 == "Light Attack")
         {
             lightAttack();
+
         }
         else if (Attack3 == "Heavy Attack")
         {
@@ -1190,6 +1206,7 @@ public class Player : Unit, IDamageable
         else if (Attack3 == "Fire Wall")
         {
             fireWall();
+
         }
         else if (Attack3 == "Icicle")
         {
@@ -1202,6 +1219,7 @@ public class Player : Unit, IDamageable
         else
         {
             lightAttack();
+
         }
     }
 
