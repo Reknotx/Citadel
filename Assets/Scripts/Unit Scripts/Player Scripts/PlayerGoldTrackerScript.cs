@@ -60,6 +60,8 @@ public class PlayerGoldTrackerScript : MonoBehaviour
         }
         _instance = this;
 
+        
+
         DontDestroyOnLoad(this.gameObject);
 
         player = GameObject.FindGameObjectWithTag("Player");

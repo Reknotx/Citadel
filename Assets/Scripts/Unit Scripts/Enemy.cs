@@ -394,6 +394,12 @@ public class Enemy : Unit
                 StartCoroutine(onFireCoroutine());
             }
         }
+
+
+        if(other.gameObject.tag == "Aerorang")
+        {
+            TakeDamage(other.GetComponent<AerorangSpell>().spellDamage);
+        }
     }
 
     IEnumerator IsJumping()

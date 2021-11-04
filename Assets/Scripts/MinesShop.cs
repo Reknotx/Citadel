@@ -34,7 +34,16 @@ public class MinesShop : MonoBehaviour
     /// Base cost of the mine cart
     /// </summary>
     [SerializeField]
-    private int baseCartCost = 150;
+    private int baseCartCost = 5000;
+
+    [SerializeField]
+    private int basePickCost = 500;
+
+    [SerializeField]
+    private int baseMoleCost = 20000;
+
+    [SerializeField]
+    private int baseWizardCost = 100000;
 
     /// <summary>
     /// Amount of gold that the cost of the mine carts increases by each time the player purchases one
@@ -42,14 +51,32 @@ public class MinesShop : MonoBehaviour
     [SerializeField]
     private int cartCostIncrease = 50;
 
+    [SerializeField]
+    private int pickCostIncrease = 50;
+
+    [SerializeField]
+    private int moleCostIncrease = 50;
+
+    [SerializeField]
+    private int wizardCostIncrease = 50;
+
     public Text minecartCost;
 
     public Text minerCost;
+
+    public Text pickCost;
+
+    public Text moleCost;
+
+    public Text wizardCost;
 
     public void Update()
     {
         minecartCost.text = "Purchase Mine Cart: " + baseCartCost;
         minerCost.text = "Purchase Miner: " + baseMinerCost;
+        minerCost.text = "Purchase Magical Pick: " + basePickCost;
+        minerCost.text = "Purchase Giant Mole: " + baseMoleCost;
+        minerCost.text = "Purchase Spelunking Wizard: " + baseWizardCost;
     }
 
     public void PurchaseMiner()
@@ -72,6 +99,36 @@ public class MinesShop : MonoBehaviour
             gold.numOfCarts += 1;
             gold.MyHardGold -= baseCartCost;
             baseCartCost += (cartCostIncrease * gold.numOfCarts);
+        }
+    }
+
+    public void PurchasePick()
+    {
+        if ((int)gold.MyHardGold >= basePickCost)
+        {
+            gold.numOfPicks += 1;
+            gold.MyHardGold -= basePickCost;
+            basePickCost += (pickCostIncrease * gold.numOfPicks);
+        }
+    }
+
+    public void PurchaseMole()
+    {
+        if ((int)gold.MyHardGold >= baseMoleCost)
+        {
+            gold.numOfMoles += 1;
+            gold.MyHardGold -= baseMoleCost;
+            baseMoleCost += (moleCostIncrease * gold.numOfMoles);
+        }
+    }
+
+    public void PurchaseWizard()
+    {
+        if ((int)gold.MyHardGold >= baseWizardCost)
+        {
+            gold.numOfWizards += 1;
+            gold.MyHardGold -= baseWizardCost;
+            baseWizardCost += (wizardCostIncrease * gold.numOfWizards);
         }
     }
 }

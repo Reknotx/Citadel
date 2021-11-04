@@ -50,6 +50,9 @@ public class GoldHandler : MonoBehaviour
         set
         {
             _myHardGold = value;
+            if (_myHardGold < 0) 
+                _myHardGold = 0;
+
             if (hardGoldText != null)
                 hardGoldText.text = (int)MyHardGold + "g";
         }
@@ -115,13 +118,22 @@ public class GoldHandler : MonoBehaviour
     /// The increase in the player's revenue for every miner they own
     /// </summary>
     [SerializeField]
-    private int minerIncrease;
+    public int minerIncrease;
 
     /// <summary>
     /// The increase in the player's revenue for every mine cart they own
     /// </summary>
     [SerializeField]
-    private int cartIncrease;
+    public int cartIncrease;
+
+    [SerializeField]
+    public int pickIncrease;
+
+    [SerializeField]
+    public int moleIncrease;
+
+    [SerializeField]
+    public int wizardIncrease;
 
     /// <summary>
     /// The player's current revenue (passively gained gold)
@@ -181,7 +193,7 @@ public class GoldHandler : MonoBehaviour
         {
             if (!(mainMenuName == currentScene.name))
             {
-                revenue = baseGoldIncrease + (numOfMiners * minerIncrease) + (numOfCarts * cartIncrease);
+                revenue = baseGoldIncrease + (numOfMiners * minerIncrease) + (numOfCarts * cartIncrease) + (numOfPicks * pickIncrease) + (numOfMoles * moleIncrease) + (numOfWizards * wizardIncrease);
                 AddHardGold(revenue);
             }
             elapsed = 0f;

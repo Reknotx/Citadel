@@ -490,8 +490,9 @@ MonoBehaviour:
   enemyHealth: {fileID: 7954525600206823398}
   HealthIMG: {fileID: 5299853063858695808}
   percentChanceToDropItem: 40
-  goblinMeleeRange: 1
+  goblinMeleeRange: 5
   goblinDamage: 10
+  goblinDashForce: 15
   playerLife: {fileID: 0}
   goblinAttack_L: {fileID: 3145674281901039601}
   goblinAttack_R: {fileID: 3145674281824328900}
@@ -568,9 +569,9 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 2.5
+  slowdownDistance: 1.2
   pickNextWaypointDist: 1.35
-  endReachedDistance: 1.5
+  endReachedDistance: 1
   alwaysDrawGizmos: 1
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
