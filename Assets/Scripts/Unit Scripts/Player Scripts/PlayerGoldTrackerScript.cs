@@ -12,6 +12,7 @@ public class PlayerGoldTrackerScript : MonoBehaviour
 
     private static PlayerGoldTrackerScript _instance;
 
+    [SerializeField]
     public static PlayerGoldTrackerScript Instance { get { return _instance; } }
 
     public float playerSoftGold;
@@ -58,15 +59,14 @@ public class PlayerGoldTrackerScript : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        else if(_instance == null)
         _instance = this;
 
         
 
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(_instance);
 
-        player = GameObject.FindGameObjectWithTag("Player");
-        goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
-        currentSceneName = SceneManager.GetActiveScene().name;
+        findReference();
 
 
     }
@@ -77,11 +77,8 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     void Update()
     {
 
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        _instance = this;
+        
+        //_instance = this;
 
         
 
