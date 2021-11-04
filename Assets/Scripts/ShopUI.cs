@@ -113,8 +113,6 @@ namespace ShopSystem
                 case "spell 2": item = info.spell2Info; break;
 
                 case "spell 3": item = info.spell3Info; break;
-
-                   
             }
 
             if (item == null) Debug.LogError("What's going on here");
@@ -136,7 +134,13 @@ namespace ShopSystem
             healthUpButton.interactable = hardGold > info.healthUpInfo.upgradeCost;
             attackUpButton.interactable = hardGold > info.attackUpInfo.upgradeCost;
             attackRangeUpButton.interactable = hardGold > info.attackRangeUpInfo.upgradeCost;
-            speedUpButton.interactable = hardGold > info.speedUpInfo.upgradeCost;
+
+            if (Player.Instance.speed == 30)
+                speedUpButton.interactable = false;
+            else
+                speedUpButton.interactable = hardGold > info.speedUpInfo.upgradeCost;
+
+
             manaUpButton.interactable = hardGold > info.manaUpInfo.upgradeCost;
             spellPotencyUpButton.interactable = hardGold > info.spellPotencyUpInfo.upgradeCost;
 

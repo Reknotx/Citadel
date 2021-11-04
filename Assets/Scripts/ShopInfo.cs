@@ -106,7 +106,7 @@ namespace ShopSystem
     {
 
         [Tooltip("The base cost value of an upgrade.")]
-        public int upgradeCost;
+        public float upgradeCost;
 
         [Tooltip("A value which affects the rate at which the upgrade cost scales.")]
         public float rateOfCostGrowth;
@@ -128,8 +128,8 @@ namespace ShopSystem
 
             set
             {
-                _level = (int)Mathf.Clamp01(value);
-                upgradeCost = Mathf.RoundToInt(upgradeCost * increaseStatBy);
+                _level = value;
+                upgradeCost = Mathf.RoundToInt(upgradeCost + rateOfCostGrowth);
             }
         }
 
@@ -206,7 +206,7 @@ namespace ShopSystem
             return "Purchase a " + name + " for " + spellCost + " gold.";
         }
     }
-
+    #region custom inspector stuff
 #if UNITY_EDITOR
     [CustomEditor(typeof(ShopInfo))]
     public class ShopInfoEditor : Editor
@@ -419,4 +419,5 @@ namespace ShopSystem
     }
 
 #endif
+    #endregion
 }

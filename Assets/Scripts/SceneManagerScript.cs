@@ -118,6 +118,7 @@ public class SceneManagerScript : MonoBehaviour
     /// <summary> this takes the player to the camp shop scene </summary>
     public void goToCampShop()
     {
+
         CST.openCampShop = true;
         GameObject player = GameObject.FindWithTag("Player");
         player.GetComponent<Player>().inCampShop = true;
