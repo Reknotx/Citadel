@@ -5,7 +5,7 @@ using UnityEngine;
 public class PoxSpell : MonoBehaviour
 {
 
-    public int startSize = 3;
+    public int startSize = 1;
     public int minSize = 1;
     public int maxSize = 6;
 
@@ -14,6 +14,10 @@ public class PoxSpell : MonoBehaviour
     private Vector3 targetScale;
     private Vector3 baseScale;
     private int currScale;
+
+    public bool atMax = false;
+
+    public float spellDuration;
 
 
     // Start is called before the first frame update
@@ -28,8 +32,18 @@ public class PoxSpell : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.localScale = Vector3.Lerp(transform.localScale, targetScale, speed * Time.deltaTime);
+        transform.localScale = Vector3.Lerp(transform.localScale, targetScale,  Time.deltaTime / speed);
         ChangeSize(true);
+
+        if (currScale == maxSize)
+        {
+            atMax = true;
+        }
+
+        if (atMax == true)
+        {
+            StartCoroutine(despawnCoroutine());
+        }
     }
 
 
@@ -41,8 +55,22 @@ public class PoxSpell : MonoBehaviour
         else
             currScale--;
 
-        currScale = Mathf.Clamp(currScale, minSize, maxSize + 1);
+        currScale = Mathf.Clamp(currScale, minSize, maxSize);
 
         targetScale = baseScale * currScale;
+
+        
+    }
+
+    public IEnumerator despawnCoroutine()
+    {
+
+        yield return new WaitForSeconds(spellDuration);
+
+        Destroy(this.gameObject);
+        
+
+
+
     }
 }

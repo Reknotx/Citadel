@@ -175,6 +175,9 @@ public class Player : Unit, IDamageable
     /// <summary>this is the physical gameobject that is cast during the rebound spell</summary>
     public GameObject rebound_prefab;
 
+    /// <summary>this is the physical gameobject that is cast during the rebound spell</summary>
+    public GameObject pox_prefab;
+
     ///<summary>This is the location spells will be cast on the left side of the unit.</summary>
     [SerializeField]
     protected GameObject spellLocationLeft;
@@ -1062,7 +1065,7 @@ public class Player : Unit, IDamageable
             if (facingRight == true)
             {
 
-                var Aerorang = (GameObject)Instantiate(rebound_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
+                var rebound = (GameObject)Instantiate(rebound_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
                 //Aerorang.GetComponent<Rigidbody>().velocity = Aerorang.transform.right * 12;
 
 
@@ -1071,11 +1074,39 @@ public class Player : Unit, IDamageable
             else
             {
 
-                var Aerorang = (GameObject)Instantiate(rebound_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
+                var rebound = (GameObject)Instantiate(rebound_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
                 // Aerorang.GetComponent<Rigidbody>().velocity = Aerorang.transform.right * -12;
 
                 canCast = false;
             }
+        }
+    }
+
+
+    public void pox()
+    {
+        if (canCast == true && myMana >= 10)
+        {
+
+            if (spellStone == true)
+            {
+
+                ReduceMana(7);
+            }
+            else
+            {
+
+                ReduceMana(10);
+            }
+
+
+                var pox = (GameObject)Instantiate(pox_prefab, spellLocationCenter.transform.position, spellLocationCenter.transform.rotation);
+            pox.transform.SetParent ( spellLocationCenter.transform);
+
+
+                canCast = false;
+            
+            
         }
     }
 
@@ -1258,6 +1289,10 @@ public class Player : Unit, IDamageable
         {
             rebound();
         }
+        else if (Attack1 == "Pox")
+        {
+            pox();
+        }
         else
         {
             lightAttack();
@@ -1298,6 +1333,10 @@ public class Player : Unit, IDamageable
         {
             rebound();
         }
+        else if (Attack2 == "Pox")
+        {
+            pox();
+        }
         else
         {
             lightAttack();
@@ -1335,6 +1374,10 @@ public class Player : Unit, IDamageable
         else if (Attack3 == "Rebound")
         {
             rebound();
+        }
+        else if (Attack3 == "Pox")
+        {
+            pox();
         }
         else
         {
