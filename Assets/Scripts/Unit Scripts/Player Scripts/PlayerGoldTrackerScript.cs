@@ -52,6 +52,13 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     public int startingAttackDamage;
     public float startingAttackRange;
 
+
+
+    public string attack1;
+    public string attack2;
+    public string attack3;
+
+
     private void Awake()
     {
 
@@ -67,7 +74,9 @@ public class PlayerGoldTrackerScript : MonoBehaviour
         DontDestroyOnLoad(_instance);
 
         findReference();
-
+        player.GetComponent<Player>().Attack1 = attack1;
+        player.GetComponent<Player>().Attack2 = attack2;
+        player.GetComponent<Player>().Attack3 = attack3;
 
     }
 
@@ -188,6 +197,9 @@ public class PlayerGoldTrackerScript : MonoBehaviour
             player.GetComponent<Player>().speed = playerSpeed;
             player.GetComponent<Player>().meleeAttackDamage = playerAttackDamage;
             player.GetComponent<Player>().meleeAttackRange = playerAttackRange;
+            player.GetComponent<Player>().Attack1 = attack1;
+            player.GetComponent<Player>().Attack2 = attack2;
+            player.GetComponent<Player>().Attack3 = attack3;
 
             statsUpdated = true;
         }
@@ -202,6 +214,9 @@ public class PlayerGoldTrackerScript : MonoBehaviour
             playerSpeed = player.GetComponent<Player>().speed;
             playerAttackDamage = player.GetComponent<Player>().meleeAttackDamage;
             playerAttackRange = player.GetComponent<Player>().meleeAttackRange;
+            attack1 = player.GetComponent<Player>().Attack1;
+            attack2 = player.GetComponent<Player>().Attack2;
+            attack3 = player.GetComponent<Player>().Attack3;
         }
     }
 }
