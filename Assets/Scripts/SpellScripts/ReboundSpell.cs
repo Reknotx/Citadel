@@ -30,6 +30,8 @@ public class ReboundSpell : Spell
 
     public Vector3 CurrentDirection;
 
+    public int bounceCount = 0;
+
 
     [HideInInspector]
     public Vector3 up = Vector3.up;
@@ -88,6 +90,11 @@ public class ReboundSpell : Spell
     void FixedUpdate()
     {
         myTransform.Translate(CurrentDirection*Time.deltaTime*speed);
+
+        if(bounceCount >= 8)
+        {
+            Destroy(this.gameObject);
+        }
 
         #region possible direction detection
         var upRightCheck = transform.TransformDirection(upRight);
@@ -270,5 +277,19 @@ public class ReboundSpell : Spell
         }
     }
 
-    
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "ground")
+        {
+
+            bounceCount++;
+        }
+
+        if (other.gameObject.tag == "platform")
+        {
+
+            bounceCount++;
+        }
+    }
+
 }
