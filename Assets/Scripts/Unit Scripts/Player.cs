@@ -386,9 +386,6 @@ public class Player : Unit, IDamageable
 
         base.Update();
 
-
-
-
         #region Player Stat/Item controls
         Application.targetFrameRate = 60;
         facingRightLocal = facingRight;

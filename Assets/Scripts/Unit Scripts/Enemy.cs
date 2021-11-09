@@ -66,10 +66,15 @@ public class Enemy : Unit
     [HideInInspector]
     public GameObject player;
 
+    public bool GoblinSpotted = false;
+
     #endregion
     #region Enemy AI Movement Stats
     [HideInInspector]
     public float followDistance;
+
+    [HideInInspector]
+    public float goblinFollowDistance = 150f;
 
     [HideInInspector]
     ///<summary>This is the distance from the player the enemy wills top at</summary>
@@ -170,16 +175,29 @@ public class Enemy : Unit
 
         distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-        if (distanceToPlayer < followDistance)
+        if (!GoblinSpotted)
         {
-            if (Mathf.Abs(yDistance) < 9)
+            if (distanceToPlayer < followDistance)
             {
-                Astar.canMove = true;
+                if (Mathf.Abs(yDistance) < 9)
+                {
+                    Astar.canMove = true;
+                }
+            }
+            else
+            {
+                Astar.canMove = false;
             }
         }
-        else
+        else if (GoblinSpotted)
         {
-            Astar.canMove = false;
+            if (distanceToPlayer < goblinFollowDistance)
+            {
+                if (Mathf.Abs(yDistance) < 100)
+                {
+                    Astar.canMove = true;
+                }
+            }
         }
 
         if (isGrounded)
