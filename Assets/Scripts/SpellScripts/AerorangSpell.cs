@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AerorangSpell : MonoBehaviour
+public class AerorangSpell : Spell
 {
     [HideInInspector]
     public GameObject player;
@@ -77,7 +77,7 @@ public class AerorangSpell : MonoBehaviour
     }
 
 
-    private void Update()
+    private void FixedUpdate()
     {
 
 
@@ -126,7 +126,19 @@ public class AerorangSpell : MonoBehaviour
     }
 
 
-    public void OnTriggerEnter(Collider other)
+    public override void TriggerSpell(GameObject target)
+    {
+        target.GetComponent<IDamageable>().TakeDamage(stats.damage);
+    }
+
+    public override void Move()
+    {
+        ///Activate the movement logic here
+        return;
+    }
+
+
+    public override void  OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {

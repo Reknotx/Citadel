@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoxSpell : MonoBehaviour
+public class PoxSpell : Spell
 {
 
     public int startSize = 1;
@@ -30,7 +30,7 @@ public class PoxSpell : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         transform.localScale = Vector3.Lerp(transform.localScale, targetScale,  Time.deltaTime / speed);
         ChangeSize(true);
@@ -46,6 +46,17 @@ public class PoxSpell : MonoBehaviour
         }
     }
 
+
+    public override void TriggerSpell(GameObject target)
+    {
+        target.GetComponent<IDamageable>().TakeDamage(stats.damage);
+    }
+
+    public override void Move()
+    {
+        ///Activate the movement logic here
+        return;
+    }
 
     public void ChangeSize(bool bigger)
     {

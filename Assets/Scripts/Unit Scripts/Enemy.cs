@@ -423,11 +423,12 @@ public class Enemy : Unit
             }
         }
 
-
+        /*
         if (other.gameObject.tag == "Aerorang")
         {
             TakeDamage(other.GetComponent<AerorangSpell>().spellDamage);
         }
+        */
     }
 
     IEnumerator IsJumping()
