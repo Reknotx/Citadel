@@ -395,8 +395,18 @@ public class Enemy : Unit
             }
         }
 
+        if (other.gameObject.tag == "Pox")
+        {
+            if (poisoned == false)
+            {
+                poisonedDuration = 5f;
+                poisonedDamage = 3;
+                StartCoroutine(poisonedCoroutine());
+            }
+        }
 
-        if(other.gameObject.tag == "Aerorang")
+
+        if (other.gameObject.tag == "Aerorang")
         {
             TakeDamage(other.GetComponent<AerorangSpell>().spellDamage);
         }
