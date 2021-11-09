@@ -111,6 +111,14 @@ public class Unit : MonoBehaviour, IDamageable
     [HideInInspector]
     protected bool onFire;
 
+    /// <summary> this determines if the unit is poisoned or not </summary>
+    [HideInInspector]
+    protected bool poisoned;
+
+    /// <summary> this determines if the unit has recently taken ticking poison damage </summary>
+    [HideInInspector]
+    protected bool poisonDamageTaken;
+
     /// <summary> this determines if the unit has recently taken ticking fire damage </summary>
     [HideInInspector]
     protected bool fireDamageTaken;
@@ -150,6 +158,22 @@ public class Unit : MonoBehaviour, IDamageable
     [HideInInspector]
     protected float onFireDamageDelay = 2f;
 
+    /// <summary> this determines how long the unit will be on fire for</summary>
+    [HideInInspector]
+    protected float poisonedDuration;
+
+    /// <summary> this determines how much damage per tick will be applied to the unit</summary>
+    [HideInInspector]
+    protected int poisonedDamage;
+
+    /// <summary> this determines how quickly on fire damage will tick against health </summary>
+    [HideInInspector]
+    protected float poisonedDamageRate = 1f;
+
+    /// <summary> This determines the delay between taking on fire damage</summary>
+    [HideInInspector]
+    protected float poisonedDamageDelay = 2f;
+
     #endregion
     public virtual void Update()
     {
@@ -164,7 +188,14 @@ public class Unit : MonoBehaviour, IDamageable
             onFireDamageDelay = 2f;
         }
 
-      
+        poisonedDamageDelay -= Time.deltaTime * poisonedDamageRate;
+        if (poisonedDamageDelay <= 0)
+        {
+            poisonDamageTaken = false;
+            poisonedDamageDelay = 2f;
+        }
+
+
     }
 
     /// Author: Chase O'Connor
@@ -203,6 +234,14 @@ public class Unit : MonoBehaviour, IDamageable
         onFire = true;
         yield return new WaitForSeconds(onFireDuration);
         onFire = false;
+    }
+    
+    public IEnumerator poisonedCoroutine()
+    {
+
+        poisoned = true;
+        yield return new WaitForSeconds(poisonedDuration);
+        poisoned = false;
     }
 
     
