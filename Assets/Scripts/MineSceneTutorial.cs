@@ -57,23 +57,26 @@ public class MineSceneTutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(index+1 >= instroTracker.Length)
+        if (currentScene == "MineScene")
         {
-            TipButton.gameObject.SetActive(false);
-        }
-
-        if (closeTut)
-        {
-            PlayerPrefs.SetInt("TutorialHasPlayed", 1);
-            for (int i = 0; i < instroTracker.Length; i++)
+            if (index + 1 >= instroTracker.Length)
             {
-                instroTracker[index].gameObject.SetActive(false);
-                TutButton.gameObject.SetActive(false);
                 TipButton.gameObject.SetActive(false);
-                
             }
-            
-        }
+
+            if (closeTut)
+            {
+                PlayerPrefs.SetInt("TutorialHasPlayed", 1);
+                for (int i = 0; i < instroTracker.Length; i++)
+                {
+                    instroTracker[index].gameObject.SetActive(false);
+                    TutButton.gameObject.SetActive(false);
+                    TipButton.gameObject.SetActive(false);
+
+                }
+
+            }
+        }     
     }
 
     public void Next()

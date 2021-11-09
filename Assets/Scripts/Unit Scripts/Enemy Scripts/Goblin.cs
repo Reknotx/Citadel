@@ -85,6 +85,11 @@ public class Goblin : Enemy
             Astar.canMove = true;
         }*/
 
+        if(distanceToPlayer < followDistance)
+        {
+            GoblinSpotted = true;
+        }
+
         if (distanceToPlayer <= goblinMeleeRange)
         {
             if (canAttack)
