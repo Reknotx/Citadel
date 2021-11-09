@@ -27,6 +27,7 @@ namespace Map
 
         public RoomInfo roomInfo;
         public GameObject fog;
+        public GameObject enemiesParent;
 
         [HideInInspector]
         public bool fogEnabledOnStart = true;
@@ -70,6 +71,12 @@ namespace Map
             {
                 fog.SetActive(true);
                 fog.GetComponent<MeshRenderer>().enabled = true;
+            }
+
+            foreach (Transform enemy in enemiesParent.transform)
+            {
+                enemies.Add(enemy.gameObject);
+                enemy.gameObject.SetActive(false);
             }
         }
 

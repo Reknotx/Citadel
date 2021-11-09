@@ -50,6 +50,9 @@ public class GoldHandler : MonoBehaviour
         set
         {
             _myHardGold = value;
+            if (_myHardGold < 0) 
+                _myHardGold = 0;
+
             if (hardGoldText != null)
                 hardGoldText.text = (int)MyHardGold + "g";
         }
