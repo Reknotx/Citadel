@@ -268,8 +268,12 @@ public class Player : Unit, IDamageable
     [HideInInspector]
     public bool canPass = true;
 
+    [HideInInspector]
     public bool invulnActive = false;
 
+
+    //[HideInInspector]
+    public bool pauseActive = false;
     #endregion
             #region Bool/int Equipment
 
@@ -514,6 +518,15 @@ public class Player : Unit, IDamageable
             StartCoroutine(IcicleCoroutine());
         }
        
+
+        if(pauseActive == true)
+        {
+            canMove = false;
+        }
+        else
+        {
+            canMove = true;
+        }
 
 
         
@@ -859,7 +872,8 @@ public class Player : Unit, IDamageable
     public void Escape(InputAction.CallbackContext context)
     {
         PauseMenu.Instance.gameObject.SetActive(true);
-        return;
+        pauseActive = !pauseActive;
+      //  return;
     }
 
 
