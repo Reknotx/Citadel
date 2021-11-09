@@ -74,9 +74,9 @@ public class MinesShop : MonoBehaviour
     {
         minecartCost.text = "Purchase Mine Cart: " + baseCartCost;
         minerCost.text = "Purchase Miner: " + baseMinerCost;
-        minerCost.text = "Purchase Magical Pick: " + basePickCost;
-        minerCost.text = "Purchase Giant Mole: " + baseMoleCost;
-        minerCost.text = "Purchase Spelunking Wizard: " + baseWizardCost;
+        pickCost.text = "Purchase Magical Pick: " + basePickCost;
+        moleCost.text = "Purchase Giant Mole: " + baseMoleCost;
+        wizardCost.text = "Purchase Spelunking Wizard: " + baseWizardCost;
     }
 
     public void PurchaseMiner()
@@ -85,7 +85,7 @@ public class MinesShop : MonoBehaviour
         {
             gold.numOfMiners += 1;
             gold.MyHardGold -= baseMinerCost;
-            baseMinerCost += (minerCostIncrease * gold.numOfMiners);
+            baseMinerCost += (minerCostIncrease);
         }
     }
 
@@ -98,7 +98,7 @@ public class MinesShop : MonoBehaviour
         {
             gold.numOfCarts += 1;
             gold.MyHardGold -= baseCartCost;
-            baseCartCost += (cartCostIncrease * gold.numOfCarts);
+            baseCartCost += (cartCostIncrease);
         }
     }
 
@@ -108,7 +108,7 @@ public class MinesShop : MonoBehaviour
         {
             gold.numOfPicks += 1;
             gold.MyHardGold -= basePickCost;
-            basePickCost += (pickCostIncrease * gold.numOfPicks);
+            basePickCost += (pickCostIncrease);
         }
     }
 
@@ -118,7 +118,7 @@ public class MinesShop : MonoBehaviour
         {
             gold.numOfMoles += 1;
             gold.MyHardGold -= baseMoleCost;
-            baseMoleCost += (moleCostIncrease * gold.numOfMoles);
+            baseMoleCost += (moleCostIncrease);
         }
     }
 
@@ -128,7 +128,7 @@ public class MinesShop : MonoBehaviour
         {
             gold.numOfWizards += 1;
             gold.MyHardGold -= baseWizardCost;
-            baseWizardCost += (wizardCostIncrease * gold.numOfWizards);
+            baseWizardCost += (wizardCostIncrease);
         }
     }
 }
