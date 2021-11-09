@@ -254,6 +254,7 @@ public class ReboundSpell : Spell
     public override void TriggerSpell(GameObject target)
     {
         target.GetComponent<IDamageable>().TakeDamage(stats.damage);
+        Destroy(this.gameObject);
     }
 
     public override void Move()

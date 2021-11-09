@@ -1823,6 +1823,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.88235295
       objectReference: {fileID: 0}
+    - target: {fileID: 1627281310822418437, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1794231162585051906, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
       propertyPath: TipButton
       value: 
@@ -1901,6 +1905,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3042122612190196581, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495688422867869959, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4640540087166160471, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
@@ -2128,12 +2136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gold: {fileID: 199330502}
-  baseMinerCost: 50
   minerCostIncrease: 75
-  baseCartCost: 1200
-  basePickCost: 500
-  baseMoleCost: 20000
-  baseWizardCost: 100000
   cartCostIncrease: 1500
   pickCostIncrease: 600
   moleCostIncrease: 25000

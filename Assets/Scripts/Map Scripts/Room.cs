@@ -97,6 +97,7 @@ namespace Map
             ///Turn on all the enemies.
             foreach (GameObject enemy in enemies)
             {
+                if (enemy != null)
                 enemy.SetActive(true);
             }
             ///Adjust the grid position for the astar path   
@@ -112,6 +113,7 @@ namespace Map
         {
             foreach (GameObject enemy in enemies)
             {
+                if(enemy != null)
                 enemy.SetActive(false);
             }
         }
