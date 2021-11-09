@@ -66,10 +66,15 @@ public class LifeManaHandler : MonoBehaviour
     /// <summary>
     /// Sets life and mana to their base values when the scene loads in.
     /// </summary>
+
+    public GameObject player;
     void Start()
     {
-        currentLife = myLife;
-        currentMana = myMana;
+        player = GameObject.FindGameObjectWithTag("Player");
+        currentLife = player.GetComponent<Player>().myHealth;
+        currentMana = player.GetComponent<Player>().myMana;
+        myLife = player.GetComponent<Player>().maxHealth;
+        myMana = player.GetComponent<Player>().maxMana;
     }
 
     /// <summary>
@@ -78,12 +83,12 @@ public class LifeManaHandler : MonoBehaviour
     void FixedUpdate()
     {
         ///Calculate the player's current life and display the proper amount in UI
-        calculateLife = currentLife / myLife;
+        calculateLife = player.GetComponent<Player>().myHealth / player.GetComponent<Player>().maxHealth;
         healthBar.fillAmount = Mathf.MoveTowards(healthBar.fillAmount, calculateLife, Time.deltaTime);
         healthText.text = "" + (int)currentLife;
 
         ///Calculate the player's current mana and display the proper amount in UI
-        calculateMana = currentMana / myMana;
+        calculateMana = player.GetComponent<Player>().myMana / player.GetComponent<Player>().maxMana;
         manaBar.fillAmount = Mathf.MoveTowards(manaBar.fillAmount, calculateMana, Time.deltaTime);
         manaText.text = "" + (int)currentMana;
     }
