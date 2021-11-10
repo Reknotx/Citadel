@@ -15,7 +15,7 @@ using UnityEngine.UI;
 public class SceneManagerScript : MonoBehaviour
 {
     #region Bool Determinates 
-    
+
 
     /// <summary> this stores the ingame objects of the camp ui buttons  </summary>
     public GameObject campButtons;
@@ -32,7 +32,12 @@ public class SceneManagerScript : MonoBehaviour
     /// <summary> this tracks what the active scene name is  </summary>
     public Scene activeScene;
     public string activeSceneName;
+
+    ///<summary> Makes it so camp shop tutorial only appears when the player opens the camp shop</summary>
+    public CampShopTutorial CST;
     #endregion
+
+    
 
     GameObject player;
    public GameObject shopUI;
@@ -65,6 +70,7 @@ public class SceneManagerScript : MonoBehaviour
     private void Awake()
     {
         GameObject player = GameObject.FindWithTag("Player");
+
     }
 
     private void Update()
@@ -112,12 +118,12 @@ public class SceneManagerScript : MonoBehaviour
     /// <summary> this takes the player to the camp shop scene </summary>
     public void goToCampShop()
     {
+
+        CST.openCampShop = true;
         GameObject player = GameObject.FindWithTag("Player");
         player.GetComponent<Player>().inCampShop = true;
         campButtons.SetActive(false);
-        campShopButtons.SetActive(true);
-
-        
+        campShopButtons.SetActive(true);   
       
         shopUI.SetActive(true);
 
@@ -135,9 +141,6 @@ public class SceneManagerScript : MonoBehaviour
        // player.GetComponent<Player>().canMove = false;
             //campButtons.SetActive(false);wda
             SceneManager.LoadScene(6);
-
-            
-
 
         }
         
@@ -204,7 +207,11 @@ public class SceneManagerScript : MonoBehaviour
     {
         Application.Quit();
     }
-
+    
+    public void toBoss()
+    {
+        SceneManager.LoadScene(9);
+    }
 
   
     

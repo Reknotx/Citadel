@@ -11,13 +11,14 @@
 
 
 using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using Interactables;
+using Menu;
+using UnityEngine.UI;
 
-public class Player : Unit
+public class Player : Unit, IDamageable
 {
 
     public static Player Instance;
@@ -129,11 +130,13 @@ public class Player : Unit
 
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
-    public Collider _wallCollider;
+   
+
+   // public Collider _wallCollider;
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
-    [SerializeField]
-    protected Collider _hitboxCollider;
+   // [SerializeField]
+   // protected Collider _hitboxCollider;
 
     ///<summary>This is the range of detection to the ground.</summary>
     private float _Reach = 1f;
@@ -144,6 +147,7 @@ public class Player : Unit
     ///<summary>This tracks what direction the player is facing.</summary>
     //[HideInInspector]
     public bool facingRightLocal;
+
 
     #endregion
             #region Player's Attack Stats/Spell Prefabs
@@ -164,6 +168,9 @@ public class Player : Unit
 
     /// <summary>this is the physical gameobject that is cast during the icicle spell</summary>
     public GameObject icicle_prefab;
+
+    /// <summary>this is the physical gameobject that is cast during the aerorang spell</summary>
+    public GameObject Aerorang_prefab;
 
     ///<summary>This is the location spells will be cast on the left side of the unit.</summary>
     [SerializeField]
@@ -226,33 +233,42 @@ public class Player : Unit
     /// <summary> this keeps track of if the player is in the mine shop or not  </summary>
     public bool inMineShop = false;
 
-   // [HideInInspector]
+    [HideInInspector]
     public bool grounded;
 
-    [HideInInspector]
-    ///<summary>This determines whether the unit is going through a platform or not.</summary>
-    public new bool throughPlatform;
+    
 
+    [HideInInspector]
     public bool dropping = false;
 
+    [HideInInspector]
     public bool hittingWallRight = false;
+
+    [HideInInspector]
     public bool hittingWallLeft = false;
 
     [HideInInspector]
     public bool isRunning = false;
 
-   // [HideInInspector]
+   [HideInInspector]
     public bool isFalling = false;
 
     [HideInInspector]
     public bool isAttacking = false;
 
+    [HideInInspector]
     public bool dmgPlayerByTick = false;
 
     [HideInInspector]
     public bool shieldActive;
 
+    [HideInInspector]
     public bool usingPotion = false;
+
+    [HideInInspector]
+    public bool canPass = true;
+
+    public bool invulnActive = false;
 
     #endregion
             #region Bool/int Equipment
@@ -263,8 +279,8 @@ public class Player : Unit
     public bool spellStone = false;
     public bool floatingShield = false;
     public bool medicineStash = false;
-    [HideInInspector]
-    public GameObject flotingShieldObj;
+    //[HideInInspector]
+    public GameObject floatingShieldObj;
 
     public int healthPotions = 0;
     public int manaPotions = 0;
@@ -285,7 +301,11 @@ public class Player : Unit
     private bool triggered = false;
     private float animationFinishTime = .5f;
 
+    [HideInInspector]
+    public bool isCastingIcicle;
+
     #endregion
+    
             #region health and mana bars
     [Header("player health and mana bars")]
     /// <summary>
@@ -309,8 +329,13 @@ public class Player : Unit
     public Text manaText;
 
 
-    #endregion
+    /// <summary>
+    /// Tracks the images shown depending on which spell the player has and which action slot the spell is assigned to
+    /// </summary>
+    
 
+    #endregion
+        
     #endregion
 
 
@@ -351,9 +376,6 @@ public class Player : Unit
 
         base.Update();
 
-
-
-
         #region Player Stat/Item controls
         Application.targetFrameRate = 60;
         facingRightLocal = facingRight;
@@ -393,7 +415,7 @@ public class Player : Unit
 
         if (floatingShield)
         {
-            flotingShieldObj.SetActive(true);
+            floatingShieldObj.SetActive(true);
         }
         if (medicineStash == true)
         {
@@ -411,20 +433,24 @@ public class Player : Unit
 
         if (canMove == true)
         {
-            
-                Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
-                _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
-                _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-          
+            if(isRunning && !hittingWallLeft && !hittingWallRight)
+            {
+                    Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
+                    _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
+                    _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+            }
+               
+                
            
 
 
               if (animator != null)
               {
-                animator.SetBool("isRunning", isRunning);
-                animator.SetBool("isJumping", isJumping);
-                animator.SetBool("isFalling", isFalling);
-                animator.SetBool("isGrounded", isGrounded);
+                    animator.SetBool("isRunning", isRunning);
+                    animator.SetBool("isJumping", isJumping);
+                    animator.SetBool("isFalling", isFalling);
+                    animator.SetBool("isGrounded", isGrounded);
+                    animator.SetBool("Icicle", isCastingIcicle);
               }
                 
         }
@@ -465,8 +491,29 @@ public class Player : Unit
             isFalling = true;
         }
 
+        if(isGrounded)
+        {
+            hittingWallLeft = false;
+            hittingWallRight = false;
+        }
+
+        if (facingRight)
+        {
+            hittingWallLeft = false;
+        }
+        else
+        {
+            hittingWallRight = false;
+        }
+
+        if(isCastingIcicle)
+        {
+            StartCoroutine(IcicleCoroutine());
+        }
+       
 
 
+        
 
 
 
@@ -480,14 +527,14 @@ public class Player : Unit
         {
             onPlatform = true;
             isJumping = false;
-            dropping = true;
+            
 
-
+           
 
         }
         else
         {
-            dropping = false;
+            
             onPlatform = false;
            
         }
@@ -504,33 +551,48 @@ public class Player : Unit
             isGrounded = false;
         }
 
-        int layermask = 1 << 30;
-
+       
         ///<summary>This determines whether the unit is on the ground or not.</summary>
         var wallCheck = transform.TransformDirection(Vector3.right);
-        Debug.DrawRay(transform.position, wallCheck * _Reach, Color.red);
-        if (Physics.BoxCast(_wallCollider.transform.position, _wallCollider.transform.position/2, wallCheck, transform.rotation,_Reach, layermask) && hit.transform.tag == "ground" )
+        Debug.DrawRay(transform.position, wallCheck * _Reach/2, Color.red);
+        if (Physics.Raycast(transform.position, wallCheck, out hit, _Reach/2) && hit.transform.tag == "ground")
         {
+            if(facingRight && !isGrounded)
+            {
+                hittingWallRight = true;
+            }
+            else
+            {
+               hittingWallRight = false;
+            }
             
-            hittingWallRight = true;
+        
+        
         }
-        else
+        else if(isGrounded)
         {
             hittingWallRight = false;
         }
 
         var wallCheck2 = transform.TransformDirection(Vector3.left);
-        Debug.DrawRay(transform.position, wallCheck2 * _Reach, Color.red);
-        if (Physics.Raycast(transform.position, wallCheck2, out hit, _Reach) && hit.transform.tag == "ground")
+        Debug.DrawRay(transform.position, wallCheck2 * _Reach/2, Color.red);
+        if (Physics.Raycast(transform.position, wallCheck2, out hit, _Reach/2) && hit.transform.tag == "ground")
         {
-           
-            hittingWallLeft = true;
+           if(!facingRight && !isGrounded)
+           {
+                hittingWallLeft = true;
+           }
+           else
+           {
+              hittingWallLeft = false;
+           }
+       
+        
         }
-        else
+        else if (isGrounded)
         {
             hittingWallLeft = false;
         }
-
 
 
 
@@ -568,6 +630,8 @@ public class Player : Unit
         
     }
 
+    #region health and mana bar functionality
+
     private void FixedUpdate()
     {
         if (healthBar != null)
@@ -584,6 +648,8 @@ public class Player : Unit
             manaText.text = "" + myMana;
         }
     }
+
+    #endregion
 
 
     #region health/mana reduction + reset methods
@@ -625,8 +691,8 @@ public class Player : Unit
         base.TakeDamage(amount);
     }
 
-   
-      /// <param name="mana">Amount of mana lost by the player for casting a spell</param>
+
+    /// <param name="mana">Amount of mana lost by the player for casting a spell</param>
     public void ReduceMana(float mana)
     {
         myMana -= mana;
@@ -688,7 +754,7 @@ public class Player : Unit
         
         float timeToApex = maxJumpTime / 2;
         gravity = (-2 * maxJumpHeight) / Mathf.Pow(timeToApex, 2);
-        initialJumpVelocity = (2 * maxJumpHeight) / timeToApex;
+        //initialJumpVelocity = (2 * maxJumpHeight) / timeToApex;
     }
 
     void handleGravity()
@@ -770,16 +836,10 @@ public class Player : Unit
     public void Drop(InputAction.CallbackContext context)
     {
         isDropPressed = context.ReadValueAsButton();
-        if (onPlatform == true)
-        {
-           
-            onPlatform = false;
-            isGrounded = false;
-            dropping = true;
-            //StartCoroutine(dropDown());
-            //throughPlatform = true;
-            myVelocity = new Vector2(_rigidBody.velocity.x, -16);
-        }
+        
+        
+        
+
     }
 
     public void Interact(InputAction.CallbackContext context)
@@ -790,10 +850,17 @@ public class Player : Unit
             
         }
     }
-    
 
 
-   
+
+    public void Escape(InputAction.CallbackContext context)
+    {
+        PauseMenu.Instance.gameObject.SetActive(true);
+        return;
+    }
+
+
+
 
     #endregion
     #region Player Spells
@@ -851,6 +918,7 @@ public class Player : Unit
     {
         if (canCast == true && myMana >= 10)
         {
+            isCastingIcicle = true;
             if (spellStone == true)
             {
 
@@ -880,9 +948,80 @@ public class Player : Unit
                 canCast = false;
             }
         }
-
+        
 
     }
+
+
+
+    public void aerorang()
+    {
+        if (canCast == true && myMana >= 10)
+        {
+            
+            if (spellStone == true)
+            {
+
+                ReduceMana(7);
+            }
+            else
+            {
+
+                ReduceMana(10);
+            }
+
+            ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
+            if (facingRight == true)
+            {
+
+                var Aerorang = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().Aerorang_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
+                //Aerorang.GetComponent<Rigidbody>().velocity = Aerorang.transform.right * 12;
+                
+
+                canCast = false;
+            }
+            else
+            {
+
+                var Aerorang = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().Aerorang_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
+               // Aerorang.GetComponent<Rigidbody>().velocity = Aerorang.transform.right * -12;
+
+                canCast = false;
+            }
+        }
+    }
+
+
+    public void invuln()
+    {
+        if (canCast == true && myMana >= 10 && !invulnActive)
+        {
+
+            if (spellStone == true)
+            {
+
+                ReduceMana(7);
+            }
+            else
+            {
+
+                ReduceMana(10);
+            }
+
+            ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
+            if (invulnActive == false)
+            {
+
+                invulnActive = true;
+                StartCoroutine(InvulnCoroutine());
+
+
+                canCast = false;
+            }
+            
+        }
+    }
+
     #endregion
     #region Unit Melee Attacks
     /// <summary> This is the attacking function  </summary>
@@ -1033,22 +1172,35 @@ public class Player : Unit
         if(Attack1 == "Light Attack")
         {
             lightAttack();
+            
         }
         else if (Attack1 == "Heavy Attack")
         {
             heavyAttack();
+            
         }
         else if (Attack1 == "Fire Wall")
         {
             fireWall();
+            
         }
         else if (Attack1 == "Icicle")
         {
             icicle();
+            
+        }
+        else if(Attack1 == "Aerorang")
+        {
+            aerorang();
+        }
+        else if (Attack1 == "Invuln")
+        {
+            invuln();
         }
         else
         {
             lightAttack();
+            
         }
     }
     public void actionCheck2()
@@ -1056,22 +1208,35 @@ public class Player : Unit
         if (Attack2 == "Light Attack")
         {
             lightAttack();
+            
         }
         else if (Attack2 == "Heavy Attack")
         {
             heavyAttack();
+            
         }
         else if (Attack2 == "Fire Wall")
         {
             fireWall();
+            
         }
         else if (Attack2 == "Icicle")
         {
             icicle();
+            
+        }
+        else if (Attack2 == "Aerorang")
+        {
+            aerorang();
+        }
+        else if (Attack2 == "Invuln")
+        {
+            invuln();
         }
         else
         {
             lightAttack();
+            
         }
     }
     public void actionCheck3()
@@ -1079,6 +1244,7 @@ public class Player : Unit
         if (Attack3 == "Light Attack")
         {
             lightAttack();
+
         }
         else if (Attack3 == "Heavy Attack")
         {
@@ -1087,14 +1253,24 @@ public class Player : Unit
         else if (Attack3 == "Fire Wall")
         {
             fireWall();
+
         }
         else if (Attack3 == "Icicle")
         {
             icicle();
         }
+        else if (Attack3 == "Aerorang")
+        {
+            aerorang();
+        }
+        else if (Attack3 == "Invuln")
+        {
+            invuln();
+        }
         else
         {
             lightAttack();
+
         }
     }
 
@@ -1155,6 +1331,9 @@ public class Player : Unit
 
         #region ground/platform/camp collisions
 
+
+       
+
         if (other.gameObject.tag =="ground")
         {
             _groundCollider.enabled = true;
@@ -1164,11 +1343,7 @@ public class Player : Unit
 
    public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "platform")
-        {
-            _groundCollider.enabled = true;
-          
-        }
+        
  
         if (other.gameObject.tag == "MineEntrance")
         {
@@ -1201,10 +1376,6 @@ public class Player : Unit
 
 
     #endregion
-
-
-
-  
 
 
     #region player IEnumerators
@@ -1287,49 +1458,41 @@ public class Player : Unit
 
 
         invulnerable = false;
+
     }
 
+    /*
     /// <summary> this allows units to drop through platforms </summary>
-    public IEnumerator dropDown()
-    {
-        
-      
-       // _groundCollider.enabled = false;
-        onPlatform = false;
-        isGrounded = false;
-        isFalling = true;
-
-        var groundCheck = transform.TransformDirection(Vector3.down);
-        Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
-        if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "platform")
-        {
-           
-            hit.transform.gameObject.GetComponent<PlatformColliderControllerScript>().isPassing = true;
-
-
-
-        }
-
-
-
-        yield return new WaitForSeconds(.5f);
-        var roofCheck = transform.TransformDirection(Vector3.up);
-        Debug.DrawRay(transform.position, roofCheck * _Reach, Color.red);
-        if (Physics.Raycast(transform.position, roofCheck, out hit, _Reach) && hit.transform.tag == "platform")
-        {
-            
-            hit.transform.gameObject.GetComponent<PlatformColliderControllerScript>().passingComplete = true;
-
-        }
-        //_groundCollider.enabled = true;
-
-    }
+    
 
     public IEnumerator InvicibilityFrames()
     {
         _hitboxCollider.enabled = false;
         yield return new WaitForSeconds(1f);
         _hitboxCollider.enabled = true;
+    }
+
+    */
+    public IEnumerator PassThroughCoroutine()
+    {
+        //canPass = false;
+        yield return new WaitForSeconds(.5f);
+        
+        canPass = true;
+    }
+
+    public IEnumerator IcicleCoroutine()
+    {
+        
+        yield return new WaitForSeconds(.3f);
+
+        isCastingIcicle = false ;
+    }
+
+    public IEnumerator InvulnCoroutine()
+    {
+        yield return new WaitForSeconds(5f);
+        invulnActive = false;
     }
     #endregion
 }
