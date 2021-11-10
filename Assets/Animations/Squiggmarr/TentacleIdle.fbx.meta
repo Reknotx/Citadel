@@ -5,7 +5,7 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Take 001
+    second: Idle
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -26,14 +26,43 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 1
+      lastFrame: 33
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -55,7 +84,7 @@ ModelImporter:
     bakeAxisConversion: 0
     preserveHierarchy: 0
     skinWeightsMode: 0
-    maxBonesPerVertex: 4
+    maxBonesPerVertex: 10
     minBoneWeight: 0.001
     meshOptimizationFlags: -1
     indexFormat: 0
@@ -80,7 +109,82 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: TentacleIdle(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: TentacleCTRL
+      parentName: TentacleIdle(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: 0.47055668, z: -0, w: 0.8823698}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Squigg_Tentacle_for_animating:squigg_tentacle
+      parentName: TentacleIdle(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Squigg_Tentacle_for_animating:SquiggTentacle_Armature
+      parentName: TentacleIdle(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Squigg_Tentacle_for_animating:Root
+      parentName: Squigg_Tentacle_for_animating:SquiggTentacle_Armature
+      position: {x: 0.000013684708, y: 0, z: 0}
+      rotation: {x: 0.71938896, y: -0.0044860034, z: -0.0046462533, w: 0.69457746}
+      scale: {x: 0.9999998, y: 0.9999999, z: 0.9999998}
+    - name: Squigg_Tentacle_for_animating:Joint1
+      parentName: Squigg_Tentacle_for_animating:Root
+      position: {x: -0.0000010140787, y: 0.004430804, z: -0.000078502846}
+      rotation: {x: -0.017502785, y: -0.056222998, z: 0.0012127571, w: 0.9982641}
+      scale: {x: 1, y: 0.9999999, z: 1}
+    - name: Squigg_Tentacle_for_animating:Joint2
+      parentName: Squigg_Tentacle_for_animating:Joint1
+      position: {x: 3.860703e-12, y: 0.00551882, z: 8.114687e-12}
+      rotation: {x: 0.0000000055879354, y: -0.01607215, z: 3.4924597e-10, w: 0.9998709}
+      scale: {x: 1.0000001, y: 0.9999999, z: 1.0000002}
+    - name: Squigg_Tentacle_for_animating:Joint3
+      parentName: Squigg_Tentacle_for_animating:Joint2
+      position: {x: 8.265487e-11, y: 0.0065403357, z: 5.8353176e-11}
+      rotation: {x: -0.000000014987592, y: 0.03740838, z: -0.0000000063133596, w: 0.99930006}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: Squigg_Tentacle_for_animating:Joint4
+      parentName: Squigg_Tentacle_for_animating:Joint3
+      position: {x: 2.6246168e-11, y: 0.00492249, z: 3.0161543e-10}
+      rotation: {x: 0.0000000014412028, y: 0.09480693, z: -0.0000000088359835, w: 0.9954957}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: Squigg_Tentacle_for_animating:Joint5
+      parentName: Squigg_Tentacle_for_animating:Joint4
+      position: {x: -8.083913e-11, y: 0.0048247217, z: 6.848999e-11}
+      rotation: {x: 0.09231331, y: 0.03657079, z: -0.5982132, w: 0.7951615}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Squigg_Tentacle_for_animating:Joint6
+      parentName: Squigg_Tentacle_for_animating:Joint5
+      position: {x: 1.4549133e-13, y: 0.004003677, z: 1.1642572e-12}
+      rotation: {x: 0.024441201, y: 0.052007303, z: -0.09518314, w: 0.9937998}
+      scale: {x: 1.0000006, y: 1, z: 1.0000006}
+    - name: Squigg_Tentacle_for_animating:Joint7
+      parentName: Squigg_Tentacle_for_animating:Joint6
+      position: {x: -0, y: 0.0031707287, z: 2.0372681e-12}
+      rotation: {x: 0.000000015886584, y: -0.07332147, z: -0.000000012218021, w: 0.9973084}
+      scale: {x: 0.9999999, y: 1, z: 1}
+    - name: Squigg_Tentacle_for_animating:Joint8
+      parentName: Squigg_Tentacle_for_animating:Joint7
+      position: {x: -7.49165e-11, y: 0.0027077221, z: -1.7005881e-11}
+      rotation: {x: -0.000000012864198, y: -0.14182551, z: 0.000000036815578, w: 0.9898917}
+      scale: {x: 1.0000005, y: 1, z: 1.0000004}
+    - name: Squigg_Tentacle_for_animating:Joint9
+      parentName: Squigg_Tentacle_for_animating:Joint8
+      position: {x: -7.3341555e-11, y: 0.0024686693, z: 1.0331709e-11}
+      rotation: {x: -0.000000016768267, y: 0.021141434, z: -0.0000000013347901, w: 0.99977654}
+      scale: {x: 0.99999994, y: 0.9999999, z: 1}
+    - name: Squigg_Tentacle_for_animating:Joint9_end
+      parentName: Squigg_Tentacle_for_animating:Joint9
+      position: {x: -0, y: 0.0007089758, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -89,15 +193,15 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: 
+    rootMotionBoneName: Squigg_Tentacle_for_animating:SquiggTentacle_Armature
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 

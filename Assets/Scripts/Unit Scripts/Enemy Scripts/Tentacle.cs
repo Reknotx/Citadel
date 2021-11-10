@@ -28,6 +28,11 @@ public class Tentacle : MonoBehaviour, IDamageable
     private bool attacking = false;
     public int damage;
 
+
+    public Animator animator;
+
+    public bool isAttacking = false;
+
     ///Tentacles have their own individual health bars
     ///and are attached to squiggmar.
     ///
@@ -71,13 +76,21 @@ public class Tentacle : MonoBehaviour, IDamageable
         player = Player.Instance;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!trackPlayerY) return;
+
+        if (animator != null)
+        {
+            animator.SetBool("isAttacking", isAttacking);
+
+        }
 
         swipeStartPoint.y = player.transform.position.y;
         swipeEndPoint.y = swipeStartPoint.y;
         transform.position = new Vector3(swipeStartPoint.x, swipeStartPoint.y, 0f);
+
+        
     }
 
     public void Swipe()
@@ -91,20 +104,27 @@ public class Tentacle : MonoBehaviour, IDamageable
             
         transform.eulerAngles = new Vector3(0, 0, swipeFromRight ? 90 : -90);
 
+        isAttacking = true;
+
         StartCoroutine(SwipeMovement());
 
         trackPlayerY = true;
         ///Find the player's y position and set the tentacle's y position to that value
         ///After swipe is complete go back to neutral state
+        
+
     }
 
 
     void ReturnToIdle()
     {
+        isAttacking = false;
         transform.position = idlePos;
         transform.eulerAngles = Vector3.zero;
         attacking = false;
         Squiggmar.Instance.TentacleSwiping = false;
+
+        
     }
 
     public void OnTriggerEnter(Collider other)
@@ -144,6 +164,8 @@ public class Tentacle : MonoBehaviour, IDamageable
 
         }
 
+        isAttacking = false;
+        animator.SetBool("isAttacking", isAttacking);
         ReturnToIdle();
     }
 
