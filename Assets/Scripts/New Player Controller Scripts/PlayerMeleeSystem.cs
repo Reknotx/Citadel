@@ -2,37 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMeleeSystem : MonoBehaviour
+namespace CombatSystem
 {
-    
-
-    public void SwingSword(string meleeAttack)
+    public class PlayerMeleeSystem : MonoBehaviour
     {
-        switch (meleeAttack)
+        public void SwingSword(string meleeAttack)
         {
-            case "lightAttack":
-                LightAttack();
-                break;
+            switch (meleeAttack)
+            {
+                case "lightAttack":
+                    LightAttack();
+                    break;
 
-            case "heavyAttack":
-                HeavyAttack();
-                break;
+                case "heavyAttack":
+                    HeavyAttack();
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
-    }
 
+        private void LightAttack()
+        {
+            ///Swing the light attack and activate the sword and initiate the animation.
+            PlayerAnimationManager.Instance.PlayAnimation(PlayerAnimationManager.LIGHT_ATTACK);
+        }
 
-    private void LightAttack()
-    {
-        ///Swing the light attack and activate the sword and initiate the animation.
-        PlayerAnimationManager.Instance.PlayAnimation("LightAttack");
-    }
-
-
-    private void HeavyAttack()
-    {
-        
+        private void HeavyAttack()
+        {
+            PlayerAnimationManager.Instance.PlayAnimation(PlayerAnimationManager.HEAVY_ATTACK);
+        }
     }
 }

@@ -24,8 +24,10 @@ public class NewPlayer : Unit, IDamageable
 
     private bool grounded = true;
     public GameObject physicalBody;
-    private int groundLayer = 10;
-    private int platformLayer = 11;
+    private int groundLayer = 1 << 10;
+    private int platformLayer = 1 << 11;
+    private int solidGroundLayer = 1 << 31;
+    
     private int playerLayer = 7;
     private int ignorePlayerLayer = 12;
 
@@ -111,9 +113,9 @@ public class NewPlayer : Unit, IDamageable
             int layerMask;
             if (physicalBody.layer == ignorePlayerLayer)
             {
-                layerMask = 1 << groundLayer;
+                layerMask = groundLayer | solidGroundLayer;
             }
-            else layerMask = 1 << groundLayer | 1 << platformLayer;
+            else layerMask = groundLayer | solidGroundLayer | platformLayer;
 
 
             ///Here I'll want to do a physics cast instead of a ray cast
@@ -147,7 +149,7 @@ public class NewPlayer : Unit, IDamageable
             return Physics.CheckBox(transform.position,
                                     new Vector3(0.5f, 0.5f, 0.5f),
                                     Quaternion.identity,
-                                    1 << groundLayer | 1 << 31);
+                                    groundLayer | solidGroundLayer);
         }
 
         bool CheckForPlatform()
@@ -155,7 +157,7 @@ public class NewPlayer : Unit, IDamageable
             return Physics.CheckBox(transform.position,
                                     new Vector3(0.5f, 0.1f, 0.5f),
                                     Quaternion.identity,
-                                    1 << platformLayer);
+                                    platformLayer);
         }
     }
 
