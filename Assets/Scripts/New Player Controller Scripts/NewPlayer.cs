@@ -147,7 +147,7 @@ public class NewPlayer : Unit, IDamageable
             return Physics.CheckBox(transform.position,
                                     new Vector3(0.5f, 0.5f, 0.5f),
                                     Quaternion.identity,
-                                    1 << groundLayer);
+                                    1 << groundLayer | 1 << 31);
         }
 
         bool CheckForPlatform()
