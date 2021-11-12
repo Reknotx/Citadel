@@ -1,65 +1,70 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CombatSystem
 {
+    ///Need to handle the UI for the spell system
+    ///When the player doesn't have enough mana for a spell
+    ///the spell icon needs to be grayed out so it is obvious 
+    ///to the player that they don't have enough resources. 
+    ///The spell system will need to be updated
+    ///whenever mana is gained or spent.
+
+
+
     public class PlayerSpellSystem : MonoBehaviour
     {
-        public GameObject spellOne;
-        public GameObject spellTwo;
-        public GameObject spellThree;
-
-        public List<GameObject> acquiredSpells;
-
-        public void CastSpell(int spellSlot)
+        [System.Serializable]
+        public class SpellSlot
         {
-            GameObject spellToCast = null;
+            public GameObject spell;
 
+            public int manaCost;
 
-            switch (spellSlot)
+            public Image spellImage;
+
+            public Text manaCostText;
+
+            [HideInInspector]
+            public bool canCast = true;
+
+            public void AssignSpell(GameObject spell)
             {
-                case 1:
-                    spellToCast = spellOne;
-                    break;
-
-                case 2:
-                    spellToCast = spellTwo;
-                    break;
-
-                case 3:
-                    spellToCast = spellThree;
-                    break;
-
-                default:
-                    Debug.LogError("Input system setup incorrectly for spell system");
-                    return;
+                this.spell = spell;
+                manaCost = spell.GetComponent<Spell>().stats.manaCost;
+                spellImage = spell.GetComponent<Spell>().spellUIImage;
             }
 
+            public void CompareCurrManaToManaCost(int playerMana)
+            {
+                Color temp = spellImage.color;
+                temp.a = playerMana < manaCost ? 0.5f : 1f;
+                canCast = temp.a == 1f;
+                spellImage.color = temp;
+            }
+        }
+
+        [HideInInspector]
+        public List<GameObject> acquiredSpells;
+
+        public List<SpellSlot> spellSlots = new List<SpellSlot>(3);
+
+        public void CastSpell(int slotIndex)
+        {
+            if (!spellSlots[slotIndex].canCast) return;
+
+            GameObject spellToCast = spellSlots[slotIndex].spell;
+
             ///Apply force to spell or perform unique movement math
-            Instantiate(spellToCast);
+            GameObject spawnedSpell = Instantiate(spellToCast);
 
         }
 
-        public void SwapSpell(GameObject spell, int spellSlot)
+        public void SwapSpell(GameObject spell, int slotIndex)
         {
-            switch (spellSlot)
-            {
-                case 1:
-                    spellOne = spell;
-                    break;
-
-                case 2:
-                    spellTwo = spell;
-                    break;
-
-                case 3:
-                    spellThree = spell;
-                    break;
-            
-                default:
-                    break;
-            }
+            spellSlots[slotIndex].spell = spell;
         }
 
         /// <summary>
@@ -72,6 +77,15 @@ namespace CombatSystem
             //    Debug.LogError(newSpell.name + " does not have a spell script attached.");
 
             acquiredSpells.Add(newSpell);
+        }
+
+
+        public void UpdateSpellSystemUI(int playerMana)
+        {
+            foreach (SpellSlot spellSlot in spellSlots)
+            {
+                spellSlot.CompareCurrManaToManaCost(playerMana);
+            }
         }
     }
 }

@@ -39,7 +39,7 @@ namespace CombatSystem
             meleeSystem.SwingSword("heavyAttack");
         }
 
-        public void OnCastSpell(InputValue value)
+        public void OnCastSpell()
         {
             int spellSlot = 0;
 

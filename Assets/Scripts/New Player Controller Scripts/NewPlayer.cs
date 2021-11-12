@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using CombatSystem;
 
 
 public class NewPlayer : Unit, IDamageable
@@ -31,6 +32,7 @@ public class NewPlayer : Unit, IDamageable
     private int playerLayer = 7;
     private int ignorePlayerLayer = 12;
 
+    private PlayerCombatSystem combatSystem;
 
     public override float Health
     {
@@ -53,6 +55,20 @@ public class NewPlayer : Unit, IDamageable
         }
     }
 
+    private int _mana;
+
+    public int Mana
+    {
+        get => _mana;
+
+        set
+        {
+            _mana = value;
+
+            combatSystem.spellSystem.UpdateSpellSystemUI(_mana);
+        }
+    }
+
     public void Awake()
     {
         if (Instance != null & Instance != this)
@@ -67,7 +83,7 @@ public class NewPlayer : Unit, IDamageable
 
     public void Start()
     {
-
+        combatSystem = PlayerCombatSystem.Instance;
     }
 
     public override void Update()

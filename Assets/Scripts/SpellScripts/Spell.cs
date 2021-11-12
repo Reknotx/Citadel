@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Spell : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public abstract class Spell : MonoBehaviour
 
     [HideInInspector]
     public bool movingRight;
+
+    public Image spellUIImage;
 
     public abstract void TriggerSpell(GameObject target);
 
