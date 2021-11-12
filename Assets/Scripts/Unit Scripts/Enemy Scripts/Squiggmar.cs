@@ -139,9 +139,12 @@ public class Squiggmar : MonoBehaviour, IDamageable
     public void FixedUpdate()
     {
 
+        ///hunter added
+        ///tracks the health real time incase of sudden enemy death 
         if (_health <= 0)
         {
             _health = 0;
+
 
             ///this triggers the death animation and delays setting Active to false for a second to let the animation play
             isDead = true;
@@ -209,6 +212,8 @@ public class Squiggmar : MonoBehaviour, IDamageable
         bool moving = true;
         float startTime = Time.time;
 
+        ///hunter added 
+        ///starts the going up animation 
         isGoingUp = true;
         animator.SetBool("isGoingUp", isGoingUp);
 
@@ -233,6 +238,8 @@ public class Squiggmar : MonoBehaviour, IDamageable
 
         }
 
+        ///hunter added
+        ///ends the going up animation 
         isGoingUp = false;
         animator.SetBool("isGoingUp", isGoingUp);
 
