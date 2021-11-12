@@ -34,22 +34,39 @@ public class Tentacle : MonoBehaviour, IDamageable
 
     /// huter added 
     /// holds the animator and collider's posistion
+    /// 
+   
     #region For Animations 
     public Animator animator;
 
+    [HideInInspector]
     public bool isAttacking = false;
-    public bool isDead = false;
-    
 
+    [HideInInspector]
+    public bool isDead = false;
+
+    
     public BoxCollider myCollider;
+
+    [HideInInspector]
     public float colliderX;
+
+    [HideInInspector]
     public float colliderY;
+
+    [HideInInspector]
     public float colliderZ;
 
+    [HideInInspector]
     public float colliderStartX;
+
+    [HideInInspector]
     public float colliderStartY;
+
+    [HideInInspector]
     public float colliderStartZ;
 
+    [HideInInspector]
     public Vector3 colliderPos;
 
     #endregion
