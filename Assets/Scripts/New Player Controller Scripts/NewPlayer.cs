@@ -32,7 +32,7 @@ public class NewPlayer : Unit, IDamageable
     private int playerLayer = 7;
     private int ignorePlayerLayer = 12;
 
-    private PlayerCombatSystem combatSystem;
+    public PlayerCombatSystem combatSystem;
 
     public override float Health
     {

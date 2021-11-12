@@ -19,8 +19,10 @@ namespace CombatSystem
         [System.Serializable]
         public class SpellSlot
         {
+            [HideInInspector]
             public GameObject spell;
 
+            [HideInInspector]
             public int manaCost;
 
             public Image spellImage;
