@@ -12,8 +12,6 @@ namespace CombatSystem
     ///The spell system will need to be updated
     ///whenever mana is gained or spent.
 
-
-
     public class PlayerSpellSystem : MonoBehaviour
     {
         [System.Serializable]
@@ -52,6 +50,8 @@ namespace CombatSystem
         public List<GameObject> acquiredSpells;
 
         public List<SpellSlot> spellSlots = new List<SpellSlot>(3);
+
+        public SpellBook spellBook;
 
         public void CastSpell(int slotIndex)
         {

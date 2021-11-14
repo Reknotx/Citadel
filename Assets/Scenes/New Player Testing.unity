@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -505,14 +505,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1204021025, guid: 069fd06376c414145b66ada860487f28, type: 3}
-      propertyPath: meleeSystem
-      value: 
-      objectReference: {fileID: 1549449071}
-    - target: {fileID: 1204021025, guid: 069fd06376c414145b66ada860487f28, type: 3}
-      propertyPath: spellSystem
-      value: 
-      objectReference: {fileID: 1549449070}
     - target: {fileID: 2131343296872482392, guid: 069fd06376c414145b66ada860487f28, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -543,11 +535,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6091635305826757832, guid: 069fd06376c414145b66ada860487f28, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.38
+      value: -3.44
       objectReference: {fileID: 0}
     - target: {fileID: 6091635305826757832, guid: 069fd06376c414145b66ada860487f28, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.99
+      value: 1.67
       objectReference: {fileID: 0}
     - target: {fileID: 6091635305826757832, guid: 069fd06376c414145b66ada860487f28, type: 3}
       propertyPath: m_LocalPosition.z
@@ -609,38 +601,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8982486021092143146, guid: 069fd06376c414145b66ada860487f28, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 17.299988
-      objectReference: {fileID: 0}
-    - target: {fileID: 8982486021092143146, guid: 069fd06376c414145b66ada860487f28, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -17.400024
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 069fd06376c414145b66ada860487f28, type: 3}
---- !u!114 &1549449070 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1730398915, guid: 069fd06376c414145b66ada860487f28, type: 3}
-  m_PrefabInstance: {fileID: 1549449069}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a424772a7c66ffc41aa7902c3b709b72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1549449071 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5951186350026067719, guid: 069fd06376c414145b66ada860487f28, type: 3}
-  m_PrefabInstance: {fileID: 1549449069}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dedb7bc9d0164e4c95631de91c3863c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1558588558
 GameObject:
   m_ObjectHideFlags: 0
