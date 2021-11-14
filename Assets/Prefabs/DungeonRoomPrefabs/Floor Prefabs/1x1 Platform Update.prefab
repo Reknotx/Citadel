@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2067747434178306089}
   - component: {fileID: 658003486982314653}
   - component: {fileID: 7516070453797915683}
-  - component: {fileID: 607372774269561768}
   m_Layer: 0
   m_Name: Platform Model
   m_TagString: platform
@@ -91,28 +90,71 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1974724586588706763}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3, y: 0.25, z: 0.6666666}
   m_Center: {x: -1.5, y: 0.125, z: -0.3333333}
---- !u!114 &607372774269561768
-MonoBehaviour:
+--- !u!1 &6613236756589734084
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1974724586588706763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbd2aaa9156eac8499e7ced60760004b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPassing: 0
-  passingComplete: 0
-  myCollider: {fileID: 7516070453797915683}
-  passTime: 0.5
-  Player: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4175132787099313497}
+  m_Layer: 0
+  m_Name: 'down position '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4175132787099313497
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6613236756589734084}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.11921776, y: -0.26863003, z: 0}
+  m_LocalScale: {x: 3.0000002, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7013383358477169146}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6843113272435518988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7736255722098773147}
+  m_Layer: 0
+  m_Name: top position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7736255722098773147
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6843113272435518988}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.11921776, y: 0.48, z: 0}
+  m_LocalScale: {x: 3.0000002, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7013383358477169146}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6954595150312790389
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,6 +196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7013383358477169146}
   - component: {fileID: 6067999745522291031}
+  - component: {fileID: 3135750659181242612}
   - component: {fileID: 6003976769888306922}
   m_Layer: 0
   m_Name: 1x1 Platform Update
@@ -174,6 +217,8 @@ Transform:
   m_LocalScale: {x: 0.3333333, y: 1, z: 1}
   m_Children:
   - {fileID: 7412417548974223022}
+  - {fileID: 7736255722098773147}
+  - {fileID: 4175132787099313497}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -186,6 +231,19 @@ BoxCollider:
   m_GameObject: {fileID: 7013383358477169144}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.9734774, y: 0.25684893, z: 2}
+  m_Center: {x: -0.012668074, y: 0.1263302, z: 0.0065268576}
+--- !u!65 &3135750659181242612
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7013383358477169144}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.9734774, y: 0.25684893, z: 2}
@@ -205,8 +263,13 @@ MonoBehaviour:
   isPassing: 0
   passingComplete: 0
   myCollider: {fileID: 6067999745522291031}
-  passTime: 0.5
+  passTime: 1
   Player: {fileID: 0}
+  topPos: {fileID: 6843113272435518988}
+  downPos: {fileID: 4175132787099313497}
+  dropPressed: 0
+  jumpPressed: 0
+  isColliding: 0
 --- !u!1 &7896466906520663060
 GameObject:
   m_ObjectHideFlags: 0

@@ -51,17 +51,12 @@ namespace ShopSystem
             shopButtons.Add(spell2Button);
             shopButtons.Add(spell3Button);
 
-        
-
-
             healthUpButton.onClick.AddListener(() => Buy(info.healthUpInfo));
             attackUpButton.onClick.AddListener(() => Buy(info.attackUpInfo));
             attackRangeUpButton.onClick.AddListener(() => Buy(info.attackRangeUpInfo));
             speedUpButton.onClick.AddListener(() => Buy(info.speedUpInfo));
             manaUpButton.onClick.AddListener(() => Buy(info.manaUpInfo));
             spellPotencyUpButton.onClick.AddListener(() => Buy(info.spellPotencyUpInfo));
-
-
 
             spell1Button.onClick.AddListener(() => Buy(info.spell1Info));
             spell2Button.onClick.AddListener(() => Buy(info.spell2Info));
@@ -118,8 +113,6 @@ namespace ShopSystem
                 case "spell 2": item = info.spell2Info; break;
 
                 case "spell 3": item = info.spell3Info; break;
-
-                   
             }
 
             if (item == null) Debug.LogError("What's going on here");
@@ -141,20 +134,18 @@ namespace ShopSystem
             healthUpButton.interactable = hardGold > info.healthUpInfo.upgradeCost;
             attackUpButton.interactable = hardGold > info.attackUpInfo.upgradeCost;
             attackRangeUpButton.interactable = hardGold > info.attackRangeUpInfo.upgradeCost;
-            speedUpButton.interactable = hardGold > info.speedUpInfo.upgradeCost;
+
+            if (Player.Instance.speed == 30)
+                speedUpButton.interactable = false;
+            else
+                speedUpButton.interactable = hardGold > info.speedUpInfo.upgradeCost;
+
+
             manaUpButton.interactable = hardGold > info.manaUpInfo.upgradeCost;
             spellPotencyUpButton.interactable = hardGold > info.spellPotencyUpInfo.upgradeCost;
 
-          
-
-
             spell1Button.interactable = hardGold > info.spell1Info.spellCost;
         }
-
-
-        
-        //ends
-
         //public void BuySpell()
         //{
         //    Player.Instance.fireWall_prefab = info.fireWall.spellPrefab;

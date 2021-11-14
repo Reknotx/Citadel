@@ -7,7 +7,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Skeleton : Enemy
 {
@@ -42,12 +41,9 @@ public class Skeleton : Enemy
 
     public override void Start()
     {
-        base.Start();
         //Tyler Added Code
         player = GameObject.FindGameObjectWithTag("Player");
         //End
-
-        HealthIMG.gameObject.SetActive(false);
     }
 
     public override void Update()

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.UI;
+
 public class FloatingShieldScript : MonoBehaviour
 {
     public bool isHit = false;
@@ -24,9 +26,9 @@ public class FloatingShieldScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
 
-        if(myCollider == enabled)
+
+        if (myCollider == enabled)
         {
             Player.GetComponent<Player>().shieldActive = true;
         }
@@ -35,9 +37,9 @@ public class FloatingShieldScript : MonoBehaviour
             Player.GetComponent<Player>().shieldActive = false;
         }
 
-        if(isHit == true)
+        if (isHit == true)
         {
-            
+
             StartCoroutine(wasHitCoroutine());
             isHit = false;
         }

@@ -69,6 +69,13 @@ public class SwordBehavior : MonoBehaviour
             lightCollider.enabled = false;
             heavyCollider.enabled = false;
         }
+        else return;
+
+        if (other.GetComponent<IDamageable>() != null)
+            other.GetComponent<IDamageable>().TakeDamage(Player.Instance.meleeAttackDamage);
+        else if (other.transform.parent.GetComponent<IDamageable>() != null)
+            other.transform.parent.GetComponent<IDamageable>().TakeDamage(Player.Instance.meleeAttackDamage);
+
     }
 
     public IEnumerator FadeOutObjectHeavy()

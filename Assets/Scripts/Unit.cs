@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Unit : MonoBehaviour
+public class Unit : MonoBehaviour, IDamageable
 {
 
     #region Base Stats
@@ -36,7 +36,6 @@ public class Unit : MonoBehaviour
     public float maxHealth;
 
     ///<summary>This is the units health.</summary>
-    [SerializeField]
     public virtual float Health
     {
         get => _health;
@@ -60,6 +59,12 @@ public class Unit : MonoBehaviour
     [Header("unit colliders/ground detection")]
 
 
+    ///<summary>This is the unit's collider that detects the ground.</summary>
+    [SerializeField]
+    public Collider _groundCollider;
+    ///<summary>This is the unit's collider that detects the ground.</summary>
+    [SerializeField]
+    protected Collider _platformCollider;
 
 
     ///<summary>This dis the units collider for their light attack.</summary>
@@ -80,11 +85,11 @@ public class Unit : MonoBehaviour
 
     ///<summary>This determines whether the unit is on a platform or not.</summary>
     [HideInInspector]
-    protected bool onPlatform;
+    public bool onPlatform;
 
     [HideInInspector]
     ///<summary>This determines whether the unit is going through a platform or not.</summary>
-    protected bool throughPlatform;
+    public bool throughPlatform;
 
     ///<summary>This determines if the unit just preformed a jump or not.</summary>
     [HideInInspector]
@@ -144,9 +149,6 @@ public class Unit : MonoBehaviour
     /// <summary> This determines the delay between taking on fire damage</summary>
     [HideInInspector]
     protected float onFireDamageDelay = 2f;
-
-
-
 
     #endregion
     public virtual void Update()

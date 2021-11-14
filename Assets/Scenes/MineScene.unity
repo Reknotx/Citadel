@@ -671,7 +671,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &205406339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2129,15 +2129,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gold: {fileID: 199330502}
   baseMinerCost: 50
-  minerCostIncrease: 25
+  minerCostIncrease: 75
   baseCartCost: 1200
-  cartCostIncrease: 400
-  basePickCost: 250
-  pickCostIncrease: 120
-  baseMoleCost: 5000
-  moleCostIncrease: 1250
-  baseWizardCost: 10000
-  wizardCostIncrease: 3000
+  basePickCost: 500
+  baseMoleCost: 20000
+  baseWizardCost: 100000
+  cartCostIncrease: 1500
+  pickCostIncrease: 600
+  moleCostIncrease: 25000
+  wizardCostIncrease: 125000
   minecartCost: {fileID: 469288808}
   minerCost: {fileID: 1770781974}
   pickCost: {fileID: 1653235236}
@@ -2272,6 +2272,7 @@ MonoBehaviour:
   activeScene:
     m_Handle: 0
   activeSceneName: 
+  CST: {fileID: 0}
   shopUI: {fileID: 0}
   NextScrenH2P: {fileID: 0}
 --- !u!4 &1289376515
@@ -2534,7 +2535,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1415650863
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3172,7 +3173,6 @@ MonoBehaviour:
   mineCartPrefab: {fileID: 2328478801760866743, guid: ebd7161d61451c542bcbfbe6e18b5cfb, type: 3}
   currentCarts: 0
   trackedCarts: 0
-  tracker: {fileID: 0}
 --- !u!4 &2018705183
 Transform:
   m_ObjectHideFlags: 0
@@ -3283,7 +3283,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2072070508
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3300,7 +3300,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -805, y: 0}
+  m_AnchoredPosition: {x: -400, y: 200}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2072070509

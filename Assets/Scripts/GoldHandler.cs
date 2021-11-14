@@ -50,6 +50,9 @@ public class GoldHandler : MonoBehaviour
         set
         {
             _myHardGold = value;
+            if (_myHardGold < 0) 
+                _myHardGold = 0;
+
             if (hardGoldText != null)
                 hardGoldText.text = (int)MyHardGold + "g";
         }
@@ -94,11 +97,6 @@ public class GoldHandler : MonoBehaviour
     /// number of miners the player currently owns
     /// </summary>
     public int numOfMiners;
-    
-    /// <summary>
-    /// number of picks the player currently owns
-    /// </summary>
-    public int numOfPicks;
 
     /// <summary>
     /// The base increase the player gets passively
@@ -109,43 +107,33 @@ public class GoldHandler : MonoBehaviour
     /// Number of minecarts the player currently owns
     /// </summary>
     public int numOfCarts;
-    
-    /// <summary>
-    /// Number of moles the player currently owns
-    /// </summary>
+
     public int numOfMoles;
-    
-    /// <summary>
-    /// Number of wizards the player currently owns
-    /// </summary>
+
+    public int numOfPicks;
+
     public int numOfWizards;
 
     /// <summary>
     /// The increase in the player's revenue for every miner they own
     /// </summary>
     [SerializeField]
-    private int minerIncrease;
+    public int minerIncrease;
 
     /// <summary>
     /// The increase in the player's revenue for every mine cart they own
     /// </summary>
     [SerializeField]
-    private int cartIncrease;
-    
-    /// <summary>
-    /// The increase in the player's revenue for every pick they own
-    /// </summary>
-    [SerializeField]
-    private int pickIncrease;
-    
-    /// <summary>
-    /// The increase in the player's revenue for every mole they own
-    /// </summary>
-    [SerializeField]
-    private int moleIncrease;
+    public int cartIncrease;
 
     [SerializeField]
-    private int wizardIncrease;
+    public int pickIncrease;
+
+    [SerializeField]
+    public int moleIncrease;
+
+    [SerializeField]
+    public int wizardIncrease;
 
     /// <summary>
     /// The player's current revenue (passively gained gold)
@@ -178,6 +166,14 @@ public class GoldHandler : MonoBehaviour
     /// </summary>
     void Update()
     {
+        
+        
+        
+
+        ///Updates soft and hard gold text object
+        //softGoldText.text = "Soft Gold: " + (int)MySoftGold;
+
+        //hardGoldText.text = "Hard Gold: " + (int)MyHardGold;
 
         ///Checks which scene is active and displays the correct gold value
         if (castleSceneName == currentScene.name )

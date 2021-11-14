@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class PlatformColliderControllerScript : MonoBehaviour
 {
-    public bool isPassing = false;
-    public bool passingComplete = false;
-
-    public Collider myCollider;
+    
 
     public float passTime = .5f;
 
     public GameObject Player;
+
+    public GameObject topPos;
+    public Transform downPos;
+
+    public bool dropPressed = false;
+    public bool jumpPressed = false;
+
+    public bool isColliding = false;
+    public bool canPass = true;
+    
 
     // Start is called before the first frame update
     void Awake()
@@ -22,35 +29,61 @@ public class PlatformColliderControllerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        dropPressed = Player.GetComponent<Player>().isDropPressed;
+        jumpPressed = Player.GetComponent<Player>().isJumpPressed;
         
+
+        if (isColliding && dropPressed == true && canPass)
+        {
+
+            StartCoroutine(PassThroughCoroutine());
+            Player.transform.position = new Vector3(Player.transform.position.x, downPos.position.y, Player.transform.position.z);
+
+            
+            Player.GetComponent<Player>().myVelocity = new Vector2(Player.GetComponent<Player>().myVelocity.x, -10);
+        }
+
     }
 
     IEnumerator PassThroughCoroutine()
     {
-        myCollider.enabled = false;
-        if (Player.GetComponent<Player>().dropping && Player.GetComponent<Player>().isDropPressed)
-        {
-            
-            Player.GetComponent<Player>().myVelocity = new Vector2(Player.GetComponent<Player>().myVelocity.x, -16);
-        }
+
+        canPass = false;
         yield return new WaitForSeconds(passTime);
-        myCollider.enabled = true;
+        canPass = true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player")
         {
-            if (Player.GetComponent<Player>().dropping  && Player.GetComponent<Player>().isDropPressed)
+            isColliding = true;
+            
+            if ( jumpPressed )
             {
-                StartCoroutine(PassThroughCoroutine());
-                Player.GetComponent<Player>().myVelocity = new Vector2(Player.GetComponent<Player>().myVelocity.x, -16);
-            }
-
-            if (Player.GetComponent<Player>().throughPlatform && Player.GetComponent<Player>().isJumpPressed)
-            {
-                StartCoroutine(PassThroughCoroutine());
+                Player.transform.position = new Vector3(Player.transform.position.x, topPos.transform.position.y, Player.transform.position.z);
             }
         }
     }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            isColliding = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+
+            isColliding = false;
+           
+        }
+    }
+
+
 }

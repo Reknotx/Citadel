@@ -11,7 +11,7 @@ public class IcicleSpell : Spell
 
     public override void TriggerSpell(GameObject target)
     {
-        target.GetComponent<Enemy>().TakeDamage(stats.damage);
+        target.GetComponent<IDamageable>().TakeDamage(stats.damage);
     }
 
     

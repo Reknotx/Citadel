@@ -118,14 +118,12 @@ public class SceneManagerScript : MonoBehaviour
     /// <summary> this takes the player to the camp shop scene </summary>
     public void goToCampShop()
     {
+
         CST.openCampShop = true;
         GameObject player = GameObject.FindWithTag("Player");
         player.GetComponent<Player>().inCampShop = true;
         campButtons.SetActive(false);
-        campShopButtons.SetActive(true);
-        
-
-        
+        campShopButtons.SetActive(true);   
       
         shopUI.SetActive(true);
 
@@ -143,10 +141,6 @@ public class SceneManagerScript : MonoBehaviour
        // player.GetComponent<Player>().canMove = false;
             //campButtons.SetActive(false);wda
             SceneManager.LoadScene(6);
-            
-
-            
-
 
         }
         
@@ -213,7 +207,11 @@ public class SceneManagerScript : MonoBehaviour
     {
         Application.Quit();
     }
-
+    
+    public void toBoss()
+    {
+        SceneManager.LoadScene(9);
+    }
 
   
     
