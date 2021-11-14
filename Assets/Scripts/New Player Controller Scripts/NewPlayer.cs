@@ -91,6 +91,7 @@ public class NewPlayer : Unit, IDamageable
         Move();
 
         GroundedCheck();
+
     }
 
 
@@ -158,6 +159,11 @@ public class NewPlayer : Unit, IDamageable
         {
             physicalBody.layer = playerLayer;
             grounded = true;
+            PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.LANDING);
+        }
+        else if (grounded == false && playerRB.velocity.y < 0)
+        {
+            PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.FALLING);
         }
 
         bool CheckIfGrounded()
@@ -193,6 +199,7 @@ public class NewPlayer : Unit, IDamageable
         grounded = false;
         physicalBody.layer = ignorePlayerLayer;
         playerRB.velocity = new Vector3(0, Mathf.Sqrt(-2.0f * Physics.gravity.y * jumpHeight));
+        PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.JUMP);
     }
 
     public void OnDropDown()

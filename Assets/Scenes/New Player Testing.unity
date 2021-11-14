@@ -410,6 +410,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1204021025, guid: 069fd06376c414145b66ada860487f28, type: 3}
+      propertyPath: meleeSystem
+      value: 
+      objectReference: {fileID: 1549449071}
+    - target: {fileID: 1204021025, guid: 069fd06376c414145b66ada860487f28, type: 3}
+      propertyPath: spellSystem
+      value: 
+      objectReference: {fileID: 1549449070}
     - target: {fileID: 2131343296872482392, guid: 069fd06376c414145b66ada860487f28, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -508,6 +516,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 069fd06376c414145b66ada860487f28, type: 3}
+--- !u!114 &1549449070 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1730398915, guid: 069fd06376c414145b66ada860487f28, type: 3}
+  m_PrefabInstance: {fileID: 1549449069}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a424772a7c66ffc41aa7902c3b709b72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1549449071 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5951186350026067719, guid: 069fd06376c414145b66ada860487f28, type: 3}
+  m_PrefabInstance: {fileID: 1549449069}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dedb7bc9d0164e4c95631de91c3863c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1558588558
 GameObject:
   m_ObjectHideFlags: 0

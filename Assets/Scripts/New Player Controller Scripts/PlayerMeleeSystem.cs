@@ -6,16 +6,20 @@ namespace CombatSystem
 {
     public class PlayerMeleeSystem : MonoBehaviour
     {
+        public GameObject lightSword;
+        public GameObject heavySword;
+
+
         public void SwingSword(string meleeAttack)
         {
             switch (meleeAttack)
             {
                 case "lightAttack":
-                    LightAttack();
+                    lightSword.SetActive(true);
                     break;
 
                 case "heavyAttack":
-                    HeavyAttack();
+                    heavySword.SetActive(true);
                     break;
 
                 default:
@@ -23,15 +27,15 @@ namespace CombatSystem
             }
         }
 
-        private void LightAttack()
-        {
-            ///Swing the light attack and activate the sword and initiate the animation.
-            PlayerAnimationManager.Instance.PlayAnimation(PlayerAnimationManager.LIGHT_ATTACK);
-        }
+        //private void LightAttack()
+        //{
+        //    ///Swing the light attack and activate the sword and initiate the animation.
+        //    PlayerAnimationManager.Instance.PlayAnimation(PlayerAnimationManager.LIGHT_ATTACK);
+        //}
 
-        private void HeavyAttack()
-        {
-            PlayerAnimationManager.Instance.PlayAnimation(PlayerAnimationManager.HEAVY_ATTACK);
-        }
+        //private void HeavyAttack()
+        //{
+        //    PlayerAnimationManager.Instance.PlayAnimation(PlayerAnimationManager.HEAVY_ATTACK);
+        //}
     }
 }
