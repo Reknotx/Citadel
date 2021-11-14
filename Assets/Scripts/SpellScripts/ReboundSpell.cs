@@ -68,7 +68,12 @@ public class ReboundSpell : Spell
     [HideInInspector]
     public bool downAdded = false;
 
-    
+    [HideInInspector]
+    public int damage;
+
+    [HideInInspector]
+    public int manaCost;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -76,7 +81,10 @@ public class ReboundSpell : Spell
         player = GameObject.FindGameObjectWithTag("Player");
         facingRight = player.GetComponent<Player>().facingRight;
 
-        if(facingRight == true)
+        damage = stats.damage;
+        manaCost = stats.manaCost;
+
+        if (facingRight == true)
         {
             CurrentDirection = right;
         }
@@ -253,7 +261,7 @@ public class ReboundSpell : Spell
 
     public override void TriggerSpell(GameObject target)
     {
-        target.GetComponent<IDamageable>().TakeDamage(stats.damage);
+        target.GetComponent<Enemy>().TakeDamage(damage);
         Destroy(this.gameObject);
     }
 
