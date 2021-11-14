@@ -20,16 +20,16 @@ public class Goblin : Enemy
 
     private bool canAttack = true;
 
-
+    public float goblinDashForce = 10f;
 
 
     #endregion
 
-    public Image goblinHealth;
+    /*public Image goblinHealth;
 
     public Image HealthIMG;
 
-    private float calculateHealth;
+    private float calculateHealth;*/
 
     #region Life Handler for Player
 
@@ -45,7 +45,7 @@ public class Goblin : Enemy
 
     #endregion
 
-
+    private bool canLunge;
     // Start is called before the first frame update
     public  override void Start()
     {
@@ -57,6 +57,7 @@ public class Goblin : Enemy
         goblinAttack_R.SetActive(false);
         playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         HealthIMG.gameObject.SetActive(false);
+        canLunge = false;
     }
 
     // Update is called once per frame
@@ -64,59 +65,95 @@ public class Goblin : Enemy
     {
         base.Update();
 
-        if(myHealth < maxHealth)
+        /* if(Health < maxHealth)
+         {
+             HealthIMG.gameObject.SetActive(true);
+             calculateHealth = (float)Health / maxHealth;
+             goblinHealth.fillAmount = Mathf.MoveTowards(goblinHealth.fillAmount, calculateHealth, Time.deltaTime);
+         }
+         else
+         {
+             HealthIMG.gameObject.SetActive(false);
+         }*/
+
+        /*if (Vector2.Distance(transform.position, player.transform.position) <= 5)
         {
-            HealthIMG.gameObject.SetActive(true);
-            calculateHealth = (float)myHealth / maxHealth;
-            goblinHealth.fillAmount = Mathf.MoveTowards(goblinHealth.fillAmount, calculateHealth, Time.deltaTime);
+            Astar.canMove = false;
         }
         else
         {
-            HealthIMG.gameObject.SetActive(false);
+            Astar.canMove = true;
+        }*/
+
+        if(distanceToPlayer < followDistance)
+        {
+            GoblinSpotted = true;
         }
 
-        if (Vector2.Distance(transform.position, player.transform.position) <= goblinMeleeRange)
+        if (distanceToPlayer <= goblinMeleeRange)
         {
-            
-
             if (canAttack)
             {
-                GoblinAttack();
-            }
-        }
-
-        
-        
-           /* yDistance = transform.position.y - player.transform.position.y;
-        
-
-        if (yDistance <= Mathf.Abs(jumpHeight))
-        {
-            /*if (isGrounded)
-            {*/
-               /* if (canJump)
+                if(Mathf.Abs(yDistance) <= 2)
                 {
-                    //jump toward player
-
-                    //_rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpVelocity));
-                    StartCoroutine(IsJumping());
-
+                    StartCoroutine(Lunge());
                 }
                 
-            //}
-
-           /* if (onPlatform == true)
+            }
+        }
+        if (canLunge)
+        {
+            if (facingRight)
             {
-                _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpVelocity));
-                StartCoroutine(Jumped());
+
+                StartCoroutine(LungeRight());
+
+                StartCoroutine(WaitBetweenAttack());
 
             }
+            else
+            {
 
+                StartCoroutine(LungeLeft());
+
+                StartCoroutine(WaitBetweenAttack());
+
+            }
         }
-        else if (yDistance < jumpHeight)
-        {
-            //drop through floor toward player
-        }*/
+        
+
+        
+
+        /* yDistance = transform.position.y - player.transform.position.y;
+
+
+     if (yDistance <= Mathf.Abs(jumpHeight))
+     {
+         /*if (isGrounded)
+         {*/
+        /* if (canJump)
+         {
+             //jump toward player
+
+             //_rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpVelocity));
+             StartCoroutine(IsJumping());
+
+         }
+
+     //}
+
+    /* if (onPlatform == true)
+     {
+         _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpVelocity));
+         StartCoroutine(Jumped());
+
+     }
+
+ }
+ else if (yDistance < jumpHeight)
+ {
+     //drop through floor toward player
+ }*/
 
     }
 
@@ -126,24 +163,58 @@ public class Goblin : Enemy
         if (facingRight)
         {
             StartCoroutine(WaitBetweenVisual_Right());
+            // _rigidBody.AddForce(transform.right * goblinDashForce);
+            _rigidBody.velocity = new Vector2(goblinDashForce, _rigidBody.velocity.y);
             playerLife.TakeDamage(goblinDamage);
             StartCoroutine(WaitBetweenAttack());
 
 
-            GoblinMeleeAttack();
+            //GoblinMeleeAttack();
         }
         else
         {
             StartCoroutine(WaitBetweenVisual_Left());
+            // _rigidBody.AddForce(-transform.right * goblinDashForce);
+            _rigidBody.velocity = new Vector2(-goblinDashForce, _rigidBody.velocity.y);
             playerLife.TakeDamage(goblinDamage);
             StartCoroutine(WaitBetweenAttack());
         }
     }
 
+    IEnumerator Lunge()
+    {
+        canLunge = true;
+        yield return new WaitForSeconds(1f);
+        canLunge = false;
+    }
+
+    IEnumerator LungeLeft()
+    {
+        StartCoroutine(WaitBetweenVisual_Left());
+        _rigidBody.AddForce(transform.right * goblinDashForce);
+        Debug.Log("Hey Andrew it added the force");
+        if(distanceToPlayer <= 1)
+        {
+            playerLife.TakeDamage(goblinDamage);
+            Debug.Log("Hey Andrew it took damage");
+        }
+        yield return new WaitForSeconds(.2f);
+    }
+    IEnumerator LungeRight()
+    {
+        StartCoroutine(WaitBetweenVisual_Right());
+        _rigidBody.AddForce(-transform.right * goblinDashForce);
+        if (distanceToPlayer <= 1)
+        {
+            playerLife.TakeDamage(goblinDamage);
+        }
+        yield return new WaitForSeconds(.2f);
+    }
+
     IEnumerator WaitBetweenAttack()
     {
         canAttack = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         canAttack = true;
     }
 
@@ -170,14 +241,14 @@ public class Goblin : Enemy
             nextDamageEvent = Time.time + attackCoolDown;
             if (facingRight == true)
             {
-                _lightCollider.transform.position = spellLocationRight.transform.position;
+                _lightCollider.transform.position = goblinAttack_R.transform.position;
                 _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale / 2);
                 StartCoroutine(lightAttackCoroutine());
 
             }
             else
             {
-                _lightCollider.transform.position = spellLocationLeft.transform.position;
+                _lightCollider.transform.position = goblinAttack_L.transform.position;
                 _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
                 StartCoroutine(lightAttackCoroutine());
             }

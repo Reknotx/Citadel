@@ -7,7 +7,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Orc : Enemy
 {
@@ -35,11 +34,8 @@ public class Orc : Enemy
 
     #endregion
 
-    public Image orcHealth;
+    public Player playerScript;
 
-    public Image HealthIMG;
-
-    private float calculateHealth;
 
     // Start is called before the first frame update
     public override void Start()
@@ -52,34 +48,20 @@ public class Orc : Enemy
         orcAttack_R.SetActive(false);
 
         playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        HealthIMG.gameObject.SetActive(false);
+
+        
     }
 
     // Update is called once per frame
     public override void Update()
     {
-        if (player == null) {  return; }
         base.Update();
 
-        if (myHealth < maxHealth)
-        {
-            HealthIMG.gameObject.SetActive(true);
-            calculateHealth = (float)myHealth / maxHealth;
-            orcHealth.fillAmount = Mathf.MoveTowards(orcHealth.fillAmount, calculateHealth, Time.deltaTime);
-        }
-        else
-        {
-            HealthIMG.gameObject.SetActive(false);
-        }
-
-        if (Vector2.Distance(transform.position, player.transform.position) <= orcMeleeRange)
+        if(Vector2.Distance(transform.position, player.transform.position) <= orcMeleeRange)
         {
             if (canAttack)
             {
                 OrcAttack();
-                
-               // StartCoroutine(playerLife.StunPlayer());
-                
             }
         }
     }
@@ -89,22 +71,32 @@ public class Orc : Enemy
         if (facingRight)
         {
             StartCoroutine(WaitBetweenVisual_Right());
-            playerLife.TakeDamage(orcDamage);
+           
             StartCoroutine(WaitBetweenAttack());
+
+            if(playerLife.invulnActive == false)
+            {
+                playerLife.TakeDamage(orcDamage);
+            }
             
         }
         else
         {
             StartCoroutine(WaitBetweenVisual_Left());
-            playerLife.TakeDamage(orcDamage);
+            
             StartCoroutine(WaitBetweenAttack());
+
+            if (playerLife.invulnActive == false)
+            {
+                playerLife.TakeDamage(orcDamage);
+            }
         }
     }
 
     IEnumerator WaitBetweenAttack()
     {
         canAttack = false;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         canAttack = true;
     }
 
@@ -122,5 +114,10 @@ public class Orc : Enemy
         orcAttack_L.SetActive(false);
     }
 
-    
+    IEnumerator StunPlayer()
+    {
+        playerLife.canMove = false;
+        yield return new WaitForSeconds(1f);
+        playerLife.canMove = true;
+    }
 }

@@ -22,7 +22,7 @@ public class MinesShop : MonoBehaviour
     /// Base cost for the miner
     /// </summary>
     [SerializeField]
-    private int baseMinerCost = 50;
+    static private int baseMinerCost = 50;
 
     /// <summary>
     /// Amount of gold that the cost of the miners increases by each time the player purchases one
@@ -34,7 +34,7 @@ public class MinesShop : MonoBehaviour
     /// Base cost of the mine cart
     /// </summary>
     [SerializeField]
-    private int baseCartCost = 1200;
+    static private int baseCartCost = 1200;
 
     /// <summary>
     /// Amount of gold that the cost of the mine carts increases by each time the player purchases one
@@ -46,7 +46,7 @@ public class MinesShop : MonoBehaviour
     /// Base cost of the Magic pick
     /// </summary>
     [SerializeField]
-    private int basePickCost = 250;
+    static private int basePickCost = 250;
 
     /// <summary>
     /// Amount of gold that the cost of the pick increases by each time the player purchases one
@@ -58,7 +58,7 @@ public class MinesShop : MonoBehaviour
     /// Base cost of the Giant Mole pick
     /// </summary>
     [SerializeField]
-    private int baseMoleCost = 5000;
+    static private int baseMoleCost = 5000;
 
     /// <summary>
     /// Amount of gold that the cost of the Giant Mole increases by each time the player purchases one
@@ -70,7 +70,7 @@ public class MinesShop : MonoBehaviour
     /// Base cost of the Spelunking Wizard
     /// </summary>
     [SerializeField]
-    private int baseWizardCost = 10000;
+    static private int baseWizardCost = 10000;
 
     /// <summary>
     /// Amount of gold that the cost of the Spelunking Wizard increases by each time the player purchases one
@@ -87,6 +87,21 @@ public class MinesShop : MonoBehaviour
     public Text moleCost;
 
     public Text wizardCost;
+
+    private static MinesShop instance;
+
+    public void Awake()
+    {
+        /*DontDestroyOnLoad(this);
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }*/
+    }
 
     public void Update()
     {

@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using UnityEngine.UI;
 
 public class Enemy : Unit
 {
@@ -18,9 +19,8 @@ public class Enemy : Unit
 
     #region Enemy Stats
 
-            #region Enemy's Base Stats/Important Controls
-    ///<summary>This is the units health.</summary>
-    public double myHealth;
+    #region Enemy's Base Stats/Important Controls
+ 
 
     ///<summary>This is the players Input system.</summary>
     private PlayerInputActions playerInputActions;
@@ -29,6 +29,7 @@ public class Enemy : Unit
     [SerializeField]
     protected Rigidbody _rigidBody;
 
+    public Renderer m_render;
     #endregion
     #region Enemy's Ground/Directional Detection Stats
 
@@ -42,12 +43,16 @@ public class Enemy : Unit
     #endregion
     #region Enemy's Player Detection Stats
 
+    [HideInInspector]
     public float yDistance;
 
+    [HideInInspector]
     public float jumpVelocity;
 
+    [HideInInspector]
     private bool canJump = true;
 
+    [HideInInspector]
     public float jumpHeight;
 
     ///<summary>This is the range of detection to the player.</summary>
@@ -61,25 +66,39 @@ public class Enemy : Unit
     [HideInInspector]
     public GameObject player;
 
+    public bool GoblinSpotted = false;
+
     #endregion
     #region Enemy AI Movement Stats
+    [HideInInspector]
     public float followDistance;
 
+    [HideInInspector]
+    public float goblinFollowDistance = 150f;
+
+    [HideInInspector]
     ///<summary>This is the distance from the player the enemy wills top at</summary>
     public float stoppingDistance;
 
+    [HideInInspector]
     private float stopSpeed = 0f;
 
+    [HideInInspector]
     private float normalSpeed;
 
+    [HideInInspector]
     public float noJumpHeight;
 
+    [HideInInspector]
     Vector2 currentDirection;
 
+    [HideInInspector]
     public float distanceToPlayer;
 
+    [HideInInspector]
     public AIPath Astar;
 
+    [HideInInspector]
     public float nextWaypointDistance = 3f;
 
     //Path path;
@@ -96,7 +115,7 @@ public class Enemy : Unit
     #endregion
 
 
-    public Renderer m_render;
+    
 
     [HideInInspector]
     public bool seenByCamera = false;
@@ -107,14 +126,24 @@ public class Enemy : Unit
     [Tooltip("Activate this only to immediately kill the enemy.")]
     public bool killThis = false;
 
+    public Image enemyHealth;
+
+    public Image HealthIMG;
+
+    private float calculateHealth;
+
     public virtual void Start()
     {
+
+
         normalSpeed = speed;
         //Tyler Added code
         player = GameObject.FindGameObjectWithTag("Player");
 
         Astar = GetComponent<AIPath>();
         Health = maxHealth;
+
+        HealthIMG.gameObject.SetActive(false);
     }
 
     public override void Update()
@@ -125,23 +154,50 @@ public class Enemy : Unit
         if (debug) return;
 
         base.Update();
-        myHealth = Health;
+
+        if (Health < maxHealth)
+        {
+            HealthIMG.gameObject.SetActive(true);
+            calculateHealth = (float)Health / maxHealth;
+            enemyHealth.fillAmount = Mathf.MoveTowards(enemyHealth.fillAmount, calculateHealth, Time.deltaTime);
+        }
+        else
+        {
+            HealthIMG.gameObject.SetActive(false);
+        }
+
 
         #region Enemy AI Movement
         Move();
         #endregion
 
-        yDistance = Mathf.Abs(transform.position.y - player.transform.position.y);
+        yDistance = player.transform.position.y - transform.position.y;
 
-        distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+        distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-        if (distanceToPlayer < followDistance)
+        if (!GoblinSpotted)
         {
-            Astar.canMove = true;
+            if (distanceToPlayer < followDistance)
+            {
+                if (Mathf.Abs(yDistance) < 9)
+                {
+                    Astar.canMove = true;
+                }
+            }
+            else
+            {
+                Astar.canMove = false;
+            }
         }
-        else
+        else if (GoblinSpotted)
         {
-            Astar.canMove = false;
+            if (distanceToPlayer < goblinFollowDistance)
+            {
+                if (Mathf.Abs(yDistance) < 100)
+                {
+                    Astar.canMove = true;
+                }
+            }
         }
 
         if (isGrounded)
@@ -225,7 +281,7 @@ public class Enemy : Unit
         ///<summary>this checks if the unit is trying to pass up through a platform and will assist.</summary>
         if (throughPlatform == true && justJumped == true)
         {
-            StartCoroutine(dropDown());
+            //StartCoroutine(dropDown());
             _rigidBody.AddForce(Vector3.up * .03f, ForceMode.Impulse);
         }
         #endregion
@@ -289,7 +345,7 @@ public class Enemy : Unit
         {
             TakeDamage(player.GetComponent<Player>().meleeAttackDamage);
             //Tyler Added code
-            if(myHealth <= 0)
+            if(Health <= 0)
             {
                 //add drop stuff here
 
@@ -352,9 +408,15 @@ public class Enemy : Unit
             if(onFire == false)
             {
                 onFireDuration = 5f;
-                onFireDamage = 1;
+                onFireDamage = 3;
                 StartCoroutine(onFireCoroutine());
             }
+        }
+
+
+        if(other.gameObject.tag == "Aerorang")
+        {
+            TakeDamage(other.GetComponent<AerorangSpell>().spellDamage);
         }
     }
 
@@ -397,13 +459,4 @@ public class Enemy : Unit
         base.TakeDamage(amount);
     }
 
-    /// <summary> this allows units to drop through platforms </summary>
-    public IEnumerator dropDown()
-    {
-        _platformCollider.enabled = false;
-        _groundCollider.enabled = false;
-        yield return new WaitForSeconds(1f);
-        _groundCollider.enabled = true;
-        _platformCollider.enabled = true;
-    }
 }

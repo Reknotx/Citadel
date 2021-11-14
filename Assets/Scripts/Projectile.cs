@@ -50,20 +50,47 @@ public class Projectile : MonoBehaviour
         if (other.tag == "Player")
         {
             DestroyProjectile();
-            playerHealth.TakeDamage(projectileDamage);
             
+
+            if (playerHealth.invulnActive == false)
+            {
+                playerHealth.TakeDamage(projectileDamage);
+            }
+
         }
 
-        if (other.tag == "FloatingShield")
+        if (other.tag == "ground")
         {
-            other.gameObject.GetComponent<FloatingShieldScript>().isHit = true;
             DestroyProjectile();
         }
-    }
 
+        if(other.tag == "ground")
+        {
+            DestroyProjectile();
+        }
+
+        if(other.tag == "Trap")
+        {
+            DestroyProjectile();
+        }
+
+        if(other.tag == "platform")
+        {
+            DestroyProjectile();
+        }
+
+        if(other.tag == "Pot")
+        {
+            DestroyProjectile();
+        }
+
+        
+    }
+/*
     public void OnCollisionEnter(Collision collision)
     {
         DestroyProjectile();
     }
+    */
 }
    
