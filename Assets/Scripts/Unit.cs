@@ -61,14 +61,17 @@ public class Unit : MonoBehaviour, IDamageable
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
+    [HideInInspector]
     public Collider _groundCollider;
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
+    [HideInInspector]
     protected Collider _platformCollider;
 
 
     ///<summary>This dis the units collider for their light attack.</summary>
     [SerializeField]
+    [HideInInspector]
     protected Collider _lightCollider;
 
     

@@ -13,6 +13,4 @@ public class IcicleSpell : Spell
     {
         target.GetComponent<IDamageable>().TakeDamage(stats.damage);
     }
-
-    
 }
