@@ -27,6 +27,7 @@ namespace Interactables
         void Awake()
         {
             myCollider = this.GetComponent<Collider>();
+            //GameObject player = GameObject.FindGameObjectWithTag("Player");
         }
 
         // Update is called once per frame
@@ -37,9 +38,19 @@ namespace Interactables
                 if (dropped == false)
                 {
                     myCollider.enabled = false;
-                    randomSpawn();
                     lid.transform.localRotation = Quaternion.Euler(-60, 0, 0);
+                    randomSpawn();
                 }
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.tag == "Player")
+            {
+                opened = true;
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                player.GetComponent<Player>().Interacting = false;
             }
         }
 
