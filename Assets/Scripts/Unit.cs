@@ -29,12 +29,11 @@ public class Unit : MonoBehaviour, IDamageable
    
     #endregion
     #region Health
-    [SerializeField]
     protected float _health;
 
-    ///<summary>This is the maximum units health.</summary>
-    [HideInInspector]
-    public float maxHealth;
+    ///<summary>This is the unit's maximum health.</summary>
+    [SerializeField]
+    protected float _maxHealth;
 
     ///<summary>This is the units health.</summary>
     public virtual float Health
@@ -42,13 +41,23 @@ public class Unit : MonoBehaviour, IDamageable
         get => _health;
         set
         {
-            _health = Mathf.Clamp(value, 0, maxHealth);
+            _health = value;
 
             if (_health <= 0)
             {
                 ///Destroy the object here
                 Destroy(gameObject);
             }
+        }
+    }
+
+    public float MaxHealth
+    {
+        get => _maxHealth;
+        set
+        {
+            _maxHealth = value;
+            //Health = _maxHealth;
         }
     }
     #endregion
@@ -180,6 +189,12 @@ public class Unit : MonoBehaviour, IDamageable
     protected float poisonedDamageDelay = 2f;
 
     #endregion
+
+    public virtual void Awake()
+    {
+        Health = MaxHealth;
+    }
+
     public virtual void Update()
     {
       

@@ -145,7 +145,7 @@ namespace ShopSystem
             switch (statToIncrease)
             {
                 case StatToIncrease.health:
-                    Player.Instance.maxHealth += (int)increaseStatBy;
+                    Player.Instance.MaxHealth += (int)increaseStatBy;
                     Debug.Log("Buying health upgrade");
                     break;
 

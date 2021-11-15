@@ -141,7 +141,6 @@ public class Enemy : Unit
         player = GameObject.FindGameObjectWithTag("Player");
 
         Astar = GetComponent<AIPath>();
-        Health = maxHealth;
 
         HealthIMG.gameObject.SetActive(false);
     }
@@ -155,10 +154,10 @@ public class Enemy : Unit
 
         base.Update();
 
-        if (Health < maxHealth)
+        if (Health < _maxHealth)
         {
             HealthIMG.gameObject.SetActive(true);
-            calculateHealth = (float)Health / maxHealth;
+            calculateHealth = (float)Health / _maxHealth;
             enemyHealth.fillAmount = Mathf.MoveTowards(enemyHealth.fillAmount, calculateHealth, Time.deltaTime);
         }
         else

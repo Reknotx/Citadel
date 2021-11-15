@@ -38,13 +38,14 @@ public class NewPlayer : Unit, IDamageable
     public PlayerCombatSystem combatSystem;
     public PlayerInventory inventory;
 
+    /// <summary> The player's health. </summary>
     public override float Health
     {
         get => base.Health;
 
         set
         {
-            base.Health = value;
+            base.Health = Mathf.Clamp(value, 0, _maxHealth);
 
             if (Health == 0)
             {
@@ -60,7 +61,9 @@ public class NewPlayer : Unit, IDamageable
     }
 
     private int _mana;
+    private int _maxMana;
 
+    /// <summary> The player's mana. </summary>
     public int Mana
     {
         get => _mana;
@@ -73,7 +76,12 @@ public class NewPlayer : Unit, IDamageable
         }
     }
 
-    public void Awake()
+    public int MaxMana
+    {
+        get => _maxMana;
+    }
+
+    public override void Awake()
     {
         if (Instance != null & Instance != this)
             Destroy(Instance);
@@ -82,7 +90,7 @@ public class NewPlayer : Unit, IDamageable
         playerRB = GetComponent<Rigidbody>();
         inventory = new PlayerInventory();
 
-        //base.Awake();
+        base.Awake();
     }
 
     public void Start()
@@ -98,6 +106,7 @@ public class NewPlayer : Unit, IDamageable
 
     }
 
+    /// <summary> Moves the player with forces and puts a limit on our maximum velocity. </summary>
     public void Move()
     {
         ///Player needs to perform a check to see if it's about to collide

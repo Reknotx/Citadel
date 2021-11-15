@@ -342,12 +342,13 @@ public class Player : Unit, IDamageable
     /// <summary>
     /// Tracks the images shown depending on which spell the player has and which action slot the spell is assigned to
     /// </summary>
-    
+
 
     #endregion
-        
+
     #endregion
 
+    private int maxHealth;
 
     private void Awake()
     {
@@ -678,7 +679,7 @@ public class Player : Unit, IDamageable
     /// </summary>
     public void ResetGame()
     {
-        maxHealth = startingHealth;
+        //maxHealth = startingHealth;
         myHealth = startingHealth;
         maxMana = startingMana;
         myMana = startingMana;

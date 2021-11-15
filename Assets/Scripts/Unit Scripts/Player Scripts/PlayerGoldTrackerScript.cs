@@ -192,7 +192,7 @@ public class PlayerGoldTrackerScript : MonoBehaviour
             }
 
 
-            player.GetComponent<Player>().maxHealth = playerMaxHealth;
+            //player.GetComponent<NewPlayer>().MaxHealth = playerMaxHealth;
             player.GetComponent<Player>().maxMana = playerMaxMana;
             player.GetComponent<Player>().speed = playerSpeed;
             player.GetComponent<Player>().meleeAttackDamage = playerAttackDamage;
@@ -209,7 +209,7 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     {
         if (currentSceneName != "MainMenuScene" && currentSceneName != "MineScene")
         {
-            playerMaxHealth = player.GetComponent<Player>().maxHealth;
+            playerMaxHealth = player.GetComponent<NewPlayer>().MaxHealth;
             playerMaxMana = player.GetComponent<Player>().maxMana;
             playerSpeed = player.GetComponent<Player>().speed;
             playerAttackDamage = player.GetComponent<Player>().meleeAttackDamage;
