@@ -36,6 +36,7 @@ public class NewPlayer : Unit, IDamageable
     private int ignorePlayerLayer = 12;
 
     public PlayerCombatSystem combatSystem;
+    public PlayerInventory inventory;
 
     public override float Health
     {
@@ -79,7 +80,7 @@ public class NewPlayer : Unit, IDamageable
 
         Instance = this;
         playerRB = GetComponent<Rigidbody>();
-
+        inventory = new PlayerInventory();
 
         //base.Awake();
     }
@@ -96,7 +97,6 @@ public class NewPlayer : Unit, IDamageable
         GroundedCheck();
 
     }
-
 
     public void Move()
     {

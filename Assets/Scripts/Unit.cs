@@ -22,8 +22,8 @@ public class Unit : MonoBehaviour, IDamageable
     #region Unit's Movement Stats 
 
     ///<summary>This is the unit's speed.</summary>
-    [Range(0, 30f)]
-    [Tooltip("This is the unit's speed.")]
+    [Range(0, 10f)]
+    [Tooltip("This is the unit's maximum speed.")]
     public float speed;
 
    
@@ -33,6 +33,7 @@ public class Unit : MonoBehaviour, IDamageable
     protected float _health;
 
     ///<summary>This is the maximum units health.</summary>
+    [HideInInspector]
     public float maxHealth;
 
     ///<summary>This is the units health.</summary>

@@ -140,6 +140,8 @@ namespace ShopSystem
 
         public override void Buy()
         {
+            NewPlayer player = NewPlayer.Instance;
+
             switch (statToIncrease)
             {
                 case StatToIncrease.health:

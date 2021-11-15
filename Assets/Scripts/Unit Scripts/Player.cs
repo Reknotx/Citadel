@@ -365,7 +365,7 @@ public class Player : Unit, IDamageable
 
 
         #endregion
-
+        
     }
 
    
@@ -1288,7 +1288,7 @@ public class Player : Unit, IDamageable
         if (other.GetComponent<Interactable>() != null)
         {
             Interactable localInteractRef = other.GetComponent<Interactable>();
-           
+            
             if(localInteractRef is CastleEntranceInteractScript)
             {
                    GameObject buttonController = GameObject.FindGameObjectWithTag("ButtonController");
