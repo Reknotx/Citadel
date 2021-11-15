@@ -1666,7 +1666,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3042122612190196581}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4495688422867869958
 MonoBehaviour:
@@ -1701,7 +1701,7 @@ GameObject:
   - component: {fileID: 9220498930113262576}
   m_Layer: 5
   m_Name: SoftGold
-  m_TagString: Untagged
+  m_TagString: SoftGold
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1866,8 +1866,8 @@ Transform:
   m_LocalPosition: {x: -5.2965574, y: 2.1199937, z: -0.20214272}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5935659708264913101}
   - {fileID: 4495688422867869957}
+  - {fileID: 8484374644371156800}
   - {fileID: 5935659706829603774}
   - {fileID: 5935659708403378247}
   - {fileID: 5935659707693601922}
@@ -3340,71 +3340,6 @@ MonoBehaviour:
   m_Text: 'Browse the Shop
 
 '
---- !u!1 &5935659708264913103
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5935659708264913101}
-  - component: {fileID: 5935659708264913100}
-  m_Layer: 0
-  m_Name: GoldHandler
-  m_TagString: PlayerGoldHandler
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5935659708264913101
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5935659708264913103}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 508, y: 299.13513, z: -34.86415}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3042122612190196581}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5935659708264913100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5935659708264913103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bc83713ab8e47f49aef7a4f035413e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  softGoldText: {fileID: 774425043847044386}
-  hardGoldText: {fileID: 5935659707873794385}
-  _mySoftGold: 0
-  _myHardGold: 0
-  startingSoftGold: 0
-  startingHardGold: 100
-  softGold: {fileID: 4640540087166160471}
-  hardGold: {fileID: 5935659708267293122}
-  castleSceneName: CastleScene
-  mainMenuName: MainMenu
-  numOfMiners: 2
-  baseGoldIncrease: 0
-  numOfCarts: 0
-  numOfMoles: 0
-  numOfPicks: 0
-  numOfWizards: 0
-  minerIncrease: 2
-  cartIncrease: 5
-  pickIncrease: 0
-  moleIncrease: 0
-  wizardIncrease: 0
-  revenue: 0
 --- !u!1 &5935659708267293122
 GameObject:
   m_ObjectHideFlags: 0
@@ -3418,7 +3353,7 @@ GameObject:
   - component: {fileID: 5935659708267293120}
   m_Layer: 5
   m_Name: HardGold
-  m_TagString: Untagged
+  m_TagString: HardGold
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4477,3 +4412,81 @@ RectTransform:
   m_AnchoredPosition: {x: 192.36499, y: -28.203033}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &4664652129305181772
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3042122612190196581}
+    m_Modifications:
+    - target: {fileID: 3819793197342904588, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819793197342904588, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 508
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819793197342904588, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 299.13513
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819793197342904588, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -34.86415
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819793197342904588, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819793197342904588, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819793197342904588, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819793197342904588, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819793197342904588, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819793197342904588, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819793197342904588, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819793197342904589, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+      propertyPath: hardGold
+      value: 
+      objectReference: {fileID: 5935659708267293122}
+    - target: {fileID: 3819793197342904589, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+      propertyPath: softGold
+      value: 
+      objectReference: {fileID: 4640540087166160471}
+    - target: {fileID: 3819793197342904589, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+      propertyPath: hardGoldText
+      value: 
+      objectReference: {fileID: 5935659707873794385}
+    - target: {fileID: 3819793197342904589, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+      propertyPath: softGoldText
+      value: 
+      objectReference: {fileID: 774425043847044386}
+    - target: {fileID: 3819793197342904590, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+      propertyPath: m_Name
+      value: GoldHandler
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+--- !u!4 &8484374644371156800 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3819793197342904588, guid: 175b49f30ff019842a4a04096a259612, type: 3}
+  m_PrefabInstance: {fileID: 4664652129305181772}
+  m_PrefabAsset: {fileID: 0}

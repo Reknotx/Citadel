@@ -642,17 +642,6 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: Your miners will continue to mine even while you are not in the mines,
     so you will continue to passively gain gold once you leave.
---- !u!114 &199330502 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5935659708264913100, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
-  m_PrefabInstance: {fileID: 1061628240}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bc83713ab8e47f49aef7a4f035413e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &205406338
 GameObject:
   m_ObjectHideFlags: 0
@@ -2127,13 +2116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8c0d0e796f1eb4591f97ec49425791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: {fileID: 199330502}
-  baseMinerCost: 50
+  gold: {fileID: 0}
   minerCostIncrease: 75
-  baseCartCost: 1200
-  basePickCost: 500
-  baseMoleCost: 20000
-  baseWizardCost: 100000
   cartCostIncrease: 1500
   pickCostIncrease: 600
   moleCostIncrease: 25000
@@ -3378,7 +3362,7 @@ MonoBehaviour:
   baseGoldGain: 150
   clickPercentage: 0.2
   goldPerClick: {fileID: 1572585211}
-  gold: {fileID: 199330502}
+  gold: {fileID: 0}
 --- !u!4 &2107191401
 Transform:
   m_ObjectHideFlags: 0
