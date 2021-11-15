@@ -138,7 +138,8 @@ public class AerorangSpell : Spell
 
     public override void TriggerSpell(GameObject target)
     {
-        target.GetComponent<Enemy>().TakeDamage(damage);
+        //target.GetComponent<Enemy>().TakeDamage(damage);
+        Destroy(this.gameObject);
     }
 
     public override void Move()
@@ -158,5 +159,19 @@ public class AerorangSpell : Spell
             }
 
         }
+
+        if (other.gameObject.layer == 8)
+        {
+            other.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+           
+        }
+
+
+         
+        if (other.gameObject.layer == 31)
+        {
+            return;
+        }
+    
     }
 }

@@ -74,6 +74,8 @@ public class ReboundSpell : Spell
     [HideInInspector]
     public int manaCost;
 
+    public bool canAdd = false;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -261,8 +263,8 @@ public class ReboundSpell : Spell
 
     public override void TriggerSpell(GameObject target)
     {
-        target.GetComponent<Enemy>().TakeDamage(damage);
-        Destroy(this.gameObject);
+       
+        return;
     }
 
     public override void Move()
@@ -284,21 +286,66 @@ public class ReboundSpell : Spell
             
             changeDirection();
         }
+
+        if(other.gameObject.layer == 8)
+        {
+            other.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+            Destroy(this.gameObject);
+        }
+
+        if (other.gameObject.layer == 31)
+            return;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "ground")
+        {
+            if (canAdd)
+            {
+               
+                canAdd = false;
+            }
+
+        }
+        
+        if (other.gameObject.tag == "platform")
+        {
+            if (canAdd)
+            {
+               
+                canAdd = false;
+            }
+
+        }
     }
 
     public void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "ground")
         {
-
-            bounceCount++;
+            if(!canAdd)
+            {
+                bounceCount++;
+                canAdd = true;
+            }
+           
         }
 
         if (other.gameObject.tag == "platform")
         {
 
-            bounceCount++;
+            if (!canAdd)
+            {
+                bounceCount++;
+                canAdd = true;
+            }
         }
+
+
     }
+
+
+    
 
 }

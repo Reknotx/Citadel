@@ -291,6 +291,12 @@ public class Enemy : Unit
         {
             TakeDamage(onFireDamage * Time.deltaTime);
         }
+
+        if(poisoned == true)
+        {
+            TakeDamage(poisonedDamage * Time.deltaTime);
+
+        }
     }
 
     #region Interactions with the Player
@@ -413,26 +419,12 @@ public class Enemy : Unit
             }
         }
 
-        if (other.gameObject.tag == "Pox")
-        {
-            if (poisoned == false)
-            {
-                poisonedDuration = 5f;
-                poisonedDamage = 3;
-                StartCoroutine(poisonedCoroutine());
-            }
-        }
+        
 
         
-        if (other.gameObject.tag == "Aerorang")
-        {
-            TakeDamage(other.GetComponent<AerorangSpell>().damage);
-        }
+       
 
-        if (other.gameObject.tag == "Rebound")
-        {
-            TakeDamage(other.GetComponent<ReboundSpell>().damage);
-        }
+        
         
     }
 

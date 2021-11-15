@@ -28,6 +28,7 @@ public abstract class Spell : MonoBehaviour
 
     public virtual void OnTriggerEnter(Collider other)
     {
+        
         if (other.gameObject.layer == 31)
             Destroy(gameObject);
         

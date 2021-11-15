@@ -112,12 +112,13 @@ public class Unit : MonoBehaviour, IDamageable
     protected bool onFire;
 
     /// <summary> this determines if the unit is poisoned or not </summary>
-    [HideInInspector]
-    protected bool poisoned;
+    //[HideInInspector]
+    [SerializeField]
+    public bool poisoned;
 
     /// <summary> this determines if the unit has recently taken ticking poison damage </summary>
-    [HideInInspector]
-    protected bool poisonDamageTaken;
+    [SerializeField]
+    public bool poisonDamageTaken;
 
     /// <summary> this determines if the unit has recently taken ticking fire damage </summary>
     [HideInInspector]
@@ -159,12 +160,12 @@ public class Unit : MonoBehaviour, IDamageable
     protected float onFireDamageDelay = 2f;
 
     /// <summary> this determines how long the unit will be on fire for</summary>
-    [HideInInspector]
-    protected float poisonedDuration;
+    [SerializeField]
+    public float poisonedDuration = 5f;
 
     /// <summary> this determines how much damage per tick will be applied to the unit</summary>
-    [HideInInspector]
-    protected int poisonedDamage;
+    [SerializeField]
+    public int poisonedDamage;
 
     /// <summary> this determines how quickly on fire damage will tick against health </summary>
     [HideInInspector]
