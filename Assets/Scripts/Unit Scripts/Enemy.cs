@@ -291,6 +291,12 @@ public class Enemy : Unit
         {
             TakeDamage(onFireDamage * Time.deltaTime);
         }
+
+        if(poisoned == true)
+        {
+            TakeDamage(poisonedDamage * Time.deltaTime);
+
+        }
     }
 
     #region Interactions with the Player
@@ -413,11 +419,13 @@ public class Enemy : Unit
             }
         }
 
+        
 
-        if(other.gameObject.tag == "Aerorang")
-        {
-            TakeDamage(other.GetComponent<AerorangSpell>().spellDamage);
-        }
+        
+       
+
+        
+        
     }
 
     IEnumerator IsJumping()

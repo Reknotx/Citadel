@@ -172,6 +172,12 @@ public class Player : Unit, IDamageable
     /// <summary>this is the physical gameobject that is cast during the aerorang spell</summary>
     public GameObject Aerorang_prefab;
 
+    /// <summary>this is the physical gameobject that is cast during the rebound spell</summary>
+    public GameObject rebound_prefab;
+
+    /// <summary>this is the physical gameobject that is cast during the rebound spell</summary>
+    public GameObject pox_prefab;
+
     ///<summary>This is the location spells will be cast on the left side of the unit.</summary>
     [SerializeField]
     protected GameObject spellLocationLeft;
@@ -268,8 +274,12 @@ public class Player : Unit, IDamageable
     [HideInInspector]
     public bool canPass = true;
 
+    [HideInInspector]
     public bool invulnActive = false;
 
+
+    [HideInInspector]
+    public bool pauseActive = false;
     #endregion
             #region Bool/int Equipment
 
@@ -512,6 +522,15 @@ public class Player : Unit, IDamageable
         }
        
 
+        if(pauseActive == true)
+        {
+            canMove = false;
+        }
+        else
+        {
+            canMove = true;
+        }
+
 
         
 
@@ -668,7 +687,7 @@ public class Player : Unit, IDamageable
         var goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
         goldHandler.GetComponent<GoldHandler>()._mySoftGold = goldHandler.GetComponent<GoldHandler>().startingSoftGold;
         var goldTracker = GameObject.FindGameObjectWithTag("GoldTracker");
-        goldTracker.GetComponent<PlayerGoldTrackerScript>().playerDead = true;
+        //goldTracker.GetComponent<PlayerGoldTrackerScript>().playerDead = true;
         GameObject SceneManager = GameObject.FindGameObjectWithTag("SceneManager");
         SceneManager.GetComponent<SceneManagerScript>().goToCamp();
 
@@ -856,7 +875,8 @@ public class Player : Unit, IDamageable
     public void Escape(InputAction.CallbackContext context)
     {
         PauseMenu.Instance.gameObject.SetActive(true);
-        return;
+        pauseActive = !pauseActive;
+      //  return;
     }
 
 
@@ -888,7 +908,7 @@ public class Player : Unit, IDamageable
                 if (facingRight == true)
                 {
 
-                    var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
+                    var fireWallSpell = (GameObject)Instantiate(fireWall_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
                     fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * 12 + fireWallSpell.transform.up * -2;
                     if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
                     {
@@ -899,7 +919,7 @@ public class Player : Unit, IDamageable
                 else
                 {
 
-                    var fireWallSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().fireWall_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
+                    var fireWallSpell = (GameObject)Instantiate(fireWall_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
                     fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * -12 + fireWallSpell.transform.up * -2;
 
                     if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
@@ -934,7 +954,7 @@ public class Player : Unit, IDamageable
             if (facingRight == true)
             {
 
-                var icicleSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().icicle_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
+                var icicleSpell = (GameObject)Instantiate(icicle_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
                 icicleSpell.GetComponent<Rigidbody>().velocity = icicleSpell.transform.right * 12;
                   
                 canCast = false;
@@ -942,7 +962,7 @@ public class Player : Unit, IDamageable
             else
             {
 
-                var icicleSpell = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().icicle_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
+                var icicleSpell = (GameObject)Instantiate(icicle_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
                 icicleSpell.GetComponent<Rigidbody>().velocity = icicleSpell.transform.right * -12;
                    
                 canCast = false;
@@ -974,7 +994,7 @@ public class Player : Unit, IDamageable
             if (facingRight == true)
             {
 
-                var Aerorang = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().Aerorang_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
+                var Aerorang = (GameObject)Instantiate(Aerorang_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
                 //Aerorang.GetComponent<Rigidbody>().velocity = Aerorang.transform.right * 12;
                 
 
@@ -983,7 +1003,7 @@ public class Player : Unit, IDamageable
             else
             {
 
-                var Aerorang = (GameObject)Instantiate(this.gameObject.GetComponent<Player>().Aerorang_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
+                var Aerorang = (GameObject)Instantiate(Aerorang_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
                // Aerorang.GetComponent<Rigidbody>().velocity = Aerorang.transform.right * -12;
 
                 canCast = false;
@@ -1018,6 +1038,71 @@ public class Player : Unit, IDamageable
 
                 canCast = false;
             }
+            
+        }
+    }
+
+    public void rebound()
+    {
+        if (canCast == true && myMana >= 10)
+        {
+
+            if (spellStone == true)
+            {
+
+                ReduceMana(7);
+            }
+            else
+            {
+
+                ReduceMana(10);
+            }
+
+            ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
+            if (facingRight == true)
+            {
+
+                var rebound = (GameObject)Instantiate(rebound_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
+                //Aerorang.GetComponent<Rigidbody>().velocity = Aerorang.transform.right * 12;
+
+
+                canCast = false;
+            }
+            else
+            {
+
+                var rebound = (GameObject)Instantiate(rebound_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
+                // Aerorang.GetComponent<Rigidbody>().velocity = Aerorang.transform.right * -12;
+
+                canCast = false;
+            }
+        }
+    }
+
+
+    public void pox()
+    {
+        if (canCast == true && myMana >= 10)
+        {
+
+            if (spellStone == true)
+            {
+
+                ReduceMana(7);
+            }
+            else
+            {
+
+                ReduceMana(10);
+            }
+
+
+                var pox = (GameObject)Instantiate(pox_prefab, spellLocationCenter.transform.position, spellLocationCenter.transform.rotation);
+            pox.transform.SetParent ( spellLocationCenter.transform);
+
+
+                canCast = false;
+            
             
         }
     }
@@ -1197,6 +1282,14 @@ public class Player : Unit, IDamageable
         {
             invuln();
         }
+        else if (Attack1 == "Rebound")
+        {
+            rebound();
+        }
+        else if (Attack1 == "Pox")
+        {
+            pox();
+        }
         else
         {
             lightAttack();
@@ -1233,6 +1326,14 @@ public class Player : Unit, IDamageable
         {
             invuln();
         }
+        else if (Attack2 == "Rebound")
+        {
+            rebound();
+        }
+        else if (Attack2 == "Pox")
+        {
+            pox();
+        }
         else
         {
             lightAttack();
@@ -1266,6 +1367,14 @@ public class Player : Unit, IDamageable
         else if (Attack3 == "Invuln")
         {
             invuln();
+        }
+        else if (Attack3 == "Rebound")
+        {
+            rebound();
+        }
+        else if (Attack3 == "Pox")
+        {
+            pox();
         }
         else
         {
