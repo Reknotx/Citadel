@@ -26,16 +26,5 @@ namespace CombatSystem
                     break;
             }
         }
-
-        //private void LightAttack()
-        //{
-        //    ///Swing the light attack and activate the sword and initiate the animation.
-        //    PlayerAnimationManager.Instance.PlayAnimation(PlayerAnimationManager.LIGHT_ATTACK);
-        //}
-
-        //private void HeavyAttack()
-        //{
-        //    PlayerAnimationManager.Instance.PlayAnimation(PlayerAnimationManager.HEAVY_ATTACK);
-        //}
     }
 }

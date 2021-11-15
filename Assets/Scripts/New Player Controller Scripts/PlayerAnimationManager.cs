@@ -50,7 +50,7 @@ public class PlayerAnimationManager : MonoBehaviour
 
     /// <summary> Turns the animation on based on the value of <paramref name="on"/> </summary>
     /// <param name="on">True indicates we are running, false indicates we are idle.</param>
-    public void RunAnimation(bool on)
+    public void RunningAnimation(bool on)
     {
         animator.SetBool("isRunning", on);
         ///This is just a nice little way to ensure that if running is on idle

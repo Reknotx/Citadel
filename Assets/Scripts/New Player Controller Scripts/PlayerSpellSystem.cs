@@ -14,41 +14,6 @@ namespace CombatSystem
 
     public class PlayerSpellSystem : MonoBehaviour
     {
-        [System.Serializable]
-        public class SpellSlot
-        {
-            [HideInInspector]
-            public GameObject spell;
-
-            [HideInInspector]
-            public int manaCost;
-
-            public Image spellImage;
-
-            public Text manaCostText;
-
-            [HideInInspector]
-            public bool canCast = true;
-
-            public void AssignSpell(GameObject spell)
-            {
-                this.spell = spell;
-                manaCost = spell.GetComponent<Spell>().stats.manaCost;
-                spellImage = spell.GetComponent<Spell>().spellUIImage;
-            }
-
-            public void CompareCurrManaToManaCost(int playerMana)
-            {
-                Color temp = spellImage.color;
-                temp.a = playerMana < manaCost ? 0.5f : 1f;
-                canCast = temp.a == 1f;
-                spellImage.color = temp;
-            }
-        }
-
-        [HideInInspector]
-        public List<GameObject> acquiredSpells;
-
         public List<SpellSlot> spellSlots = new List<SpellSlot>(3);
 
         public SpellBook spellBook;
@@ -68,23 +33,18 @@ namespace CombatSystem
                                                                           0f);
         }
 
-        public void SwapSpell(GameObject spell, int slotIndex)
+        public void AssignSpell(GameObject spell, int slotIndex)
         {
+            foreach (SpellSlot assignedSpell in spellSlots)
+            {
+                if (assignedSpell.spell == spell)
+                {
+                    assignedSpell.Clear();
+                }
+            }
+
             spellSlots[slotIndex].spell = spell;
         }
-
-        /// <summary>
-        /// Adds a new spell into the book.
-        /// </summary>
-        /// <param name="newSpell">The spell prefab to add.</param>
-        public void AddSpellToBook(GameObject newSpell)
-        {
-            //if (newSpell.GetComponent<Spell>() == null)
-            //    Debug.LogError(newSpell.name + " does not have a spell script attached.");
-
-            acquiredSpells.Add(newSpell);
-        }
-
 
         public void UpdateSpellSystemUI(int playerMana)
         {
@@ -92,6 +52,59 @@ namespace CombatSystem
             {
                 spellSlot.CompareCurrManaToManaCost(playerMana);
             }
+        }
+    }
+
+    [System.Serializable]
+    public class SpellSlot
+    {
+        [HideInInspector]
+        public GameObject spell;
+
+        [HideInInspector]
+        public int manaCost;
+
+        public Image spellImage;
+
+        public Text manaCostText;
+
+        [HideInInspector]
+        public bool canCast;
+
+        [HideInInspector]
+        private bool isEmpty;
+
+        public void AssignSpell(GameObject spell)
+        {
+            this.spell = spell;
+            manaCost = spell.GetComponent<Spell>().stats.manaCost;
+            manaCostText.text = manaCost.ToString();
+            manaCostText.enabled = true;
+            spellImage = spell.GetComponent<Spell>().spellUIImage;
+            spellImage.enabled = true;
+
+            isEmpty = false;
+        }
+
+        public void CompareCurrManaToManaCost(int playerMana)
+        {
+            Color temp = spellImage.color;
+            temp.a = playerMana < manaCost ? 0.5f : 1f;
+
+            canCast = temp.a == 1f;
+
+            spellImage.color = temp;
+        }
+
+        public void Clear()
+        {
+            spell = null;
+            manaCost = 0;
+            spellImage.enabled = false;
+            manaCostText.enabled = false;
+            canCast = true;
+
+            isEmpty = true;
         }
     }
 }

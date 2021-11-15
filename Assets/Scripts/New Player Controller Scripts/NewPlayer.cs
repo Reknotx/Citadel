@@ -18,7 +18,10 @@ public class NewPlayer : Unit, IDamageable
 {
     public static NewPlayer Instance;
 
-    public Rigidbody playerRB;  
+    [HideInInspector]
+    public Rigidbody playerRB;
+
+    [HideInInspector]
     public Vector2 moveDir;
 
     public float jumpHeight = 5f;
@@ -122,7 +125,7 @@ public class NewPlayer : Unit, IDamageable
         ///when move dir is 0 in the x i need to apply a force in the opposite direction
         ///to stop the player from moving so that drag can remain at 0
 
-        playerRB.velocity = new Vector3(Mathf.Clamp(playerRB.velocity.x, -5f, 5f), playerRB.velocity.y);
+        playerRB.velocity = new Vector3(Mathf.Clamp(playerRB.velocity.x, -speed, speed), playerRB.velocity.y);
 
         ///Internal helper function to check for walls or terrain in front of the player.
         bool CheckForWalls()

@@ -198,8 +198,7 @@ namespace ShopSystem
 
         public override void Buy()
         {
-            //Player.Instance.Attack1 = spellPrefab.name;
-            NewPlayer.Instance.combatSystem.spellSystem.AddSpellToBook(spellPrefab);
+            NewPlayer.Instance.combatSystem.spellSystem.spellBook.AddSpellToBook(spellPrefab);
         }
 
         public override string ToString()
