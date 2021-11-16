@@ -67,6 +67,7 @@ public class Squiggmar : MonoBehaviour, IDamageable
 
     public GameObject endGameMenu;
 
+    [SerializeField]
     private bool headVulnerable = false;
 
     public int GetActiveTentacles
@@ -101,6 +102,15 @@ public class Squiggmar : MonoBehaviour, IDamageable
         }
     }
 
+
+
+
+    public bool isGoingUp = false;
+    public bool isDead = false;
+
+    public Animator animator;
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -128,6 +138,31 @@ public class Squiggmar : MonoBehaviour, IDamageable
 
     public void FixedUpdate()
     {
+
+        ///hunter added
+        ///tracks the health real time incase of sudden enemy death 
+        if (_health <= 0)
+        {
+            _health = 0;
+
+
+            ///this triggers the death animation and delays setting Active to false for a second to let the animation play
+            isDead = true;
+            animator.SetBool("isDead", isDead);
+            if (isDead)
+            {
+                StartCoroutine(turnOff());
+            }
+        }
+
+        ///hunter added
+        ///tracks the animator and attached bools for activating animations
+        if (animator != null)
+        {
+            animator.SetBool("isGoingUp", isGoingUp);
+            animator.SetBool("isDead", isDead);
+        }
+
 
         if (Time.time > nextCombatLogicStart)
             CombatLogic();
@@ -177,6 +212,11 @@ public class Squiggmar : MonoBehaviour, IDamageable
         bool moving = true;
         float startTime = Time.time;
 
+        ///hunter added 
+        ///starts the going up animation 
+        isGoingUp = true;
+        animator.SetBool("isGoingUp", isGoingUp);
+
         transform.GetChild(0).gameObject.SetActive(true);
         Vector3 invulnerablePos = transform.GetChild(0).position, vulnerablePos = vulnerablePosition.position, p01;
 
@@ -197,6 +237,11 @@ public class Squiggmar : MonoBehaviour, IDamageable
             yield return new WaitForFixedUpdate();
 
         }
+
+        ///hunter added
+        ///ends the going up animation 
+        isGoingUp = false;
+        animator.SetBool("isGoingUp", isGoingUp);
 
         Debug.Log("Head made vulnerable.");
         transform.GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1f, 1f, 1f, 1f);
@@ -239,5 +284,14 @@ public class Squiggmar : MonoBehaviour, IDamageable
     public void TakeDamage(float amount)
     {
         Health -= amount;
+    }
+
+    /// <summary>
+    /// delays the setActive to false for a second to give animations time to finish
+    /// </summary>
+    IEnumerator turnOff()
+    {
+        yield return new WaitForSeconds(4);
+        gameObject.SetActive(false);
     }
 }

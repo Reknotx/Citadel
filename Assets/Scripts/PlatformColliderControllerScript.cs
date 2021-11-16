@@ -21,7 +21,7 @@ public class PlatformColliderControllerScript : MonoBehaviour
     
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
     }

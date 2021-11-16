@@ -22,18 +22,18 @@ public class Unit : MonoBehaviour, IDamageable
     #region Unit's Movement Stats 
 
     ///<summary>This is the unit's speed.</summary>
-    [Range(0, 30f)]
-    [Tooltip("This is the unit's speed.")]
+    [Range(0, 10f)]
+    [Tooltip("This is the unit's maximum speed.")]
     public float speed;
 
    
     #endregion
     #region Health
-    [SerializeField]
     protected float _health;
 
-    ///<summary>This is the maximum units health.</summary>
-    public float maxHealth;
+    ///<summary>This is the unit's maximum health.</summary>
+    [SerializeField]
+    protected float _maxHealth;
 
     ///<summary>This is the units health.</summary>
     public virtual float Health
@@ -41,13 +41,23 @@ public class Unit : MonoBehaviour, IDamageable
         get => _health;
         set
         {
-            _health = Mathf.Clamp(value, 0, maxHealth);
+            _health = value;
 
             if (_health <= 0)
             {
                 ///Destroy the object here
                 Destroy(gameObject);
             }
+        }
+    }
+
+    public float MaxHealth
+    {
+        get => _maxHealth;
+        set
+        {
+            _maxHealth = value;
+            //Health = _maxHealth;
         }
     }
     #endregion
@@ -61,30 +71,28 @@ public class Unit : MonoBehaviour, IDamageable
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
+    [HideInInspector]
     public Collider _groundCollider;
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
+    [HideInInspector]
     protected Collider _platformCollider;
 
 
     ///<summary>This dis the units collider for their light attack.</summary>
     [SerializeField]
+    [HideInInspector]
     protected Collider _lightCollider;
 
-    
+    #endregion
 
-   
-
-            #endregion
-    
     #region Unit's bool determinates 
 
     ///<summary>This determines whether the unit is on the ground or not.</summary>
-    [HideInInspector]
-    protected bool isGrounded;
+    protected bool grounded = true;
 
-    ///<summary>This determines whether the unit is on a platform or not.</summary>
     [HideInInspector]
+    ///<summary>This determines whether the unit is on a platform or not.</summary>
     public bool onPlatform;
 
     [HideInInspector]
@@ -110,6 +118,15 @@ public class Unit : MonoBehaviour, IDamageable
     /// <summary> this determines if the unit is on fire or not </summary>
     [HideInInspector]
     protected bool onFire;
+
+    /// <summary> this determines if the unit is poisoned or not </summary>
+    //[HideInInspector]
+    [SerializeField]
+    public bool poisoned;
+
+    /// <summary> this determines if the unit has recently taken ticking poison damage </summary>
+    [SerializeField]
+    public bool poisonDamageTaken;
 
     /// <summary> this determines if the unit has recently taken ticking fire damage </summary>
     [HideInInspector]
@@ -150,7 +167,29 @@ public class Unit : MonoBehaviour, IDamageable
     [HideInInspector]
     protected float onFireDamageDelay = 2f;
 
+    /// <summary> this determines how long the unit will be on fire for</summary>
+    [SerializeField]
+    public float poisonedDuration = 5f;
+
+    /// <summary> this determines how much damage per tick will be applied to the unit</summary>
+    [SerializeField]
+    public int poisonedDamage;
+
+    /// <summary> this determines how quickly on fire damage will tick against health </summary>
+    [HideInInspector]
+    protected float poisonedDamageRate = 1f;
+
+    /// <summary> This determines the delay between taking on fire damage</summary>
+    [HideInInspector]
+    protected float poisonedDamageDelay = 2f;
+
     #endregion
+
+    public virtual void Awake()
+    {
+        Health = MaxHealth;
+    }
+
     public virtual void Update()
     {
       
@@ -164,7 +203,14 @@ public class Unit : MonoBehaviour, IDamageable
             onFireDamageDelay = 2f;
         }
 
-      
+        poisonedDamageDelay -= Time.deltaTime * poisonedDamageRate;
+        if (poisonedDamageDelay <= 0)
+        {
+            poisonDamageTaken = false;
+            poisonedDamageDelay = 2f;
+        }
+
+
     }
 
     /// Author: Chase O'Connor
@@ -203,6 +249,14 @@ public class Unit : MonoBehaviour, IDamageable
         onFire = true;
         yield return new WaitForSeconds(onFireDuration);
         onFire = false;
+    }
+    
+    public IEnumerator poisonedCoroutine()
+    {
+
+        poisoned = true;
+        yield return new WaitForSeconds(poisonedDuration);
+        poisoned = false;
     }
 
     

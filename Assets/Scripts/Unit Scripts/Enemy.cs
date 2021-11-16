@@ -141,7 +141,6 @@ public class Enemy : Unit
         player = GameObject.FindGameObjectWithTag("Player");
 
         Astar = GetComponent<AIPath>();
-        Health = maxHealth;
 
         HealthIMG.gameObject.SetActive(false);
     }
@@ -155,10 +154,10 @@ public class Enemy : Unit
 
         base.Update();
 
-        if (Health < maxHealth)
+        if (Health < _maxHealth)
         {
             HealthIMG.gameObject.SetActive(true);
-            calculateHealth = (float)Health / maxHealth;
+            calculateHealth = (float)Health / _maxHealth;
             enemyHealth.fillAmount = Mathf.MoveTowards(enemyHealth.fillAmount, calculateHealth, Time.deltaTime);
         }
         else
@@ -200,7 +199,7 @@ public class Enemy : Unit
             }
         }
 
-        if (isGrounded)
+        if (grounded)
         {
             if (canJump)
             {
@@ -257,11 +256,11 @@ public class Enemy : Unit
         Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
         if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "ground")
         {
-            isGrounded = true;
+            grounded = true;
         }
         else
         {
-            isGrounded = false;
+            grounded = false;
         }
 
 
@@ -290,6 +289,12 @@ public class Enemy : Unit
         if (onFire == true)
         {
             TakeDamage(onFireDamage * Time.deltaTime);
+        }
+
+        if(poisoned == true)
+        {
+            TakeDamage(poisonedDamage * Time.deltaTime);
+
         }
     }
 
@@ -413,11 +418,13 @@ public class Enemy : Unit
             }
         }
 
+        
 
-        if(other.gameObject.tag == "Aerorang")
-        {
-            TakeDamage(other.GetComponent<AerorangSpell>().spellDamage);
-        }
+        
+       
+
+        
+        
     }
 
     IEnumerator IsJumping()

@@ -79,8 +79,25 @@ public class SceneManagerScript : MonoBehaviour
         activeScene = SceneManager.GetActiveScene();
         activeSceneName = activeScene.name;
         GameObject player = GameObject.FindWithTag("Player");
-      //  shopUI = GameObject.FindGameObjectWithTag("CampShop");
+        //  shopUI = GameObject.FindGameObjectWithTag("CampShop");
 
+        sceneChecker();
+
+    }
+
+    public void sceneChecker()
+    {
+        if(activeScene.name == "MineScene")
+        {
+            shopUI = null;
+        }
+
+        if(activeScene.name == "CampScene")
+        {
+            mineButtons = null;
+            mineShopButtons = null;
+
+        }
     }
 
     #region button functions 

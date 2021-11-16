@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Spell : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public abstract class Spell : MonoBehaviour
     [HideInInspector]
     public bool movingRight;
 
+    public Sprite spellUIImage;
+
     public abstract void TriggerSpell(GameObject target);
 
     public abstract void Move();
@@ -28,6 +31,7 @@ public abstract class Spell : MonoBehaviour
 
     public virtual void OnTriggerEnter(Collider other)
     {
+        
         if (other.gameObject.layer == 31)
             Destroy(gameObject);
         

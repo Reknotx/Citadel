@@ -10,7 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireWallSpellScript : MonoBehaviour
+public class FireWallSpellScript : Spell
 {
 
     
@@ -23,8 +23,6 @@ public class FireWallSpellScript : MonoBehaviour
     public int fireWallBurnDamage;
 
     public float spellDuration;
-
-    public float manaCost;
 
         #endregion
         #region Fire Wall Colliders/Renderers
@@ -60,12 +58,16 @@ public class FireWallSpellScript : MonoBehaviour
         }
     }
 
+    public override void Move()
+    {
+    }
 
 
- 
+
+
 
     #region Fire Wall Collison Control
-    public void OnTriggerEnter(Collider other)
+    public override void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag =="platform")
         {
@@ -87,6 +89,11 @@ public class FireWallSpellScript : MonoBehaviour
             }
             
         }
+    }
+
+    public override void TriggerSpell(GameObject target)
+    {
+        throw new System.NotImplementedException();
     }
     #endregion
 
