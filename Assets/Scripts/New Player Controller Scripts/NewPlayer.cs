@@ -183,6 +183,7 @@ public class NewPlayer : Unit, IDamageable
         {
             physicalBody.layer = playerLayer;
             grounded = true;
+            Debug.Log("Landed");
             PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.LANDING);
         }
         else if (grounded == false && playerRB.velocity.y < 0)
@@ -215,6 +216,8 @@ public class NewPlayer : Unit, IDamageable
         moveDir = value.Get<Vector2>();
 
         facingRight = Keyboard.current.dKey.isPressed;
+
+        //if (moveDir == Vector2.zero) 
     }
 
     public void OnJump()

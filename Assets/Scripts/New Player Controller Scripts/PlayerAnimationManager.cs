@@ -23,9 +23,9 @@ public class PlayerAnimationManager : MonoBehaviour
     public static string FALLING = "castFalling";
 
     /// <summary> Activates the landing animation trigger. </summary>
-    public static string LANDING = "castLanding";
+    public static string LANDING = "castLanded";
 
-    public Animator animator;
+    private Animator animator;
 
     private void Awake()
     {
@@ -33,6 +33,9 @@ public class PlayerAnimationManager : MonoBehaviour
             Destroy(Instance);
 
         Instance = this;
+
+        if (animator == null)
+            animator = GetComponent<Animator>();
     }
 
 
@@ -45,7 +48,6 @@ public class PlayerAnimationManager : MonoBehaviour
     public void ActivateTrigger(string animation)
     {
         animator.SetTrigger(animation);
-
     }
 
     /// <summary> Turns the animation on based on the value of <paramref name="on"/> </summary>
