@@ -18,9 +18,9 @@ public class PlayerAnimationManager : MonoBehaviour
     /// <summary> Activates the jump animation trigger. </summary>
     public static string JUMP = "castJump";
 
-    /// <summary> Activates the falling animation trigger. </summary>
+    /// <summary> Reference to the falling animation boolean. </summary>
     /// <remarks>Remember all transitions into the falling animation can't have exit time.</remarks>
-    public static string FALLING = "castFalling";
+    public static string FALLING = "isFalling";
 
     /// <summary> Activates the landing animation trigger. </summary>
     public static string LANDING = "castLanded";
@@ -58,6 +58,14 @@ public class PlayerAnimationManager : MonoBehaviour
         ///This is just a nice little way to ensure that if running is on idle
         ///will be off and we don't need to write an if block
         animator.SetBool("isIdle", on == true ? false : true);
+    }
+
+    public void SetBool(string animation, bool value)
+    {
+        if (animator.GetBool(animation) != value)
+        {
+            animator.SetBool(animation, value);
+        }
     }
 
     public void TurnSwordOff()
