@@ -23,7 +23,7 @@ namespace Interactables
             if (other.gameObject.layer == 7)
             {
                 given = true;
-                other.GetComponent<PlayerInventory>().shuues = true;
+                NewPlayer.Instance.inventory.shuues = true;
                 Destroy(this.gameObject);
             }
         }

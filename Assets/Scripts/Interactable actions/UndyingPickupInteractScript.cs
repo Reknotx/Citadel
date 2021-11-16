@@ -22,7 +22,7 @@ namespace Interactables
             if (other.gameObject.layer == 7)
             {
                 given = true;
-                other.GetComponent<PlayerInventory>().undying = true;
+                NewPlayer.Instance.inventory.undying = true;
                 Destroy(this.gameObject);
             }
         }
