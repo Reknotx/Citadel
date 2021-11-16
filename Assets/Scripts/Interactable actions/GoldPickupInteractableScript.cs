@@ -20,20 +20,13 @@ namespace Interactables
         {
             
                 GameObject goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
-                goldHandler.GetComponent<GoldHandler>()._mySoftGold += dropAmount;
+                goldHandler.GetComponent<GoldHandler>().MyHardGold += dropAmount;
             Destroy(this.gameObject);
 
 
 
         }
 
-        public void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.tag == "Player")
-            {
-                GameObject player = GameObject.FindGameObjectWithTag("Player");
-                player.GetComponent<Player>().Interacting = true;
-            }
-        }
+        
     }
 }

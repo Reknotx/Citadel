@@ -22,7 +22,7 @@ namespace Interactables
         {
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<Player>().Health += dropAmount;
+            player.GetComponent<NewPlayer>().Health += dropAmount;
 
                
             Destroy(this.gameObject);
@@ -34,8 +34,7 @@ namespace Interactables
         {
             if (other.gameObject.tag == "Player")
             {
-                GameObject player = GameObject.FindGameObjectWithTag("Player");
-                player.GetComponent<Player>().Interacting = true;
+                Interact();
             }
         }
     }

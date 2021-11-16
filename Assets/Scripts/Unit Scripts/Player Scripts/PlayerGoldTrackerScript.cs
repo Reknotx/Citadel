@@ -54,9 +54,7 @@ public class PlayerGoldTrackerScript : MonoBehaviour
 
 
 
-    public string attack1;
-    public string attack2;
-    public string attack3;
+   
 
 
     private void Awake()
@@ -188,15 +186,15 @@ public class PlayerGoldTrackerScript : MonoBehaviour
                     playerMaxHealth =  startingMaxHealth;
                     playerMaxMana = startingMaxMana;
                     playerAttackDamage =startingAttackDamage ;
-                    playerAttackRange =  startingAttackRange;
+                    //playerAttackRange =  startingAttackRange;
                     playerDead = false;
             }
 
 
-            player.GetComponent<NewPlayer>().MaxHealth = playerMaxHealth;
-            player.GetComponent<NewPlayer>().MaxMana = playerMaxMana;
+            player.GetComponent<NewPlayer>().Health = playerMaxHealth;
+            player.GetComponent<NewPlayer>().Mana = playerMaxMana;
             player.GetComponent<NewPlayer>().speed = playerSpeed;
-            //player.GetComponent<Player>().meleeAttackDamage = playerAttackDamage;
+            player.GetComponentInChildren<CombatSystem.PlayerMeleeSystem>().playerMeleeDamage = playerAttackDamage;
             //player.GetComponent<Player>().meleeAttackRange = playerAttackRange;
             //player.GetComponent<Player>().Attack1 = attack1;
             //player.GetComponent<Player>().Attack2 = attack2;
@@ -210,13 +208,13 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     {
         if (currentSceneName != "MainMenuScene" && currentSceneName != "MineScene")
         {
-            playerMaxHealth = player.GetComponent<NewPlayer>().MaxHealth;
-            playerMaxMana = player.GetComponent<NewPlayer>().MaxMana;
+            playerMaxHealth = player.GetComponent<NewPlayer>().Health;
+            playerMaxMana = player.GetComponent<NewPlayer>().Mana;
             playerSpeed = player.GetComponent<NewPlayer>().speed;
-            //playerAttackDamage = player.GetComponent<>().meleeAttackDamage;
+            playerAttackDamage = player.GetComponentInChildren<CombatSystem.PlayerMeleeSystem>().playerMeleeDamage;
            // playerAttackRange = player.GetComponent<Player>().meleeAttackRange;
-            //attack1 = player.GetComponent<Player>().Attack1;
-            //attack2 = player.GetComponent<Player>().Attack2;
+           //attack1 = player.GetComponent<Player>().Attack1;
+           //attack2 = player.GetComponent<Player>().Attack2;
            // attack3 = player.GetComponent<Player>().Attack3;
         }
     }

@@ -256,7 +256,7 @@ public class NewPlayer : Unit, IDamageable
 
     void Attack()
     {
-        ///How can we process the attack to ake it more dynamic?
+        ///How can we process the attack to make it more dynamic?
         ///Ideas I need ideas
         ///Having a secondary class that processes a string
         ///sent in via the input system that then returns a 

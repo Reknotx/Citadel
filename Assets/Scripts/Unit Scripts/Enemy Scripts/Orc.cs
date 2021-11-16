@@ -23,7 +23,7 @@ public class Orc : Enemy
 
     #region Life Handler for Player
 
-    public Player playerLife;
+    public NewPlayer playerLife;
 
     #endregion
 
@@ -47,7 +47,7 @@ public class Orc : Enemy
         orcAttack_L.SetActive(false);
         orcAttack_R.SetActive(false);
 
-        playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<NewPlayer>();
 
         
     }
@@ -114,10 +114,5 @@ public class Orc : Enemy
         orcAttack_L.SetActive(false);
     }
 
-    IEnumerator StunPlayer()
-    {
-        playerLife.canMove = false;
-        yield return new WaitForSeconds(1f);
-        playerLife.canMove = true;
-    }
+    
 }
