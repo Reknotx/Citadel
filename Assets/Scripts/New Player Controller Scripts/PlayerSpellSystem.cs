@@ -25,10 +25,10 @@ namespace CombatSystem
             GameObject spellToCast = spellSlots[slotIndex].spell;
 
             ///Apply force to spell or perform unique movement math
-            GameObject spawnedSpell = Instantiate(spellToCast, Player.Instance.transform.position, Quaternion.identity);
+            GameObject spawnedSpell = Instantiate(spellToCast, NewPlayer.Instance.transform.position, Quaternion.identity);
 
             int multiplier = NewPlayer.Instance.playerRB.velocity.x < 0 ? -1 : 1;
-            spawnedSpell.GetComponent<Rigidbody>().velocity = new Vector3(NewPlayer.Instance.playerRB.velocity.x + (3 * multiplier),
+            spawnedSpell.GetComponent<Rigidbody>().velocity = new Vector3(NewPlayer.Instance.speed + (3 * multiplier) * (NewPlayer.Instance.facingRight ? 1 : -1),
                                                                           0f,
                                                                           0f);
         }

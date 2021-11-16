@@ -460,7 +460,7 @@ public class Player : Unit, IDamageable
                     animator.SetBool("isRunning", isRunning);
                     animator.SetBool("isJumping", isJumping);
                     animator.SetBool("isFalling", isFalling);
-                    animator.SetBool("isGrounded", isGrounded);
+                    animator.SetBool("isGrounded", base.grounded);
                     animator.SetBool("Icicle", isCastingIcicle);
               }
                 
@@ -474,11 +474,11 @@ public class Player : Unit, IDamageable
         ///standing on a platform is the same as standing on the ground 
         if (onPlatform == true && !isJumpPressed)
         {
-            isGrounded = true;
+            base.grounded = true;
         }
-        grounded = isGrounded;
+        grounded = base.grounded;
         ///when you are back on the ground, it resets whether or not you can double jump or not is you have the shuues
-        if(isGrounded == true)
+        if(base.grounded == true)
         {
             canDoubleJump = true;
             hasDoubleJump = false;
@@ -486,7 +486,7 @@ public class Player : Unit, IDamageable
 
         if(hittingWallLeft && isJumpPressed)
         {
-            isGrounded = false;
+            base.grounded = false;
         }
         else if(hittingWallLeft && !isJumpPressed)
         {
@@ -495,14 +495,14 @@ public class Player : Unit, IDamageable
 
         if (hittingWallRight && isJumpPressed)
         {
-            isGrounded = false;
+            base.grounded = false;
         }
         else if (hittingWallRight && !isJumpPressed)
         {
             isFalling = true;
         }
 
-        if(isGrounded)
+        if(base.grounded)
         {
             hittingWallLeft = false;
             hittingWallRight = false;
@@ -563,12 +563,12 @@ public class Player : Unit, IDamageable
         Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
         if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "ground" && !isJumpPressed)
         {
-            isGrounded = true;
+            base.grounded = true;
             isJumping = false;
         }
         else
         {
-            isGrounded = false;
+            base.grounded = false;
         }
 
        
@@ -577,19 +577,19 @@ public class Player : Unit, IDamageable
         Debug.DrawRay(transform.position, wallCheck * _Reach/2, Color.red);
         if (Physics.Raycast(transform.position, wallCheck, out hit, _Reach/2) && hit.transform.tag == "ground")
         {
-            if(facingRight && !isGrounded)
+            if(facingRight && !base.grounded)
             {
                 hittingWallRight = true;
             }
             else
             {
-               hittingWallRight = false;
+                hittingWallRight = false;
             }
             
         
         
         }
-        else if(isGrounded)
+        else if(base.grounded)
         {
             hittingWallRight = false;
         }
@@ -598,18 +598,18 @@ public class Player : Unit, IDamageable
         Debug.DrawRay(transform.position, wallCheck2 * _Reach/2, Color.red);
         if (Physics.Raycast(transform.position, wallCheck2, out hit, _Reach/2) && hit.transform.tag == "ground")
         {
-           if(!facingRight && !isGrounded)
+           if(!facingRight && !base.grounded)
            {
                 hittingWallLeft = true;
            }
            else
            {
-              hittingWallLeft = false;
+                hittingWallLeft = false;
            }
        
         
         }
-        else if (isGrounded)
+        else if (base.grounded)
         {
             hittingWallLeft = false;
         }
@@ -634,7 +634,7 @@ public class Player : Unit, IDamageable
 
 
         ///<summary>this checks if the unit is trying to pass up through a platform and will assist.</summary>
-        if (throughPlatform == true && justJumped == true && !isGrounded)
+        if (throughPlatform == true && justJumped == true && !base.grounded)
         {
             //StartCoroutine(dropDown());
             _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 12);
@@ -781,11 +781,11 @@ public class Player : Unit, IDamageable
     {
         if (onPlatform)
         {
-            isGrounded = true;
+            base.grounded = true;
         }
         isFalling = myVelocity.y <= 0.0f || !isJumpPressed;
         float fallMultiplier = 2.0f;
-        if(isGrounded)
+        if(base.grounded)
         {
             isJumping = false;
             myVelocity.y = groundedGravity;
@@ -799,7 +799,7 @@ public class Player : Unit, IDamageable
         {
             isJumping = false;
             float previousYVelocity = myVelocity.y;
-            float newYVelocity = myVelocity.y + (gravity * fallMultiplier*Time.deltaTime);
+            float newYVelocity = myVelocity.y + (gravity * fallMultiplier* Time.deltaTime);
             float nextYVelocity = Mathf.Max((previousYVelocity + newYVelocity) * .5f, -10.0f);
             myVelocity.y = nextYVelocity;
         }
@@ -813,7 +813,7 @@ public class Player : Unit, IDamageable
     }
     void handleJump()
     {
-        if(!isJumping && isGrounded  && isJumpPressed)
+        if(!isJumping && base.grounded  && isJumpPressed)
         {
             isJumping = true;
             myVelocity.y = initialJumpVelocity * .5f;
@@ -826,7 +826,7 @@ public class Player : Unit, IDamageable
             canDoubleJump = false;
             StartCoroutine(Jumped());
         }
-        else if(!isJumpPressed && isGrounded && isJumping)
+        else if(!isJumpPressed && base.grounded && isJumping)
         {
             isJumping = false;
         }

@@ -6,20 +6,23 @@ namespace CombatSystem
 {
     public class PlayerMeleeSystem : MonoBehaviour
     {
-        public GameObject lightSword;
-        public GameObject heavySword;
+        public Sword lightSword;
+        public Sword heavySword;
 
+        public int playerMeleeDamage;
 
         public void SwingSword(string meleeAttack)
         {
             switch (meleeAttack)
             {
                 case "lightAttack":
-                    lightSword.SetActive(true);
+                    if (!lightSword.gameObject.activeSelf)
+                        lightSword.gameObject.SetActive(true);
                     break;
 
                 case "heavyAttack":
-                    heavySword.SetActive(true);
+                    if (!heavySword.gameObject.activeSelf)
+                        heavySword.gameObject.SetActive(true);
                     break;
 
                 default:

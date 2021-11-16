@@ -19,6 +19,16 @@ namespace CombatSystem
 
         public Transform spellButtons;
 
+        public List<GameObject> startingSpells;
+
+        private void Awake()
+        {
+            foreach (GameObject startingSpell in startingSpells)
+            {
+                AddSpellToBook(startingSpell);
+            }
+        }
+
         private void OnEnable()
         {
             spellInFocus = null;

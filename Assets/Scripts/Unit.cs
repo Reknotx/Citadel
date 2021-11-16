@@ -84,20 +84,15 @@ public class Unit : MonoBehaviour, IDamageable
     [HideInInspector]
     protected Collider _lightCollider;
 
-    
+    #endregion
 
-   
-
-            #endregion
-    
     #region Unit's bool determinates 
 
     ///<summary>This determines whether the unit is on the ground or not.</summary>
-    [HideInInspector]
-    protected bool isGrounded;
+    protected bool grounded = true;
 
-    ///<summary>This determines whether the unit is on a platform or not.</summary>
     [HideInInspector]
+    ///<summary>This determines whether the unit is on a platform or not.</summary>
     public bool onPlatform;
 
     [HideInInspector]

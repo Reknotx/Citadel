@@ -4,8 +4,6 @@ using UnityEngine;
 
 public abstract class Sword : MonoBehaviour
 {
-    public int damage;
-
     public static Sword ActiveSword;
 
     protected List<GameObject> enemiesAttacked = new List<GameObject>();
@@ -20,7 +18,7 @@ public abstract class Sword : MonoBehaviour
     {
         if (other.gameObject.layer == 8 && enemiesAttacked.Contains(other.gameObject))
         {
-            other.gameObject.GetComponent<IDamageable>().TakeDamage(damage);
+            other.gameObject.GetComponent<IDamageable>().TakeDamage(NewPlayer.Instance.combatSystem.meleeSystem.playerMeleeDamage);
             enemiesAttacked.Add(other.gameObject);
         }
     }

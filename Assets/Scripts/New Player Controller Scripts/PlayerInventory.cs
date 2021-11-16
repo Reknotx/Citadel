@@ -8,8 +8,14 @@ public class PlayerInventory
     private int manaPotionRefillAmnt = 10;
 
     public int HealthPotions = 0;
+    private const int _MaxHealthPotions = 5;
+
+    public bool HealthPotionSpace { get { return HealthPotions < _MaxHealthPotions; } }
 
     public int ManaPotions = 0;
+    private const int _MaxManaPotions = 5;
+
+    public bool ManaPotionSpace { get { return ManaPotions < _MaxManaPotions; } }
 
     public bool shuues = false;
     public bool undying = false;
@@ -31,12 +37,26 @@ public class PlayerInventory
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public void AddManaPotion()
+    {
+        ManaPotions = Mathf.Clamp(ManaPotions++, 0, _MaxManaPotions);
+    }
+
     public void UseHealthPotion()
     {
         if (HealthPotions == 0) return;
 
         NewPlayer.Instance.Health += healthPotionHealAmnt;
 
+    }
+
+    public void AddHealthPotion()
+    {
+        HealthPotions = Mathf.Clamp(HealthPotions++, 0, _MaxHealthPotions);
     }
 
     public class GoldStorage

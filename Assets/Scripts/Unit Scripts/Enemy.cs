@@ -199,7 +199,7 @@ public class Enemy : Unit
             }
         }
 
-        if (isGrounded)
+        if (grounded)
         {
             if (canJump)
             {
@@ -256,11 +256,11 @@ public class Enemy : Unit
         Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
         if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "ground")
         {
-            isGrounded = true;
+            grounded = true;
         }
         else
         {
-            isGrounded = false;
+            grounded = false;
         }
 
 

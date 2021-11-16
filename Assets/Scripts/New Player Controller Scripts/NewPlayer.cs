@@ -16,6 +16,11 @@ using CombatSystem;
 
 public class NewPlayer : Unit, IDamageable
 {
+    #region Fields
+
+
+
+    #endregion
     public static NewPlayer Instance;
 
     [HideInInspector]
@@ -26,8 +31,10 @@ public class NewPlayer : Unit, IDamageable
 
     public float jumpHeight = 5f;
 
-    private bool grounded = true;
     public GameObject physicalBody;
+    
+    bool checkForPlatform = true;
+    
     private int groundLayer = 1 << 10;
     private int platformLayer = 1 << 11;
     private int solidGroundLayer = 1 << 31;
@@ -79,6 +86,10 @@ public class NewPlayer : Unit, IDamageable
     public int MaxMana
     {
         get => _maxMana;
+        set
+        {
+            _maxMana = value;
+        }
     }
 
     public override void Awake()
@@ -159,8 +170,6 @@ public class NewPlayer : Unit, IDamageable
         }
     }
 
-    bool checkForPlatform = true;
-
     private void GroundedCheck()
     {
         if (playerRB.velocity.y > 0f)
@@ -201,6 +210,8 @@ public class NewPlayer : Unit, IDamageable
         ///use the technique that Brackey's utilized in the Ball wars video
         ///Limit the velocity the player can have in the x direction only 
         moveDir = value.Get<Vector2>();
+
+        facingRight = Keyboard.current.dKey.isPressed;
     }
 
     public void OnJump()
@@ -227,7 +238,12 @@ public class NewPlayer : Unit, IDamageable
         checkForPlatform = true;
     }
 
-    public void Attack()
+    public override void TakeDamage(float amount)
+    {
+        base.TakeDamage(amount);
+    }
+
+    void Attack()
     {
         ///How can we process the attack to ake it more dynamic?
         ///Ideas I need ideas
@@ -266,10 +282,4 @@ public class NewPlayer : Unit, IDamageable
         ///This will help make things more dynamic for us and allow for
         ///as many spells as want for the player to have.x
     }
-
-    public override void TakeDamage(float amount)
-    {
-        base.TakeDamage(amount);
-    }
-
 }
