@@ -132,6 +132,9 @@ public class Enemy : Unit
 
     private float calculateHealth;
 
+    [SerializeField]
+    private Transform pfDamagePopup;
+
     public virtual void Start()
     {
 
