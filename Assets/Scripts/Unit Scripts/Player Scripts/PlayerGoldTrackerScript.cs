@@ -74,10 +74,11 @@ public class PlayerGoldTrackerScript : MonoBehaviour
         DontDestroyOnLoad(_instance);
 
         findReference();
-        player.GetComponent<Player>().Attack1 = attack1;
+        /*player.GetComponent<Player>().Attack1 = attack1;
         player.GetComponent<Player>().Attack2 = attack2;
         player.GetComponent<Player>().Attack3 = attack3;
-
+        Edited out by Tyler to remove NRE with new player
+        */
     }
 
 
