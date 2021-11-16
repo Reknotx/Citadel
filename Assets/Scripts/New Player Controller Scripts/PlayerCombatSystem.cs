@@ -61,6 +61,11 @@ namespace CombatSystem
             spellSystem.CastSpell(spellSlot);
         }
 
+        public void OnOpenSpellBook()
+        {
+            spellSystem.spellBook.gameObject.SetActive(!spellSystem.spellBook.gameObject.activeSelf);
+        }
+
         public void UpdateCombatUI()
         {
             NewPlayer player = NewPlayer.Instance;

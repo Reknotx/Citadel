@@ -45,6 +45,9 @@ public class NewPlayer : Unit, IDamageable
     public PlayerCombatSystem combatSystem;
     public PlayerInventory inventory;
 
+    [Tooltip("The height of the model for collision detection purposes.")]
+    public float modelHeight = 1.5f;
+
     /// <summary> The player's health. </summary>
     public override float Health
     {
@@ -161,11 +164,11 @@ public class NewPlayer : Unit, IDamageable
             ///Here I'll want to do a physics cast instead of a ray cast
             ///so that I get all of the information easily and without trial 
             ///and error 
-            return Physics.BoxCast(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z),
-                                   new Vector3(0.1f, 0.5f, 0.5f),
+            return Physics.BoxCast(new Vector3(transform.position.x, transform.position.y + (modelHeight / 2), transform.position.z),
+                                   new Vector3(0.1f, modelHeight / 2, 0.5f),
                                    moveDir,
                                    Quaternion.identity,
-                                   0.6f,
+                                   0.3f,
                                    layerMask);
         }
     }
@@ -190,7 +193,7 @@ public class NewPlayer : Unit, IDamageable
         bool CheckIfGrounded()
         {
             return Physics.CheckBox(transform.position,
-                                    new Vector3(0.5f, 0.5f, 0.5f),
+                                    new Vector3(0.1f, 0.2f, 0.5f),
                                     Quaternion.identity,
                                     groundLayer | solidGroundLayer);
         }
@@ -198,7 +201,7 @@ public class NewPlayer : Unit, IDamageable
         bool CheckForPlatform()
         {
             return Physics.CheckBox(transform.position,
-                                    new Vector3(0.5f, 0.1f, 0.5f),
+                                    new Vector3(0.1f, 0.1f, 0.5f),
                                     Quaternion.identity,
                                     platformLayer);
         }

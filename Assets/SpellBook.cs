@@ -27,6 +27,8 @@ namespace CombatSystem
             {
                 AddSpellToBook(startingSpell);
             }
+
+            gameObject.SetActive(false);
         }
 
         private void OnEnable()
