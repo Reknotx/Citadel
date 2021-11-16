@@ -34,7 +34,7 @@ public class NewPlayer : Unit, IDamageable
 
     public GameObject physicalBody;
     
-    bool checkForPlatform = true;
+    bool checkForSolidSurface = true;
     
     private int groundLayer = 1 << 10;
     private int platformLayer = 1 << 11;
@@ -44,10 +44,13 @@ public class NewPlayer : Unit, IDamageable
     private int ignorePlayerLayer = 12;
 
     public PlayerCombatSystem combatSystem;
+
+
     public PlayerInventory inventory;
 
     public Slider ManaBar;
     public Slider HealthBar;
+    private bool falling = false;
 
     [Tooltip("The height of the model for collision detection purposes.")]
     public float modelHeight = 1.5f;
@@ -180,26 +183,31 @@ public class NewPlayer : Unit, IDamageable
 
     private void GroundedCheck()
     {
-        if (playerRB.velocity.y > 0f)
-        {
-            grounded = false;
-        }
-        else if ((checkForPlatform && CheckForPlatform()) || CheckIfGrounded())
+        if (grounded) return;
+
+        //if (playerRB.velocity.y > 0f)
+        //{
+        //    grounded = false;
+        //}
+        //else if ((checkForPlatform && CheckForPlatform()) || CheckIfGrounded())
+        if (checkForSolidSurface && (CheckForPlatform() || CheckIfGrounded()))
         {
             physicalBody.layer = playerLayer;
             grounded = true;
+            falling = false;
             Debug.Log("Landed");
             PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.LANDING);
         }
-        else if (grounded == false && playerRB.velocity.y < 0)
+        else if (playerRB.velocity.y < 0)
         {
-            PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.FALLING);
+            falling = true;
+            PlayerAnimationManager.Instance.SetBool(PlayerAnimationManager.FALLING, falling);
         }
 
         bool CheckIfGrounded()
         {
             return Physics.CheckBox(transform.position,
-                                    new Vector3(0.1f, 0.2f, 0.5f),
+                                    new Vector3(0.1f, 0.05f, 0.5f),
                                     Quaternion.identity,
                                     groundLayer | solidGroundLayer);
         }
@@ -207,7 +215,7 @@ public class NewPlayer : Unit, IDamageable
         bool CheckForPlatform()
         {
             return Physics.CheckBox(transform.position,
-                                    new Vector3(0.1f, 0.1f, 0.5f),
+                                    new Vector3(0.1f, 0.05f, 0.5f),
                                     Quaternion.identity,
                                     platformLayer);
         }
@@ -222,14 +230,14 @@ public class NewPlayer : Unit, IDamageable
 
         facingRight = Keyboard.current.dKey.isPressed;
 
-        if (Keyboard.current.dKey.isPressed)
-        {
-            transform.eulerAngles = new Vector3(0f, 0f, 0f);
-        }
-        else if (Keyboard.current.aKey.isPressed)
-        {
-            transform.eulerAngles = new Vector3(0f, 180f, 0f);
-        }
+        //if (Keyboard.current.dKey.isPressed)
+        //{
+        //    transform.eulerAngles = new Vector3(0f, 0f, 0f);
+        //}
+        //else if (Keyboard.current.aKey.isPressed)
+        //{
+        //    transform.eulerAngles = new Vector3(0f, 180f, 0f);
+        //}
 
         //if (moveDir == Vector2.zero) 
     }
@@ -237,25 +245,33 @@ public class NewPlayer : Unit, IDamageable
     public void OnJump()
     {
         if (!grounded) return;
-        Debug.Log("Grounded");
-
-        grounded = false;
-        physicalBody.layer = ignorePlayerLayer;
+        LeftGround();
+        Debug.Log("Jump");
         playerRB.velocity = new Vector3(0, Mathf.Sqrt(-2.0f * Physics.gravity.y * jumpHeight));
         PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.JUMP);
     }
 
     public void OnDropDown()
     {
-        checkForPlatform = false;
+        if (!grounded) return;
+        PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.FALLING);
+        LeftGround();
+        falling = true;
+    }
+
+    private void LeftGround()
+    {
         physicalBody.layer = ignorePlayerLayer;
+        grounded = false;
+        checkForSolidSurface = false;
         StartCoroutine(GroundedCheckDelay());
+
     }
 
     IEnumerator GroundedCheckDelay()
     {
         yield return new WaitForSeconds(1f);
-        checkForPlatform = true;
+        checkForSolidSurface = true;
     }
 
     public override void TakeDamage(float amount)
