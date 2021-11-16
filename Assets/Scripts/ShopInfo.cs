@@ -140,37 +140,39 @@ namespace ShopSystem
 
         public override void Buy()
         {
+            NewPlayer player = NewPlayer.Instance;
+
             switch (statToIncrease)
             {
                 case StatToIncrease.health:
-                    Player.Instance.maxHealth += (int)increaseStatBy;
+                    player.MaxHealth += (int)increaseStatBy;
                     Debug.Log("Buying health upgrade");
                     break;
 
                 case StatToIncrease.attackPwr:
-                    Player.Instance.meleeAttackDamage += (int)increaseStatBy;
+                    player.combatSystem.meleeSystem.playerMeleeDamage += (int)increaseStatBy;
                     Debug.Log("Buying attack power upgrade");
                     break;
 
                 case StatToIncrease.attackRng:
-                    Player.Instance.meleeAttackRange += increaseStatBy;
+                    //player.meleeAttackRange += increaseStatBy;
                     Debug.Log("Buying attack range upgrade");
-                    break;
+                    return;
 
                 case StatToIncrease.speed:
-                    Player.Instance.speed += increaseStatBy;
+                    player.speed += increaseStatBy;
                     Debug.Log("Buying speed upgrade");
                     break;
 
                 case StatToIncrease.mana:
-                    Player.Instance.maxMana += increaseStatBy;
+                    player.MaxMana += (int)increaseStatBy;
                     Debug.Log("Buying mana upgrade");
                     break;
 
                 case StatToIncrease.spellPotency:
                     //Player.Instance.spellPotency += info.spellPotencyUpInfo.increaseValueBy; 
                     Debug.Log("Buying spell potency upgrade");
-                    break;
+                    return;
 
                 default:
                     break;
@@ -182,7 +184,7 @@ namespace ShopSystem
             //}
 
             Level++;
-            GoldHandler.Instance.MyHardGold -= upgradeCost;
+            NewPlayer.Instance.inventory.goldStorage.permanentGold -= upgradeCost;
         }
     }
 
@@ -198,7 +200,7 @@ namespace ShopSystem
 
         public override void Buy()
         {
-            Player.Instance.Attack1 = spellPrefab.name;
+            NewPlayer.Instance.combatSystem.spellSystem.spellBook.AddSpellToBook(spellPrefab);
         }
 
         public override string ToString()

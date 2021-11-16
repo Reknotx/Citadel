@@ -19,6 +19,12 @@ public class PoxSpell : Spell
 
     public float spellDuration;
 
+    [HideInInspector]
+    public int damage;
+
+    [HideInInspector]
+    public int manaCost;
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +33,9 @@ public class PoxSpell : Spell
         transform.localScale = baseScale * startSize;
         currScale = startSize;
         targetScale = baseScale * startSize;
+
+        damage = stats.damage;
+        manaCost = stats.manaCost;
     }
 
     // Update is called once per frame
@@ -84,4 +93,23 @@ public class PoxSpell : Spell
 
 
     }
+
+    public override void OnTriggerEnter(Collider other)
+    {
+      
+
+        if (other.gameObject.layer == 31)
+        {
+            return;
+        }
+
+        if (other.gameObject.layer == 8)
+        {
+            other.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+            other.gameObject.GetComponent<Enemy>().poisonedDamage = 3;
+            other.gameObject.GetComponent<Enemy>().poisonedDuration = 5;
+            other.gameObject.GetComponent<Enemy>().poisoned = true;
+        }
+    }
+
 }

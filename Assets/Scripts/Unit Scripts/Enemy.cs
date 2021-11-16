@@ -141,7 +141,6 @@ public class Enemy : Unit
         player = GameObject.FindGameObjectWithTag("Player");
 
         Astar = GetComponent<AIPath>();
-        Health = maxHealth;
 
         HealthIMG.gameObject.SetActive(false);
     }
@@ -155,10 +154,10 @@ public class Enemy : Unit
 
         base.Update();
 
-        if (Health < maxHealth)
+        if (Health < _maxHealth)
         {
             HealthIMG.gameObject.SetActive(true);
-            calculateHealth = (float)Health / maxHealth;
+            calculateHealth = (float)Health / _maxHealth;
             enemyHealth.fillAmount = Mathf.MoveTowards(enemyHealth.fillAmount, calculateHealth, Time.deltaTime);
         }
         else
@@ -200,7 +199,7 @@ public class Enemy : Unit
             }
         }
 
-        if (isGrounded)
+        if (grounded)
         {
             if (canJump)
             {
@@ -257,11 +256,11 @@ public class Enemy : Unit
         Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
         if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "ground")
         {
-            isGrounded = true;
+            grounded = true;
         }
         else
         {
-            isGrounded = false;
+            grounded = false;
         }
 
 
@@ -290,6 +289,12 @@ public class Enemy : Unit
         if (onFire == true)
         {
             TakeDamage(onFireDamage * Time.deltaTime);
+        }
+
+        if(poisoned == true)
+        {
+            TakeDamage(poisonedDamage * Time.deltaTime);
+
         }
     }
 
@@ -343,56 +348,41 @@ public class Enemy : Unit
         ///<summary>This triggers when the enemy is hit with the light attack.</summary>
         if (other.gameObject.tag=="swordLight")
         {
-            TakeDamage(player.GetComponent<Player>().meleeAttackDamage);
-            //Tyler Added code
+            TakeDamage(player.GetComponent<CombatSystem.PlayerMeleeSystem>().playerMeleeDamage);
+            
             if(Health <= 0)
             {
-                //add drop stuff here
+                
 
 
                 Destroy(this.gameObject);
             }
-            //end of Tyler code
-            hitOnRight = player.GetComponent<Player>().facingRightLocal ;
+            
+          
 
-            //if you turn on the bellow code, it will apply knockback to the light attack
-            /*
-            if (hitOnRight == true)
-            {
-                _rigidBody.AddForce(new Vector3(1, 0, 0) * 1f, ForceMode.Impulse);
-
-            }
-            else
-            {
-                _rigidBody.AddForce(new Vector3(-1, 0, 0) * 1f, ForceMode.Impulse);
-            }
-            */
+        
         }
 
         ///<summary>This triggers when the enemy is hit with the heavy attack.</summary>
         if (other.gameObject.tag == "swordHeavy")
         {
             
-            TakeDamage(player.GetComponent<Player>().meleeAttackDamage * 2);
+            TakeDamage(player.GetComponent<CombatSystem.PlayerMeleeSystem>().playerMeleeDamage * 2);
             hitOnRight = player.GetComponent<Player>().facingRightLocal;
             
 
             if(hitOnRight == true)
             {
-                _rigidBody.AddForce(new Vector3(player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
+                _rigidBody.AddForce(new Vector3(player.GetComponent<CombatSystem.PlayerMeleeSystem>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
              
             }
             else
             {
-                _rigidBody.AddForce(new Vector3(-player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
+                _rigidBody.AddForce(new Vector3(-player.GetComponent<CombatSystem.PlayerMeleeSystem>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
                
             }
         }
-        if (other.gameObject.tag == "Player")
-        {
-            //TakeDamage(player.GetComponent<Player>().playerCollisionDamage);
-            return;
-        }
+        
 
         if (other.gameObject.tag == "FireWallCast")
         {
@@ -413,22 +403,13 @@ public class Enemy : Unit
             }
         }
 
-        if (other.gameObject.tag == "Pox")
-        {
-            if (poisoned == false)
-            {
-                poisonedDuration = 5f;
-                poisonedDamage = 3;
-                StartCoroutine(poisonedCoroutine());
-            }
-        }
+        
 
-        /*
-        if (other.gameObject.tag == "Aerorang")
-        {
-            TakeDamage(other.GetComponent<AerorangSpell>().spellDamage);
-        }
-        */
+        
+       
+
+        
+        
     }
 
     IEnumerator IsJumping()

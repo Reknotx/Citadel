@@ -42,21 +42,31 @@ public class AerorangSpell : Spell
     [HideInInspector]
     public float xPos;
 
+    [HideInInspector]
+    public int damage;
+
+
+    [HideInInspector]
+    public int manaCost;
+
 
     /// <summary>the distance the spell will do before returning to the player</summary>
     [Tooltip("the distance the spell will do before returning to the player")]
     public float travelDistance = 6;
 
-    public float spellDamage = 10;
+    
 
 
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        facingRight = player.GetComponent<Player>().facingRight;
+        facingRight = player.GetComponent<NewPlayer>().facingRight;
         startingPos = player.transform.position;
         //this.transform.position = currentPos;
         currentPos = startingPos;
+
+        damage = stats.damage;
+        manaCost = stats.manaCost;
 
         if (facingRight)
         {
@@ -128,7 +138,8 @@ public class AerorangSpell : Spell
 
     public override void TriggerSpell(GameObject target)
     {
-        target.GetComponent<IDamageable>().TakeDamage(stats.damage);
+        //target.GetComponent<Enemy>().TakeDamage(damage);
+        Destroy(this.gameObject);
     }
 
     public override void Move()
@@ -148,5 +159,19 @@ public class AerorangSpell : Spell
             }
 
         }
+
+        if (other.gameObject.layer == 8)
+        {
+            other.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+           
+        }
+
+
+         
+        if (other.gameObject.layer == 31)
+        {
+            return;
+        }
+    
     }
 }

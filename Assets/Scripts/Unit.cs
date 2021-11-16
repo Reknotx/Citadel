@@ -22,18 +22,18 @@ public class Unit : MonoBehaviour, IDamageable
     #region Unit's Movement Stats 
 
     ///<summary>This is the unit's speed.</summary>
-    [Range(0, 30f)]
-    [Tooltip("This is the unit's speed.")]
+    [Range(0, 10f)]
+    [Tooltip("This is the unit's maximum speed.")]
     public float speed;
 
    
     #endregion
     #region Health
-    [SerializeField]
     protected float _health;
 
-    ///<summary>This is the maximum units health.</summary>
-    public float maxHealth;
+    ///<summary>This is the unit's maximum health.</summary>
+    [SerializeField]
+    protected float _maxHealth;
 
     ///<summary>This is the units health.</summary>
     public virtual float Health
@@ -41,13 +41,23 @@ public class Unit : MonoBehaviour, IDamageable
         get => _health;
         set
         {
-            _health = Mathf.Clamp(value, 0, maxHealth);
+            _health = value;
 
             if (_health <= 0)
             {
                 ///Destroy the object here
                 Destroy(gameObject);
             }
+        }
+    }
+
+    public float MaxHealth
+    {
+        get => _maxHealth;
+        set
+        {
+            _maxHealth = value;
+            //Health = _maxHealth;
         }
     }
     #endregion
@@ -61,30 +71,28 @@ public class Unit : MonoBehaviour, IDamageable
 
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
+    [HideInInspector]
     public Collider _groundCollider;
     ///<summary>This is the unit's collider that detects the ground.</summary>
     [SerializeField]
+    [HideInInspector]
     protected Collider _platformCollider;
 
 
     ///<summary>This dis the units collider for their light attack.</summary>
     [SerializeField]
+    [HideInInspector]
     protected Collider _lightCollider;
 
-    
+    #endregion
 
-   
-
-            #endregion
-    
     #region Unit's bool determinates 
 
     ///<summary>This determines whether the unit is on the ground or not.</summary>
-    [HideInInspector]
-    protected bool isGrounded;
+    protected bool grounded = true;
 
-    ///<summary>This determines whether the unit is on a platform or not.</summary>
     [HideInInspector]
+    ///<summary>This determines whether the unit is on a platform or not.</summary>
     public bool onPlatform;
 
     [HideInInspector]
@@ -112,12 +120,13 @@ public class Unit : MonoBehaviour, IDamageable
     protected bool onFire;
 
     /// <summary> this determines if the unit is poisoned or not </summary>
+    //[HideInInspector]
     [HideInInspector]
-    protected bool poisoned;
+    public bool poisoned;
 
     /// <summary> this determines if the unit has recently taken ticking poison damage </summary>
     [HideInInspector]
-    protected bool poisonDamageTaken;
+    public bool poisonDamageTaken;
 
     /// <summary> this determines if the unit has recently taken ticking fire damage </summary>
     [HideInInspector]
@@ -160,11 +169,11 @@ public class Unit : MonoBehaviour, IDamageable
 
     /// <summary> this determines how long the unit will be on fire for</summary>
     [HideInInspector]
-    protected float poisonedDuration;
+    public float poisonedDuration = 5f;
 
     /// <summary> this determines how much damage per tick will be applied to the unit</summary>
     [HideInInspector]
-    protected int poisonedDamage;
+    public int poisonedDamage;
 
     /// <summary> this determines how quickly on fire damage will tick against health </summary>
     [HideInInspector]
@@ -174,7 +183,17 @@ public class Unit : MonoBehaviour, IDamageable
     [HideInInspector]
     protected float poisonedDamageDelay = 2f;
 
+
+    [HideInInspector]
+    public bool invulnActive = false;
+
     #endregion
+
+    public virtual void Awake()
+    {
+        Health = MaxHealth;
+    }
+
     public virtual void Update()
     {
       
@@ -207,8 +226,16 @@ public class Unit : MonoBehaviour, IDamageable
     /// <param name="amount">The amount of damage to apply to the unit.</param>
     public virtual void TakeDamage(float amount)
     {
-        Debug.Log("Dealing " + amount + " points of damage to " + name);
-        Health -= amount;
+        if(!invulnActive)
+        {
+            Debug.Log("Dealing " + amount + " points of damage to " + name);
+            Health -= amount;
+        }
+        else
+        {
+            return;
+        }
+        
     }
     
    
@@ -244,9 +271,13 @@ public class Unit : MonoBehaviour, IDamageable
         poisoned = false;
     }
 
-    
+    public IEnumerator InvulnCoroutine()
+    {
+        yield return new WaitForSeconds(5f);
+        invulnActive = false;
+    }
 
-   
-     
+
+
     #endregion
 }

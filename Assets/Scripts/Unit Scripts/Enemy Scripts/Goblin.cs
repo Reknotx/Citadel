@@ -33,7 +33,7 @@ public class Goblin : Enemy
 
     #region Life Handler for Player
 
-    public Player playerLife;
+    public NewPlayer playerLife;
 
     #endregion
 
@@ -55,7 +55,7 @@ public class Goblin : Enemy
         //end
         goblinAttack_L.SetActive(false);
         goblinAttack_R.SetActive(false);
-        playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<NewPlayer>();
         HealthIMG.gameObject.SetActive(false);
         canLunge = false;
     }
