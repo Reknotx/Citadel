@@ -9,7 +9,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: CastLanded
+    m_ConditionEvent: castLanded
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8856638016698475713}
@@ -494,7 +494,7 @@ AnimatorController:
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
+    m_DefaultBool: 1
     m_Controller: {fileID: 0}
   - m_Name: castFalling
     m_Type: 9
@@ -502,7 +502,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: CastLanded
+  - m_Name: castLanded
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -516,6 +516,12 @@ AnimatorController:
     m_Controller: {fileID: 0}
   - m_Name: castFirewall
     m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: isRunning
+    m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -616,15 +622,15 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: -3705778030615069091}
-    second:
-    - {fileID: 5602860789636016012}
-  - first: {fileID: -6435113056884855980}
-    second:
-    - {fileID: 8391060641821978594}
   - first: {fileID: 8182258784126306818}
     second:
     - {fileID: -8036754509577063032}
+  - first: {fileID: -6435113056884855980}
+    second:
+    - {fileID: 8391060641821978594}
+  - first: {fileID: -3705778030615069091}
+    second:
+    - {fileID: 5602860789636016012}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 120, y: 280, z: 0}
   m_EntryPosition: {x: 110, y: 270, z: 0}
@@ -663,7 +669,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isRunning
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1342119817551046778}
   m_Solo: 0
