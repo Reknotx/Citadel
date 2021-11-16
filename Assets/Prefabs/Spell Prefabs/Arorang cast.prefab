@@ -109,6 +109,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120dcee0703560f41970ec729b7b7625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats:
+    cooldown: 1
+    manaCost: 10
+    damage: 3
+  movingRight: 0
+  spellUIImage: {fileID: 21300000, guid: 46ffbaf28a4f34b44a91903754132ec3, type: 3}
   player: {fileID: 0}
   myTransform: {fileID: 6795688506467570298}
   startingPos: {x: 0, y: 0, z: 0}
@@ -117,10 +123,12 @@ MonoBehaviour:
   facingRight: 0
   goingBack: 0
   speed: 4
-  distance: 0
-  travel: 0
+  zPos: 0
+  yPos: 0
+  xPos: 0
+  damage: 0
+  manaCost: 0
   travelDistance: 5
-  spellDamage: 15
 --- !u!54 &-6284410995798258587
 Rigidbody:
   m_ObjectHideFlags: 0
