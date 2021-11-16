@@ -80,7 +80,7 @@ namespace CombatSystem
             manaCost = spell.GetComponent<Spell>().stats.manaCost;
             manaCostText.text = manaCost.ToString();
             manaCostText.enabled = true;
-            spellImage = spell.GetComponent<Spell>().spellUIImage;
+            spellImage.sprite = spell.GetComponent<Spell>().spellUIImage;
             spellImage.enabled = true;
 
             isEmpty = false;
