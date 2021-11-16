@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using CombatSystem;
 
 
@@ -45,6 +46,9 @@ public class NewPlayer : Unit, IDamageable
     public PlayerCombatSystem combatSystem;
     public PlayerInventory inventory;
 
+    public Slider ManaBar;
+    public Slider HealthBar;
+
     [Tooltip("The height of the model for collision detection purposes.")]
     public float modelHeight = 1.5f;
 
@@ -56,7 +60,7 @@ public class NewPlayer : Unit, IDamageable
         set
         {
             base.Health = Mathf.Clamp(value, 0, _maxHealth);
-
+            HealthBar.value = value;
             if (Health == 0)
             {
                 ///Activate game ver logic
@@ -81,6 +85,7 @@ public class NewPlayer : Unit, IDamageable
         set
         {
             _mana = value;
+            ManaBar.value = value;
 
             combatSystem.spellSystem.UpdateSpellSystemUI(_mana);
         }

@@ -43,7 +43,7 @@ public class PlayerAnimationManager : MonoBehaviour
     /// Pass in one of the static strings from the PlayerAnimationManager.
     /// </summary>
     /// <param name="animation">The name of the animation to play</param>
-    /// <remarks>The name of the animation should be related to a 
+    /// <remarks>The name of the animation shou ld be related to a 
     /// bool or trigger in animator</remarks>
     public void ActivateTrigger(string animation)
     {
