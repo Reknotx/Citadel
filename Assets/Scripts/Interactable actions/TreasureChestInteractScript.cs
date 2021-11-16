@@ -46,11 +46,10 @@ namespace Interactables
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.tag == "Player")
+            if(other.gameObject.layer == 7)
             {
                 opened = true;
-                GameObject player = GameObject.FindGameObjectWithTag("Player");
-                player.GetComponent<Player>().Interacting = false;
+                
             }
         }
 
@@ -58,8 +57,7 @@ namespace Interactables
         public override void Interact()
         {
             opened = true;
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<Player>().Interacting = false;
+            
         }
 
         private void randomSpawn()

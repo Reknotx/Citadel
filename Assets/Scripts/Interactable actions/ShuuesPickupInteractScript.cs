@@ -6,59 +6,26 @@ namespace Interactables
 {
     public class ShuuesPickupInteractScript : Item
     {
-        /*
-        private bool given = false;
-        public GameObject player;
-        public bool playerInteracting = false;
-        public bool colliding = false;
 
-        private void Awake()
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
-        }
-
-        public void Update()
-        {
-            playerInteracting = player.GetComponent<Player>().Interacting;
-
-            if (playerInteracting == true && colliding == true)
-            {
-
-                Interact();
-                Destroy(this.gameObject);
-
-            }
-
-        }
-
-        */
+        public bool given = false;
+       
 
         public override void Interact()
         {
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<Player>().shuues = true;
+            player.GetComponent<PlayerInventory>().shuues = true;
             base.Interact();
         }
 
-        //public void OnTriggerEnter(Collider other)
-        //{
-        //    if (other.gameObject.tag == "Player")
-        //    {
-
-        //        colliding = true;
-
-        //    }
-        //}
-
-        //public void OnTriggerExit(Collider other)
-        //{
-        //    if (other.gameObject.tag == "Player")
-        //    {
-
-        //        colliding = false;
-
-        //    }
-        //}
+        public void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.layer == 7)
+            {
+                given = true;
+                other.GetComponent<PlayerInventory>().shuues = true;
+                Destroy(this.gameObject);
+            }
+        }
     }
 }
