@@ -42,13 +42,13 @@ public class PlayerGoldTrackerScript : MonoBehaviour
 
     public float playerSpeed;
     public float playerMaxHealth;
-    public float playerMaxMana;
+    public int playerMaxMana;
     public int playerAttackDamage;
     public float playerAttackRange;
 
     public float startingSpeed;
     public float startingMaxHealth;
-    public float startingMaxMana;
+    public int startingMaxMana;
     public int startingAttackDamage;
     public float startingAttackRange;
 
@@ -74,10 +74,11 @@ public class PlayerGoldTrackerScript : MonoBehaviour
         DontDestroyOnLoad(_instance);
 
         findReference();
+        /*
         player.GetComponent<Player>().Attack1 = attack1;
         player.GetComponent<Player>().Attack2 = attack2;
-        player.GetComponent<Player>().Attack3 = attack3;
-
+        player.GetComponent<Player>().Attack3 = attack3;    
+        */
     }
 
 
@@ -192,14 +193,14 @@ public class PlayerGoldTrackerScript : MonoBehaviour
             }
 
 
-            //player.GetComponent<NewPlayer>().MaxHealth = playerMaxHealth;
-            player.GetComponent<Player>().maxMana = playerMaxMana;
-            player.GetComponent<Player>().speed = playerSpeed;
-            player.GetComponent<Player>().meleeAttackDamage = playerAttackDamage;
-            player.GetComponent<Player>().meleeAttackRange = playerAttackRange;
-            player.GetComponent<Player>().Attack1 = attack1;
-            player.GetComponent<Player>().Attack2 = attack2;
-            player.GetComponent<Player>().Attack3 = attack3;
+            player.GetComponent<NewPlayer>().MaxHealth = playerMaxHealth;
+            player.GetComponent<NewPlayer>().MaxMana = playerMaxMana;
+            player.GetComponent<NewPlayer>().speed = playerSpeed;
+            //player.GetComponent<Player>().meleeAttackDamage = playerAttackDamage;
+            //player.GetComponent<Player>().meleeAttackRange = playerAttackRange;
+            //player.GetComponent<Player>().Attack1 = attack1;
+            //player.GetComponent<Player>().Attack2 = attack2;
+           // player.GetComponent<Player>().Attack3 = attack3;
 
             statsUpdated = true;
         }
@@ -210,13 +211,13 @@ public class PlayerGoldTrackerScript : MonoBehaviour
         if (currentSceneName != "MainMenuScene" && currentSceneName != "MineScene")
         {
             playerMaxHealth = player.GetComponent<NewPlayer>().MaxHealth;
-            playerMaxMana = player.GetComponent<Player>().maxMana;
-            playerSpeed = player.GetComponent<Player>().speed;
-            playerAttackDamage = player.GetComponent<Player>().meleeAttackDamage;
-            playerAttackRange = player.GetComponent<Player>().meleeAttackRange;
-            attack1 = player.GetComponent<Player>().Attack1;
-            attack2 = player.GetComponent<Player>().Attack2;
-            attack3 = player.GetComponent<Player>().Attack3;
+            playerMaxMana = player.GetComponent<NewPlayer>().MaxMana;
+            playerSpeed = player.GetComponent<NewPlayer>().speed;
+            //playerAttackDamage = player.GetComponent<>().meleeAttackDamage;
+           // playerAttackRange = player.GetComponent<Player>().meleeAttackRange;
+            //attack1 = player.GetComponent<Player>().Attack1;
+            //attack2 = player.GetComponent<Player>().Attack2;
+           // attack3 = player.GetComponent<Player>().Attack3;
         }
     }
 }
