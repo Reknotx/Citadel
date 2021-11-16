@@ -32,6 +32,7 @@ namespace Menu
         private void OnDisable()
         {
             Time.timeScale = 1f;
+            playerUnlock();
         }
 
         public void ReturnToCamp()
@@ -46,6 +47,12 @@ namespace Menu
         #else
             Application.Quit();
         #endif
+        }
+
+        public void playerUnlock()
+        {
+            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            player.pauseActive = false;
         }
     }
 }

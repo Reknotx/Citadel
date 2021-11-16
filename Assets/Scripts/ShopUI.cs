@@ -133,7 +133,8 @@ namespace ShopSystem
 
             healthUpButton.interactable = hardGold > info.healthUpInfo.upgradeCost;
             attackUpButton.interactable = hardGold > info.attackUpInfo.upgradeCost;
-            attackRangeUpButton.interactable = hardGold > info.attackRangeUpInfo.upgradeCost;
+            //attackRangeUpButton.interactable = hardGold > info.attackRangeUpInfo.upgradeCost;
+            attackRangeUpButton.interactable    = false;
 
             if (Player.Instance.speed == 30)
                 speedUpButton.interactable = false;
@@ -142,55 +143,30 @@ namespace ShopSystem
 
 
             manaUpButton.interactable = hardGold > info.manaUpInfo.upgradeCost;
-            spellPotencyUpButton.interactable = hardGold > info.spellPotencyUpInfo.upgradeCost;
+            //spellPotencyUpButton.interactable = hardGold > info.spellPotencyUpInfo.upgradeCost;
+            spellPotencyUpButton.interactable = false;
 
             spell1Button.interactable = hardGold > info.spell1Info.spellCost;
         }
-        //public void BuySpell()
-        //{
-        //    Player.Instance.fireWall_prefab = info.fireWall.spellPrefab;
-        //}
 
         ///Hunter added code here down
-        
+        ///Edited into its current state by Chase
         public void addHealthPotion()
         {
-            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-            if(player.healthPotions < player.healthPotionMax && player.healthPotions < player.potionMax)
-            {
-                player.healthPotions++;
-
-                if(player.manaPotions + player.healthPotions > player.potionMax)
-                {
-                    player.manaPotions--;
-                }
-               
-            }
-            else
-            {
-                Debug.Log("you have the maximum health potions you can carry");
-            }
+            NewPlayer player = NewPlayer.Instance;
+            
+            if (player.inventory.HealthPotionSpace) player.inventory.HealthPotions++;
+            else Debug.Log("you have the maximum health potions you can carry");
         }
 
 
         public void addManaPotion()
         {
-            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-            if (player.manaPotions < player.manaPotionMax && player.manaPotions < player.potionMax)
-            {
-                player.manaPotions++;
-                if (player.manaPotions + player.healthPotions > player.potionMax)
-                {
-                    player.healthPotions--;
-                }
-                
-            }
-            else
-            {
-                Debug.Log("you have the maximum mana potions you can carry");
-            }
-        }
+            NewPlayer player = NewPlayer.Instance;
 
+            if (player.inventory.ManaPotionSpace) player.inventory.ManaPotions++;
+            else Debug.Log("you have the maximum mana potions you can carry");
+        }
 
     }
 
