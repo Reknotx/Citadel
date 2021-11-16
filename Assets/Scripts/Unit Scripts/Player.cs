@@ -889,48 +889,48 @@ public class Player : Unit, IDamageable
     /// <summary> cast forth a fireball at  60 degree angle that will make a vertical wall of fire that damages passing enemies over time </summary>
     public void fireWall()
     {
-        if (canCast == true)
-        {
+        //if (canCast == true)
+        //{
            
-            if (myMana >= fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost)
-            {
-                if (spellStone == true)
-                {
+        //    if (myMana >= fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost)
+        //    {
+        //        if (spellStone == true)
+        //        {
 
-                    ReduceMana((fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost * 0.75f));
-                }
-                else
-                {
+        //            ReduceMana((fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost * 0.75f));
+        //        }
+        //        else
+        //        {
 
-                    ReduceMana(fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost);
-                }
+        //            ReduceMana(fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost);
+        //        }
 
-                ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
-                if (facingRight == true)
-                {
+        //        ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
+        //        if (facingRight == true)
+        //        {
 
-                    var fireWallSpell = (GameObject)Instantiate(fireWall_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
-                    fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * 12 + fireWallSpell.transform.up * -2;
-                    if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
-                    {
-                        fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
-                    }
-                    canCast = false;
-                }
-                else
-                {
+        //            var fireWallSpell = (GameObject)Instantiate(fireWall_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
+        //            fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * 12 + fireWallSpell.transform.up * -2;
+        //            if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
+        //            {
+        //                fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+        //            }
+        //            canCast = false;
+        //        }
+        //        else
+        //        {
 
-                    var fireWallSpell = (GameObject)Instantiate(fireWall_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
-                    fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * -12 + fireWallSpell.transform.up * -2;
+        //            var fireWallSpell = (GameObject)Instantiate(fireWall_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
+        //            fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * -12 + fireWallSpell.transform.up * -2;
 
-                    if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
-                    {
-                        fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
-                    }
-                    canCast = false;
-                }
-            }
-        }
+        //            if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
+        //            {
+        //                fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+        //            }
+        //            canCast = false;
+        //        }
+        //    }
+        //}
 
 
     }
