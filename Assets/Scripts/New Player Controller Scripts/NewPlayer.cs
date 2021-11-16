@@ -60,7 +60,7 @@ public class NewPlayer : Unit, IDamageable
         set
         {
             base.Health = Mathf.Clamp(value, 0, _maxHealth);
-            HealthBar.value = value;
+            if (HealthBar != null) HealthBar.value = value;
             if (Health == 0)
             {
                 ///Activate game ver logic
@@ -85,7 +85,7 @@ public class NewPlayer : Unit, IDamageable
         set
         {
             _mana = value;
-            ManaBar.value = value;
+            if (ManaBar != null) ManaBar.value = value;
 
             combatSystem.spellSystem.UpdateSpellSystemUI(_mana);
         }
@@ -221,6 +221,15 @@ public class NewPlayer : Unit, IDamageable
         moveDir = value.Get<Vector2>();
 
         facingRight = Keyboard.current.dKey.isPressed;
+
+        if (Keyboard.current.dKey.isPressed)
+        {
+            transform.eulerAngles = new Vector3(0f, 0f, 0f);
+        }
+        else if (Keyboard.current.aKey.isPressed)
+        {
+            transform.eulerAngles = new Vector3(0f, 180f, 0f);
+        }
 
         //if (moveDir == Vector2.zero) 
     }

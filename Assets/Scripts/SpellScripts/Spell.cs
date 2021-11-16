@@ -18,7 +18,7 @@ public abstract class Spell : MonoBehaviour
     [HideInInspector]
     public bool movingRight;
 
-    public Image spellUIImage;
+    public Sprite spellUIImage;
 
     public abstract void TriggerSpell(GameObject target);
 

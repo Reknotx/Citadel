@@ -130,12 +130,14 @@ MonoBehaviour:
     manaCost: 10
     damage: 30
   movingRight: 0
+  spellUIImage: {fileID: 21300000, guid: 3d39aebbd4cef4e4fbd416ca7de221cb, type: 3}
   player: {fileID: 0}
   facingRight: 0
   speed: 3
   myTransform: {fileID: 3912054842407571020}
   mydirections: []
   CurrentDirection: {x: 0, y: 0, z: 0}
+  bounceCount: 0
   up: {x: 0, y: 1, z: 0}
   down: {x: 0, y: -1, z: 0}
   left: {x: -1, y: 0, z: 0}
@@ -152,3 +154,6 @@ MonoBehaviour:
   leftAdded: 0
   upAdded: 0
   downAdded: 0
+  damage: 0
+  manaCost: 0
+  canAdd: 0
