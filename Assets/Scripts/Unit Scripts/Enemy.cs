@@ -352,6 +352,7 @@ public class Enemy : Unit
         if (other.gameObject.tag=="swordLight")
         {
             TakeDamage(player.GetComponent<Player>().meleeAttackDamage);
+            DamagePopup.Create(transform.position, player.GetComponent<Player>().meleeAttackDamage);
             //Tyler Added code
             if(Health <= 0)
             {
@@ -382,6 +383,7 @@ public class Enemy : Unit
         {
             
             TakeDamage(player.GetComponent<Player>().meleeAttackDamage * 2);
+            DamagePopup.Create(transform.position, player.GetComponent<Player>().meleeAttackDamage * 2);
             hitOnRight = player.GetComponent<Player>().facingRightLocal;
             
 
@@ -407,6 +409,7 @@ public class Enemy : Unit
             if(fireDamageTaken == false)
             {
                 TakeDamage(other.GetComponent<FireWallSpellScript>().fireWallCollideDamage);
+                DamagePopup.Create(transform.position, other.GetComponent<FireWallSpellScript>().fireWallCollideDamage);
                 fireDamageTaken = true;
             }
         }
