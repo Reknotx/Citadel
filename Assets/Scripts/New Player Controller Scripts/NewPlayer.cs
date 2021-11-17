@@ -306,6 +306,14 @@ public class NewPlayer : Unit, IDamageable
         combatSystem.spellSystem.spellBook.gameObject.SetActive(false);
     }
 
+    public void OnUsePotion()
+    {
+        if (Keyboard.current.fKey.isPressed)
+            inventory.UseHealthPotion();
+        else
+            inventory.UseManaPotion();
+    }
+
     private void LeftGround()
     {
         physicalBody.layer = ignorePlayerLayer;
