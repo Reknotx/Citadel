@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6.7
-  _maxHealth: 0
+  _health: 100
   _groundCollider: {fileID: 0}
   _platformCollider: {fileID: 0}
   _lightCollider: {fileID: 0}
@@ -285,10 +285,10 @@ MonoBehaviour:
   poisonDamageTaken: 0
   poisonedDuration: 5
   poisonedDamage: 0
-  invulnActive: 0
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
   _rigidBody: {fileID: 1065828198705947067}
   m_render: {fileID: 1065828198705947070}
+  contactDamage: 0
   facingRightLocal: 0
   yDistance: 0
   jumpVelocity: 7
@@ -302,20 +302,17 @@ MonoBehaviour:
   distanceToPlayer: 0
   Astar: {fileID: 1065828198705947010}
   nextWaypointDistance: 3
-  animator: {fileID: 0}
   seenByCamera: 0
   debug: 0
   killThis: 0
   enemyHealth: {fileID: 7650884799412532764}
   HealthIMG: {fileID: 6749275455586966445}
+  pfDamagePopup: {fileID: 0}
   percentChanceToDropItem: 40
   orcMeleeRange: 2
   orcDamage: 15
-  playerLife: {fileID: 0}
   orcAttack_L: {fileID: 1065828199501566337}
   orcAttack_R: {fileID: 1065828199163735791}
-  playerScript: {fileID: 0}
-  isAttacking: 0
 --- !u!54 &1065828198705947067
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -747,20 +744,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7888813515521098902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4865928291571816713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27bd6ccdb0588f44a8970d1253560dd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: 1065828198705947066}
-  facingRightLocal: 1
 --- !u!95 &6144224812625773589
 Animator:
   serializedVersion: 3
@@ -780,6 +763,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7888813515521098902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4865928291571816713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27bd6ccdb0588f44a8970d1253560dd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 1065828198705947066}
+  facingRightLocal: 1
 --- !u!1 &8731266350105283675
 GameObject:
   m_ObjectHideFlags: 0

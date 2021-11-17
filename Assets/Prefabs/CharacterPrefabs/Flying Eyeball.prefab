@@ -313,17 +313,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  _health: 0
-  maxHealth: 0
+  _health: 40
   _groundCollider: {fileID: 0}
   _platformCollider: {fileID: 0}
   _lightCollider: {fileID: 0}
   onPlatform: 0
   throughPlatform: 0
   facingRight: 0
+  poisoned: 0
+  poisonDamageTaken: 0
+  poisonedDuration: 5
+  poisonedDamage: 0
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
   _rigidBody: {fileID: 7116494046359205883}
   m_render: {fileID: 0}
+  contactDamage: 0
   facingRightLocal: 0
   yDistance: 0
   jumpVelocity: 0
@@ -342,6 +346,7 @@ MonoBehaviour:
   killThis: 0
   enemyHealth: {fileID: 1733830180518621750}
   HealthIMG: {fileID: 9046293808419453266}
+  pfDamagePopup: {fileID: 0}
   percentChanceToDropItem: 40
   attackRate: 5
   lurchDist: 5
