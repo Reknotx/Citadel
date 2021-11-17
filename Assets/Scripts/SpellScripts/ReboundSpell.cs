@@ -297,7 +297,7 @@ public class ReboundSpell : Spell
             return;
     }
 
-    public void OnTriggerEnter(Collider other)
+    public override void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "ground")
         {

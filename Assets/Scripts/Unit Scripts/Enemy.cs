@@ -114,8 +114,17 @@ public class Enemy : Unit
 
     #endregion
 
+    #region animations
+    public Animator animator;
 
-    
+    public bool isAttacking = false;
+
+    public bool isMoving = false;
+
+    public bool isDead = false;
+    #endregion
+
+
 
     [HideInInspector]
     public bool seenByCamera = false;

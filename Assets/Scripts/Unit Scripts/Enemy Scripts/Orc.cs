@@ -36,6 +36,7 @@ public class Orc : Enemy
 
     public Player playerScript;
 
+   
 
     // Start is called before the first frame update
     public override void Start()
@@ -64,6 +65,9 @@ public class Orc : Enemy
                 OrcAttack();
             }
         }
+
+
+        
     }
 
     private void OrcAttack()
