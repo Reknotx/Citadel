@@ -76,8 +76,9 @@ public class NewPlayer : Unit, IDamageable
                 ///Activate game over logic
                 ///after game over logic it is better to turn off the player 
                 ///object rather than destroy it
-                
-
+                physicalBody.SetActive(false);
+                GameOver.Instance.gameObject.SetActive(true);
+                this.enabled = false;
             }
         }
     }
