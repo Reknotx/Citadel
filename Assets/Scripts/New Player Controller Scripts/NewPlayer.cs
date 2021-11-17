@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Interactables;
 using CombatSystem;
 
 
@@ -47,6 +48,8 @@ public class NewPlayer : Unit, IDamageable
 
 
     public PlayerInventory inventory;
+
+    private Interactable currentInteractableItem;
 
     public Slider ManaBar;
     public Slider HealthBar;
@@ -124,7 +127,7 @@ public class NewPlayer : Unit, IDamageable
         base.Awake();
     }
 
-    public void Start()
+    public override void Start()
     {
         combatSystem = PlayerCombatSystem.Instance;
     }
@@ -135,6 +138,24 @@ public class NewPlayer : Unit, IDamageable
 
         GroundedCheck();
 
+    }
+
+
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 6 && other.GetComponent<Interactable>() != null)
+        {
+            currentInteractableItem = other.GetComponent<Interactable>();
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 6 && other.GetComponent<Interactable>() != null)
+        {
+            currentInteractableItem = null;
+        }
     }
 
     /// <summary> Moves the player with forces and puts a limit on our maximum velocity. </summary>
@@ -264,6 +285,11 @@ public class NewPlayer : Unit, IDamageable
         PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.FALLING);
         LeftGround();
         falling = true;
+    }
+
+    public void OnInteract()
+    {
+        if (currentInteractableItem != null) currentInteractableItem.Interact();
     }
 
     private void LeftGround()
