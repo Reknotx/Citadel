@@ -184,11 +184,11 @@ public class NewPlayer : Unit, IDamageable
             ///so that I get all of the information easily and without trial 
             ///and error 
             return Physics.BoxCast(new Vector3(transform.position.x, transform.position.y + (modelHeight / 2), transform.position.z),
-                                   new Vector3(0.1f, modelHeight / 2, 0.5f),
+                                   new Vector3(0.1f, modelHeight / 2 - 0.05f, 0.5f),
                                    moveDir,
                                    Quaternion.identity,
                                    0.3f,
-                                   layerMask);
+                                   layerMask); ;
         }
     }
 
