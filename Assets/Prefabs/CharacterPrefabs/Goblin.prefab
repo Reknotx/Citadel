@@ -466,8 +466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2.15
-  _health: 0
-  maxHealth: 15
+  _maxHealth: 25
   _groundCollider: {fileID: 0}
   _platformCollider: {fileID: 0}
   _lightCollider: {fileID: 2183600217950263024}
@@ -475,7 +474,10 @@ MonoBehaviour:
   throughPlatform: 0
   facingRight: 0
   poisoned: 0
+  poisonDamageTaken: 0
   poisonedDuration: 5
+  poisonedDamage: 0
+  invulnActive: 0
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
   _rigidBody: {fileID: 3145674282413693686}
   m_render: {fileID: 3145674282413693681}
@@ -497,6 +499,7 @@ MonoBehaviour:
   killThis: 0
   enemyHealth: {fileID: 7954525600206823398}
   HealthIMG: {fileID: 5299853063858695808}
+  pfDamagePopup: {fileID: 0}
   percentChanceToDropItem: 40
   goblinMeleeRange: 5
   goblinDamage: 10
