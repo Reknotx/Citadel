@@ -8,6 +8,11 @@ public abstract class Sword : MonoBehaviour
 
     protected List<GameObject> enemiesAttacked = new List<GameObject>();
 
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+    }
+
     public virtual void OnEnable()
     {
         ActiveSword = this;

@@ -41,7 +41,8 @@ namespace CombatSystem
         {
             if (spellInFocus == null) return;
             PlayerCombatSystem.Instance.spellSystem.AssignSpell(spellInFocus, slot);
-            PlayerCombatSystem.Instance.spellSystem.UpdateSpellSystemUI(NewPlayer.Instance.Mana);
+
+            //PlayerCombatSystem.Instance.spellSystem.UpdateSpellSystemUI(NewPlayer.Instance.Mana);
         }
 
         /// <summary> Adds a new spell into the book. </summary>
@@ -51,10 +52,11 @@ namespace CombatSystem
             GameObject newLearnedSpellPrefab = Instantiate(learnedSpellPrefab, spellButtons);
 
             LearnedSpell temp = newLearnedSpellPrefab.GetComponent<LearnedSpell>();
-            temp.spell = newSpell;
+            if (newSpell == null) Debug.Log("Here's the problem");
+            temp.Spell = newSpell;
 
             learnedSpells.Add(temp);
-            newLearnedSpellPrefab.GetComponent<Button>().onClick.AddListener(delegate { SelectSpell(temp.spell); });
+            newLearnedSpellPrefab.GetComponent<Button>().onClick.AddListener(delegate { SelectSpell(temp.Spell); });
         }
 
         public void SelectSpell(GameObject focusSpell)

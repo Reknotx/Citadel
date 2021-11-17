@@ -77,6 +77,7 @@ public class NewPlayer : Unit, IDamageable
         }
     }
 
+    [SerializeField]
     private int _mana;
     private int _maxMana;
 
@@ -201,8 +202,8 @@ public class NewPlayer : Unit, IDamageable
         else if (playerRB.velocity.y < 0)
         {
             falling = true;
-            PlayerAnimationManager.Instance.SetBool(PlayerAnimationManager.FALLING, falling);
         }
+        PlayerAnimationManager.Instance.SetBool(PlayerAnimationManager.FALLING, falling);
 
         bool CheckIfGrounded()
         {
@@ -228,18 +229,14 @@ public class NewPlayer : Unit, IDamageable
         ///Limit the velocity the player can have in the x direction only 
         moveDir = value.Get<Vector2>();
 
-        facingRight = Keyboard.current.dKey.isPressed;
-
-        //if (Keyboard.current.dKey.isPressed)
-        //{
-        //    transform.eulerAngles = new Vector3(0f, 0f, 0f);
-        //}
-        //else if (Keyboard.current.aKey.isPressed)
-        //{
-        //    transform.eulerAngles = new Vector3(0f, 180f, 0f);
-        //}
-
-        //if (moveDir == Vector2.zero) 
+        if (Keyboard.current.dKey.isPressed)
+        {
+            physicalBody.transform.eulerAngles = new Vector3(0f, 90f, 0f);
+        }
+        else if (Keyboard.current.aKey.isPressed)
+        {
+            physicalBody.transform.eulerAngles = new Vector3(0f, 270f, 0f);
+        }
     }
 
     public void OnJump()
