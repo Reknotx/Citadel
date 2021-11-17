@@ -13,6 +13,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Interactables;
+using Menu;
 using CombatSystem;
 
 
@@ -57,6 +58,9 @@ public class NewPlayer : Unit, IDamageable
 
     [Tooltip("The height of the model for collision detection purposes.")]
     public float modelHeight = 1.5f;
+
+    [HideInInspector]
+    public bool isPaused;
 
     /// <summary> The player's health. </summary>
     public override float Health
@@ -134,6 +138,8 @@ public class NewPlayer : Unit, IDamageable
 
     public override void Update()
     {
+        if (isPaused) return;
+
         Move();
 
         GroundedCheck();
@@ -253,6 +259,7 @@ public class NewPlayer : Unit, IDamageable
 
     public void OnMove(InputValue value)
     {
+        if (isPaused) return;
         ///Use forces to move the player in the desired direction instead
         ///use the technique that Brackey's utilized in the Ball wars video
         ///Limit the velocity the player can have in the x direction only 
@@ -272,7 +279,7 @@ public class NewPlayer : Unit, IDamageable
 
     public void OnJump()
     {
-        if (!grounded) return;
+        if (!grounded || isPaused) return;
         LeftGround();
         Debug.Log("Jump");
         playerRB.velocity = new Vector3(0, Mathf.Sqrt(-2.0f * Physics.gravity.y * jumpHeight));
@@ -281,7 +288,7 @@ public class NewPlayer : Unit, IDamageable
 
     public void OnDropDown()
     {
-        if (!grounded) return;
+        if (!grounded || isPaused) return;
         PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.FALLING);
         LeftGround();
         falling = true;
@@ -289,7 +296,14 @@ public class NewPlayer : Unit, IDamageable
 
     public void OnInteract()
     {
-        if (currentInteractableItem != null) currentInteractableItem.Interact();
+        if (currentInteractableItem != null && !isPaused) currentInteractableItem.Interact();
+    }
+
+    public void OnPause()
+    {
+        PauseMenu.Instance.gameObject.SetActive(!PauseMenu.Instance.gameObject.activeSelf);
+        isPaused = PauseMenu.Instance.gameObject.activeSelf;
+        combatSystem.spellSystem.spellBook.gameObject.SetActive(false);
     }
 
     private void LeftGround()
@@ -309,9 +323,12 @@ public class NewPlayer : Unit, IDamageable
 
     public override void TakeDamage(float amount)
     {
-        if (invulnActive) return;
+        if (invulnerable) return;
 
         base.TakeDamage(amount);
+        invulnerable = true;
+        StartCoroutine(IFrames());
+
     }
 
     void Attack()
@@ -354,12 +371,36 @@ public class NewPlayer : Unit, IDamageable
         ///as many spells as want for the player to have.x
     }
 
-
-    [HideInInspector]
-    private bool invulnActive = false;
-    public IEnumerator InvulnCoroutine()
+    private bool invulnerable = false;
+    public IEnumerator IFrames()
     {
-        yield return new WaitForSeconds(5f);
-        invulnActive = false;
+        float startTime = Time.time;
+        float waitTime = 0.125f;
+
+        MeshRenderer render = GetComponent<MeshRenderer>();
+
+        while (true)
+        {
+            /////Turn on 50% opacityy
+            //Color origMat = render.material.color;
+            //origMat.a = 0.5f;
+            //render.material.color = origMat;
+            yield return new WaitForSeconds(waitTime);
+            //origMat.a = 1f;
+            //render.material.color = origMat;
+            yield return new WaitForSeconds(waitTime);
+
+            ///wait 0.125 seconds
+            ///turn opacity back to 100%
+
+            yield return new WaitForFixedUpdate();
+            if (Time.time - startTime >= 1f)
+                break;
+        }
+
+
+
+        invulnerable = false;
+
     }
 }

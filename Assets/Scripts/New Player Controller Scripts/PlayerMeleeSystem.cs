@@ -16,6 +16,8 @@ namespace CombatSystem
 
         public void SwingSword(string meleeAttack)
         {
+            if (NewPlayer.Instance.isPaused) return;
+
             switch (meleeAttack)
             {
                 case "lightAttack":

@@ -20,6 +20,8 @@ namespace CombatSystem
 
         public void CastSpell(int slotIndex)
         {
+            if (NewPlayer.Instance.isPaused) return;
+
             SpellSlot attemptedCast = spellSlots[slotIndex];
 
             if (!attemptedCast.canCast) return;

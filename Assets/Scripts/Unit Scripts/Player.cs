@@ -1549,12 +1549,12 @@ public class Player : Unit, IDamageable
         while (true)
         {
             ///Turn on 50% opacityy
-            Color origMat = render.material.color;
-            origMat.a = 0.5f;
-            render.material.color = origMat;
+            //Color origMat = render.material.color;
+            //origMat.a = 0.5f;
+            //render.material.color = origMat;
             yield return new WaitForSeconds(waitTime);
-            origMat.a = 1f;
-            render.material.color = origMat;
+            //origMat.a = 1f;
+            //render.material.color = origMat;
             yield return new WaitForSeconds(waitTime);
 
             ///wait 0.125 seconds
@@ -1564,8 +1564,6 @@ public class Player : Unit, IDamageable
             if (Time.time - startTime >= 1f)
                 break;
         }
-
-
 
         invulnerable = false;
 
