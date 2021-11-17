@@ -1015,32 +1015,32 @@ public class Player : Unit, IDamageable
 
     public void invuln()
     {
-        if (canCast == true && myMana >= 10 && !invulnActive)
-        {
+        //if (canCast == true && myMana >= 10 && !invulnActive)
+        //{
 
-            if (spellStone == true)
-            {
+        //    if (spellStone == true)
+        //    {
 
-                ReduceMana(7);
-            }
-            else
-            {
+        //        ReduceMana(7);
+        //    }
+        //    else
+        //    {
 
-                ReduceMana(10);
-            }
+        //        ReduceMana(10);
+        //    }
 
-            ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
-            if (invulnActive == false)
-            {
+        //    ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
+        //    if (invulnActive == false)
+        //    {
 
-                invulnActive = true;
-                StartCoroutine(InvulnCoroutine());
+        //        invulnActive = true;
+        //        StartCoroutine(InvulnCoroutine());
 
 
-                canCast = false;
-            }
+        //        canCast = false;
+        //    }
             
-        }
+        //}
     }
 
     public void rebound()
@@ -1599,10 +1599,5 @@ public class Player : Unit, IDamageable
         isCastingIcicle = false ;
     }
 
-    public IEnumerator InvulnCoroutine()
-    {
-        yield return new WaitForSeconds(5f);
-        invulnActive = false;
-    }
     #endregion
 }

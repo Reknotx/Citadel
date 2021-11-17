@@ -180,15 +180,16 @@ public class Unit : MonoBehaviour, IDamageable
     [HideInInspector]
     protected float poisonedDamageDelay = 2f;
 
-
-    [HideInInspector]
-    public bool invulnActive = false;
-
     #endregion
 
     public virtual void Awake()
     {
         
+    }
+
+    public virtual void Start()
+    {
+
     }
 
     public virtual void Update()
@@ -223,16 +224,8 @@ public class Unit : MonoBehaviour, IDamageable
     /// <param name="amount">The amount of damage to apply to the unit.</param>
     public virtual void TakeDamage(float amount)
     {
-        if(!invulnActive)
-        {
-            Debug.Log("Dealing " + amount + " points of damage to " + name);
-            Health -= amount;
-        }
-        else
-        {
-            Debug.Log("Damage blocked by the Invuln spell " );
-        }
-        
+        Debug.Log("Dealing " + amount + " points of damage to " + name);
+        Health -= amount;
     }
     
    
@@ -267,14 +260,6 @@ public class Unit : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(poisonedDuration);
         poisoned = false;
     }
-
-    public IEnumerator InvulnCoroutine()
-    {
-        yield return new WaitForSeconds(5f);
-        invulnActive = false;
-    }
-
-
 
     #endregion
 }

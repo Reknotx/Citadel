@@ -21,12 +21,6 @@ public class Orc : Enemy
     private bool canAttack = true;
     #endregion
 
-    #region Life Handler for Player
-
-    public NewPlayer playerLife;
-
-    #endregion
-
     #region Orc Attack Visuals
 
     public GameObject orcAttack_L;
@@ -34,21 +28,15 @@ public class Orc : Enemy
 
     #endregion
 
-    public NewPlayer playerScript;
-
    
 
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
-        //Tyler added code
-        player = GameObject.FindGameObjectWithTag("Player");
-        //end
+        
         orcAttack_L.SetActive(false);
         orcAttack_R.SetActive(false);
-
-        playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<NewPlayer>();
 
         
     }
@@ -60,13 +48,13 @@ public class Orc : Enemy
 
         base.Update();
 
-        if(Vector2.Distance(transform.position, player.transform.position) <= orcMeleeRange)
-        {
-            if (canAttack)
-            {
-                OrcAttack();
-            }
-        }
+        //if(Vector2.Distance(transform.position, base.player.transform.position) <= orcMeleeRange)
+        //{
+        //    if (canAttack)
+        //    {
+        //        OrcAttack();
+        //    }
+        //}
 
 
         
@@ -74,29 +62,29 @@ public class Orc : Enemy
 
     private void OrcAttack()
     {
-        if (facingRight)
-        {
-            StartCoroutine(WaitBetweenVisual_Right());
+        //if (facingRight)
+        //{
+        //    StartCoroutine(WaitBetweenVisual_Right());
            
-            StartCoroutine(WaitBetweenAttack());
+        //    StartCoroutine(WaitBetweenAttack());
 
-            if(playerLife.invulnActive == false)
-            {
-                playerLife.TakeDamage(orcDamage);
-            }
+        //    if(player.invulnActive == false)
+        //    {
+        //        player.TakeDamage(orcDamage);
+        //    }
             
-        }
-        else
-        {
-            StartCoroutine(WaitBetweenVisual_Left());
+        //}
+        //else
+        //{
+        //    StartCoroutine(WaitBetweenVisual_Left());
             
-            StartCoroutine(WaitBetweenAttack());
+        //    StartCoroutine(WaitBetweenAttack());
 
-            if (playerLife.invulnActive == false)
-            {
-                playerLife.TakeDamage(orcDamage);
-            }
-        }
+        //    if (player.invulnActive == false)
+        //    {
+        //        player.TakeDamage(orcDamage);
+        //    }
+        //}
     }
 
     IEnumerator WaitBetweenAttack()
