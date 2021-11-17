@@ -104,6 +104,16 @@ public class NewPlayer : Unit, IDamageable
         }
     }
 
+    /// <summary> Returns the position of the center of the player prefab. Affected by model height. </summary>
+    public Vector3 Center
+    {
+        get
+        {
+            Vector3 temp = transform.position;
+            return new Vector3(temp.x, temp.y + (modelHeight / 2));
+        }
+    }
+
     public override void Awake()
     {
         if (Instance != null & Instance != this)
