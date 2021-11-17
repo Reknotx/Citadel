@@ -29,11 +29,9 @@ public class Unit : MonoBehaviour, IDamageable
    
     #endregion
     #region Health
+    [SerializeField]
     protected float _health;
 
-    ///<summary>This is the unit's maximum health.</summary>
-    [SerializeField]
-    protected float _maxHealth;
 
     ///<summary>This is the units health.</summary>
     public virtual float Health
@@ -51,14 +49,13 @@ public class Unit : MonoBehaviour, IDamageable
         }
     }
 
+    ///<summary>The player's maximum health.</summary>
+    private float _maxHealth;
+
     public float MaxHealth
     {
         get => _maxHealth;
-        set
-        {
-            _maxHealth = value;
-            //Health = _maxHealth;
-        }
+        set { _maxHealth = value; }
     }
     #endregion
 
@@ -191,7 +188,7 @@ public class Unit : MonoBehaviour, IDamageable
 
     public virtual void Awake()
     {
-        Health = MaxHealth;
+        
     }
 
     public virtual void Update()

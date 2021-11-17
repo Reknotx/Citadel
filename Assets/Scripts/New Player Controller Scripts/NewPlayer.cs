@@ -62,17 +62,15 @@ public class NewPlayer : Unit, IDamageable
 
         set
         {
-            base.Health = Mathf.Clamp(value, 0, _maxHealth);
+            _health = Mathf.Clamp(value, 0, MaxHealth);
             if (HealthBar != null) HealthBar.value = value;
             if (Health == 0)
             {
-                ///Activate game ver logic
+                ///Activate game over logic
                 ///after game over logic it is better to turn off the player 
                 ///object rather than destroy it
-                ///Movement of the player and attacking moves
-                ///of the player could actually be possibly done on a 
-                ///different script but probably not at the same time
-                ///too confusing.
+                
+
             }
         }
     }
