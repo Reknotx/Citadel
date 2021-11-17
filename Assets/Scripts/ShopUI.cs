@@ -30,6 +30,8 @@ namespace ShopSystem
 
         List<Button> spellButtons;
 
+
+
         private void Awake()
         {
             if (gameObject.activeSelf) gameObject.SetActive(false);
