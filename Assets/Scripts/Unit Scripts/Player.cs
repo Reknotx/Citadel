@@ -239,8 +239,8 @@ public class Player : Unit, IDamageable
     /// <summary> this keeps track of if the player is in the mine shop or not  </summary>
     public bool inMineShop = false;
 
-    [HideInInspector]
-    public bool grounded;
+    //[HideInInspector]
+    //public bool grounded;
 
     
 
@@ -274,8 +274,8 @@ public class Player : Unit, IDamageable
     [HideInInspector]
     public bool canPass = true;
 
-    [HideInInspector]
-    public bool invulnActive = false;
+    //[HideInInspector]
+    //public bool invulnActive = false;
 
 
     [HideInInspector]
@@ -350,34 +350,34 @@ public class Player : Unit, IDamageable
 
     private int maxHealth;
 
-    private void Awake()
-    {
+    //private void Awake()
+    //{
 
-        if(Instance != null && Instance != this)
-            Destroy(Instance.gameObject);
+    //    if(Instance != null && Instance != this)
+    //        Destroy(Instance.gameObject);
 
-        Instance = this;
+    //    Instance = this;
 
-        Health = maxHealth;
-        myMana = maxMana;
+    //    Health = maxHealth;
+    //    myMana = maxMana;
         
-        #region Player Movement Important Connectors
-        ///<summary>The following is used to track player inputs and controls.</summary>
-        playerInputActions = new PlayerInputActions();
-         playerInputActions.PlayerControl.Enable();
-         playerInputActions.PlayerControl.Jump.started += Jump2;
-        playerInputActions.PlayerControl.Jump.canceled += Jump2;
-        playerInputActions.PlayerControl.Movement.performed += movement2;
-        playerInputActions.PlayerControl.Drop.started += Drop;
-        playerInputActions.PlayerControl.Drop.canceled += Drop;
-        setJumpVariables();
+    //    #region Player Movement Important Connectors
+    //    ///<summary>The following is used to track player inputs and controls.</summary>
+    //    playerInputActions = new PlayerInputActions();
+    //     playerInputActions.PlayerControl.Enable();
+    //     playerInputActions.PlayerControl.Jump.started += Jump2;
+    //    playerInputActions.PlayerControl.Jump.canceled += Jump2;
+    //    playerInputActions.PlayerControl.Movement.performed += movement2;
+    //    playerInputActions.PlayerControl.Drop.started += Drop;
+    //    playerInputActions.PlayerControl.Drop.canceled += Drop;
+    //    setJumpVariables();
         
 
 
 
-        #endregion
+    //    #endregion
         
-    }
+    //}
 
    
     public override void Update()
