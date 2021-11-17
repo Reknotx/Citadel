@@ -230,7 +230,7 @@ public class Unit : MonoBehaviour, IDamageable
         }
         else
         {
-            return;
+            Debug.Log("Damage blocked by the Invuln spell " );
         }
         
     }
