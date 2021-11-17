@@ -157,10 +157,10 @@ public class Enemy : Unit
 
         base.Update();
 
-        if (Health < _maxHealth)
+        if (Health < MaxHealth)
         {
             HealthIMG.gameObject.SetActive(true);
-            calculateHealth = (float)Health / _maxHealth;
+            calculateHealth = (float)Health / MaxHealth;
             enemyHealth.fillAmount = Mathf.MoveTowards(enemyHealth.fillAmount, calculateHealth, Time.deltaTime);
         }
         else
@@ -348,72 +348,73 @@ public class Enemy : Unit
     ///<summary>These track the collisions between the enemy and in-game objects .</summary>
     public void OnTriggerEnter(Collider other)
     {
-        ///<summary>This triggers when the enemy is hit with the light attack.</summary>
-        if (other.gameObject.tag=="swordLight")
-        {
-            TakeDamage(player.GetComponent<Player>().meleeAttackDamage);
-            DamagePopup.Create(transform.position, player.GetComponent<Player>().meleeAttackDamage);
-            //Tyler Added code
-            if(Health <= 0)
-            {
-                //add drop stuff here
+        #region commented out by chase
+        /////<summary>This triggers when the enemy is hit with the light attack.</summary>
+        //if (other.gameObject.tag=="swordLight")
+        //{
+        //    TakeDamage(player.GetComponent<Player>().meleeAttackDamage);
+        //    DamagePopup.Create(transform.position, player.GetComponent<Player>().meleeAttackDamage);
+        //    //Tyler Added code
+        //    if(Health <= 0)
+        //    {
+        //        //add drop stuff here
 
 
-                Destroy(this.gameObject);
-            }
-            //end of Tyler code
-            hitOnRight = player.GetComponent<Player>().facingRightLocal ;
+        //        Destroy(this.gameObject);
+        //    }
+        //    //end of Tyler code
+        //    hitOnRight = player.GetComponent<Player>().facingRightLocal ;
 
-            //if you turn on the bellow code, it will apply knockback to the light attack
-            /*
-            if (hitOnRight == true)
-            {
-                _rigidBody.AddForce(new Vector3(1, 0, 0) * 1f, ForceMode.Impulse);
+        //    //if you turn on the bellow code, it will apply knockback to the light attack
+        //    /*
+        //    if (hitOnRight == true)
+        //    {
+        //        _rigidBody.AddForce(new Vector3(1, 0, 0) * 1f, ForceMode.Impulse);
 
-            }
-            else
-            {
-                _rigidBody.AddForce(new Vector3(-1, 0, 0) * 1f, ForceMode.Impulse);
-            }
-            */
-        }
+        //    }
+        //    else
+        //    {
+        //        _rigidBody.AddForce(new Vector3(-1, 0, 0) * 1f, ForceMode.Impulse);
+        //    }
+        //    */
+        //}
 
-        ///<summary>This triggers when the enemy is hit with the heavy attack.</summary>
-        if (other.gameObject.tag == "swordHeavy")
-        {
-            
-            TakeDamage(player.GetComponent<Player>().meleeAttackDamage * 2);
-            DamagePopup.Create(transform.position, player.GetComponent<Player>().meleeAttackDamage * 2);
-            hitOnRight = player.GetComponent<Player>().facingRightLocal;
-            
+        /////<summary>This triggers when the enemy is hit with the heavy attack.</summary>
+        //if (other.gameObject.tag == "swordHeavy")
+        //{
 
-            if(hitOnRight == true)
-            {
-                _rigidBody.AddForce(new Vector3(player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
-             
-            }
-            else
-            {
-                _rigidBody.AddForce(new Vector3(-player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
-               
-            }
-        }
-        if (other.gameObject.tag == "Player")
-        {
-            //TakeDamage(player.GetComponent<Player>().playerCollisionDamage);
-            return;
-        }
+        //    TakeDamage(player.GetComponent<Player>().meleeAttackDamage * 2);
+        //    DamagePopup.Create(transform.position, player.GetComponent<Player>().meleeAttackDamage * 2);
+        //    hitOnRight = player.GetComponent<Player>().facingRightLocal;
 
-        if (other.gameObject.tag == "FireWallCast")
-        {
-            if(fireDamageTaken == false)
-            {
-                TakeDamage(other.GetComponent<FireWallSpellScript>().fireWallCollideDamage);
-                DamagePopup.Create(transform.position, other.GetComponent<FireWallSpellScript>().fireWallCollideDamage);
-                fireDamageTaken = true;
-            }
-        }
 
+        //    if(hitOnRight == true)
+        //    {
+        //        _rigidBody.AddForce(new Vector3(player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
+
+        //    }
+        //    else
+        //    {
+        //        _rigidBody.AddForce(new Vector3(-player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
+
+        //    }
+        //}
+        //if (other.gameObject.tag == "Player")
+        //{
+        //    //TakeDamage(player.GetComponent<Player>().playerCollisionDamage);
+        //    return;
+        //}
+
+        //if (other.gameObject.tag == "FireWallCast")
+        //{
+        //    if(fireDamageTaken == false)
+        //    {
+        //        TakeDamage(other.GetComponent<FireWallSpellScript>().fireWallCollideDamage);
+        //        DamagePopup.Create(transform.position, other.GetComponent<FireWallSpellScript>().fireWallCollideDamage);
+        //        fireDamageTaken = true;
+        //    }
+        //}
+        #endregion
         if (other.gameObject.tag == "FireWallWall")
         {
             if(onFire == false)
