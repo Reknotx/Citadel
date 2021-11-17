@@ -223,7 +223,7 @@ public class Unit : MonoBehaviour, IDamageable
     /// <param name="amount">The amount of damage to apply to the unit.</param>
     public virtual void TakeDamage(float amount)
     {
-        if(!invulnActive)
+        if(!invulnActive)   
         {
             Debug.Log("Dealing " + amount + " points of damage to " + name);
             Health -= amount;

@@ -36,6 +36,8 @@ public class Enemy : Unit
     ///<summary>This is the range of detection to the ground.</summary>
     private float _Reach = 1f;
 
+    public int contactDamage;
+
     ///<summary>This tracks what direction the enemy is facing.</summary>
     [HideInInspector]
     public bool facingRightLocal;
@@ -399,11 +401,11 @@ public class Enemy : Unit
 
         //    }
         //}
-        //if (other.gameObject.tag == "Player")
-        //{
-        //    //TakeDamage(player.GetComponent<Player>().playerCollisionDamage);
-        //    return;
-        //}
+        if (other.gameObject.layer == 7 || other.gameObject.layer == 12)
+        {
+            NewPlayer.Instance.TakeDamage(contactDamage);
+            return;
+        }
 
         //if (other.gameObject.tag == "FireWallCast")
         //{
