@@ -60,7 +60,7 @@ public class AerorangSpell : Spell
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        facingRight = player.GetComponent<Player>().facingRight;
+        facingRight = player.GetComponent<NewPlayer>().facingRight;
         startingPos = player.transform.position;
         //this.transform.position = currentPos;
         currentPos = startingPos;

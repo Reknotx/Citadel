@@ -121,11 +121,11 @@ public class Unit : MonoBehaviour, IDamageable
 
     /// <summary> this determines if the unit is poisoned or not </summary>
     //[HideInInspector]
-    [SerializeField]
+    [HideInInspector]
     public bool poisoned;
 
     /// <summary> this determines if the unit has recently taken ticking poison damage </summary>
-    [SerializeField]
+    [HideInInspector]
     public bool poisonDamageTaken;
 
     /// <summary> this determines if the unit has recently taken ticking fire damage </summary>
@@ -168,11 +168,11 @@ public class Unit : MonoBehaviour, IDamageable
     protected float onFireDamageDelay = 2f;
 
     /// <summary> this determines how long the unit will be on fire for</summary>
-    [SerializeField]
+    [HideInInspector]
     public float poisonedDuration = 5f;
 
     /// <summary> this determines how much damage per tick will be applied to the unit</summary>
-    [SerializeField]
+    [HideInInspector]
     public int poisonedDamage;
 
     /// <summary> this determines how quickly on fire damage will tick against health </summary>
@@ -182,6 +182,10 @@ public class Unit : MonoBehaviour, IDamageable
     /// <summary> This determines the delay between taking on fire damage</summary>
     [HideInInspector]
     protected float poisonedDamageDelay = 2f;
+
+
+    [HideInInspector]
+    public bool invulnActive = false;
 
     #endregion
 
@@ -222,8 +226,16 @@ public class Unit : MonoBehaviour, IDamageable
     /// <param name="amount">The amount of damage to apply to the unit.</param>
     public virtual void TakeDamage(float amount)
     {
-        Debug.Log("Dealing " + amount + " points of damage to " + name);
-        Health -= amount;
+        if(!invulnActive)
+        {
+            Debug.Log("Dealing " + amount + " points of damage to " + name);
+            Health -= amount;
+        }
+        else
+        {
+            return;
+        }
+        
     }
     
    
@@ -259,9 +271,13 @@ public class Unit : MonoBehaviour, IDamageable
         poisoned = false;
     }
 
-    
+    public IEnumerator InvulnCoroutine()
+    {
+        yield return new WaitForSeconds(5f);
+        invulnActive = false;
+    }
 
-   
-     
+
+
     #endregion
 }

@@ -14,18 +14,22 @@ namespace CombatSystem
 
     public class PlayerSpellSystem : MonoBehaviour
     {
-        public List<SpellSlot> spellSlots = new List<SpellSlot>(3);
+        public List<SpellSlot> spellSlots = new List<SpellSlot>();
 
         public SpellBook spellBook;
 
         public void CastSpell(int slotIndex)
         {
-            if (!spellSlots[slotIndex].canCast) return;
+            SpellSlot attemptedCast = spellSlots[slotIndex];
 
-            GameObject spellToCast = spellSlots[slotIndex].spell;
+            if (!attemptedCast.canCast) return;
+
+            Debug.Log("Casting " + attemptedCast.spell.name);
+
+            NewPlayer.Instance.Mana -= attemptedCast.manaCost;
 
             ///Apply force to spell or perform unique movement math
-            GameObject spawnedSpell = Instantiate(spellToCast, NewPlayer.Instance.transform.position, Quaternion.identity);
+            GameObject spawnedSpell = Instantiate(attemptedCast.spell, NewPlayer.Instance.transform.position, Quaternion.identity);
 
             int multiplier = NewPlayer.Instance.playerRB.velocity.x < 0 ? -1 : 1;
             spawnedSpell.GetComponent<Rigidbody>().velocity = new Vector3(NewPlayer.Instance.speed + (3 * multiplier) * (NewPlayer.Instance.facingRight ? 1 : -1),
@@ -43,8 +47,19 @@ namespace CombatSystem
                 }
             }
 
-            spellSlots[slotIndex].spell = spell;
+            spellSlots[slotIndex - 1].AssignSpell(spell);
+
+            UpdateSpellSystemUI();
         }
+
+        private void UpdateSpellSystemUI()
+        {
+            foreach (SpellSlot spellSlot in spellSlots)
+            {
+                spellSlot.CompareCurrManaToManaCost(NewPlayer.Instance.Mana);
+            }
+        }
+
 
         public void UpdateSpellSystemUI(int playerMana)
         {

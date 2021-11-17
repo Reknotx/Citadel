@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour
     private Transform player;
     private Vector3 target;
 
-    public Player playerHealth;
+    public NewPlayer playerHealth;
 
     [SerializeField]
     private float projectileDamage;
@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
 
         target = new Vector3(player.position.x, player.position.y, player.position.z);
 
-        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<NewPlayer>();
 
     }
 

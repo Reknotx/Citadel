@@ -81,7 +81,7 @@ public class ReboundSpell : Spell
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        facingRight = player.GetComponent<Player>().facingRight;
+        facingRight = player.GetComponent<NewPlayer>().facingRight;
 
         damage = stats.damage;
         manaCost = stats.manaCost;
@@ -297,7 +297,7 @@ public class ReboundSpell : Spell
             return;
     }
 
-    public void OnTriggerEnter(Collider other)
+    public override void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "ground")
         {
