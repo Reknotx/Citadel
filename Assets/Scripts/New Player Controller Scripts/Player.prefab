@@ -1268,7 +1268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  _maxHealth: 10
+  _health: 0
   _groundCollider: {fileID: 0}
   _platformCollider: {fileID: 0}
   _lightCollider: {fileID: 0}
@@ -1279,7 +1279,6 @@ MonoBehaviour:
   poisonDamageTaken: 0
   poisonedDuration: 5
   poisonedDamage: 0
-  invulnActive: 0
   playerRB: {fileID: 0}
   moveDir: {x: 0, y: 0}
   jumpHeight: 5
@@ -2562,6 +2561,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8982486021092143146}
     m_Modifications:
+    - target: {fileID: 851755373385077908, guid: e040fa78e320ccc4db93d55ac7c79e13, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 851755373569580970, guid: e040fa78e320ccc4db93d55ac7c79e13, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2674,7 +2677,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 851755373158026248}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -2686,6 +2689,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8982486021092143146}
     m_Modifications:
+    - target: {fileID: 851755373385077908, guid: e040fa78e320ccc4db93d55ac7c79e13, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 851755373569580970, guid: e040fa78e320ccc4db93d55ac7c79e13, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2814,7 +2821,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1604978634229783026}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -2826,6 +2833,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8982486021092143146}
     m_Modifications:
+    - target: {fileID: 851755373385077908, guid: e040fa78e320ccc4db93d55ac7c79e13, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 851755373569580970, guid: e040fa78e320ccc4db93d55ac7c79e13, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2949,7 +2960,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 7681890778597997019}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
