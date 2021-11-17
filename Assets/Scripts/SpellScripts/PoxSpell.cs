@@ -26,10 +26,16 @@ public class PoxSpell : Spell
     public int manaCost;
 
 
+
+    public void Awake()
+    {
+        movingSpell = false;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        movingSpell = false;
+        
         baseScale = transform.localScale;
         transform.localScale = baseScale * startSize;
         currScale = startSize;
