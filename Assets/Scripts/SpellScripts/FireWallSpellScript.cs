@@ -41,6 +41,8 @@ public class FireWallSpellScript : Spell
     public GameObject ballParticles;
     public GameObject wallParticles;
 
+    public Vector3 down = Vector3.down;
+
     #endregion
 
     public void FixedUpdate()
@@ -60,6 +62,8 @@ public class FireWallSpellScript : Spell
 
     public override void Move()
     {
+        if(!changed)
+        GetComponent<Rigidbody>().velocity += down *.01f;
     }
 
 
@@ -69,19 +73,13 @@ public class FireWallSpellScript : Spell
     #region Fire Wall Collison Control
     public override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag =="platform")
+        if (other.gameObject.layer == 10 || other.gameObject.layer == 11 || other.gameObject.layer == 31)
         {
             castRigidbody.velocity = new Vector3(0f, 0f, 0f);
             changed = true;
         }
-        if (other.gameObject.tag == "ground")
-        {
-            castRigidbody.velocity = new Vector3(0f, 0f, 0f);
-            
-            changed = true;
-
-        }
-        if (other.gameObject.tag == "Enemy")
+       
+        if (other.gameObject.layer == 8)
         {
             if (changed == false)
             {
