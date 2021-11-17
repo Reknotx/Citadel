@@ -34,7 +34,7 @@ public class Orc : Enemy
 
     #endregion
 
-    public Player playerScript;
+    public NewPlayer playerScript;
 
    
 
@@ -56,6 +56,8 @@ public class Orc : Enemy
     // Update is called once per frame
     public override void Update()
     {
+        if (debug) return;
+
         base.Update();
 
         if(Vector2.Distance(transform.position, player.transform.position) <= orcMeleeRange)
