@@ -84,8 +84,11 @@ public class PlayerInventory
             permanentGold += gold;
             PlayerPrefs.SetFloat(permGoldStorage, permanentGold);
             gold = 0;
+        }
 
-
+        public void AddGoldFromMinesToStorage(int amount)
+        {
+            permanentGold += amount;
         }
     }
 }

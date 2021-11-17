@@ -242,10 +242,12 @@ public class NewPlayer : Unit, IDamageable
         if (Keyboard.current.dKey.isPressed)
         {
             physicalBody.transform.eulerAngles = new Vector3(0f, 90f, 0f);
+            facingRight = true;
         }
         else if (Keyboard.current.aKey.isPressed)
         {
             physicalBody.transform.eulerAngles = new Vector3(0f, 270f, 0f);
+            facingRight = false;
         }
     }
 
