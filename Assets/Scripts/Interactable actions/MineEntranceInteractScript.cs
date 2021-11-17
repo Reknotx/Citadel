@@ -22,5 +22,9 @@ namespace Interactables
             sceneManager.GetComponent<SceneManagerScript>().goToMine();
 
         }
+
+
+
+       
     }
 }
