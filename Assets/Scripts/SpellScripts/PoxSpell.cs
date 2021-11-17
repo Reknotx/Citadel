@@ -26,10 +26,13 @@ public class PoxSpell : Spell
     public int manaCost;
 
 
+    public Transform player;
+
 
     public void Awake()
     {
         movingSpell = false;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Start is called before the first frame update
@@ -50,6 +53,7 @@ public class PoxSpell : Spell
     // Update is called once per frame
     void FixedUpdate()
     {
+       
         transform.localScale = Vector3.Lerp(transform.localScale, targetScale,  Time.deltaTime / speed);
         ChangeSize(true);
 
@@ -62,6 +66,8 @@ public class PoxSpell : Spell
         {
             StartCoroutine(despawnCoroutine());
         }
+        
+        trackPlayer();
     }
 
 
@@ -74,6 +80,12 @@ public class PoxSpell : Spell
     {
         ///Activate the movement logic here
         return;
+    }
+
+    public void trackPlayer()
+    {
+        
+       transform.position = player.position;
     }
 
     public void ChangeSize(bool bigger)
