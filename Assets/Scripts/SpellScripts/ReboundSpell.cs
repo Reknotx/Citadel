@@ -276,17 +276,13 @@ public class ReboundSpell : Spell
 
     public void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.layer == 10)
+        if(other.gameObject.layer == 10 || other.gameObject.layer == 11 || other.gameObject.layer == 31)
         {
            
             changeDirection();
         }
 
-        if (other.gameObject.layer == 11)
-        {
-            
-            changeDirection();
-        }
+        
 
         if(other.gameObject.layer == 8)
         {
@@ -300,7 +296,7 @@ public class ReboundSpell : Spell
 
     public override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 10)
+        if (other.gameObject.layer == 10 || other.gameObject.layer == 11 || other.gameObject.layer == 31)
         {
             if (canAdd)
             {
@@ -310,20 +306,12 @@ public class ReboundSpell : Spell
 
         }
         
-        if (other.gameObject.layer == 11)
-        {
-            if (canAdd)
-            {
-               
-                canAdd = false;
-            }
-
-        }
+        
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 10)
+        if (other.gameObject.layer == 10 || other.gameObject.layer == 11 || other.gameObject.layer == 31)
         {
             if(!canAdd)
             {
@@ -333,15 +321,7 @@ public class ReboundSpell : Spell
            
         }
 
-        if (other.gameObject.layer == 11)
-        {
-
-            if (!canAdd)
-            {
-                bounceCount++;
-                canAdd = true;
-            }
-        }
+       
 
 
     }
