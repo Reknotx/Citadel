@@ -24,7 +24,7 @@ public class AerorangSpell : Spell
     [HideInInspector]
     public bool facingRight;
 
-    [HideInInspector]
+    [SerializeField]
     public bool goingBack = false;
 
 
@@ -59,6 +59,7 @@ public class AerorangSpell : Spell
 
     private void Awake()
     {
+        movingSpell = false;
         player = GameObject.FindGameObjectWithTag("Player");
         facingRight = player.GetComponent<NewPlayer>().facingRight;
         startingPos = player.transform.position;
@@ -70,7 +71,7 @@ public class AerorangSpell : Spell
 
         if (facingRight)
         {
-            targetPos = new Vector3(startingPos.x + travelDistance, startingPos.y, startingPos.z);
+            targetPos = new Vector3(startingPos.x + travelDistance, startingPos.y + 1, 0);
 
             targetPos.z = Mathf.Round(targetPos.z * 10f) / 10f;
             targetPos.x = Mathf.Round(targetPos.x * 10f) / 10f;
@@ -78,14 +79,14 @@ public class AerorangSpell : Spell
         }
         else
         {
-            targetPos = new Vector3(startingPos.x - travelDistance, startingPos.y, startingPos.z);
+            targetPos = new Vector3(startingPos.x - travelDistance, startingPos.y + 1,0);
 
             targetPos.z = Mathf.Round(targetPos.z * 10f) / 10f;
             targetPos.x = Mathf.Round(targetPos.x * 10f) / 10f;
             targetPos.y = Mathf.Round(targetPos.y * 10f) / 10f;
         }
 
-        movingSpell = false;
+       
     }
 
 
@@ -96,6 +97,15 @@ public class AerorangSpell : Spell
         currentPos = this.transform.position;
         zPos = 0f;
         currentPos.z = zPos;
+
+        yPos = currentPos.y;
+        yPos = Mathf.Round(yPos * 10f) / 10f;
+        currentPos.y = yPos;
+
+        xPos = currentPos.x;
+        xPos = Mathf.Round(xPos * 10f) / 10f;
+        currentPos.x = xPos;
+
 
         if (!goingBack)
         {

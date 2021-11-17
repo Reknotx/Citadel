@@ -29,6 +29,7 @@ public class PoxSpell : Spell
     // Start is called before the first frame update
     void Start()
     {
+        movingSpell = false;
         baseScale = transform.localScale;
         transform.localScale = baseScale * startSize;
         currScale = startSize;
@@ -37,7 +38,7 @@ public class PoxSpell : Spell
         damage = stats.damage;
         manaCost = stats.manaCost;
 
-        movingSpell = false;
+        
     }
 
     // Update is called once per frame
