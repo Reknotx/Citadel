@@ -21,7 +21,7 @@ public abstract class Sword : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 8 && enemiesAttacked.Contains(other.gameObject))
+        if (other.gameObject.layer == 8 && !enemiesAttacked.Contains(other.gameObject))
         {
             other.gameObject.GetComponent<IDamageable>().TakeDamage(NewPlayer.Instance.combatSystem.meleeSystem.playerMeleeDamage);
             enemiesAttacked.Add(other.gameObject);
