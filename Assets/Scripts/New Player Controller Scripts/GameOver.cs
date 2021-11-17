@@ -13,6 +13,8 @@ public class GameOver : MonoBehaviour
             Destroy(Instance);
 
         Instance = this;
+
+        gameObject.SetActive(false);
     }
 
     public void ReturnToCamp()
