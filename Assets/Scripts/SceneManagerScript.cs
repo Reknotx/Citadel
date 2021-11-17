@@ -19,6 +19,7 @@ public class SceneManagerScript : MonoBehaviour
 
     /// <summary> this stores the ingame objects of the camp ui buttons  </summary>
     public GameObject campButtons;
+    public GameObject campShopEntranceButton;
 
     /// <summary> this stroes the ingame objects of the camp shop ui buttons  </summary>
     public GameObject campShopButtons;
@@ -136,10 +137,10 @@ public class SceneManagerScript : MonoBehaviour
     public void goToCampShop()
     {
 
-        CST.openCampShop = true;
-       
-       
-        campButtons.SetActive(false);
+        // CST.openCampShop = true;
+
+
+        campShopEntranceButton.SetActive(false);
         campShopButtons.SetActive(true);   
       
         shopUI.SetActive(true);

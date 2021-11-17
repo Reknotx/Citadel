@@ -27,7 +27,7 @@ public class PlayerCampInteractions : MonoBehaviour
    
 
 
-    public void OnTriggerStay(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
 
 
@@ -56,8 +56,7 @@ public class PlayerCampInteractions : MonoBehaviour
             }
             ///turn on button manager
 
-            if (Interacting)
-                other.GetComponent<Interactable>().Interact();
+            
         }
     }
 

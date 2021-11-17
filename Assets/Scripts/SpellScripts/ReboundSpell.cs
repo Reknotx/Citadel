@@ -80,6 +80,7 @@ public class ReboundSpell : Spell
     // Start is called before the first frame update
     void Awake()
     {
+        movingSpell = false;
         player = GameObject.FindGameObjectWithTag("Player");
         facingRight = player.GetComponent<NewPlayer>().facingRight;
 
@@ -275,13 +276,13 @@ public class ReboundSpell : Spell
 
     public void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.tag == "ground")
+        if(other.gameObject.layer == 10)
         {
            
             changeDirection();
         }
 
-        if (other.gameObject.tag == "platform")
+        if (other.gameObject.layer == 11)
         {
             
             changeDirection();
@@ -299,7 +300,7 @@ public class ReboundSpell : Spell
 
     public override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "ground")
+        if (other.gameObject.layer == 10)
         {
             if (canAdd)
             {
@@ -309,7 +310,7 @@ public class ReboundSpell : Spell
 
         }
         
-        if (other.gameObject.tag == "platform")
+        if (other.gameObject.layer == 11)
         {
             if (canAdd)
             {
@@ -322,7 +323,7 @@ public class ReboundSpell : Spell
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "ground")
+        if (other.gameObject.layer == 10)
         {
             if(!canAdd)
             {
@@ -332,7 +333,7 @@ public class ReboundSpell : Spell
            
         }
 
-        if (other.gameObject.tag == "platform")
+        if (other.gameObject.layer == 11)
         {
 
             if (!canAdd)

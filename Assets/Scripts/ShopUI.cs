@@ -30,6 +30,8 @@ namespace ShopSystem
 
         List<Button> spellButtons;
 
+
+
         private void Awake()
         {
             if (gameObject.activeSelf) gameObject.SetActive(false);
@@ -74,7 +76,7 @@ namespace ShopSystem
 
         public void OnDisable()
         {
-            if (Player.Instance != null) Player.Instance.canMove = true;
+           // if (NewPlayer.Instance != null) NewPlayer.Instance.canMove = true;
         }
 
         public void Buy(PurchaseableItem purchaseableItem)
@@ -136,7 +138,7 @@ namespace ShopSystem
             //attackRangeUpButton.interactable = hardGold > info.attackRangeUpInfo.upgradeCost;
             attackRangeUpButton.interactable    = false;
 
-            if (Player.Instance.speed == 30)
+            if (NewPlayer.Instance.speed == 30)
                 speedUpButton.interactable = false;
             else
                 speedUpButton.interactable = hardGold > info.speedUpInfo.upgradeCost;

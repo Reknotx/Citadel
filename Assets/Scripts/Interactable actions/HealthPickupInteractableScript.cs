@@ -32,7 +32,7 @@ namespace Interactables
 
         public void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "Player")
+            if (other.gameObject.layer == 7)
             {
                 Interact();
             }
