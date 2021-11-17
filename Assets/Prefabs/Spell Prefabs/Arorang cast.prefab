@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 6795688506467570295}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.62586, y: 0.62586, z: 0.62586}
+  m_LocalScale: {x: 1.6312414, y: 1.6312414, z: 1.6312414}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -113,8 +113,8 @@ MonoBehaviour:
     cooldown: 1
     manaCost: 10
     damage: 3
-  movingRight: 0
   spellUIImage: {fileID: 21300000, guid: 46ffbaf28a4f34b44a91903754132ec3, type: 3}
+  movingSpell: 1
   player: {fileID: 0}
   myTransform: {fileID: 6795688506467570298}
   startingPos: {x: 0, y: 0, z: 0}
@@ -137,9 +137,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6795688506467570295}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0

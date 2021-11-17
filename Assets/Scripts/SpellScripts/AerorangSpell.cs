@@ -15,10 +15,10 @@ public class AerorangSpell : Spell
     [HideInInspector]
     public Vector3 startingPos;
 
-    [HideInInspector]
+    [SerializeField]
     public Vector3 currentPos;
 
-    [HideInInspector]
+    [SerializeField]
     public Vector3 targetPos;
 
     [HideInInspector]
@@ -84,6 +84,8 @@ public class AerorangSpell : Spell
             targetPos.x = Mathf.Round(targetPos.x * 10f) / 10f;
             targetPos.y = Mathf.Round(targetPos.y * 10f) / 10f;
         }
+
+        movingSpell = false;
     }
 
 
@@ -92,6 +94,8 @@ public class AerorangSpell : Spell
 
 
         currentPos = this.transform.position;
+        zPos = 0f;
+        currentPos.z = zPos;
 
         if (!goingBack)
         {
@@ -151,7 +155,7 @@ public class AerorangSpell : Spell
 
     public override void  OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.layer == 7)
         {
             if (goingBack)
             {

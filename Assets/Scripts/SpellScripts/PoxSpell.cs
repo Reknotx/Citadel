@@ -36,6 +36,8 @@ public class PoxSpell : Spell
 
         damage = stats.damage;
         manaCost = stats.manaCost;
+
+        movingSpell = false;
     }
 
     // Update is called once per frame
