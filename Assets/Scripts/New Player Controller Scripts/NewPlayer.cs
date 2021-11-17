@@ -104,6 +104,16 @@ public class NewPlayer : Unit, IDamageable
         }
     }
 
+    /// <summary> Returns the position of the center of the player prefab. Affected by model height. </summary>
+    public Vector3 Center
+    {
+        get
+        {
+            Vector3 temp = transform.position;
+            return new Vector3(temp.x, temp.y + (modelHeight / 2));
+        }
+    }
+
     public override void Awake()
     {
         if (Instance != null & Instance != this)
@@ -232,10 +242,12 @@ public class NewPlayer : Unit, IDamageable
         if (Keyboard.current.dKey.isPressed)
         {
             physicalBody.transform.eulerAngles = new Vector3(0f, 90f, 0f);
+            facingRight = true;
         }
         else if (Keyboard.current.aKey.isPressed)
         {
             physicalBody.transform.eulerAngles = new Vector3(0f, 270f, 0f);
+            facingRight = false;
         }
     }
 
