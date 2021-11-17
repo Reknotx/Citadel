@@ -137,9 +137,9 @@ public class Enemy : Unit
     [SerializeField]
     private Transform pfDamagePopup;
 
-    public virtual void Start()
+    public override void Start()
     {
-
+        base.Start();
 
         normalSpeed = speed;
         //Tyler Added code
@@ -350,73 +350,20 @@ public class Enemy : Unit
     ///<summary>These track the collisions between the enemy and in-game objects .</summary>
     public void OnTriggerEnter(Collider other)
     {
-        #region commented out by chase
-        /////<summary>This triggers when the enemy is hit with the light attack.</summary>
-        //if (other.gameObject.tag=="swordLight")
-        //{
-        //    TakeDamage(player.GetComponent<Player>().meleeAttackDamage);
-        //    DamagePopup.Create(transform.position, player.GetComponent<Player>().meleeAttackDamage);
-        //    //Tyler Added code
-        //    if(Health <= 0)
-        //    {
-        //        //add drop stuff here
+        ///This triggers when the enemy is hit with the heavy attack.
+        if (other.gameObject.tag == "swordHeavy")
+        {
+            hitOnRight = player.GetComponent<NewPlayer>().facingRight;
 
+            _rigidBody.AddForce(new Vector3(hitOnRight ? 5 : -5, 0, 0), ForceMode.Impulse);
+        }
 
-        //        Destroy(this.gameObject);
-        //    }
-        //    //end of Tyler code
-        //    hitOnRight = player.GetComponent<Player>().facingRightLocal ;
-
-        //    //if you turn on the bellow code, it will apply knockback to the light attack
-        //    /*
-        //    if (hitOnRight == true)
-        //    {
-        //        _rigidBody.AddForce(new Vector3(1, 0, 0) * 1f, ForceMode.Impulse);
-
-        //    }
-        //    else
-        //    {
-        //        _rigidBody.AddForce(new Vector3(-1, 0, 0) * 1f, ForceMode.Impulse);
-        //    }
-        //    */
-        //}
-
-        /////<summary>This triggers when the enemy is hit with the heavy attack.</summary>
-        //if (other.gameObject.tag == "swordHeavy")
-        //{
-
-        //    TakeDamage(player.GetComponent<Player>().meleeAttackDamage * 2);
-        //    DamagePopup.Create(transform.position, player.GetComponent<Player>().meleeAttackDamage * 2);
-        //    hitOnRight = player.GetComponent<Player>().facingRightLocal;
-
-
-        //    if(hitOnRight == true)
-        //    {
-        //        _rigidBody.AddForce(new Vector3(player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
-
-        //    }
-        //    else
-        //    {
-        //        _rigidBody.AddForce(new Vector3(-player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
-
-        //    }
-        //}
         if (other.gameObject.layer == 7 || other.gameObject.layer == 12)
         {
             NewPlayer.Instance.TakeDamage(contactDamage);
             return;
         }
 
-        //if (other.gameObject.tag == "FireWallCast")
-        //{
-        //    if(fireDamageTaken == false)
-        //    {
-        //        TakeDamage(other.GetComponent<FireWallSpellScript>().fireWallCollideDamage);
-        //        DamagePopup.Create(transform.position, other.GetComponent<FireWallSpellScript>().fireWallCollideDamage);
-        //        fireDamageTaken = true;
-        //    }
-        //}
-        #endregion
         if (other.gameObject.tag == "FireWallWall")
         {
             if(onFire == false)
@@ -426,14 +373,6 @@ public class Enemy : Unit
                 StartCoroutine(onFireCoroutine());
             }
         }
-
-        
-
-        
-       
-
-        
-        
     }
 
     IEnumerator IsJumping()
@@ -471,6 +410,8 @@ public class Enemy : Unit
                 Instantiate(item, transform.position, Quaternion.identity);
             }
         }
+        //DamagePopup.Create(transform.position, (int)amount);
+
 
         base.TakeDamage(amount);
     }

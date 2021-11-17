@@ -283,6 +283,8 @@ public class NewPlayer : Unit, IDamageable
 
     public override void TakeDamage(float amount)
     {
+        if (invulnActive) return;
+
         base.TakeDamage(amount);
     }
 
@@ -324,5 +326,14 @@ public class NewPlayer : Unit, IDamageable
         ///
         ///This will help make things more dynamic for us and allow for
         ///as many spells as want for the player to have.x
+    }
+
+
+    [HideInInspector]
+    private bool invulnActive = false;
+    public IEnumerator InvulnCoroutine()
+    {
+        yield return new WaitForSeconds(5f);
+        invulnActive = false;
     }
 }
