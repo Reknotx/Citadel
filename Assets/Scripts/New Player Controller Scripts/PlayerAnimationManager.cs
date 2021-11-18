@@ -13,7 +13,7 @@ public class PlayerAnimationManager : MonoBehaviour
 
     /// <summary> Activates the heavy attack animation trigger. </summary>
     public static string HEAVY_ATTACK = "castHeavyAttack";
-    public static string RUNNING = "isMoving";
+    public static string RUNNING = "isRunning";
     
     /// <summary> Activates the jump animation trigger. </summary>
     public static string JUMP = "castJump";

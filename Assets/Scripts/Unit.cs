@@ -4,6 +4,9 @@
  * 
  * Brief:this script holds the similar 
  * components/data of all Units in the game 
+ * 
+ * Edited heavily by Chase O'Connor for clean up
+ * and new player system
  */
 
 
@@ -62,39 +65,10 @@ public class Unit : MonoBehaviour, IDamageable
 
     #endregion
 
-    #region Unit's Attached Colliders/Gameobjects
-    [Header("unit colliders/ground detection")]
-
-
-    ///<summary>This is the unit's collider that detects the ground.</summary>
-    [SerializeField]
-    [HideInInspector]
-    public Collider _groundCollider;
-    ///<summary>This is the unit's collider that detects the ground.</summary>
-    [SerializeField]
-    [HideInInspector]
-    protected Collider _platformCollider;
-
-
-    ///<summary>This dis the units collider for their light attack.</summary>
-    [SerializeField]
-    [HideInInspector]
-    protected Collider _lightCollider;
-
-    #endregion
-
     #region Unit's bool determinates 
 
     ///<summary>This determines whether the unit is on the ground or not.</summary>
     protected bool grounded = true;
-
-    [HideInInspector]
-    ///<summary>This determines whether the unit is on a platform or not.</summary>
-    public bool onPlatform;
-
-    [HideInInspector]
-    ///<summary>This determines whether the unit is going through a platform or not.</summary>
-    public bool throughPlatform;
 
     ///<summary>This determines if the unit just preformed a jump or not.</summary>
     [HideInInspector]
@@ -123,7 +97,7 @@ public class Unit : MonoBehaviour, IDamageable
 
     /// <summary> this determines if the unit has recently taken ticking poison damage </summary>
     [HideInInspector]
-    public bool poisonDamageTaken;
+    protected bool poisonDamageTaken;
 
     /// <summary> this determines if the unit has recently taken ticking fire damage </summary>
     [HideInInspector]
@@ -144,9 +118,9 @@ public class Unit : MonoBehaviour, IDamageable
     [HideInInspector]
     protected float spellCastDelay;
 
-    /// <summary> This determines how fast a Unit can cast spells </summary>
-    [HideInInspector]
-    protected float spellCastRate = 1f;
+    ///// <summary> This determines how fast a Unit can cast spells </summary>
+    //[HideInInspector]
+    //protected float spellCastRate = 1f;
 
     /// <summary> this determines how long the unit will be on fire for</summary>
     [HideInInspector]
@@ -194,9 +168,6 @@ public class Unit : MonoBehaviour, IDamageable
 
     public virtual void Update()
     {
-      
-
-
         ///<summary>this determines if the unit can take damage from a initially cast fire spell</summary>
         onFireDamageDelay -= Time.deltaTime * onFireDamageRate;
         if (onFireDamageDelay <= 0)
@@ -230,21 +201,6 @@ public class Unit : MonoBehaviour, IDamageable
     
    
     #region IEnumerator Coroutines
-   
-
-
-    /// <summary> this allows the weapons collider to interact with things </summary>
-    public IEnumerator lightAttackCoroutine()
-    {
-        _lightCollider.enabled = true;
-        yield return new WaitForSeconds(.8f);
-        _lightCollider.enabled = false;
-    }
-
-
-
-    
-
     public IEnumerator onFireCoroutine ()
     {
         

@@ -24,6 +24,7 @@ public class NewPlayer : Unit, IDamageable
 
 
     #endregion
+    /// <summary> The static instance of the New Player in the scene. </summary>
     public static NewPlayer Instance;
 
     [HideInInspector]
@@ -32,15 +33,15 @@ public class NewPlayer : Unit, IDamageable
     [HideInInspector]
     public Vector2 moveDir;
 
+    [Tooltip("The amount of units the player will jump.")]
     public float jumpHeight = 5f;
 
     public GameObject physicalBody;
     
     bool checkForSolidSurface = true;
     
-    private int groundLayer = 1 << 10;
-    private int platformLayer = 1 << 11;
-    private int solidGroundLayer = 1 << 31;
+    public LayerMask groundLayerMask;
+    public LayerMask platformLayerMask;
     
     private int playerLayer = 7;
     private int ignorePlayerLayer = 12;
@@ -197,12 +198,12 @@ public class NewPlayer : Unit, IDamageable
         ///Internal helper function to check for walls or terrain in front of the player.
         bool CheckForWalls()
         {
-            int layerMask;
+            LayerMask layerMask;
             if (physicalBody.layer == ignorePlayerLayer)
             {
-                layerMask = groundLayer | solidGroundLayer;
+                layerMask = groundLayerMask;
             }
-            else layerMask = groundLayer | solidGroundLayer | platformLayer;
+            else layerMask = groundLayerMask | platformLayerMask;
 
 
             ///Here I'll want to do a physics cast instead of a ray cast
@@ -221,11 +222,6 @@ public class NewPlayer : Unit, IDamageable
     {
         if (grounded) return;
 
-        //if (playerRB.velocity.y > 0f)
-        //{
-        //    grounded = false;
-        //}
-        //else if ((checkForPlatform && CheckForPlatform()) || CheckIfGrounded())
         if (checkForSolidSurface && (CheckForPlatform() || CheckIfGrounded()))
         {
             physicalBody.layer = playerLayer;
@@ -245,7 +241,7 @@ public class NewPlayer : Unit, IDamageable
             return Physics.CheckBox(transform.position,
                                     new Vector3(0.1f, 0.05f, 0.5f),
                                     Quaternion.identity,
-                                    groundLayer | solidGroundLayer);
+                                    groundLayerMask);
         }
 
         bool CheckForPlatform()
@@ -253,7 +249,7 @@ public class NewPlayer : Unit, IDamageable
             return Physics.CheckBox(transform.position,
                                     new Vector3(0.1f, 0.05f, 0.5f),
                                     Quaternion.identity,
-                                    platformLayer);
+                                    platformLayerMask);
         }
     }
 
@@ -264,7 +260,7 @@ public class NewPlayer : Unit, IDamageable
         ///use the technique that Brackey's utilized in the Ball wars video
         ///Limit the velocity the player can have in the x direction only 
         moveDir = value.Get<Vector2>();
-
+        Debug.Log("OnMove");
         if (Keyboard.current.dKey.isPressed)
         {
             physicalBody.transform.eulerAngles = new Vector3(0f, 90f, 0f);
@@ -274,6 +270,17 @@ public class NewPlayer : Unit, IDamageable
         {
             physicalBody.transform.eulerAngles = new Vector3(0f, 270f, 0f);
             facingRight = false;
+        }
+
+        if (moveDir != Vector2.zero)
+        {
+            PlayerAnimationManager.Instance.SetBool(PlayerAnimationManager.RUNNING, true);
+            PlayerAnimationManager.Instance.SetBool(PlayerAnimationManager.IDLE, false);
+        }
+        else
+        {
+            PlayerAnimationManager.Instance.SetBool(PlayerAnimationManager.RUNNING, false);
+            PlayerAnimationManager.Instance.SetBool(PlayerAnimationManager.IDLE, true);
         }
     }
 
@@ -325,7 +332,7 @@ public class NewPlayer : Unit, IDamageable
 
     IEnumerator GroundedCheckDelay()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.6f);
         checkForSolidSurface = true;
     }
 
