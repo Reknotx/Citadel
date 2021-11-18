@@ -354,13 +354,16 @@ public class Enemy : Unit
         if (other.gameObject.tag == "swordHeavy")
         {
             hitOnRight = player.GetComponent<NewPlayer>().facingRight;
-
+            DamagePopup.Create(transform.position, contactDamage);
+            Debug.Log("DamagePopup");
             _rigidBody.AddForce(new Vector3(hitOnRight ? 5 : -5, 0, 0), ForceMode.Impulse);
         }
 
         if (other.gameObject.layer == 7 || other.gameObject.layer == 12)
         {
             NewPlayer.Instance.TakeDamage(contactDamage);
+            DamagePopup.Create(transform.position, contactDamage);
+            Debug.Log("DamagePopup");
             return;
         }
 

@@ -21,6 +21,8 @@ public class DamagePopup : MonoBehaviour
 
     private Vector3 moveVector;
 
+    public GameObject popupText;
+
     public static DamagePopup Create(Vector3 position, int damageAmount)
     {
         Transform damagePopupTransform = Instantiate(GameAssets.i.pfDamagePopup, position, Quaternion.identity);

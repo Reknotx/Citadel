@@ -1169,7 +1169,8 @@ public class Player : Unit, IDamageable
             {
                
                 _heavyCollider.transform.position = _heavyCollider.transform.position + (_heavyCollider.gameObject.transform.localScale / 2);
-                
+                DamagePopup.Create(transform.position, 5);
+                Debug.Log("DamagePopup");
                 _heavyCollider.transform.localPosition = new Vector3(0f, 0f, 0f); ;
                 StartCoroutine(heavyAttackCoroutine());
                
@@ -1179,7 +1180,8 @@ public class Player : Unit, IDamageable
             {
                 
                 _heavyCollider.transform.position = _heavyCollider.transform.position - (_heavyCollider.gameObject.transform.localScale / 2);
-                
+                DamagePopup.Create(transform.position, 5);
+                Debug.Log("DamagePopup");
                 _heavyCollider.transform.localPosition = new Vector3(0f, 0f, 0f);
                 StartCoroutine(heavyAttackCoroutine());
                
