@@ -22,7 +22,7 @@ namespace Interactables
         {
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<Player>().Health += dropAmount;
+            player.GetComponent<NewPlayer>().Health += dropAmount;
 
                
             Destroy(this.gameObject);
@@ -32,10 +32,9 @@ namespace Interactables
 
         public void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "Player")
+            if (other.gameObject.layer == 7)
             {
-                GameObject player = GameObject.FindGameObjectWithTag("Player");
-                player.GetComponent<Player>().Interacting = true;
+                Interact();
             }
         }
     }

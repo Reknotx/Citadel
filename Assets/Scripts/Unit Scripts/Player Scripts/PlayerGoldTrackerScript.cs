@@ -12,6 +12,7 @@ public class PlayerGoldTrackerScript : MonoBehaviour
 
     private static PlayerGoldTrackerScript _instance;
 
+    [SerializeField]
     public static PlayerGoldTrackerScript Instance { get { return _instance; } }
 
     public float playerSoftGold;
@@ -41,15 +42,20 @@ public class PlayerGoldTrackerScript : MonoBehaviour
 
     public float playerSpeed;
     public float playerMaxHealth;
-    public float playerMaxMana;
+    public int playerMaxMana;
     public int playerAttackDamage;
     public float playerAttackRange;
 
     public float startingSpeed;
     public float startingMaxHealth;
-    public float startingMaxMana;
+    public int startingMaxMana;
     public int startingAttackDamage;
     public float startingAttackRange;
+
+
+
+   
+
 
     private void Awake()
     {
@@ -58,32 +64,36 @@ public class PlayerGoldTrackerScript : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        else if(_instance == null)
         _instance = this;
 
         
 
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(_instance);
 
-        player = GameObject.FindGameObjectWithTag("Player");
-        goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
-        currentSceneName = SceneManager.GetActiveScene().name;
-
-
+        findReference();
+        /*
+        player.GetComponent<Player>().Attack1 = attack1;
+        player.GetComponent<Player>().Attack2 = attack2;
+        player.GetComponent<Player>().Attack3 = attack3;    
+        */
     }
 
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
+        _instance = this;
+        findReference();
+        currentSceneName = SceneManager.GetActiveScene().name;
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
         }
-        _instance = this;
 
-        
+
 
         if (currentSceneName != lastSceneName)
         {
@@ -176,16 +186,19 @@ public class PlayerGoldTrackerScript : MonoBehaviour
                     playerMaxHealth =  startingMaxHealth;
                     playerMaxMana = startingMaxMana;
                     playerAttackDamage =startingAttackDamage ;
-                    playerAttackRange =  startingAttackRange;
+                    //playerAttackRange =  startingAttackRange;
                     playerDead = false;
             }
 
 
-            player.GetComponent<Player>().maxHealth = playerMaxHealth;
-            player.GetComponent<Player>().maxMana = playerMaxMana;
-            player.GetComponent<Player>().speed = playerSpeed;
-            player.GetComponent<Player>().meleeAttackDamage = playerAttackDamage;
-            player.GetComponent<Player>().meleeAttackRange = playerAttackRange;
+            //player.GetComponent<NewPlayer>().Health = playerMaxHealth;
+            //player.GetComponent<NewPlayer>().Mana = playerMaxMana;
+            //player.GetComponent<NewPlayer>().speed = playerSpeed;
+            player.GetComponentInChildren<CombatSystem.PlayerMeleeSystem>().playerMeleeDamage = playerAttackDamage;
+            //player.GetComponent<Player>().meleeAttackRange = playerAttackRange;
+            //player.GetComponent<Player>().Attack1 = attack1;
+            //player.GetComponent<Player>().Attack2 = attack2;
+           // player.GetComponent<Player>().Attack3 = attack3;
 
             statsUpdated = true;
         }
@@ -195,11 +208,14 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     {
         if (currentSceneName != "MainMenuScene" && currentSceneName != "MineScene")
         {
-            playerMaxHealth = player.GetComponent<Player>().maxHealth;
-            playerMaxMana = player.GetComponent<Player>().maxMana;
-            playerSpeed = player.GetComponent<Player>().speed;
-            playerAttackDamage = player.GetComponent<Player>().meleeAttackDamage;
-            playerAttackRange = player.GetComponent<Player>().meleeAttackRange;
+            playerMaxHealth = player.GetComponent<NewPlayer>().Health;
+            playerMaxMana = player.GetComponent<NewPlayer>().Mana;
+            playerSpeed = player.GetComponent<NewPlayer>().speed;
+            playerAttackDamage = player.GetComponentInChildren<CombatSystem.PlayerMeleeSystem>().playerMeleeDamage;
+           // playerAttackRange = player.GetComponent<Player>().meleeAttackRange;
+           //attack1 = player.GetComponent<Player>().Attack1;
+           //attack2 = player.GetComponent<Player>().Attack2;
+           // attack3 = player.GetComponent<Player>().Attack3;
         }
     }
 }

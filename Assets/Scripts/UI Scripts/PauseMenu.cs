@@ -22,17 +22,18 @@ namespace Menu
             gameObject.SetActive(false);
         }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             Time.timeScale = 0f;
 
             returnToCampButton.interactable = SceneManager.GetActiveScene().name == "CampScene";
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             Time.timeScale = 1f;
         }
+        
 
         public void ReturnToCamp()
         {
@@ -47,5 +48,6 @@ namespace Menu
             Application.Quit();
         #endif
         }
+
     }
 }

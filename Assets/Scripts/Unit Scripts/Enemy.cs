@@ -36,6 +36,8 @@ public class Enemy : Unit
     ///<summary>This is the range of detection to the ground.</summary>
     private float _Reach = 1f;
 
+    public int contactDamage;
+
     ///<summary>This tracks what direction the enemy is facing.</summary>
     [HideInInspector]
     public bool facingRightLocal;
@@ -132,16 +134,18 @@ public class Enemy : Unit
 
     private float calculateHealth;
 
-    public virtual void Start()
-    {
+    [SerializeField]
+    private Transform pfDamagePopup;
 
+    public override void Start()
+    {
+        base.Start();
 
         normalSpeed = speed;
         //Tyler Added code
         player = GameObject.FindGameObjectWithTag("Player");
 
         Astar = GetComponent<AIPath>();
-        Health = maxHealth;
 
         HealthIMG.gameObject.SetActive(false);
     }
@@ -155,10 +159,10 @@ public class Enemy : Unit
 
         base.Update();
 
-        if (Health < maxHealth)
+        if (Health < MaxHealth)
         {
             HealthIMG.gameObject.SetActive(true);
-            calculateHealth = (float)Health / maxHealth;
+            calculateHealth = (float)Health / MaxHealth;
             enemyHealth.fillAmount = Mathf.MoveTowards(enemyHealth.fillAmount, calculateHealth, Time.deltaTime);
         }
         else
@@ -200,7 +204,7 @@ public class Enemy : Unit
             }
         }
 
-        if (isGrounded)
+        if (grounded)
         {
             if (canJump)
             {
@@ -257,11 +261,11 @@ public class Enemy : Unit
         Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
         if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "ground")
         {
-            isGrounded = true;
+            grounded = true;
         }
         else
         {
-            isGrounded = false;
+            grounded = false;
         }
 
 
@@ -290,6 +294,12 @@ public class Enemy : Unit
         if (onFire == true)
         {
             TakeDamage(onFireDamage * Time.deltaTime);
+        }
+
+        if(poisoned == true)
+        {
+            TakeDamage(poisonedDamage * Time.deltaTime);
+
         }
     }
 
@@ -340,67 +350,18 @@ public class Enemy : Unit
     ///<summary>These track the collisions between the enemy and in-game objects .</summary>
     public void OnTriggerEnter(Collider other)
     {
-        ///<summary>This triggers when the enemy is hit with the light attack.</summary>
-        if (other.gameObject.tag=="swordLight")
-        {
-            TakeDamage(player.GetComponent<Player>().meleeAttackDamage);
-            //Tyler Added code
-            if(Health <= 0)
-            {
-                //add drop stuff here
-
-
-                Destroy(this.gameObject);
-            }
-            //end of Tyler code
-            hitOnRight = player.GetComponent<Player>().facingRightLocal ;
-
-            //if you turn on the bellow code, it will apply knockback to the light attack
-            /*
-            if (hitOnRight == true)
-            {
-                _rigidBody.AddForce(new Vector3(1, 0, 0) * 1f, ForceMode.Impulse);
-
-            }
-            else
-            {
-                _rigidBody.AddForce(new Vector3(-1, 0, 0) * 1f, ForceMode.Impulse);
-            }
-            */
-        }
-
-        ///<summary>This triggers when the enemy is hit with the heavy attack.</summary>
+        ///This triggers when the enemy is hit with the heavy attack.
         if (other.gameObject.tag == "swordHeavy")
         {
-            
-            TakeDamage(player.GetComponent<Player>().meleeAttackDamage * 2);
-            hitOnRight = player.GetComponent<Player>().facingRightLocal;
-            
+            hitOnRight = player.GetComponent<NewPlayer>().facingRight;
 
-            if(hitOnRight == true)
-            {
-                _rigidBody.AddForce(new Vector3(player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
-             
-            }
-            else
-            {
-                _rigidBody.AddForce(new Vector3(-player.GetComponent<Player>().knockbackForce, 0, 0) * 1f, ForceMode.Impulse);
-               
-            }
+            _rigidBody.AddForce(new Vector3(hitOnRight ? 5 : -5, 0, 0), ForceMode.Impulse);
         }
-        if (other.gameObject.tag == "Player")
+
+        if (other.gameObject.layer == 7 || other.gameObject.layer == 12)
         {
-            //TakeDamage(player.GetComponent<Player>().playerCollisionDamage);
+            NewPlayer.Instance.TakeDamage(contactDamage);
             return;
-        }
-
-        if (other.gameObject.tag == "FireWallCast")
-        {
-            if(fireDamageTaken == false)
-            {
-                TakeDamage(other.GetComponent<FireWallSpellScript>().fireWallCollideDamage);
-                fireDamageTaken = true;
-            }
         }
 
         if (other.gameObject.tag == "FireWallWall")
@@ -411,12 +372,6 @@ public class Enemy : Unit
                 onFireDamage = 3;
                 StartCoroutine(onFireCoroutine());
             }
-        }
-
-
-        if(other.gameObject.tag == "Aerorang")
-        {
-            TakeDamage(other.GetComponent<AerorangSpell>().spellDamage);
         }
     }
 
@@ -455,6 +410,8 @@ public class Enemy : Unit
                 Instantiate(item, transform.position, Quaternion.identity);
             }
         }
+        //DamagePopup.Create(transform.position, (int)amount);
+
 
         base.TakeDamage(amount);
     }

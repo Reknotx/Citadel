@@ -20,6 +20,9 @@ public class SwordBehavior : MonoBehaviour
     public MeshRenderer lightRenderer;
     public MeshRenderer heavyRenderer;
 
+    public float fadeInSpeed = 0.0000001f; 
+    public float fadeOutSpeed = 0.0000001f;
+
     #endregion
 
 
@@ -33,11 +36,7 @@ public class SwordBehavior : MonoBehaviour
             // lightCollider.gameObject.transform.localScale += new Vector3(player.GetComponent<Player>().meleeAttackRange, 0, 0);
             //lightCollider.gameObject.transform.localScale.x = player.GetComponent<Player>().meleeAttackRange;
             lightRenderer.enabled = true;
-            /*for(double i=0; i < 10;)
-            {
-                lightRenderer.material.color = new Color(1.0f, 1.0f, 1.0f, (float)i);
-                i += 0.1;
-            }*/
+            
             lightRenderer.material.color = new Color(1.0f, 1.0f, 1.0f, 0.1f);
             
             
@@ -50,17 +49,13 @@ public class SwordBehavior : MonoBehaviour
         if (heavyCollider.enabled == true)
         {
             heavyRenderer.enabled = true;
-            /*for (double i = 0; i <= 10;)
-            {
-                heavyRenderer.material.color = new Color(1.0f, 1.0f, 1.0f, (float)i);
-                i += 0.1;
-            }*/
-
-
+            StartCoroutine(FadeInObjectHeavy());
         }
         else
         {
+            StartCoroutine(FadeOutObjectHeavy());
             heavyRenderer.enabled = false;
+            
         }
         #endregion
     }
@@ -83,9 +78,34 @@ public class SwordBehavior : MonoBehaviour
 
     }
 
-    IEnumerator waitBetweenOpacity()
+    public IEnumerator FadeOutObjectHeavy()
     {
-        yield return new WaitForSeconds(0.5f);
+        
+        while (heavyRenderer.material.color.a > 0)
+        {
+            Color objectColor = heavyRenderer.material.color;
+            float fadeAmount = objectColor.a - ((fadeOutSpeed * Time.deltaTime) / 5);
+
+            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+            heavyRenderer.material.color = objectColor;
+            yield return null;
+        }
+        //heavyRenderer.enabled = false;
+    }
+
+    public IEnumerator FadeInObjectHeavy()
+    {
+        //heavyRenderer.enabled = true;
+        while (heavyRenderer.material.color.a < 1)
+        {
+            Color objectColor = heavyRenderer.material.color;
+            float fadeAmount = objectColor.a + ((fadeInSpeed * Time.deltaTime) / 100);
+
+            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+            heavyRenderer.material.color = objectColor;
+            yield return null;
+        }
+        
     }
     #endregion
 }

@@ -19,6 +19,8 @@ namespace Interactables
         public GameObject spellStonePickup;
         public GameObject backShieldPickup;
         public GameObject MedicineSashPickup;
+        public GameObject compassPickup;
+        public GameObject serratedStonePickup;
 
         private Collider myCollider;
 
@@ -27,6 +29,7 @@ namespace Interactables
         void Awake()
         {
             myCollider = this.GetComponent<Collider>();
+            //GameObject player = GameObject.FindGameObjectWithTag("Player");
         }
 
         // Update is called once per frame
@@ -37,9 +40,18 @@ namespace Interactables
                 if (dropped == false)
                 {
                     myCollider.enabled = false;
-                    randomSpawn();
                     lid.transform.localRotation = Quaternion.Euler(-60, 0, 0);
+                    randomSpawn();
                 }
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.gameObject.layer == 7)
+            {
+                opened = true;
+                
             }
         }
 
@@ -47,13 +59,12 @@ namespace Interactables
         public override void Interact()
         {
             opened = true;
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<Player>().Interacting = false;
+            
         }
 
         private void randomSpawn()
         {
-            var number = Random.Range(1, 6);
+            var number = Random.Range(1, 8);
 
             if (number == 1)
             {
@@ -74,6 +85,14 @@ namespace Interactables
             if (number == 5)
             {
                 var medicineSash = (GameObject)Instantiate(MedicineSashPickup, dropSpawnPos.position, dropSpawnPos.rotation);
+            }
+            if (number ==6 )
+            {
+                var comapss = (GameObject)Instantiate(compassPickup, dropSpawnPos.position, dropSpawnPos.rotation);
+            }
+            if (number ==7 )
+            {
+                var serrated = (GameObject)Instantiate(serratedStonePickup, dropSpawnPos.position, dropSpawnPos.rotation);
             }
 
             dropped = true;
