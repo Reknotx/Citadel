@@ -191,9 +191,9 @@ public class PlayerGoldTrackerScript : MonoBehaviour
             }
 
 
-            //player.GetComponent<NewPlayer>().Health = playerMaxHealth;
-            //player.GetComponent<NewPlayer>().Mana = playerMaxMana;
-            //player.GetComponent<NewPlayer>().speed = playerSpeed;
+            player.GetComponent<NewPlayer>().Health = playerMaxHealth;
+            player.GetComponent<NewPlayer>().Mana = playerMaxMana;
+            player.GetComponent<NewPlayer>().speed = playerSpeed;
             player.GetComponentInChildren<CombatSystem.PlayerMeleeSystem>().playerMeleeDamage = playerAttackDamage;
             //player.GetComponent<Player>().meleeAttackRange = playerAttackRange;
             //player.GetComponent<Player>().Attack1 = attack1;
