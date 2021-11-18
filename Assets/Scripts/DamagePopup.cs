@@ -45,7 +45,7 @@ public class DamagePopup : MonoBehaviour
         textColor = textMesh.color;
         disappearTimer = 1f;
 
-        moveVector = new Vector3(.7f, 1) * 60f;
+        moveVector = new Vector3(.7f, 1) * 15f;
     }
 
     private void Update()
