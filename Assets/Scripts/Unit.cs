@@ -158,7 +158,7 @@ public class Unit : MonoBehaviour, IDamageable
 
     public virtual void Awake()
     {
-        
+        MaxHealth = Health;
     }
 
     public virtual void Start()
