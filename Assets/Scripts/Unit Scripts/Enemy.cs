@@ -113,11 +113,18 @@ public class Enemy : Unit
 
 
     #endregion
+    #region Enemy Animations
+    public Animator animator;
+    public bool isAttacking;
+    public bool isDead;
+    public bool isMoving;
+
+    #endregion
 
     #endregion
 
 
-    
+
 
     [HideInInspector]
     public bool seenByCamera = false;
@@ -148,6 +155,13 @@ public class Enemy : Unit
         Astar = GetComponent<AIPath>();
 
         HealthIMG.gameObject.SetActive(false);
+
+        if (animator != null)
+        {
+            animator.SetBool("isMoving", isMoving);
+            animator.SetBool("isAttacking", isAttacking);
+            animator.SetBool("isDead", isDead);
+        }
     }
 
     public override void Update()

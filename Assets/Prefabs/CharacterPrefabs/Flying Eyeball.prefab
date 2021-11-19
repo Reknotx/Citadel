@@ -341,6 +341,10 @@ MonoBehaviour:
   distanceToPlayer: 0
   Astar: {fileID: 0}
   nextWaypointDistance: 3
+  animator: {fileID: 7996026035991179588}
+  isAttacking: 0
+  isDead: 0
+  isMoving: 0
   seenByCamera: 0
   debug: 0
   killThis: 0
@@ -583,5 +587,10 @@ PrefabInstance:
 --- !u!4 &4041905366860737342 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7b65bf3220e9f7a4b92abced065de6ca, type: 3}
+  m_PrefabInstance: {fileID: 4583823265709411541}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7996026035991179588 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 7b65bf3220e9f7a4b92abced065de6ca, type: 3}
   m_PrefabInstance: {fileID: 4583823265709411541}
   m_PrefabAsset: {fileID: 0}

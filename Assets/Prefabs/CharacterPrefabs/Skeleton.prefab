@@ -219,6 +219,10 @@ MonoBehaviour:
   distanceToPlayer: 0
   Astar: {fileID: 2982838568778839166}
   nextWaypointDistance: 3
+  animator: {fileID: 3939026223740186874}
+  isAttacking: 0
+  isDead: 0
+  isMoving: 0
   seenByCamera: 0
   debug: 0
   killThis: 0
@@ -668,11 +672,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: skeleton_archer
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 55a3d8768dca86049b1f21d3eb50f93d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: beee22353f79a624bb7094316e766544, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55a3d8768dca86049b1f21d3eb50f93d, type: 3}
 --- !u!4 &6938384218712353408 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 55a3d8768dca86049b1f21d3eb50f93d, type: 3}
+  m_PrefabInstance: {fileID: 7476167602448616811}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3939026223740186874 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 55a3d8768dca86049b1f21d3eb50f93d, type: 3}
   m_PrefabInstance: {fileID: 7476167602448616811}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8195227569639693113 stripped

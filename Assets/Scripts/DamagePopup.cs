@@ -21,7 +21,7 @@ public class DamagePopup : MonoBehaviour
 
     private Vector3 moveVector;
 
-    public GameObject popupText;
+   // public GameObject popupText;
 
     public static DamagePopup Create(Vector3 position, int damageAmount)
     {

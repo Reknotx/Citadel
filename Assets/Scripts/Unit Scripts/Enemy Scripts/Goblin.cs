@@ -160,6 +160,8 @@ public class Goblin : Enemy
 
     private void GoblinAttack()
     {
+        isAttacking = true;
+        animator.SetBool("isAttacking", isAttacking);
         if (facingRight)
         {
             StartCoroutine(WaitBetweenVisual_Right());
@@ -214,6 +216,8 @@ public class Goblin : Enemy
     IEnumerator WaitBetweenAttack()
     {
         canAttack = false;
+        isAttacking = false;
+        animator.SetBool("isAttacking", isAttacking);
         yield return new WaitForSeconds(2f);
         canAttack = true;
     }
