@@ -6,36 +6,33 @@ namespace CombatSystem
 {
     public class PlayerMeleeSystem : MonoBehaviour
     {
-        public GameObject lightSword;
-        public GameObject heavySword;
+        public Sword lightSword;
+        public Sword heavySword;
 
+        public int playerMeleeDamage;
+
+        ///<summary>This determines how far the player will knock back an enemy with the heavy attack.</summary>
+        public float knockbackForce;
 
         public void SwingSword(string meleeAttack)
         {
+            if (NewPlayer.Instance.isPaused) return;
+
             switch (meleeAttack)
             {
                 case "lightAttack":
-                    lightSword.SetActive(true);
+                    if (!lightSword.gameObject.activeSelf)
+                        lightSword.gameObject.SetActive(true);
                     break;
 
                 case "heavyAttack":
-                    heavySword.SetActive(true);
+                    if (!heavySword.gameObject.activeSelf)
+                        heavySword.gameObject.SetActive(true);
                     break;
 
                 default:
                     break;
             }
         }
-
-        //private void LightAttack()
-        //{
-        //    ///Swing the light attack and activate the sword and initiate the animation.
-        //    PlayerAnimationManager.Instance.PlayAnimation(PlayerAnimationManager.LIGHT_ATTACK);
-        //}
-
-        //private void HeavyAttack()
-        //{
-        //    PlayerAnimationManager.Instance.PlayAnimation(PlayerAnimationManager.HEAVY_ATTACK);
-        //}
     }
 }

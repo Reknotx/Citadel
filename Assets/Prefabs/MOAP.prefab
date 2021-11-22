@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8920899574134110959
 RectTransform:
   m_ObjectHideFlags: 0
@@ -225,7 +225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2234074133803216210
 RectTransform:
   m_ObjectHideFlags: 0
@@ -375,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &562762270771620856
 RectTransform:
   m_ObjectHideFlags: 0
@@ -686,6 +686,71 @@ MonoBehaviour:
   TipButton_camp: {fileID: 0}
   TutButton_camp: {fileID: 0}
   openCampShop: 0
+--- !u!1 &1539886829689396975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3453574958481903663}
+  - component: {fileID: 2431696919760416771}
+  m_Layer: 0
+  m_Name: GoldHandler
+  m_TagString: PlayerGoldHandler
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3453574958481903663
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539886829689396975}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3042122612190196581}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2431696919760416771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539886829689396975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc83713ab8e47f49aef7a4f035413e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  softGoldText: {fileID: 0}
+  hardGoldText: {fileID: 0}
+  _mySoftGold: 0
+  _myHardGold: 0
+  startingSoftGold: 0
+  startingHardGold: 100
+  softGold: {fileID: 0}
+  hardGold: {fileID: 0}
+  castleSceneName: 
+  mainMenuName: 
+  numOfMiners: 0
+  baseGoldIncrease: 0
+  numOfCarts: 0
+  numOfMoles: 0
+  numOfPicks: 0
+  numOfWizards: 0
+  minerIncrease: 0
+  cartIncrease: 0
+  pickIncrease: 0
+  moleIncrease: 0
+  wizardIncrease: 0
+  revenue: 0
 --- !u!1 &1627281310822418437
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,7 +824,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7296781858009040549
 RectTransform:
   m_ObjectHideFlags: 0
@@ -834,7 +899,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1170011330099030787
 RectTransform:
   m_ObjectHideFlags: 0
@@ -988,7 +1053,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1366310102380697784
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1036,7 +1101,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 4993bc473ecea2c4da8fe9edcd6de83d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1063,7 +1128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2875329001642890008
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1111,7 +1176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d734cb3ce52c2b24ba0240675ca90c49, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1138,7 +1203,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4605620648250270547
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1186,7 +1251,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d734cb3ce52c2b24ba0240675ca90c49, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1213,7 +1278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &241110776194656054
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1261,7 +1326,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d734cb3ce52c2b24ba0240675ca90c49, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1288,7 +1353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6012975711800611794
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1523,7 +1588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7656786616708015119
 Transform:
   m_ObjectHideFlags: 0
@@ -1536,7 +1601,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3042122612190196581}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &6828961332771415570
 Camera:
@@ -1666,7 +1731,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3042122612190196581}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4495688422867869958
 MonoBehaviour:
@@ -1701,7 +1766,7 @@ GameObject:
   - component: {fileID: 9220498930113262576}
   m_Layer: 5
   m_Name: SoftGold
-  m_TagString: Untagged
+  m_TagString: SoftGold
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1781,7 +1846,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2201066091220832034
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1866,13 +1931,13 @@ Transform:
   m_LocalPosition: {x: -5.2965574, y: 2.1199937, z: -0.20214272}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5935659708264913101}
   - {fileID: 4495688422867869957}
   - {fileID: 5935659706829603774}
   - {fileID: 5935659708403378247}
   - {fileID: 5935659707693601922}
   - {fileID: 7656786616708015119}
   - {fileID: 3869169657630410546}
+  - {fileID: 3453574958481903663}
   - {fileID: 1886419055984676816}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1894,7 +1959,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5225484567348566846
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1942,7 +2007,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 4993bc473ecea2c4da8fe9edcd6de83d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1981,7 +2046,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3042122612190196581}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1794231162585051906
 MonoBehaviour:
@@ -2020,7 +2085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5304132376511744399
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2095,7 +2160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &270745697442379208
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2143,7 +2208,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 4993bc473ecea2c4da8fe9edcd6de83d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2476,7 +2541,7 @@ RectTransform:
   - {fileID: 4605620648250270547}
   - {fileID: 1366310102380697784}
   m_Father: {fileID: 3042122612190196581}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2914,7 +2979,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3042122612190196581}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5935659707693601925
 MonoBehaviour:
@@ -3340,71 +3405,6 @@ MonoBehaviour:
   m_Text: 'Browse the Shop
 
 '
---- !u!1 &5935659708264913103
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5935659708264913101}
-  - component: {fileID: 5935659708264913100}
-  m_Layer: 0
-  m_Name: GoldHandler
-  m_TagString: PlayerGoldHandler
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5935659708264913101
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5935659708264913103}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 508, y: 299.13513, z: -34.86415}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3042122612190196581}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5935659708264913100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5935659708264913103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bc83713ab8e47f49aef7a4f035413e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  softGoldText: {fileID: 774425043847044386}
-  hardGoldText: {fileID: 5935659707873794385}
-  _mySoftGold: 0
-  _myHardGold: 0
-  startingSoftGold: 0
-  startingHardGold: 100
-  softGold: {fileID: 4640540087166160471}
-  hardGold: {fileID: 5935659708267293122}
-  castleSceneName: CastleScene
-  mainMenuName: MainMenu
-  numOfMiners: 2
-  numOfPicks: 0
-  baseGoldIncrease: 0
-  numOfCarts: 0
-  numOfMoles: 0
-  numOfWizards: 0
-  minerIncrease: 2
-  cartIncrease: 5
-  pickIncrease: 0
-  moleIncrease: 0
-  wizardIncrease: 0
-  revenue: 0
 --- !u!1 &5935659708267293122
 GameObject:
   m_ObjectHideFlags: 0
@@ -3418,7 +3418,7 @@ GameObject:
   - component: {fileID: 5935659708267293120}
   m_Layer: 5
   m_Name: HardGold
-  m_TagString: Untagged
+  m_TagString: HardGold
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3543,7 +3543,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3042122612190196581}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5935659708403378246
 MonoBehaviour:
@@ -3922,7 +3922,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8435191340498413169
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3997,7 +3997,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7453544576903134579
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4455,7 +4455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9119335640215542487
 RectTransform:
   m_ObjectHideFlags: 0

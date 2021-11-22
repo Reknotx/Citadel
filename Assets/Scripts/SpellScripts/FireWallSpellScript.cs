@@ -10,7 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireWallSpellScript : MonoBehaviour
+public class FireWallSpellScript : Spell
 {
 
     
@@ -23,8 +23,6 @@ public class FireWallSpellScript : MonoBehaviour
     public int fireWallBurnDamage;
 
     public float spellDuration;
-
-    public float manaCost;
 
         #endregion
         #region Fire Wall Colliders/Renderers
@@ -43,6 +41,8 @@ public class FireWallSpellScript : MonoBehaviour
     public GameObject ballParticles;
     public GameObject wallParticles;
 
+    public Vector3 down = Vector3.down;
+
     #endregion
 
     public void FixedUpdate()
@@ -60,26 +60,26 @@ public class FireWallSpellScript : MonoBehaviour
         }
     }
 
+    public override void Move()
+    {
+        if(!changed)
+        GetComponent<Rigidbody>().velocity += down *.01f;
+    }
 
 
- 
+
+
 
     #region Fire Wall Collison Control
-    public void OnTriggerEnter(Collider other)
+    public override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag =="platform")
+        if (other.gameObject.layer == 10 || other.gameObject.layer == 11 || other.gameObject.layer == 31)
         {
             castRigidbody.velocity = new Vector3(0f, 0f, 0f);
             changed = true;
         }
-        if (other.gameObject.tag == "ground")
-        {
-            castRigidbody.velocity = new Vector3(0f, 0f, 0f);
-            
-            changed = true;
-
-        }
-        if (other.gameObject.tag == "Enemy")
+       
+        if (other.gameObject.layer == 8)
         {
             if (changed == false)
             {
@@ -87,6 +87,11 @@ public class FireWallSpellScript : MonoBehaviour
             }
             
         }
+    }
+
+    public override void TriggerSpell(GameObject target)
+    {
+        throw new System.NotImplementedException();
     }
     #endregion
 

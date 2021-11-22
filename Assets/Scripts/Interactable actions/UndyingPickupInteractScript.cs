@@ -6,34 +6,25 @@ namespace Interactables
 {
     public class UndyingPickupInteractScript : Item
     {
-        //private bool given = false;
-        //public GameObject player;
-        //public bool playerInteracting = false;
-        //public bool colliding = false;
-
-        //private void Awake()
-        //{
-        //    player = GameObject.FindGameObjectWithTag("Player");
-        //}
-
-        //public void Update()
-        //{
-        //    playerInteracting = player.GetComponent<Player>().Interacting;
-
-        //    if (playerInteracting == true && colliding == true)
-        //    {
-
-        //        Interact();
-        //        Destroy(this.gameObject);
-
-        //    }
-        //}
+        public bool given = false;
+        
 
         public override void Interact()
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<Player>().undying = true;
+            player.GetComponent<PlayerInventory>().undying = true;
             base.Interact();
+        }
+
+
+        public void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.layer == 7)
+            {
+                given = true;
+                NewPlayer.Instance.inventory.undying = true;
+                Destroy(this.gameObject);
+            }
         }
     }
 }

@@ -18,14 +18,14 @@ public class PlayerAnimationManager : MonoBehaviour
     /// <summary> Activates the jump animation trigger. </summary>
     public static string JUMP = "castJump";
 
-    /// <summary> Activates the falling animation trigger. </summary>
+    /// <summary> Reference to the falling animation boolean. </summary>
     /// <remarks>Remember all transitions into the falling animation can't have exit time.</remarks>
-    public static string FALLING = "castFalling";
+    public static string FALLING = "isFalling";
 
     /// <summary> Activates the landing animation trigger. </summary>
-    public static string LANDING = "castLanding";
+    public static string LANDING = "castLanded";
 
-    public Animator animator;
+    private Animator animator;
 
     private void Awake()
     {
@@ -33,6 +33,9 @@ public class PlayerAnimationManager : MonoBehaviour
             Destroy(Instance);
 
         Instance = this;
+
+        if (animator == null)
+            animator = GetComponent<Animator>();
     }
 
 
@@ -40,22 +43,29 @@ public class PlayerAnimationManager : MonoBehaviour
     /// Pass in one of the static strings from the PlayerAnimationManager.
     /// </summary>
     /// <param name="animation">The name of the animation to play</param>
-    /// <remarks>The name of the animation should be related to a 
+    /// <remarks>The name of the animation shou ld be related to a 
     /// bool or trigger in animator</remarks>
     public void ActivateTrigger(string animation)
     {
         animator.SetTrigger(animation);
-
     }
 
     /// <summary> Turns the animation on based on the value of <paramref name="on"/> </summary>
     /// <param name="on">True indicates we are running, false indicates we are idle.</param>
-    public void RunAnimation(bool on)
+    public void RunningAnimation(bool on)
     {
         animator.SetBool("isRunning", on);
         ///This is just a nice little way to ensure that if running is on idle
         ///will be off and we don't need to write an if block
         animator.SetBool("isIdle", on == true ? false : true);
+    }
+
+    public void SetBool(string animation, bool value)
+    {
+        if (animator.GetBool(animation) != value)
+        {
+            animator.SetBool(animation, value);
+        }
     }
 
     public void TurnSwordOff()

@@ -12,77 +12,59 @@ namespace CombatSystem
     ///The spell system will need to be updated
     ///whenever mana is gained or spent.
 
-
-
     public class PlayerSpellSystem : MonoBehaviour
     {
-        [System.Serializable]
-        public class SpellSlot
-        {
-            [HideInInspector]
-            public GameObject spell;
+        public List<SpellSlot> spellSlots = new List<SpellSlot>();
 
-            [HideInInspector]
-            public int manaCost;
-
-            public Image spellImage;
-
-            public Text manaCostText;
-
-            [HideInInspector]
-            public bool canCast = true;
-
-            public void AssignSpell(GameObject spell)
-            {
-                this.spell = spell;
-                manaCost = spell.GetComponent<Spell>().stats.manaCost;
-                spellImage = spell.GetComponent<Spell>().spellUIImage;
-            }
-
-            public void CompareCurrManaToManaCost(int playerMana)
-            {
-                Color temp = spellImage.color;
-                temp.a = playerMana < manaCost ? 0.5f : 1f;
-                canCast = temp.a == 1f;
-                spellImage.color = temp;
-            }
-        }
-
-        [HideInInspector]
-        public List<GameObject> acquiredSpells;
-
-        public List<SpellSlot> spellSlots = new List<SpellSlot>(3);
+        public SpellBook spellBook;
 
         public void CastSpell(int slotIndex)
         {
-            if (!spellSlots[slotIndex].canCast) return;
+            if (NewPlayer.Instance.isPaused) return;
 
-            GameObject spellToCast = spellSlots[slotIndex].spell;
+            SpellSlot attemptedCast = spellSlots[slotIndex];
+
+            if (!attemptedCast.canCast) return;
+
+            Debug.Log("Casting " + attemptedCast.spell.name);
 
             ///Apply force to spell or perform unique movement math
-            GameObject spawnedSpell = Instantiate(spellToCast, Player.Instance.transform.position, Quaternion.identity);
+            GameObject spawnedSpell = Instantiate(attemptedCast.spell, NewPlayer.Instance.Center, Quaternion.identity);
 
-            int multiplier = NewPlayer.Instance.playerRB.velocity.x < 0 ? -1 : 1;
-            spawnedSpell.GetComponent<Rigidbody>().velocity = new Vector3(NewPlayer.Instance.playerRB.velocity.x + (3 * multiplier),
-                                                                          0f,
-                                                                          0f);
+            if (spawnedSpell.GetComponent<Spell>().movingSpell)
+            {
+                int multiplier = NewPlayer.Instance.facingRight ? 1 : -1;
+
+                spawnedSpell.GetComponent<Rigidbody>().velocity = new Vector3((NewPlayer.Instance.speed + 2) * multiplier,
+                                                                              0f,
+                                                                              0f);
+            }
+
+            Debug.Log(spawnedSpell.GetComponent<Rigidbody>().velocity.x);
+
         }
 
-        public void SwapSpell(GameObject spell, int slotIndex)
+        public void AssignSpell(GameObject spell, int slotIndex)
         {
-            spellSlots[slotIndex].spell = spell;
+            foreach (SpellSlot assignedSpell in spellSlots)
+            {
+                if (assignedSpell.spell == spell)
+                {
+                    assignedSpell.Clear();
+                }
+            }
+
+            spellSlots[slotIndex - 1].AssignSpell(spell);
+
+            UpdateSpellSystemUI();
         }
 
-        /// <summary>
-        /// Adds a new spell into the book.
-        /// </summary>
-        /// <param name="newSpell">The spell prefab to add.</param>
-        public void AddSpellToBook(GameObject newSpell)
+        private void UpdateSpellSystemUI()
         {
-            //if (newSpell.GetComponent<Spell>() == null)
-            //    Debug.LogError(newSpell.name + " does not have a spell script attached.");
-
-            acquiredSpells.Add(newSpell);
+            foreach (SpellSlot spellSlot in spellSlots)
+            {
+                spellSlot.CompareCurrManaToManaCost(NewPlayer.Instance.Mana);
+            }
         }
 
 
@@ -92,6 +74,59 @@ namespace CombatSystem
             {
                 spellSlot.CompareCurrManaToManaCost(playerMana);
             }
+        }
+    }
+
+    [System.Serializable]
+    public class SpellSlot
+    {
+        [HideInInspector]
+        public GameObject spell;
+
+        [HideInInspector]
+        public int manaCost;
+
+        public Image spellImage;
+
+        public Text manaCostText;
+
+        [HideInInspector]
+        public bool canCast;
+
+        [HideInInspector]
+        private bool isEmpty;
+
+        public void AssignSpell(GameObject spell)
+        {
+            this.spell = spell;
+            manaCost = spell.GetComponent<Spell>().stats.manaCost;
+            manaCostText.text = manaCost.ToString();
+            manaCostText.enabled = true;
+            spellImage.sprite = spell.GetComponent<Spell>().spellUIImage;
+            spellImage.enabled = true;
+
+            isEmpty = false;
+        }
+
+        public void CompareCurrManaToManaCost(int playerMana)
+        {
+            Color temp = spellImage.color;
+            temp.a = playerMana < manaCost ? 0.5f : 1f;
+
+            canCast = temp.a == 1f;
+
+            spellImage.color = temp;
+        }
+
+        public void Clear()
+        {
+            spell = null;
+            manaCost = 0;
+            spellImage.enabled = false;
+            manaCostText.enabled = false;
+            canCast = true;
+
+            isEmpty = true;
         }
     }
 }

@@ -15,10 +15,9 @@ public abstract class Spell : MonoBehaviour
 
     public SpellStats stats;
 
-    [HideInInspector]
-    public bool movingRight;
+    public Sprite spellUIImage;
 
-    public Image spellUIImage;
+    public bool movingSpell = true;
 
     public abstract void TriggerSpell(GameObject target);
 
@@ -31,6 +30,7 @@ public abstract class Spell : MonoBehaviour
 
     public virtual void OnTriggerEnter(Collider other)
     {
+        
         if (other.gameObject.layer == 31)
             Destroy(gameObject);
         
@@ -38,5 +38,9 @@ public abstract class Spell : MonoBehaviour
             TriggerSpell(other.gameObject);
     }
 
+    private void OnEnable()
+    {
+        NewPlayer.Instance.Mana -= stats.manaCost;
+    }
 
 }

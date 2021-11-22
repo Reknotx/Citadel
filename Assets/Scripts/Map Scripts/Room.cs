@@ -57,11 +57,6 @@ namespace Map
         #endregion
 
 
-        private void Awake()
-        {
-        }
-
-
         private void Start()
         {
             ///set enemies and inanimateObj to empty as all references will be
@@ -73,10 +68,13 @@ namespace Map
                 fog.GetComponent<MeshRenderer>().enabled = true;
             }
 
-            foreach (Transform enemy in enemiesParent.transform)
+            if (enemiesParent != null)
             {
-                enemies.Add(enemy.gameObject);
-                enemy.gameObject.SetActive(false);
+                foreach (Transform enemy in enemiesParent.transform)
+                {
+                    enemies.Add(enemy.gameObject);
+                    enemy.gameObject.SetActive(false);
+                }
             }
         }
 
@@ -97,6 +95,7 @@ namespace Map
             ///Turn on all the enemies.
             foreach (GameObject enemy in enemies)
             {
+                if (enemy != null)
                 enemy.SetActive(true);
             }
             ///Adjust the grid position for the astar path   
@@ -112,6 +111,7 @@ namespace Map
         {
             foreach (GameObject enemy in enemies)
             {
+                if(enemy != null)
                 enemy.SetActive(false);
             }
         }
