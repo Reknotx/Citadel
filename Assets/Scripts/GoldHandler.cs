@@ -118,22 +118,22 @@ public class GoldHandler : MonoBehaviour
     /// The increase in the player's revenue for every miner they own
     /// </summary>
     [SerializeField]
-    public int minerIncrease;
+    public int minerIncrease = 2;
 
     /// <summary>
     /// The increase in the player's revenue for every mine cart they own
     /// </summary>
     [SerializeField]
-    public int cartIncrease;
+    public int cartIncrease = 4;
 
     [SerializeField]
-    public int pickIncrease;
+    public int pickIncrease = 6;
 
     [SerializeField]
-    public int moleIncrease;
+    public int moleIncrease = 8;
 
     [SerializeField]
-    public int wizardIncrease;
+    public int wizardIncrease = 10;
 
     /// <summary>
     /// The player's current revenue (passively gained gold)
@@ -157,7 +157,11 @@ public class GoldHandler : MonoBehaviour
     private void Start()
     {
         currentScene = SceneManager.GetActiveScene();
-         
+        minerIncrease = 2;
+        cartIncrease = 4;
+        pickIncrease = 6;
+        moleIncrease = 8;
+        wizardIncrease = 10;
          
     }
 
