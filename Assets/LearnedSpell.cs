@@ -21,5 +21,5 @@ public class LearnedSpell : MonoBehaviour
 
     public Text nameText;
 
-
+    
 }

@@ -15,6 +15,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using UnityEngine.Serialization;
 
 public class Unit : MonoBehaviour, IDamageable
 {
@@ -32,9 +34,9 @@ public class Unit : MonoBehaviour, IDamageable
    
     #endregion
     #region Health
-    [SerializeField]
     protected float _health;
 
+    public Slider HealthBar;
 
     ///<summary>This is the units health.</summary>
     public virtual float Health
@@ -53,12 +55,13 @@ public class Unit : MonoBehaviour, IDamageable
     }
 
     ///<summary>The player's maximum health.</summary>
-    private float _maxHealth;
+    [SerializeField]
+    private float maxHealth;
 
     public float MaxHealth
     {
-        get => _maxHealth;
-        set { _maxHealth = value; }
+        get => maxHealth;
+        set => maxHealth = value;
     }
     #endregion
 
@@ -114,9 +117,6 @@ public class Unit : MonoBehaviour, IDamageable
     [HideInInspector]
     protected float nextDamageEvent;
 
-    /// <summary> This is the time units must wait between casting spells </summary>
-    [HideInInspector]
-    protected float spellCastDelay;
 
     ///// <summary> This determines how fast a Unit can cast spells </summary>
     //[HideInInspector]
@@ -158,7 +158,8 @@ public class Unit : MonoBehaviour, IDamageable
 
     public virtual void Awake()
     {
-        MaxHealth = Health;
+        Health = MaxHealth;
+        HealthBar.maxValue = maxHealth;
     }
 
     public virtual void Start()
@@ -168,7 +169,7 @@ public class Unit : MonoBehaviour, IDamageable
 
     public virtual void Update()
     {
-        ///<summary>this determines if the unit can take damage from a initially cast fire spell</summary>
+        //this determines if the unit can take damage from a initially cast fire spell
         onFireDamageDelay -= Time.deltaTime * onFireDamageRate;
         if (onFireDamageDelay <= 0)
         {
