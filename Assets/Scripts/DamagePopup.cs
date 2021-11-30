@@ -23,7 +23,7 @@ public class DamagePopup : MonoBehaviour
 
    // public GameObject popupText;
 
-    public static DamagePopup Create(Vector3 position, int damageAmount)
+    public static DamagePopup Create(Vector3 position, float damageAmount)
     {
         Transform damagePopupTransform = Instantiate(GameAssets.i.pfDamagePopup, position, Quaternion.identity);
         DamagePopup damagePopup = damagePopupTransform.GetComponent<DamagePopup>();
@@ -39,7 +39,7 @@ public class DamagePopup : MonoBehaviour
         textColor = textMesh.color;
     }
 
-    public void Setup(int damageAmount)
+    public void Setup(float damageAmount)
     {
         textMesh.text = "" + damageAmount;
         textColor = textMesh.color;

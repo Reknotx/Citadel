@@ -196,7 +196,7 @@ public class Goblin : Enemy
         
         StartCoroutine(WaitBetweenVisual_Left());
         _rigidBody.AddForce(transform.right * goblinDashForce);
-        Debug.Log("Hey Andrew it added the force");
+        //Debug.Log("Hey Andrew it added the force");
         if(distanceToPlayer <= 1)
         {
             playerLife.TakeDamage(goblinDamage);
