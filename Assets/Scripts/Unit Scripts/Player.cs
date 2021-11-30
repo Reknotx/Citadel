@@ -239,8 +239,8 @@ public class Player : Unit, IDamageable
     /// <summary> this keeps track of if the player is in the mine shop or not  </summary>
     public bool inMineShop = false;
 
-    [HideInInspector]
-    public bool grounded;
+    //[HideInInspector]
+    //public bool grounded;
 
     
 
@@ -274,8 +274,8 @@ public class Player : Unit, IDamageable
     [HideInInspector]
     public bool canPass = true;
 
-    [HideInInspector]
-    public bool invulnActive = false;
+    //[HideInInspector]
+    //public bool invulnActive = false;
 
 
     [HideInInspector]
@@ -350,34 +350,34 @@ public class Player : Unit, IDamageable
 
     private int maxHealth;
 
-    private void Awake()
-    {
+    //private void Awake()
+    //{
 
-        if(Instance != null && Instance != this)
-            Destroy(Instance.gameObject);
+    //    if(Instance != null && Instance != this)
+    //        Destroy(Instance.gameObject);
 
-        Instance = this;
+    //    Instance = this;
 
-        Health = maxHealth;
-        myMana = maxMana;
+    //    Health = maxHealth;
+    //    myMana = maxMana;
         
-        #region Player Movement Important Connectors
-        ///<summary>The following is used to track player inputs and controls.</summary>
-        playerInputActions = new PlayerInputActions();
-         playerInputActions.PlayerControl.Enable();
-         playerInputActions.PlayerControl.Jump.started += Jump2;
-        playerInputActions.PlayerControl.Jump.canceled += Jump2;
-        playerInputActions.PlayerControl.Movement.performed += movement2;
-        playerInputActions.PlayerControl.Drop.started += Drop;
-        playerInputActions.PlayerControl.Drop.canceled += Drop;
-        setJumpVariables();
+    //    #region Player Movement Important Connectors
+    //    ///<summary>The following is used to track player inputs and controls.</summary>
+    //    playerInputActions = new PlayerInputActions();
+    //     playerInputActions.PlayerControl.Enable();
+    //     playerInputActions.PlayerControl.Jump.started += Jump2;
+    //    playerInputActions.PlayerControl.Jump.canceled += Jump2;
+    //    playerInputActions.PlayerControl.Movement.performed += movement2;
+    //    playerInputActions.PlayerControl.Drop.started += Drop;
+    //    playerInputActions.PlayerControl.Drop.canceled += Drop;
+    //    setJumpVariables();
         
 
 
 
-        #endregion
+    //    #endregion
         
-    }
+    //}
 
    
     public override void Update()
@@ -889,48 +889,48 @@ public class Player : Unit, IDamageable
     /// <summary> cast forth a fireball at  60 degree angle that will make a vertical wall of fire that damages passing enemies over time </summary>
     public void fireWall()
     {
-        if (canCast == true)
-        {
+        //if (canCast == true)
+        //{
            
-            if (myMana >= fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost)
-            {
-                if (spellStone == true)
-                {
+        //    if (myMana >= fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost)
+        //    {
+        //        if (spellStone == true)
+        //        {
 
-                    ReduceMana((fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost * 0.75f));
-                }
-                else
-                {
+        //            ReduceMana((fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost * 0.75f));
+        //        }
+        //        else
+        //        {
 
-                    ReduceMana(fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost);
-                }
+        //            ReduceMana(fireWall_prefab.GetComponent<FireWallSpellScript>().manaCost);
+        //        }
 
-                ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
-                if (facingRight == true)
-                {
+        //        ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
+        //        if (facingRight == true)
+        //        {
 
-                    var fireWallSpell = (GameObject)Instantiate(fireWall_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
-                    fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * 12 + fireWallSpell.transform.up * -2;
-                    if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
-                    {
-                        fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
-                    }
-                    canCast = false;
-                }
-                else
-                {
+        //            var fireWallSpell = (GameObject)Instantiate(fireWall_prefab, spellLocationRight.transform.position, spellLocationRight.transform.rotation);
+        //            fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * 12 + fireWallSpell.transform.up * -2;
+        //            if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
+        //            {
+        //                fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+        //            }
+        //            canCast = false;
+        //        }
+        //        else
+        //        {
 
-                    var fireWallSpell = (GameObject)Instantiate(fireWall_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
-                    fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * -12 + fireWallSpell.transform.up * -2;
+        //            var fireWallSpell = (GameObject)Instantiate(fireWall_prefab, spellLocationLeft.transform.position, spellLocationLeft.transform.rotation);
+        //            fireWallSpell.GetComponent<Rigidbody>().velocity = fireWallSpell.transform.right * -12 + fireWallSpell.transform.up * -2;
 
-                    if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
-                    {
-                        fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
-                    }
-                    canCast = false;
-                }
-            }
-        }
+        //            if (fireWallSpell.GetComponent<FireWallSpellScript>().changed == true)
+        //            {
+        //                fireWallSpell.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+        //            }
+        //            canCast = false;
+        //        }
+        //    }
+        //}
 
 
     }
@@ -1015,32 +1015,32 @@ public class Player : Unit, IDamageable
 
     public void invuln()
     {
-        if (canCast == true && myMana >= 10 && !invulnActive)
-        {
+        //if (canCast == true && myMana >= 10 && !invulnActive)
+        //{
 
-            if (spellStone == true)
-            {
+        //    if (spellStone == true)
+        //    {
 
-                ReduceMana(7);
-            }
-            else
-            {
+        //        ReduceMana(7);
+        //    }
+        //    else
+        //    {
 
-                ReduceMana(10);
-            }
+        //        ReduceMana(10);
+        //    }
 
-            ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
-            if (invulnActive == false)
-            {
+        //    ///<summary> this spawns the fire wall spell prefab and moves it at a 60 degree angle away from the player depending on their direction</summary>   
+        //    if (invulnActive == false)
+        //    {
 
-                invulnActive = true;
-                StartCoroutine(InvulnCoroutine());
+        //        invulnActive = true;
+        //        StartCoroutine(InvulnCoroutine());
 
 
-                canCast = false;
-            }
+        //        canCast = false;
+        //    }
             
-        }
+        //}
     }
 
     public void rebound()
@@ -1549,12 +1549,12 @@ public class Player : Unit, IDamageable
         while (true)
         {
             ///Turn on 50% opacityy
-            Color origMat = render.material.color;
-            origMat.a = 0.5f;
-            render.material.color = origMat;
+            //Color origMat = render.material.color;
+            //origMat.a = 0.5f;
+            //render.material.color = origMat;
             yield return new WaitForSeconds(waitTime);
-            origMat.a = 1f;
-            render.material.color = origMat;
+            //origMat.a = 1f;
+            //render.material.color = origMat;
             yield return new WaitForSeconds(waitTime);
 
             ///wait 0.125 seconds
@@ -1564,8 +1564,6 @@ public class Player : Unit, IDamageable
             if (Time.time - startTime >= 1f)
                 break;
         }
-
-
 
         invulnerable = false;
 
@@ -1599,10 +1597,5 @@ public class Player : Unit, IDamageable
         isCastingIcicle = false ;
     }
 
-    public IEnumerator InvulnCoroutine()
-    {
-        yield return new WaitForSeconds(5f);
-        invulnActive = false;
-    }
     #endregion
 }

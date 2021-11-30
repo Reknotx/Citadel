@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Interactables;
+using Menu;
 using CombatSystem;
 
 
@@ -34,7 +36,7 @@ public class NewPlayer : Unit, IDamageable
 
     public GameObject physicalBody;
     
-    bool checkForPlatform = true;
+    bool checkForSolidSurface = true;
     
     private int groundLayer = 1 << 10;
     private int platformLayer = 1 << 11;
@@ -44,13 +46,21 @@ public class NewPlayer : Unit, IDamageable
     private int ignorePlayerLayer = 12;
 
     public PlayerCombatSystem combatSystem;
+
+
     public PlayerInventory inventory;
+
+    private Interactable currentInteractableItem;
 
     public Slider ManaBar;
     public Slider HealthBar;
+    private bool falling = false;
 
     [Tooltip("The height of the model for collision detection purposes.")]
     public float modelHeight = 1.5f;
+
+    [HideInInspector]
+    public bool isPaused;
 
     /// <summary> The player's health. </summary>
     public override float Health
@@ -59,21 +69,22 @@ public class NewPlayer : Unit, IDamageable
 
         set
         {
-            base.Health = Mathf.Clamp(value, 0, _maxHealth);
-            HealthBar.value = value;
+            _health = Mathf.Clamp(value, 0, MaxHealth);
+            if (HealthBar != null) HealthBar.value = value;
             if (Health == 0)
             {
-                ///Activate game ver logic
+                ///Activate game over logic
                 ///after game over logic it is better to turn off the player 
                 ///object rather than destroy it
-                ///Movement of the player and attacking moves
-                ///of the player could actually be possibly done on a 
-                ///different script but probably not at the same time
-                ///too confusing.
+                physicalBody.transform.GetChild(0).gameObject.SetActive(false);
+                this.enabled = false;
+                GameOver.Instance.gameObject.SetActive(true);
+                Time.timeScale = 0f;
             }
         }
     }
 
+    [SerializeField]
     private int _mana;
     private int _maxMana;
 
@@ -85,7 +96,7 @@ public class NewPlayer : Unit, IDamageable
         set
         {
             _mana = value;
-            ManaBar.value = value;
+            if (ManaBar != null) ManaBar.value = value;
 
             combatSystem.spellSystem.UpdateSpellSystemUI(_mana);
         }
@@ -97,6 +108,16 @@ public class NewPlayer : Unit, IDamageable
         set
         {
             _maxMana = value;
+        }
+    }
+
+    /// <summary> Returns the position of the center of the player prefab. Affected by model height. </summary>
+    public Vector3 Center
+    {
+        get
+        {
+            Vector3 temp = transform.position;
+            return new Vector3(temp.x, temp.y + (modelHeight / 2));
         }
     }
 
@@ -112,17 +133,37 @@ public class NewPlayer : Unit, IDamageable
         base.Awake();
     }
 
-    public void Start()
+    public override void Start()
     {
         combatSystem = PlayerCombatSystem.Instance;
     }
 
     public override void Update()
     {
+        if (isPaused) return;
+
         Move();
 
         GroundedCheck();
 
+    }
+
+
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 6 && other.GetComponent<Interactable>() != null)
+        {
+            currentInteractableItem = other.GetComponent<Interactable>();
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 6 && other.GetComponent<Interactable>() != null)
+        {
+            currentInteractableItem = null;
+        }
     }
 
     /// <summary> Moves the player with forces and puts a limit on our maximum velocity. </summary>
@@ -170,36 +211,41 @@ public class NewPlayer : Unit, IDamageable
             ///so that I get all of the information easily and without trial 
             ///and error 
             return Physics.BoxCast(new Vector3(transform.position.x, transform.position.y + (modelHeight / 2), transform.position.z),
-                                   new Vector3(0.1f, modelHeight / 2, 0.5f),
+                                   new Vector3(0.1f, modelHeight / 2 - 0.05f, 0.5f),
                                    moveDir,
                                    Quaternion.identity,
                                    0.3f,
-                                   layerMask);
+                                   layerMask); ;
         }
     }
 
     private void GroundedCheck()
     {
-        if (playerRB.velocity.y > 0f)
-        {
-            grounded = false;
-        }
-        else if ((checkForPlatform && CheckForPlatform()) || CheckIfGrounded())
+        if (grounded) return;
+
+        //if (playerRB.velocity.y > 0f)
+        //{
+        //    grounded = false;
+        //}
+        //else if ((checkForPlatform && CheckForPlatform()) || CheckIfGrounded())
+        if (checkForSolidSurface && (CheckForPlatform() || CheckIfGrounded()))
         {
             physicalBody.layer = playerLayer;
             grounded = true;
+            falling = false;
             Debug.Log("Landed");
             PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.LANDING);
         }
-        else if (grounded == false && playerRB.velocity.y < 0)
+        else if (playerRB.velocity.y < 0)
         {
-            PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.FALLING);
+            falling = true;
         }
+        PlayerAnimationManager.Instance.SetBool(PlayerAnimationManager.FALLING, falling);
 
         bool CheckIfGrounded()
         {
             return Physics.CheckBox(transform.position,
-                                    new Vector3(0.1f, 0.2f, 0.5f),
+                                    new Vector3(0.1f, 0.05f, 0.5f),
                                     Quaternion.identity,
                                     groundLayer | solidGroundLayer);
         }
@@ -207,7 +253,7 @@ public class NewPlayer : Unit, IDamageable
         bool CheckForPlatform()
         {
             return Physics.CheckBox(transform.position,
-                                    new Vector3(0.1f, 0.1f, 0.5f),
+                                    new Vector3(0.1f, 0.05f, 0.5f),
                                     Quaternion.identity,
                                     platformLayer);
         }
@@ -215,48 +261,81 @@ public class NewPlayer : Unit, IDamageable
 
     public void OnMove(InputValue value)
     {
+        if (isPaused) return;
         ///Use forces to move the player in the desired direction instead
         ///use the technique that Brackey's utilized in the Ball wars video
         ///Limit the velocity the player can have in the x direction only 
         moveDir = value.Get<Vector2>();
 
-        facingRight = Keyboard.current.dKey.isPressed;
-
-        //if (moveDir == Vector2.zero) 
+        if (Keyboard.current.dKey.isPressed)
+        {
+            physicalBody.transform.eulerAngles = new Vector3(0f, 90f, 0f);
+            facingRight = true;
+        }
+        else if (Keyboard.current.aKey.isPressed)
+        {
+            physicalBody.transform.eulerAngles = new Vector3(0f, 270f, 0f);
+            facingRight = false;
+        }
     }
 
     public void OnJump()
     {
-        if (!grounded) return;
-        Debug.Log("Grounded");
-
-        grounded = false;
-        physicalBody.layer = ignorePlayerLayer;
+        if (!grounded || isPaused) return;
+        LeftGround();
+        Debug.Log("Jump");
         playerRB.velocity = new Vector3(0, Mathf.Sqrt(-2.0f * Physics.gravity.y * jumpHeight));
         PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.JUMP);
     }
 
     public void OnDropDown()
     {
-        checkForPlatform = false;
+        if (!grounded || isPaused) return;
+        PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.FALLING);
+        LeftGround();
+        falling = true;
+    }
+
+    public void OnInteract()
+    {
+        if (currentInteractableItem != null && !isPaused) currentInteractableItem.Interact();
+    }
+
+    public void OnPause()
+    {
+        PauseMenu.Instance.gameObject.SetActive(!PauseMenu.Instance.gameObject.activeSelf);
+        isPaused = PauseMenu.Instance.gameObject.activeSelf;
+        combatSystem.spellSystem.spellBook.gameObject.SetActive(false);
+    }
+
+    private void LeftGround()
+    {
         physicalBody.layer = ignorePlayerLayer;
+        grounded = false;
+        checkForSolidSurface = false;
         StartCoroutine(GroundedCheckDelay());
+
     }
 
     IEnumerator GroundedCheckDelay()
     {
         yield return new WaitForSeconds(1f);
-        checkForPlatform = true;
+        checkForSolidSurface = true;
     }
 
     public override void TakeDamage(float amount)
     {
+        if (invulnerable) return;
+
         base.TakeDamage(amount);
+        invulnerable = true;
+        StartCoroutine(IFrames());
+
     }
 
     void Attack()
     {
-        ///How can we process the attack to ake it more dynamic?
+        ///How can we process the attack to make it more dynamic?
         ///Ideas I need ideas
         ///Having a secondary class that processes a string
         ///sent in via the input system that then returns a 
@@ -292,5 +371,38 @@ public class NewPlayer : Unit, IDamageable
         ///
         ///This will help make things more dynamic for us and allow for
         ///as many spells as want for the player to have.x
+    }
+
+    private bool invulnerable = false;
+    public IEnumerator IFrames()
+    {
+        float startTime = Time.time;
+        float waitTime = 0.125f;
+
+        MeshRenderer render = GetComponent<MeshRenderer>();
+
+        while (true)
+        {
+            /////Turn on 50% opacityy
+            //Color origMat = render.material.color;
+            //origMat.a = 0.5f;
+            //render.material.color = origMat;
+            yield return new WaitForSeconds(waitTime);
+            //origMat.a = 1f;
+            //render.material.color = origMat;
+            yield return new WaitForSeconds(waitTime);
+
+            ///wait 0.125 seconds
+            ///turn opacity back to 100%
+
+            yield return new WaitForFixedUpdate();
+            if (Time.time - startTime >= 1f)
+                break;
+        }
+
+
+
+        invulnerable = false;
+
     }
 }

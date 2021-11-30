@@ -274,8 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6.7
-  _health: 0
-  maxHealth: 30
+  _health: 15
   _groundCollider: {fileID: 0}
   _platformCollider: {fileID: 0}
   _lightCollider: {fileID: 0}
@@ -283,10 +282,13 @@ MonoBehaviour:
   throughPlatform: 0
   facingRight: 0
   poisoned: 0
+  poisonDamageTaken: 0
   poisonedDuration: 5
+  poisonedDamage: 0
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
   _rigidBody: {fileID: 1065828198705947067}
   m_render: {fileID: 1065828198705947070}
+  contactDamage: 1
   facingRightLocal: 0
   yDistance: 0
   jumpVelocity: 7
@@ -305,13 +307,12 @@ MonoBehaviour:
   killThis: 0
   enemyHealth: {fileID: 7650884799412532764}
   HealthIMG: {fileID: 6749275455586966445}
+  pfDamagePopup: {fileID: 0}
   percentChanceToDropItem: 40
   orcMeleeRange: 2
   orcDamage: 15
-  playerLife: {fileID: 0}
   orcAttack_L: {fileID: 1065828199501566337}
   orcAttack_R: {fileID: 1065828199163735791}
-  playerScript: {fileID: 0}
 --- !u!54 &1065828198705947067
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -743,6 +744,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &6144224812625773589
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4865928291571816713}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 42c5936096a2a814b9adcfe0cd29efa6, type: 3}
+  m_Controller: {fileID: 9100000, guid: 6bc44cb83d71ad34fa802a802c6877b3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &7888813515521098902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1200,9 +1220,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fab41345983295c4db0e4ed8b68f822c, type: 3}
---- !u!4 &3077071954822181412 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -1876350187180763524, guid: fab41345983295c4db0e4ed8b68f822c, type: 3}
+--- !u!1 &4865928291571816713 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fab41345983295c4db0e4ed8b68f822c, type: 3}
   m_PrefabInstance: {fileID: 5712299159246365784}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &5245726736588014515 stripped
@@ -1210,8 +1230,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fab41345983295c4db0e4ed8b68f822c, type: 3}
   m_PrefabInstance: {fileID: 5712299159246365784}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4865928291571816713 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fab41345983295c4db0e4ed8b68f822c, type: 3}
+--- !u!4 &3077071954822181412 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -1876350187180763524, guid: fab41345983295c4db0e4ed8b68f822c, type: 3}
   m_PrefabInstance: {fileID: 5712299159246365784}
   m_PrefabAsset: {fileID: 0}

@@ -22,18 +22,18 @@ namespace Menu
             gameObject.SetActive(false);
         }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             Time.timeScale = 0f;
 
             returnToCampButton.interactable = SceneManager.GetActiveScene().name == "CampScene";
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             Time.timeScale = 1f;
-            playerUnlock();
         }
+        
 
         public void ReturnToCamp()
         {
@@ -49,10 +49,5 @@ namespace Menu
         #endif
         }
 
-        public void playerUnlock()
-        {
-            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-            player.pauseActive = false;
-        }
     }
 }

@@ -21,22 +21,23 @@ namespace Interactables
         {
             
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
-                player.GetComponent<Player>().myMana += dropAmount;
+                player.GetComponent<NewPlayer>().Mana += dropAmount;
             Destroy(this.gameObject);
 
 
         }
 
-        
+
         public void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "Player")
+            if (other.gameObject.layer == 7)
             {
-                GameObject player = GameObject.FindGameObjectWithTag("Player");
-                player.GetComponent<Player>().Interacting = true;
+                Interact();
             }
         }
 
-        
+
+
+
     }
 }

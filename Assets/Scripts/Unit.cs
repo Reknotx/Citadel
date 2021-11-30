@@ -29,11 +29,9 @@ public class Unit : MonoBehaviour, IDamageable
    
     #endregion
     #region Health
+    [SerializeField]
     protected float _health;
 
-    ///<summary>This is the unit's maximum health.</summary>
-    [SerializeField]
-    protected float _maxHealth;
 
     ///<summary>This is the units health.</summary>
     public virtual float Health
@@ -51,14 +49,13 @@ public class Unit : MonoBehaviour, IDamageable
         }
     }
 
+    ///<summary>The player's maximum health.</summary>
+    private float _maxHealth;
+
     public float MaxHealth
     {
         get => _maxHealth;
-        set
-        {
-            _maxHealth = value;
-            //Health = _maxHealth;
-        }
+        set { _maxHealth = value; }
     }
     #endregion
 
@@ -121,11 +118,11 @@ public class Unit : MonoBehaviour, IDamageable
 
     /// <summary> this determines if the unit is poisoned or not </summary>
     //[HideInInspector]
-    [SerializeField]
+    [HideInInspector]
     public bool poisoned;
 
     /// <summary> this determines if the unit has recently taken ticking poison damage </summary>
-    [SerializeField]
+    [HideInInspector]
     public bool poisonDamageTaken;
 
     /// <summary> this determines if the unit has recently taken ticking fire damage </summary>
@@ -168,11 +165,11 @@ public class Unit : MonoBehaviour, IDamageable
     protected float onFireDamageDelay = 2f;
 
     /// <summary> this determines how long the unit will be on fire for</summary>
-    [SerializeField]
+    [HideInInspector]
     public float poisonedDuration = 5f;
 
     /// <summary> this determines how much damage per tick will be applied to the unit</summary>
-    [SerializeField]
+    [HideInInspector]
     public int poisonedDamage;
 
     /// <summary> this determines how quickly on fire damage will tick against health </summary>
@@ -187,7 +184,12 @@ public class Unit : MonoBehaviour, IDamageable
 
     public virtual void Awake()
     {
-        Health = MaxHealth;
+        MaxHealth = Health;
+    }
+
+    public virtual void Start()
+    {
+
     }
 
     public virtual void Update()
@@ -259,9 +261,5 @@ public class Unit : MonoBehaviour, IDamageable
         poisoned = false;
     }
 
-    
-
-   
-     
     #endregion
 }

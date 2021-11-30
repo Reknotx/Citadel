@@ -12,21 +12,16 @@ public class Projectile : MonoBehaviour
 {
     public float speed;
 
-    private Transform player;
     private Vector3 target;
-
-    public Player playerHealth;
 
     [SerializeField]
     private float projectileDamage;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        Vector3 playerPos = NewPlayer.Instance.transform.position;
 
-        target = new Vector3(player.position.x, player.position.y, player.position.z);
-
-        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        target = new Vector3(playerPos.x, playerPos.y, playerPos.z);
 
     }
 
@@ -49,22 +44,12 @@ public class Projectile : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            DestroyProjectile();
+            NewPlayer.Instance.TakeDamage(projectileDamage);
             
-
-            if (playerHealth.invulnActive == false)
-            {
-                playerHealth.TakeDamage(projectileDamage);
-            }
-
+            DestroyProjectile();
         }
 
         if (other.tag == "ground")
-        {
-            DestroyProjectile();
-        }
-
-        if(other.tag == "ground")
         {
             DestroyProjectile();
         }

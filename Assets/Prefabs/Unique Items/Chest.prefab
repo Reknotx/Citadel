@@ -30,6 +30,19 @@ Transform:
   m_Father: {fileID: 7041560869791426318}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &138227132481891202
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7706634097149689268}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.0383825, y: 1.0617261, z: 3.8885236}
+  m_Center: {x: 0.10913992, y: 0.469383, z: -0.21776462}
 --- !u!114 &5666432718445196474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51,19 +64,8 @@ MonoBehaviour:
   spellStonePickup: {fileID: 3725168298863485878, guid: b6cee264ce61e904a861b18468b4069c, type: 3}
   backShieldPickup: {fileID: 246200551184924789, guid: 0f7ec43bf54e3464aae0f4e234702b54, type: 3}
   MedicineSashPickup: {fileID: 1673874943045511125, guid: 1149e974b2a8c3c47a263c3005153931, type: 3}
---- !u!65 &138227132481891202
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7706634097149689268}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.0383825, y: 1.0617261, z: 3.8885236}
-  m_Center: {x: 0.10913992, y: 0.469383, z: -0.21776462}
+  compassPickup: {fileID: 8605498469091834971, guid: 415dbe6353321044b8b4364c62bbe157, type: 3}
+  serratedStonePickup: {fileID: 2966036127054847905, guid: ea9b46f281bda3a44813b5f92127cbab, type: 3}
 --- !u!1 &9160636748162462322
 GameObject:
   m_ObjectHideFlags: 0

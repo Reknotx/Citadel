@@ -11,8 +11,13 @@ namespace CombatSystem
 
         public int playerMeleeDamage;
 
+        ///<summary>This determines how far the player will knock back an enemy with the heavy attack.</summary>
+        public float knockbackForce;
+
         public void SwingSword(string meleeAttack)
         {
+            if (NewPlayer.Instance.isPaused) return;
+
             switch (meleeAttack)
             {
                 case "lightAttack":

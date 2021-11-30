@@ -74,7 +74,7 @@ public class LifeManaHandler : MonoBehaviour
         currentLife = player.GetComponent<NewPlayer>().Health;
         currentMana = player.GetComponent<NewPlayer>().Mana;
         myLife = player.GetComponent<NewPlayer>().MaxHealth;
-        myMana = player.GetComponent<Player>().maxMana;
+        myMana = player.GetComponent<NewPlayer>().MaxMana;
     }
 
     /// <summary>
@@ -83,14 +83,14 @@ public class LifeManaHandler : MonoBehaviour
     void FixedUpdate()
     {
         ///Calculate the player's current life and display the proper amount in UI
-        calculateLife = player.GetComponent<Player>().myHealth / player.GetComponent<NewPlayer>().MaxHealth;
+        calculateLife = player.GetComponent<NewPlayer>().Health / player.GetComponent<NewPlayer>().MaxHealth;
         healthBar.fillAmount = Mathf.MoveTowards(healthBar.fillAmount, calculateLife, Time.deltaTime);
-        healthText.text = "" + (int)currentLife;
+        healthText.text = "" + (int)player.GetComponent<NewPlayer>().Health;
 
         ///Calculate the player's current mana and display the proper amount in UI
         calculateMana = player.GetComponent<NewPlayer>().Mana / player.GetComponent<NewPlayer>().MaxMana;
         manaBar.fillAmount = Mathf.MoveTowards(manaBar.fillAmount, calculateMana, Time.deltaTime);
-        manaText.text = "" + (int)currentMana;
+        manaText.text = "" + (int)player.GetComponent<NewPlayer>().Mana;
     }
 
     /// <param name="damage">Amount of damage taken by the player</param>

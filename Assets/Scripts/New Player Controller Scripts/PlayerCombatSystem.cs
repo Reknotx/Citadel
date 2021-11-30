@@ -52,11 +52,11 @@ namespace CombatSystem
             int spellSlot = 0;
 
             if (Keyboard.current.digit1Key.isPressed)
-                spellSlot = 1;
+                spellSlot = 0;
             else if (Keyboard.current.digit2Key.isPressed)
-                spellSlot = 2;
+                spellSlot = 1;
             else if (Keyboard.current.digit3Key.isPressed)
-                spellSlot = 3;
+                spellSlot = 2;
 
             spellSystem.CastSpell(spellSlot);
         }

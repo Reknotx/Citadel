@@ -14,23 +14,34 @@ namespace CombatSystem
 
     public class PlayerSpellSystem : MonoBehaviour
     {
-        public List<SpellSlot> spellSlots = new List<SpellSlot>(3);
+        public List<SpellSlot> spellSlots = new List<SpellSlot>();
 
         public SpellBook spellBook;
 
         public void CastSpell(int slotIndex)
         {
-            if (!spellSlots[slotIndex].canCast) return;
+            if (NewPlayer.Instance.isPaused) return;
 
-            GameObject spellToCast = spellSlots[slotIndex].spell;
+            SpellSlot attemptedCast = spellSlots[slotIndex];
+
+            if (!attemptedCast.canCast) return;
+
+            Debug.Log("Casting " + attemptedCast.spell.name);
 
             ///Apply force to spell or perform unique movement math
-            GameObject spawnedSpell = Instantiate(spellToCast, NewPlayer.Instance.transform.position, Quaternion.identity);
+            GameObject spawnedSpell = Instantiate(attemptedCast.spell, NewPlayer.Instance.Center, Quaternion.identity);
 
-            int multiplier = NewPlayer.Instance.playerRB.velocity.x < 0 ? -1 : 1;
-            spawnedSpell.GetComponent<Rigidbody>().velocity = new Vector3(NewPlayer.Instance.speed + (3 * multiplier) * (NewPlayer.Instance.facingRight ? 1 : -1),
-                                                                          0f,
-                                                                          0f);
+            if (spawnedSpell.GetComponent<Spell>().movingSpell)
+            {
+                int multiplier = NewPlayer.Instance.facingRight ? 1 : -1;
+
+                spawnedSpell.GetComponent<Rigidbody>().velocity = new Vector3((NewPlayer.Instance.speed + 2) * multiplier,
+                                                                              0f,
+                                                                              0f);
+            }
+
+            Debug.Log(spawnedSpell.GetComponent<Rigidbody>().velocity.x);
+
         }
 
         public void AssignSpell(GameObject spell, int slotIndex)
@@ -43,8 +54,19 @@ namespace CombatSystem
                 }
             }
 
-            spellSlots[slotIndex].spell = spell;
+            spellSlots[slotIndex - 1].AssignSpell(spell);
+
+            UpdateSpellSystemUI();
         }
+
+        private void UpdateSpellSystemUI()
+        {
+            foreach (SpellSlot spellSlot in spellSlots)
+            {
+                spellSlot.CompareCurrManaToManaCost(NewPlayer.Instance.Mana);
+            }
+        }
+
 
         public void UpdateSpellSystemUI(int playerMana)
         {
@@ -80,7 +102,7 @@ namespace CombatSystem
             manaCost = spell.GetComponent<Spell>().stats.manaCost;
             manaCostText.text = manaCost.ToString();
             manaCostText.enabled = true;
-            spellImage = spell.GetComponent<Spell>().spellUIImage;
+            spellImage.sprite = spell.GetComponent<Spell>().spellUIImage;
             spellImage.enabled = true;
 
             isEmpty = false;

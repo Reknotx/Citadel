@@ -80,8 +80,9 @@ public class ReboundSpell : Spell
     // Start is called before the first frame update
     void Awake()
     {
+        movingSpell = false;
         player = GameObject.FindGameObjectWithTag("Player");
-        facingRight = player.GetComponent<Player>().facingRight;
+        facingRight = player.GetComponent<NewPlayer>().facingRight;
 
         damage = stats.damage;
         manaCost = stats.manaCost;
@@ -275,17 +276,13 @@ public class ReboundSpell : Spell
 
     public void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.tag == "ground")
+        if(other.gameObject.layer == 10 || other.gameObject.layer == 11 || other.gameObject.layer == 31)
         {
            
             changeDirection();
         }
 
-        if (other.gameObject.tag == "platform")
-        {
-            
-            changeDirection();
-        }
+        
 
         if(other.gameObject.layer == 8)
         {
@@ -297,9 +294,9 @@ public class ReboundSpell : Spell
             return;
     }
 
-    public void OnTriggerEnter(Collider other)
+    public override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "ground")
+        if (other.gameObject.layer == 10 || other.gameObject.layer == 11 || other.gameObject.layer == 31)
         {
             if (canAdd)
             {
@@ -309,20 +306,12 @@ public class ReboundSpell : Spell
 
         }
         
-        if (other.gameObject.tag == "platform")
-        {
-            if (canAdd)
-            {
-               
-                canAdd = false;
-            }
-
-        }
+        
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "ground")
+        if (other.gameObject.layer == 10 || other.gameObject.layer == 11 || other.gameObject.layer == 31)
         {
             if(!canAdd)
             {
@@ -332,15 +321,7 @@ public class ReboundSpell : Spell
            
         }
 
-        if (other.gameObject.tag == "platform")
-        {
-
-            if (!canAdd)
-            {
-                bounceCount++;
-                canAdd = true;
-            }
-        }
+       
 
 
     }

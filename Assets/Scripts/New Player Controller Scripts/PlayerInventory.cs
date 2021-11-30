@@ -22,6 +22,8 @@ public class PlayerInventory
     public bool spellStone = false;
     public bool floatingShield = false;
     public bool medicineStash = false;
+    public bool compass = false;
+    public bool serratedStone = false;
 
     public GoldStorage goldStorage;
 
@@ -84,8 +86,11 @@ public class PlayerInventory
             permanentGold += gold;
             PlayerPrefs.SetFloat(permGoldStorage, permanentGold);
             gold = 0;
+        }
 
-
+        public void AddGoldFromMinesToStorage(int amount)
+        {
+            permanentGold += amount;
         }
     }
 }

@@ -11,11 +11,11 @@ public class MineSceneTutorial : MonoBehaviour
 
     #region Mine Scene Instructions;
 
-    public Text mineIinstruction_1;
-    public Text mineIinstruction_2;
-    public Text mineIinstruction_3;
+    public Image mineIinstruction_1;
+    public Image mineIinstruction_2;
+    public Image mineIinstruction_3;
 
-    public Text[] instroTracker;
+    public Image[] instroTracker;
     public int index;
 
     public Button TipButton;
