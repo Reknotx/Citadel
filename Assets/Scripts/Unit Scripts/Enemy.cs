@@ -225,12 +225,12 @@ public class Enemy : Unit
             }
         }
 
-        if(Astar.canMove)
+        if(Astar.canMove == true)
         {
             isMoving = true;
             animator.SetBool("isMoving", isMoving);
         }
-        else
+        else if(Astar.canMove == false)
         {
             isMoving = false;
             animator.SetBool("isMoving", isMoving);

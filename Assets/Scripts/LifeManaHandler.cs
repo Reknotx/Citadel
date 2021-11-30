@@ -74,7 +74,7 @@ public class LifeManaHandler : MonoBehaviour
         currentLife = player.GetComponent<NewPlayer>().Health;
         currentMana = player.GetComponent<NewPlayer>().Mana;
         myLife = player.GetComponent<NewPlayer>().MaxHealth;
-        myMana = player.GetComponent<NewPlayer>().MaxMana;
+        myMana = player.GetComponent<NewPlayer>().Mana;
     }
 
     /// <summary>
