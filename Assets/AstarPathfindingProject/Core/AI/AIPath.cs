@@ -343,8 +343,12 @@ namespace Pathfinding {
 		protected override void MovementUpdateInternal (float deltaTime, out Vector3 nextPosition, out Quaternion nextRotation) {
 			float currentAcceleration = maxAcceleration;
 
-			// If negative, calculate the acceleration from the max speed
-			if (currentAcceleration < 0) currentAcceleration *= -maxSpeed;
+
+          
+
+
+            // If negative, calculate the acceleration from the max speed
+            if (currentAcceleration < 0) currentAcceleration *= -maxSpeed;
 
 			if (updatePosition) {
 				// Get our current position. We read from transform.position as few times as possible as it is relatively slow

@@ -185,6 +185,13 @@ public class Enemy : Unit
         }
 
 
+        if (animator != null)
+        {
+            animator.SetBool("isMoving", isMoving);
+            animator.SetBool("isAttacking", isAttacking);
+            animator.SetBool("isDead", isDead);
+        }
+
         #region Enemy AI Movement
         Move();
         #endregion
@@ -216,6 +223,17 @@ public class Enemy : Unit
                     Astar.canMove = true;
                 }
             }
+        }
+
+        if(Astar.canMove)
+        {
+            isMoving = true;
+            animator.SetBool("isMoving", isMoving);
+        }
+        else
+        {
+            isMoving = false;
+            animator.SetBool("isMoving", isMoving);
         }
 
         if (grounded)
@@ -338,7 +356,9 @@ public class Enemy : Unit
         {
             if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
             {
+                
                 transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+               
             }
 
             if (transform.position.x - player.transform.position.x > 0)

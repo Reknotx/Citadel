@@ -105,9 +105,9 @@ public class Goblin : Enemy
         {
             if (facingRight)
             {
-
+                
                 StartCoroutine(LungeRight());
-
+                
                 StartCoroutine(WaitBetweenAttack());
 
             }
@@ -115,7 +115,7 @@ public class Goblin : Enemy
             {
 
                 StartCoroutine(LungeLeft());
-
+                
                 StartCoroutine(WaitBetweenAttack());
 
             }
@@ -160,8 +160,7 @@ public class Goblin : Enemy
 
     private void GoblinAttack()
     {
-        isAttacking = true;
-        animator.SetBool("isAttacking", isAttacking);
+        
         if (facingRight)
         {
             StartCoroutine(WaitBetweenVisual_Right());
@@ -186,12 +185,15 @@ public class Goblin : Enemy
     IEnumerator Lunge()
     {
         canLunge = true;
+        isAttacking = true;
+        animator.SetBool("isAttacking", isAttacking);
         yield return new WaitForSeconds(1f);
         canLunge = false;
     }
 
     IEnumerator LungeLeft()
     {
+        
         StartCoroutine(WaitBetweenVisual_Left());
         _rigidBody.AddForce(transform.right * goblinDashForce);
         Debug.Log("Hey Andrew it added the force");
@@ -204,6 +206,7 @@ public class Goblin : Enemy
     }
     IEnumerator LungeRight()
     {
+        
         StartCoroutine(WaitBetweenVisual_Right());
         _rigidBody.AddForce(-transform.right * goblinDashForce);
         if (distanceToPlayer <= 1)
@@ -216,10 +219,11 @@ public class Goblin : Enemy
     IEnumerator WaitBetweenAttack()
     {
         canAttack = false;
-        isAttacking = false;
-        animator.SetBool("isAttacking", isAttacking);
+        
         yield return new WaitForSeconds(2f);
         canAttack = true;
+        isAttacking = false;
+        animator.SetBool("isAttacking", isAttacking);
     }
 
     IEnumerator WaitBetweenVisual_Right()
@@ -242,6 +246,7 @@ public class Goblin : Enemy
     {
         if (Time.time >= nextDamageEvent)
         {
+            
             nextDamageEvent = Time.time + attackCoolDown;
             if (facingRight == true)
             {

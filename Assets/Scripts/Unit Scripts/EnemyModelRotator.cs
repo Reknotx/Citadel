@@ -28,11 +28,11 @@ public class EnemyModelRotator : MonoBehaviour
     {
         if (facingRightLocal == true)
         {
-            this.gameObject.transform.eulerAngles = new Vector3(0f, -90f, 0f);
+            this.gameObject.transform.eulerAngles = new Vector3(0f, 0f, 0f);
         }
         else
         {
-            this.gameObject.transform.eulerAngles = new Vector3(0f, 90f, 0f);
+            this.gameObject.transform.eulerAngles = new Vector3(0f, 180f, 0f);
         }
 
     }
