@@ -144,6 +144,22 @@ public class Enemy : Unit
     [SerializeField]
     private Transform pfDamagePopup;
 
+
+    public override float Health
+    {
+        get => _health;
+        set
+        {
+            _health = value;
+
+            if (_health <= 0)
+            {
+                isDead = true;
+                
+            }
+        }
+    }
+
     public override void Start()
     {
         base.Start();
@@ -166,6 +182,10 @@ public class Enemy : Unit
 
     public override void Update()
     {
+        if(isDead == true)
+        {
+            StartCoroutine(deathCoroutine());
+        }
 
         if (killThis) TakeDamage(1000);
 
@@ -225,16 +245,7 @@ public class Enemy : Unit
             }
         }
 
-        if(Astar.canMove == true)
-        {
-            isMoving = true;
-            animator.SetBool("isMoving", isMoving);
-        }
-        else if(Astar.canMove == false)
-        {
-            isMoving = false;
-            animator.SetBool("isMoving", isMoving);
-        }
+        StartCoroutine(movingTest());
 
         if (grounded)
         {
@@ -451,6 +462,26 @@ public class Enemy : Unit
         DamagePopup.Create(transform.position, amount);
 
         base.TakeDamage(amount);
+    }
+
+    public IEnumerator movingTest()
+    {
+        var testPos = this.transform.position;
+        yield return new WaitForSeconds(1f);
+        if(testPos == this.transform.position)
+        {
+            isMoving = false;
+        }
+        else
+        {
+            isMoving = true;
+        }
+    }
+
+    public IEnumerator deathCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        Destroy(this.gameObject);
     }
 
 }

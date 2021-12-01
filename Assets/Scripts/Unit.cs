@@ -43,6 +43,7 @@ public class Unit : MonoBehaviour, IDamageable
 
             if (_health <= 0)
             {
+                
                 ///Destroy the object here
                 Destroy(gameObject);
             }
