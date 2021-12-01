@@ -109,7 +109,617 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: OrcAttack(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Orc
+      parentName: OrcAttack(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 100, y: 100, z: 100}
+    - name: orc_for_animating:orc_armature
+      parentName: OrcAttack(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: orc_for_animating:Root
+      parentName: orc_for_animating:orc_armature
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.7071068, y: -0.0000000842937, z: -0.00000008429369, w: 0.7071067}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: orc_for_animating:Pelvis
+      parentName: orc_for_animating:Root
+      position: {x: -1.4448431e-10, y: 0.008525665, z: -0.00060601166}
+      rotation: {x: 0.19784869, y: -0, z: -0, w: 0.9802326}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Spine
+      parentName: orc_for_animating:Pelvis
+      position: {x: 4.3325534e-11, y: 0.0014857654, z: -0.00042808522}
+      rotation: {x: -0.17884214, y: 0, z: -0, w: 0.9838778}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Spine1
+      parentName: orc_for_animating:Spine
+      position: {x: 2.7337164e-11, y: 0.0013265478, z: 0.000063374944}
+      rotation: {x: 0.1341188, y: -0, z: -0, w: 0.9909653}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Spine2
+      parentName: orc_for_animating:Spine1
+      position: {x: 1.3606227e-10, y: 0.0014298449, z: 0.00014434067}
+      rotation: {x: 0.09083806, y: -0.00000054240536, z: 0.00000010852957, w: 0.9958657}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Clav_L
+      parentName: orc_for_animating:Spine2
+      position: {x: -0.0005189909, y: 0.0013907223, z: 0.0008804484}
+      rotation: {x: -0.0499312, y: -0.2617803, z: 0.7152734, w: 0.6460356}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Bicep_L
+      parentName: orc_for_animating:Clav_L
+      position: {x: -0.00008658656, y: 0.0016657332, z: 0.00029803804}
+      rotation: {x: 0.18702157, y: 0.63051677, z: 0.12006642, w: 0.7436771}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:ForeArm_L
+      parentName: orc_for_animating:Bicep_L
+      position: {x: 0.00012022513, y: 0.0040669097, z: 0.000052678435}
+      rotation: {x: 0.07660511, y: -0.11339834, z: -0.0029702925, w: 0.9905876}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Hand_L
+      parentName: orc_for_animating:ForeArm_L
+      position: {x: -0.000027457138, y: 0.0037141077, z: 0.000008346796}
+      rotation: {x: -0.10582856, y: 0.7825261, z: -0.112620495, w: 0.6031335}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger1_L
+      parentName: orc_for_animating:Hand_L
+      position: {x: -0.00013193673, y: 0.0014979038, z: 0.00035601406}
+      rotation: {x: -0.01412527, y: -0.003558514, z: 0.0019191043, w: 0.9998921}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger11_L
+      parentName: orc_for_animating:Finger1_L
+      position: {x: -0.000031456828, y: 0.0014838435, z: -0.00001776989}
+      rotation: {x: -0.02432711, y: -0.07125067, z: 0.033662304, w: 0.99659336}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger11_L_end
+      parentName: orc_for_animating:Finger11_L
+      position: {x: -0, y: 0.0009413674, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger2_L
+      parentName: orc_for_animating:Hand_L
+      position: {x: 0.00014853803, y: 0.0014780229, z: 0.00009308013}
+      rotation: {x: -0.005840275, y: -0.012104175, z: -0.016410109, w: 0.99977505}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger21_L
+      parentName: orc_for_animating:Finger2_L
+      position: {x: -0.00006319571, y: 0.0017922329, z: -0.00007313675}
+      rotation: {x: -0.03576015, y: -0.08765741, z: 0.041260574, w: 0.9946532}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger21_L_end
+      parentName: orc_for_animating:Finger21_L
+      position: {x: -0, y: 0.0010669192, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger3_L
+      parentName: orc_for_animating:Hand_L
+      position: {x: 0.00033230617, y: 0.0014772343, z: -0.00015020568}
+      rotation: {x: -0.015590521, y: -0.009758618, z: -0.026356516, w: 0.99948347}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger31_L
+      parentName: orc_for_animating:Finger3_L
+      position: {x: -0.000054629327, y: 0.0010932791, z: -0.0000096110725}
+      rotation: {x: -0.007027958, y: -0.103147015, z: 0.05247595, w: 0.9932561}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger31_L_end
+      parentName: orc_for_animating:Finger31_L
+      position: {x: -0, y: 0.001017916, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger4_L
+      parentName: orc_for_animating:Hand_L
+      position: {x: 0.00045725875, y: 0.0013779061, z: -0.00042820754}
+      rotation: {x: -0.023506185, y: 0.006162194, z: -0.007432242, w: 0.99967706}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger4_L_end
+      parentName: orc_for_animating:Finger4_L
+      position: {x: -0, y: 0.00029580688, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Neck
+      parentName: orc_for_animating:Spine2
+      position: {x: -9.220908e-12, y: 0.0016915464, z: -0.0000064445285}
+      rotation: {x: -0.14513734, y: 0.00000015260868, z: 0.00000021437253, w: 0.98941153}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Head
+      parentName: orc_for_animating:Neck
+      position: {x: 0.000000001917934, y: 0.0012026591, z: 0.000036122074}
+      rotation: {x: -0.21701182, y: 0, z: -0, w: 0.976169}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Jaw
+      parentName: orc_for_animating:Head
+      position: {x: 4.1258694e-10, y: -0.00035385555, z: 0.00034610304}
+      rotation: {x: 0.78050894, y: -0.00000037261424, z: -0.0000013956575, w: 0.6251446}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: orc_for_animating:Jaw_end
+      parentName: orc_for_animating:Jaw
+      position: {x: -0, y: 0.0012009791, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Ear.L
+      parentName: orc_for_animating:Head
+      position: {x: -0.0011919352, y: 0.0003937418, z: 0.0003904642}
+      rotation: {x: 0.6473923, y: -0.54009724, z: 0.5338221, w: 0.06490118}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: orc_for_animating:Ear.L_end
+      parentName: orc_for_animating:Ear.L
+      position: {x: -0, y: 0.0009215291, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Eye.L
+      parentName: orc_for_animating:Head
+      position: {x: -0.0006543186, y: 0.0007337627, z: 0.0012736182}
+      rotation: {x: 0.73833185, y: -0.050082453, z: 0.12215195, w: 0.66139}
+      scale: {x: 0.99999994, y: 1, z: 1.0000001}
+    - name: orc_for_animating:Eye.L_end
+      parentName: orc_for_animating:Eye.L
+      position: {x: -0, y: 0.00036704732, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Ear.R
+      parentName: orc_for_animating:Head
+      position: {x: 0.0011919362, y: 0.0003937406, z: 0.00039046144}
+      rotation: {x: 0.6473917, y: 0.54009736, z: -0.5338229, w: 0.064900264}
+      scale: {x: 1, y: 0.99999976, z: 1}
+    - name: orc_for_animating:Ear.R_end
+      parentName: orc_for_animating:Ear.R
+      position: {x: -0, y: 0.0009215291, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Eye.R
+      parentName: orc_for_animating:Head
+      position: {x: 0.0006543216, y: 0.0007337627, z: 0.0012736167}
+      rotation: {x: 0.73833174, y: 0.05008333, z: -0.12215288, w: 0.6613899}
+      scale: {x: 0.99999994, y: 1, z: 1.0000001}
+    - name: orc_for_animating:Eye.R_end
+      parentName: orc_for_animating:Eye.R
+      position: {x: -0, y: 0.00036704732, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Clav_R
+      parentName: orc_for_animating:Spine2
+      position: {x: 0.00051899464, y: 0.0013907216, z: 0.000880447}
+      rotation: {x: -0.049932055, y: 0.26178133, z: -0.7152739, w: 0.6460346}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Bicep_R
+      parentName: orc_for_animating:Clav_R
+      position: {x: 0.00008658612, y: 0.0016657328, z: 0.0002980388}
+      rotation: {x: 0.18302754, y: -0.6513338, z: -0.120088555, w: 0.7265287}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:ForeArm_R
+      parentName: orc_for_animating:Bicep_R
+      position: {x: -0.00012022298, y: 0.0040669073, z: 0.000052679872}
+      rotation: {x: 0.076073475, y: 0.11449917, z: -0.0035881097, w: 0.99049985}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Hand_R
+      parentName: orc_for_animating:ForeArm_R
+      position: {x: 0.000027439091, y: 0.0037141077, z: 0.000008370035}
+      rotation: {x: -0.14550066, y: -0.3409743, z: 0.108512625, w: 0.92238337}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger1_R
+      parentName: orc_for_animating:Hand_R
+      position: {x: 0.00013193661, y: 0.0014979043, z: 0.0003560143}
+      rotation: {x: -0.014125224, y: 0.0035585454, z: -0.001919515, w: 0.9998921}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger11_R
+      parentName: orc_for_animating:Finger1_R
+      position: {x: 0.000031457672, y: 0.0014838439, z: -0.00001777014}
+      rotation: {x: -0.024328183, y: 0.07125062, z: -0.03366153, w: 0.99659336}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger11_R_end
+      parentName: orc_for_animating:Finger11_R
+      position: {x: -0, y: 0.0009413674, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger2_R
+      parentName: orc_for_animating:Hand_R
+      position: {x: -0.00014853735, y: 0.0014780236, z: 0.00009308111}
+      rotation: {x: -0.005839167, y: 0.012103583, z: 0.016409794, w: 0.99977505}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger21_R
+      parentName: orc_for_animating:Finger2_R
+      position: {x: 0.00006319615, y: 0.0017922313, z: -0.000073137024}
+      rotation: {x: -0.035760935, y: 0.08765817, z: -0.04125997, w: 0.99465317}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger21_R_end
+      parentName: orc_for_animating:Finger21_R
+      position: {x: -0, y: 0.0010669192, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger3_R
+      parentName: orc_for_animating:Hand_R
+      position: {x: -0.0003323055, y: 0.0014772342, z: -0.0001502057}
+      rotation: {x: -0.015590513, y: 0.009758111, z: 0.02635547, w: 0.99948347}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger31_R
+      parentName: orc_for_animating:Finger3_R
+      position: {x: 0.00005462871, y: 0.0010932788, z: -0.000009611049}
+      rotation: {x: -0.0070240633, y: 0.10314665, z: -0.052475832, w: 0.99325615}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger31_R_end
+      parentName: orc_for_animating:Finger31_R
+      position: {x: -0, y: 0.001017916, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger4_R
+      parentName: orc_for_animating:Hand_R
+      position: {x: -0.00045725747, y: 0.0013779069, z: -0.00042820684}
+      rotation: {x: -0.023503287, y: -0.0061619836, z: 0.0074315504, w: 0.9996772}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Finger4_R_end
+      parentName: orc_for_animating:Finger4_R
+      position: {x: -0, y: 0.00029580688, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Thigh_L
+      parentName: orc_for_animating:Pelvis
+      position: {x: -0.0008344578, y: 0.00013754243, z: 0.00059960503}
+      rotation: {x: 0.1740578, y: 0.3116541, z: 0.92435014, w: 0.13473137}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Calf_L
+      parentName: orc_for_animating:Thigh_L
+      position: {x: -0.00016750996, y: 0.0039177365, z: -0.00015538302}
+      rotation: {x: -0.3276426, y: 0.028898545, z: 0.19756006, w: 0.92346376}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Foot_L
+      parentName: orc_for_animating:Calf_L
+      position: {x: 0.0000530021, y: 0.0034097955, z: 0.000052678763}
+      rotation: {x: 0.21364896, y: 0.026618281, z: -0.13263677, w: 0.96749836}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Toe_L
+      parentName: orc_for_animating:Foot_L
+      position: {x: 0.0006018751, y: 0.0013781287, z: 0.0013701821}
+      rotation: {x: 0.6721659, y: 0.0019850119, z: -0.21480946, w: 0.70855206}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Toe_L_end
+      parentName: orc_for_animating:Toe_L
+      position: {x: -0, y: 0.0015527576, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Thigh_R
+      parentName: orc_for_animating:Pelvis
+      position: {x: 0.00083445816, y: 0.00013754157, z: 0.000599605}
+      rotation: {x: -0.17405464, y: 0.31165373, z: 0.92435074, w: -0.13473149}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Calf_R
+      parentName: orc_for_animating:Thigh_R
+      position: {x: 0.00016751, y: 0.0039177365, z: -0.00015538243}
+      rotation: {x: -0.3276421, y: -0.02890397, z: -0.19755943, w: 0.9234639}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Foot_R
+      parentName: orc_for_animating:Calf_R
+      position: {x: -0.000053000786, y: 0.0034097938, z: 0.000052677977}
+      rotation: {x: 0.21364827, y: -0.026609946, z: 0.13263725, w: 0.96749866}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Toe_R
+      parentName: orc_for_animating:Foot_R
+      position: {x: -0.00060187484, y: 0.0013781291, z: 0.0013701821}
+      rotation: {x: 0.6721659, y: -0.0019850119, z: 0.21480946, w: 0.70855206}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Toe_R_end
+      parentName: orc_for_animating:Toe_R
+      position: {x: -0, y: 0.0015527576, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_Reference
+      parentName: OrcAttack(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_HipsEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.0000000047683715, y: 0.79535127, z: -0.29792702}
+      rotation: {x: 3.0616168e-17, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftAnkleEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.17339338, y: 0.13411872, z: -0.24622194}
+      rotation: {x: 3.469142e-32, y: -0, z: -1.2246467e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightAnkleEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.17339341, y: 0.13412066, z: -0.24622315}
+      rotation: {x: 3.469142e-32, y: -0, z: -1.2246467e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftWristEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.9757115, y: 1.26738, z: -0.21185508}
+      rotation: {x: 0.56374586, y: 0.7255525, z: 0.24135026, w: -0.3122727}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightWristEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.976099, y: 1.278011, z: -0.21300493}
+      rotation: {x: -0.28753155, y: 0.5419305, z: 0.553899, w: 0.5628791}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftKneeEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.15480474, y: 0.45150366, z: -0.12275476}
+      rotation: {x: -0.0000009853422, y: 0.0000039375136, z: 0.00000060536615, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightKneeEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.15480687, y: 0.45150462, z: -0.12275356}
+      rotation: {x: 0.0000022863924, y: 0.0000049541427, z: -0.00000034832362, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftElbowEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.60669875, y: 1.2868855, z: -0.24931937}
+      rotation: {x: 0.005779457, y: -0.39147526, z: -0.4693063, w: 0.7914956}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightElbowEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.60668516, y: 1.2910076, z: -0.24931978}
+      rotation: {x: -0.015306237, y: 0.4052711, z: 0.46428853, w: 0.7873736}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_ChestOriginEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: -1.2575503e-14, y: 0.95948017, z: -0.34035617}
+      rotation: {x: -6.9388946e-17, y: -5.52973e-30, z: 1.110223e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_ChestEndEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: -0, y: 1.2640969, z: -0.11226012}
+      rotation: {x: -5.273559e-16, y: -1.7670484e-28, z: -1.2621775e-29, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftShoulderEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.205963, y: 1.2876202, z: -0.17875017}
+      rotation: {x: -0.24415047, y: -0.19800702, z: -0.6386499, w: 0.7023604}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightShoulderEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.205963, y: 1.2876202, z: -0.17875011}
+      rotation: {x: -0.26393357, y: 0.21181029, z: 0.64010745, w: 0.68973756}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_HeadEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: -1.2161405e-13, y: 1.4502258, z: -0.09425846}
+      rotation: {x: 3.0616168e-17, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftHipEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.083445795, y: 0.7953513, z: -0.29792702}
+      rotation: {x: 0.000001773238, y: 0.0000008717179, z: 0.0000008344649, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightHipEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.0834458, y: 0.79535127, z: -0.29792702}
+      rotation: {x: -0.0000010207295, y: 0.000001937151, z: 0.000000771135, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftHandIndexEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: -1.2713096, y: 1.2624135, z: -0.2553496}
+      rotation: {x: 0.5637455, y: 0.72555286, z: 0.2413505, w: -0.31227237}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftHandMiddleEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: -1.2886444, y: 1.2043545, z: -0.24909814}
+      rotation: {x: 0.5637455, y: 0.72555274, z: 0.24135067, w: -0.31227255}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftHandRingEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: -1.2092106, y: 1.1867589, z: -0.234955}
+      rotation: {x: 0.5637455, y: 0.72555286, z: 0.24135058, w: -0.3122725}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftHandPinkyEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: -1.097807, y: 1.1952405, z: -0.2647632}
+      rotation: {x: 0.56374556, y: 0.72555274, z: 0.24135062, w: -0.3122726}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightHandIndexEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: 1.2713598, y: 1.2836065, z: -0.2586608}
+      rotation: {x: -0.28753138, y: 0.54193085, z: 0.553899, w: 0.56287885}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightHandMiddleEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: 1.2820213, y: 1.24771, z: -0.30670446}
+      rotation: {x: -0.2875315, y: 0.54193103, z: 0.5538992, w: 0.5628785}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightHandRingEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: 1.2005208, y: 1.2347059, z: -0.30951765}
+      rotation: {x: -0.28753138, y: 0.54193085, z: 0.553899, w: 0.56287885}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightHandPinkyEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: 1.092411, y: 1.2757348, z: -0.30984008}
+      rotation: {x: -0.28753138, y: 0.54193085, z: 0.553899, w: 0.56287885}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftFootExtraFingerEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: -0.21082228, y: -0.0000009822845, z: -0.09789835}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightFootExtraFingerEffector
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: 0.21082234, y: 0.0000009346008, z: -0.09789955}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_Hips
+      parentName: orc_for_animating:Character1_Ctrl_Reference
+      position: {x: -0, y: 0.8059311, z: -0.35852826}
+      rotation: {x: 3.0616168e-17, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftUpLeg
+      parentName: orc_for_animating:Character1_Ctrl_Hips
+      position: {x: -0.083445795, y: -0.010579757, z: 0.060601216}
+      rotation: {x: 0.000001773238, y: 0.0000008717179, z: 0.0000008344649, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftLeg
+      parentName: orc_for_animating:Character1_Ctrl_LeftUpLeg
+      position: {x: -0.07135981, y: -0.343847, z: 0.17517309}
+      rotation: {x: -0.0000027585775, y: 0.0000030657975, z: -0.0000002291065, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftFoot
+      parentName: orc_for_animating:Character1_Ctrl_LeftLeg
+      position: {x: -0.018588075, y: -0.31738466, z: -0.12346794}
+      rotation: {x: 2.4645778e-12, y: -0.000004058704, z: -0.0000006072327, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftFootExtraFinger1
+      parentName: orc_for_animating:Character1_Ctrl_LeftFoot
+      position: {x: -0.03742893, y: -0.13411972, z: 0.1483236}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightUpLeg
+      parentName: orc_for_animating:Character1_Ctrl_Hips
+      position: {x: 0.0834458, y: -0.010579834, z: 0.060601216}
+      rotation: {x: -0.0000010207295, y: 0.000001937151, z: 0.000000771135, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightLeg
+      parentName: orc_for_animating:Character1_Ctrl_RightUpLeg
+      position: {x: 0.071359836, y: -0.343847, z: 0.1751731}
+      rotation: {x: 0.0000033071262, y: 0.0000030169906, z: -0.0000011194494, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightFoot
+      parentName: orc_for_animating:Character1_Ctrl_RightLeg
+      position: {x: 0.018587971, y: -0.3173845, z: -0.12346796}
+      rotation: {x: -0.000002285461, y: -0.000004950447, z: 0.0000003464537, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightFootExtraFinger1
+      parentName: orc_for_animating:Character1_Ctrl_RightFoot
+      position: {x: 0.03742893, y: -0.13411972, z: 0.14832361}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_Spine
+      parentName: orc_for_animating:Character1_Ctrl_Hips
+      position: {x: -1.2575503e-14, y: 0.15354912, z: 0.018172072}
+      rotation: {x: -4.1633363e-17, y: 2.4407474e-16, z: 1.8789315e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_Spine1
+      parentName: orc_for_animating:Character1_Ctrl_Spine
+      position: {x: -1.1556454e-14, y: 0.13231018, z: 0.0114660645}
+      rotation: {x: -2.7755576e-17, y: 2.6991798e-16, z: -6.466435e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_Spine2
+      parentName: orc_for_animating:Character1_Ctrl_Spine1
+      position: {x: -1.8844379e-14, y: 0.13189414, z: 0.05706871}
+      rotation: {x: -1.110223e-16, y: -5.0182424e-17, z: -2.50925e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftShoulder
+      parentName: orc_for_animating:Character1_Ctrl_Spine2
+      position: {x: -0.051899273, y: 0.040412292, z: 0.15956129}
+      rotation: {x: 1.3877788e-17, y: 8.326673e-17, z: 1.561251e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftArm
+      parentName: orc_for_animating:Character1_Ctrl_LeftShoulder
+      position: {x: -0.15406372, y: 0.023523483, z: -0.066490054}
+      rotation: {x: -0.24415047, y: -0.19800702, z: -0.6386499, w: 0.7023604}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftForeArm
+      parentName: orc_for_animating:Character1_Ctrl_LeftArm
+      position: {x: -0.08346115, y: -0.39194885, z: -0.070568465}
+      rotation: {x: 0.35439295, y: 0.000037373367, z: 0.07914319, w: 0.9317414}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftHand
+      parentName: orc_for_animating:Character1_Ctrl_LeftForeArm
+      position: {x: -0.055765323, y: -0.2692814, z: 0.24966383}
+      rotation: {x: -0.2019834, y: -0.71798897, z: 0.18040973, w: 0.6412074}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftHandIndex1
+      parentName: orc_for_animating:Character1_Ctrl_LeftHand
+      position: {x: 0.015780754, y: -0.14001797, z: 0.06344001}
+      rotation: {x: -0.00000023225002, y: -0.0000001016767, z: -0.0000005632349, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftHandIndex2
+      parentName: orc_for_animating:Character1_Ctrl_LeftHandIndex1
+      position: {x: -0.00057926174, y: -0.14750427, z: 0.016525911}
+      rotation: {x: 0.00000010394567, y: 0.000000043622, z: -0.000000014888927, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftHandMiddle1
+      parentName: orc_for_animating:Character1_Ctrl_LeftHand
+      position: {x: -0.019468002, y: -0.13954368, z: 0.04797246}
+      rotation: {x: -0.00000022199083, y: 0.00000013728592, z: -0.0000005500924, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftHandMiddle2
+      parentName: orc_for_animating:Character1_Ctrl_LeftHandMiddle1
+      position: {x: 0.003395233, y: -0.17917553, z: -0.00994796}
+      rotation: {x: 0.00000020983515, y: -0.00000021434735, z: -0.00000023007779, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftHandRing1
+      parentName: orc_for_animating:Character1_Ctrl_LeftHand
+      position: {x: -0.045096207, y: -0.14184079, z: 0.031616557}
+      rotation: {x: -0.00000026842187, y: -0.000000060228174, z: -0.0000005706777, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftHandRing2
+      parentName: orc_for_animating:Character1_Ctrl_LeftHandRing1
+      position: {x: 0.014086532, y: -0.104311906, z: -0.03006586}
+      rotation: {x: -0.000000034522323, y: -0.000000063027734, z: -0.00000010804571, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_LeftHandPinky1
+      parentName: orc_for_animating:Character1_Ctrl_LeftHand
+      position: {x: -0.06583507, y: -0.13606842, z: 0.007863281}
+      rotation: {x: -0.00000020241583, y: 0.00000006974853, z: -0.00000043392612, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightShoulder
+      parentName: orc_for_animating:Character1_Ctrl_Spine2
+      position: {x: 0.051899273, y: 0.040412292, z: 0.15956126}
+      rotation: {x: -1.3877788e-17, y: 1.110223e-16, z: -8.673618e-18, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightArm
+      parentName: orc_for_animating:Character1_Ctrl_RightShoulder
+      position: {x: 0.15406372, y: 0.023523483, z: -0.06648998}
+      rotation: {x: -0.26393357, y: 0.21181029, z: 0.64010745, w: 0.68973756}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightForeArm
+      parentName: orc_for_animating:Character1_Ctrl_RightArm
+      position: {x: 0.08346119, y: -0.39194885, z: -0.07056856}
+      rotation: {x: 0.358333, y: 0.000013145056, z: -0.08004384, w: 0.9301562}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightHand
+      parentName: orc_for_animating:Character1_Ctrl_RightForeArm
+      position: {x: 0.055765286, y: -0.26928136, z: 0.24966376}
+      rotation: {x: -0.1906464, y: 0.32360265, z: 0.06655386, w: 0.9243949}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightHandIndex1
+      parentName: orc_for_animating:Character1_Ctrl_RightHand
+      position: {x: -0.015780792, y: -0.14001793, z: 0.063439995}
+      rotation: {x: 0.00000030079306, y: 0.00000024328094, z: 0.00000033763192, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightHandIndex2
+      parentName: orc_for_animating:Character1_Ctrl_RightHandIndex1
+      position: {x: 0.00057926174, y: -0.1475043, z: 0.016525926}
+      rotation: {x: -0.00000041459086, y: 0.000000072221546, z: 0.000000010662984, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightHandMiddle1
+      parentName: orc_for_animating:Character1_Ctrl_RightHand
+      position: {x: 0.019467963, y: -0.13954368, z: 0.04797244}
+      rotation: {x: 0.00000012454883, y: 0.00000047895884, z: 0.000000651605, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightHandMiddle2
+      parentName: orc_for_animating:Character1_Ctrl_RightHandMiddle1
+      position: {x: -0.003395195, y: -0.17917554, z: -0.009947968}
+      rotation: {x: 0.00000010321113, y: -0.00000037678095, z: -0.00000016444118, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightHandRing1
+      parentName: orc_for_animating:Character1_Ctrl_RightHand
+      position: {x: 0.045096166, y: -0.14184074, z: 0.031616546}
+      rotation: {x: 0.00000030079306, y: 0.00000024328094, z: 0.00000033763195, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightHandRing2
+      parentName: orc_for_animating:Character1_Ctrl_RightHandRing1
+      position: {x: -0.014086532, y: -0.104311906, z: -0.030065846}
+      rotation: {x: -0.00000011728975, y: 0.00000025592928, z: 0.00000047385174, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_RightHandPinky1
+      parentName: orc_for_animating:Character1_Ctrl_RightHand
+      position: {x: 0.065835, y: -0.13606845, z: 0.007863262}
+      rotation: {x: 0.00000030079306, y: 0.00000024328094, z: 0.00000033763195, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: orc_for_animating:Character1_Ctrl_Head
+      parentName: orc_for_animating:Character1_Ctrl_Spine2
+      position: {x: -7.878337e-14, y: 0.2265412, z: 0.17756294}
+      rotation: {x: 3.0616168e-17, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -124,9 +734,9 @@ ModelImporter:
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 3
+  animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 

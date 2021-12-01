@@ -480,7 +480,10 @@ public class Enemy : Unit
 
     public IEnumerator deathCoroutine()
     {
-        yield return new WaitForSeconds(2f);
+        var waitTime = 1f;
+        //if()
+
+        yield return new WaitForSeconds(waitTime);
         Destroy(this.gameObject);
     }
 
