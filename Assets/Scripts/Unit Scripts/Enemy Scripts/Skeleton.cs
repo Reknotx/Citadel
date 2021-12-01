@@ -68,7 +68,10 @@ public class Skeleton : Enemy
                 
                 if (Mathf.Abs(yDistance) < 2)
                 {
+
+                    isAttacking = true;
                     //transform.LookAt(player.transform);
+                    shootLocation = player.transform;
                     Instantiate(projectile, shootLocation.position, Quaternion.identity);
                     StartCoroutine(ProjectileCooldown());
                 }
@@ -123,6 +126,8 @@ public class Skeleton : Enemy
     IEnumerator ProjectileCooldown()
     {
         canShoot = false;
+        yield return new WaitForSeconds(1f);
+        isAttacking = false;
         yield return new WaitForSeconds(1f);
         canShoot = true;
     }

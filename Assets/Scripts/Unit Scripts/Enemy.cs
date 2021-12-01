@@ -480,16 +480,7 @@ public class Enemy : Unit
 
     public IEnumerator deathCoroutine()
     {
-        var waitTime = 0f;
-        if(this.gameObject.tag =="goblin")
-        {
-            waitTime = 1f;
-        }
-        else if(this.gameObject.tag == "orc")
-        {
-            waitTime = 2f;
-        }
-
+        var waitTime = 4f;
         yield return new WaitForSeconds(waitTime);
         Destroy(this.gameObject);
     }
