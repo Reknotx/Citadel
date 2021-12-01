@@ -135,7 +135,7 @@ public class Enemy : Unit
     private float calculateHealth;
 
     [SerializeField]
-    private Transform pfDamagePopup;
+   // private Transform pfDamagePopup;
 
     public override void Start()
     {
