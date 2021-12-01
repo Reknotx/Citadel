@@ -23,7 +23,7 @@ public class CartSpawnerScript : MonoBehaviour
     void Update()
     {
         var tracker = GameObject.FindGameObjectWithTag("GoldTracker");
-        trackedCarts = tracker.GetComponent<PlayerGoldTrackerScript>().numCart;
+        trackedCarts = tracker.GetComponent<PlayerStatTrackerScript>().numCart;
 
         if(currentCarts < trackedCarts)
         {

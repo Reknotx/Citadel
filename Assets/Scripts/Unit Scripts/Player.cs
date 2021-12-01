@@ -688,7 +688,7 @@ public class Player : Unit, IDamageable
         var goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
         goldHandler.GetComponent<GoldHandler>()._mySoftGold = goldHandler.GetComponent<GoldHandler>().startingSoftGold;
         var goldTracker = GameObject.FindGameObjectWithTag("GoldTracker");
-        //goldTracker.GetComponent<PlayerGoldTrackerScript>().playerDead = true;
+        //goldTracker.GetComponent<PlayerStatTrackerScript>().playerDead = true;
         GameObject SceneManager = GameObject.FindGameObjectWithTag("SceneManager");
         SceneManager.GetComponent<SceneManagerScript>().goToCamp();
 

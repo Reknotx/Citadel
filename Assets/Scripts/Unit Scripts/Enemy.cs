@@ -121,6 +121,7 @@ public class Enemy : Unit
 
     #endregion
 
+    private bool lootDropped = false;
     #endregion
 
 
@@ -465,24 +466,33 @@ public class Enemy : Unit
 
     public override void TakeDamage(float amount)
     {
-        if (Health - amount <= 0)
+        var currentHealth = Health;
+        base.TakeDamage(amount);
+
+        if (currentHealth - amount <= 0)
         {
-            float dropYes = Random.Range(0f, 100f);
-
-            if (dropYes >= percentChanceToDropItem) return;
-
-            GameObject item = enemyLootTable.Drop();
-
-            if (item != null)
+            if(lootDropped == false)
             {
-                //Debug.Log("Success");
-                Instantiate(item, transform.position, Quaternion.identity);
+                contactDamage = 0;
+                lootDropped = true;
+                float dropYes = Random.Range(0f, 100f);
+
+                if (dropYes >= percentChanceToDropItem) return;
+
+                GameObject item = enemyLootTable.Drop();
+
+                if (item != null)
+                {
+                    //Debug.Log("Success");
+                    Instantiate(item, transform.position, Quaternion.identity);
+                }
             }
+            
         }
         //DamagePopup.Create(transform.position, (int)amount);
         DamagePopup.Create(transform.position, amount);
 
-        base.TakeDamage(amount);
+        
     }
 
     public IEnumerator movingTest()
