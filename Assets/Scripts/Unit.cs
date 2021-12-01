@@ -51,6 +51,9 @@ public class Unit : MonoBehaviour, IDamageable
                 ///Destroy the object here
                 Destroy(gameObject);
             }
+
+            if (HealthBar != null)
+                HealthBar.value = _health;
         }
     }
 
@@ -158,8 +161,9 @@ public class Unit : MonoBehaviour, IDamageable
 
     public virtual void Awake()
     {
+        if (HealthBar != null)
+            HealthBar.maxValue = MaxHealth;
         Health = MaxHealth;
-        HealthBar.maxValue = maxHealth;
     }
 
     public virtual void Start()

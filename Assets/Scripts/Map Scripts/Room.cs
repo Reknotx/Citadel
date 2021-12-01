@@ -59,8 +59,8 @@ namespace Map
 
         private void Start()
         {
-            ///set enemies and inanimateObj to empty as all references will be
-            ///set on start.
+            //set enemies and inanimateObj to empty as all references will be
+            //set on start.
             if (!fogEnabledOnStart) return;
             if (fog != null)
             {
@@ -92,13 +92,13 @@ namespace Map
             if (MiniMapManager.Instance != null)
                 MiniMapManager.Instance.MoveMinimapCamera(transform.position + new Vector3(15, 15, 0));
 
-            ///Turn on all the enemies.
+            //Turn on all the enemies.
             foreach (GameObject enemy in enemies)
             {
                 if (enemy != null)
-                enemy.SetActive(true);
+                    enemy.SetActive(true);
             }
-            ///Adjust the grid position for the astar path   
+            //Adjust the grid position for the astar path   
             Debug.Log("Entered " + name);
         }
 
@@ -112,7 +112,7 @@ namespace Map
             foreach (GameObject enemy in enemies)
             {
                 if(enemy != null)
-                enemy.SetActive(false);
+                    enemy.SetActive(false);
             }
         }
 

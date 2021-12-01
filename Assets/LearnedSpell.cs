@@ -20,6 +20,4 @@ public class LearnedSpell : MonoBehaviour
     public Image DisplayImage;
 
     public Text nameText;
-
-    
 }

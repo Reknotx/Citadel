@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -19,6 +21,15 @@ namespace CombatSystem
 
         public SpellBook spellBook;
 
+        private void Update()
+        {
+            foreach (SpellSlot slot in spellSlots)
+            {
+                if (slot.OnCooldown)
+                    slot.DecreaseCooldown(Time.deltaTime);
+            }
+        }
+
         public void CastSpell(int slotIndex)
         {
             if (NewPlayer.Instance.isPaused) return;
@@ -30,7 +41,7 @@ namespace CombatSystem
             Debug.Log("Casting " + attemptedCast.Spell.name);
 
             //Apply force to spell or perform unique movement math
-            GameObject spawnedSpell = Instantiate(attemptedCast.Spell, NewPlayer.Instance.Center, Quaternion.identity);
+            GameObject spawnedSpell = Instantiate(attemptedCast.Cast(), NewPlayer.Instance.Center, Quaternion.identity);
 
             if (spawnedSpell.GetComponent<Spell>().movingSpell)
             {
@@ -74,6 +85,8 @@ namespace CombatSystem
     [System.Serializable]
     public class SpellSlot
     {
+        
+        
         [HideInInspector]
         public GameObject Spell;
 
@@ -83,16 +96,14 @@ namespace CombatSystem
         public Image spellImage;
 
         public Text manaCostText;
-
-        private bool _canCast;
-
-        private bool sufficientMana;
         
-        public bool CanCast => remainingCooldown == 0f && sufficientMana;
+        private bool sufficientMana;
 
+        public bool CanCast => OnCooldown && sufficientMana;
 
-        [HideInInspector]
-        public float cooldownTime;
+        public bool OnCooldown => remainingCooldown > 0;
+
+        private float cooldownTime;
 
         private float remainingCooldown;
         
@@ -101,7 +112,7 @@ namespace CombatSystem
 
         public void AssignSpell(GameObject spell)
         {
-            this.Spell = spell;
+            Spell = spell;
             manaCost = spell.GetComponent<Spell>().stats.manaCost;
             manaCostText.text = manaCost.ToString();
             manaCostText.enabled = true;
@@ -110,7 +121,7 @@ namespace CombatSystem
 
             cooldownTime = spell.GetComponent<Spell>().stats.manaCost;
             
-            isEmpty = false;
+            isEmpty = Spell == null;
         }
 
         public void DecreaseCooldown(float deltaTime)
@@ -119,23 +130,23 @@ namespace CombatSystem
             if (remainingCooldown <= 0f)
             {
                 remainingCooldown = 0;
+                UpdateSlot();
             }
-            
         }
         
-        
-        
-
         public void CompareCurrManaToManaCost(int playerMana)
         {
-            Color temp = spellImage.color;
-            temp.a = playerMana < manaCost ? 0.5f : 1f;
-            
-            spellImage.color = temp;
-            
-            sufficientMana = temp.a == 1f;
+            sufficientMana = playerMana < manaCost;
+            UpdateSlot();
         }
 
+        public GameObject Cast()
+        {
+            remainingCooldown = cooldownTime;
+            UpdateSlot();
+            return Spell;
+        }
+        
         public void Clear()
         {
             Spell = null;
@@ -143,7 +154,14 @@ namespace CombatSystem
             spellImage.enabled = false;
             manaCostText.enabled = false;
 
-            isEmpty = true;
+            isEmpty = Spell == null;
+        }
+
+        public void UpdateSlot()
+        {
+            Color temp = spellImage.color;
+            temp.a = CanCast ? 1f : 0.5f;
+            spellImage.color = temp;
         }
     }
 }

@@ -20,6 +20,8 @@ using UnityEngine.Serialization;
 
 public class NewPlayer : Unit, IDamageable
 {
+    public Renderer bodyRenderer;
+    
     #region Fields
 
 
@@ -128,8 +130,8 @@ public class NewPlayer : Unit, IDamageable
         playerRB = GetComponent<Rigidbody>();
         inventory = new PlayerInventory();
 
-        Mana = MaxMana;
         ManaBar.maxValue = MaxMana;
+        Mana = MaxMana;
 
         base.Awake();
     }
@@ -381,29 +383,34 @@ public class NewPlayer : Unit, IDamageable
     }
 
     private bool invulnerable;
+
+    [Tooltip("Indicates how long the invulnerability frames last for.")]
+    public float iFrameDuration = 3f;
     public IEnumerator IFrames()
     {
         float startTime = Time.time;
-        float waitTime = 0.125f;
-
-        MeshRenderer render = GetComponent<MeshRenderer>();
-
+        float blinkTime = 0.25f;
+        
         while (true)
         {
-            /////Turn on 50% opacityy
-            //Color origMat = render.material.color;
-            //origMat.a = 0.5f;
-            //render.material.color = origMat;
-            yield return new WaitForSeconds(waitTime);
-            //origMat.a = 1f;
-            //render.material.color = origMat;
-            yield return new WaitForSeconds(waitTime);
+            //Turn on 50% opacity
+            Color origColor = bodyRenderer.material.color;
+            origColor.a = 0.25f;
+            
+            bodyRenderer.material.color = origColor;
+            yield return new WaitForSeconds(blinkTime);
+            
+            origColor.a = 1f;
+            bodyRenderer.material.color = origColor;
+            yield return new WaitForSeconds(blinkTime);
 
+            
+            
             //wait 0.125 seconds
             //turn opacity back to 100%
 
             yield return new WaitForFixedUpdate();
-            if (Time.time - startTime >= 1f)
+            if (Time.time - startTime >= iFrameDuration)
                 break;
         }
 
