@@ -69,13 +69,29 @@ public class Eyeball : Enemy
 
     public override void Start()
     {
-        playerTrans = Player.Instance.transform;
+        playerTrans = NewPlayer.Instance.transform;
         Bob();
         Attacking = false;
         startAttackCooldown = true;
         seeker = GetComponent<Seeker>();
 
         InvokeRepeating("UpdatePath", 0f, 0.5f);
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        if (transform.position.x - player.transform.position.x > 0)
+        {
+            facingRight = true;
+
+        }
+
+        if (transform.position.x - player.transform.position.x < 0)
+        {
+            facingRight = false;
+        }
+
     }
 
     private void UpdatePath()
@@ -106,7 +122,12 @@ public class Eyeball : Enemy
             if (attackCooldown >= attackRate)
                 canAttack = true;
             else
+            {
                 canAttack = false;
+                isAttacking = false;
+            }
+               
+
         }
 
         #region pathfinding
@@ -122,6 +143,7 @@ public class Eyeball : Enemy
                 Debug.Log("Direct path to the player");
                 _bobbing = false;
                 Attacking = true;
+                isAttacking = true;
                 return;
             }
             else

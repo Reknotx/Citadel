@@ -102,7 +102,7 @@ public class Unit : MonoBehaviour, IDamageable
     protected bool justJumped = false;
 
     ///<summary>This determines what direction the unit is facing.</summary>
-    [HideInInspector]
+    [SerializeField]
     public bool facingRight;
 
     ///<summary>This determines what direction the unit hit another unit.</summary>

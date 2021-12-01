@@ -65,7 +65,7 @@ public class Enemy : Unit
     RaycastHit hit;
 
     ///<summary>This targets the player for the Enemy.</summary>
-    [HideInInspector]
+    //[HideInInspector]
     public GameObject player;
 
     public bool GoblinSpotted = false;
@@ -160,6 +160,21 @@ public class Enemy : Unit
         }
     }
 
+    public override void Awake()
+    {
+        base.Awake();
+        player = GameObject.FindGameObjectWithTag("Player");
+        Astar = GetComponent<AIPath>();
+        normalSpeed = speed;
+        HealthIMG.gameObject.SetActive(false);
+        if (animator != null)
+        {
+            animator.SetBool("isMoving", isMoving);
+            animator.SetBool("isAttacking", isAttacking);
+            animator.SetBool("isDead", isDead);
+        }
+    }
+
     public override void Start()
     {
         base.Start();
@@ -216,9 +231,11 @@ public class Enemy : Unit
         Move();
         #endregion
 
-        yDistance = player.transform.position.y - transform.position.y;
+        
 
         distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+
+        yDistance = player.transform.position.y - transform.position.y;
 
         if (!GoblinSpotted)
         {
@@ -365,12 +382,6 @@ public class Enemy : Unit
     {
         if (seenByCamera)
         {
-            if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
-            {
-                
-                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-               
-            }
 
             if (transform.position.x - player.transform.position.x > 0)
             {
@@ -382,6 +393,16 @@ public class Enemy : Unit
             {
                 facingRight = false;
             }
+
+
+            if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+            {
+                
+                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+               
+            }
+
+          
         }
     }
     #endregion

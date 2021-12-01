@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 2897827766689175636}
   - component: {fileID: 1559338493956322351}
   - component: {fileID: 3010052801036542279}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: HealthEmpty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 2354427055989194060}
   - component: {fileID: 8608066798937785462}
   - component: {fileID: 3295183858090338084}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Lance_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,7 +675,7 @@ GameObject:
   - component: {fileID: 8272496146697679277}
   - component: {fileID: 3774937167621613529}
   - component: {fileID: 7037790981160172189}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2393,7 +2393,7 @@ GameObject:
   - component: {fileID: 1273967012313968711}
   - component: {fileID: 7928628895370238572}
   - component: {fileID: 7020786019097103309}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2706,6 +2706,7 @@ GameObject:
   - component: {fileID: 5913636541873719893}
   - component: {fileID: 5913636541873719894}
   - component: {fileID: 5913636541873719895}
+  - component: {fileID: 6377553981669305118}
   - component: {fileID: 5913636541873719888}
   - component: {fileID: 5913636541873719914}
   - component: {fileID: 5913636541873719915}
@@ -2796,8 +2797,21 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.2917225, z: 1}
+  m_Center: {x: 0, y: -0.6385081, z: 0}
+--- !u!65 &6377553981669305118
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5913636541873719889}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.0565076, z: 1}
+  m_Center: {x: 0, y: 0.24388456, z: 0}
 --- !u!114 &5913636541873719888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2822,10 +2836,10 @@ MonoBehaviour:
   poisonDamageTaken: 0
   poisonedDuration: 5
   poisonedDamage: 0
-  enemyLootTable: {fileID: 0}
+  enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
   _rigidBody: {fileID: 5913636541873719914}
   m_render: {fileID: 0}
-  contactDamage: 1
+  contactDamage: 5
   facingRightLocal: 0
   yDistance: 0
   jumpVelocity: 7
@@ -2839,7 +2853,7 @@ MonoBehaviour:
   distanceToPlayer: 0
   Astar: {fileID: 5913636541873719912}
   nextWaypointDistance: 3
-  animator: {fileID: 0}
+  animator: {fileID: 7911411521604281639}
   isAttacking: 0
   isDead: 0
   isMoving: 0
@@ -2864,13 +2878,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5913636541873719889}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 3
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 72
+  m_Constraints: 120
   m_CollisionDetection: 2
 --- !u!114 &5913636541873719915
 MonoBehaviour:
@@ -3699,7 +3713,7 @@ GameObject:
   - component: {fileID: 2465512923888948176}
   - component: {fileID: 8339213070336167539}
   - component: {fileID: 2564363747603309324}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Lance_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3916,7 +3930,7 @@ GameObject:
   - component: {fileID: 8549641625821892984}
   - component: {fileID: 2260613706899731416}
   - component: {fileID: 3147606725631808959}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: HealthBKG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
