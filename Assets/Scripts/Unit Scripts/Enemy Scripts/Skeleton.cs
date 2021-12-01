@@ -68,10 +68,13 @@ public class Skeleton : Enemy
                 
                 if (Mathf.Abs(yDistance) < 2)
                 {
+                    
                     //transform.LookAt(player.transform);
                     Instantiate(projectile, shootLocation.position, Quaternion.identity);
                     StartCoroutine(ProjectileCooldown());
+                    
                 }
+                
             }
         }
 
@@ -84,6 +87,7 @@ public class Skeleton : Enemy
         {
             Astar.canMove = true;
         }
+
     }
 
     /*private bool CanSeePlayer(float distance)
