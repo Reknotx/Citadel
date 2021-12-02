@@ -36,7 +36,7 @@ namespace Map
         /// 
         /// Grid pos set as follows: grid[y, x]
         /// </summary>
-        public Room[,] grid;
+        private Room[,] grid;
 
         /// <summary>
         /// This array is used to lay out the conceptual framework of the map, and
@@ -88,10 +88,7 @@ namespace Map
 
         public void Start()
         {
-            if (OneRowOnly)
-                trueGridSize = new Vector2(gridInfo.gridSize + 1, 1);
-            else
-                trueGridSize = new Vector2(gridInfo.gridSize + 1, gridInfo.gridSize);
+            trueGridSize = OneRowOnly ? new Vector2(gridInfo.gridSize + 1, 1) : new Vector2(gridInfo.gridSize + 1, gridInfo.gridSize);
 
             grid = new Room[(int)trueGridSize.y, (int)trueGridSize.x];
             conceptGrid = new GridNode[(int)trueGridSize.y, (int)trueGridSize.x];
@@ -99,7 +96,7 @@ namespace Map
             rows = (int)trueGridSize.y;
 
 
-            ///Initializing the concept grid.
+            //Initializing the concept grid.
             Debug.Log("Initializing the concept grid.");
             for (int y = 0; y < trueGridSize.y; y++)
             {
@@ -162,7 +159,7 @@ namespace Map
 
             BossRoomPos = bossRoom.transform.position;
 
-            conceptGrid[(int)BossRoomGridPos.y, (int)BossRoomGridPos.x] = new GridNode(BossRoomGridPos,
+            conceptGrid[(int)BossRoomGridPos.y, (int)BossRoomGridPos.x] = new GridNode(BossRoomGridPos, 
                                                                                        GridNode.RoomType.Boss,
                                                                                        tempRoomInfo.CalcDoorsLeftSide(),
                                                                                        tempRoomInfo.CalcDoorsRightSide(),
@@ -170,29 +167,6 @@ namespace Map
                                                                                        tempRoomInfo.CalcDoorsBottomSide());
             #endregion
 
-            //Need to write down notes on how to implement this randomness into generation. 
-            //Perhaps a RNG value that will determine if we follow the quickest path or 
-            //perhaps a slightly less cost effective path.
-            //
-            // Steps: create the path --> Select the rooms that will go on the path --> spawn rooms
-            // 
-            //I think that a decent idea here for creating the pathways will be to figure out first
-            //what directions I need to go first for the openings. For example: any data value in a list
-            //will contain information on the previous direction we came from, and the direction we need
-            //to follow next. This might mean that I can swap out the astar algorithm to instead return
-            //a list of a custom data value rather than a list of room scripts.
-            //
-            //Another useful tool would be having a secondary 2D array which will contain this information
-            //so that when we are spawning in the rooms we can cross reference that data and make the
-            //apropriate decisions on what rooms to spawn then.
-            //
-            //What's helpful about the above note is that I can instead use this custom class here to 
-            //make up the baseline of the map conceptually, then I use it to choose the rooms to spawn.
-            //So first and foremost I should populate a 2D array with the conceptual stuff, then populate
-            //the actual grid with the spawned in rooms that match the requirements. It will also
-            //probably mean that the Room scripts won't even be used at all for determing
-            //the pathing, and thus the functions need to be adjusted to no longer use the Room scripts.
-            //
             //To remind myself as to what a room needs:
             //1. A room on the path will have at least two connections.
             //2. Rooms can have a max of four.
@@ -283,14 +257,14 @@ namespace Map
             if (!name.Equals(""))
             {
                 spawnedRoom.name = name + ": " + gridCord;
-                if (name.Equals("Spawn Room"))
+                switch (name)
                 {
-                    SpawnRoomGridPos = gridCord;
-                    SpawnRoomPos = spawnedRoom.transform.position;
-                }
-                else if (name.Equals("Boss Room"))
-                {
-
+                    case "Spawn Room":
+                        SpawnRoomGridPos = gridCord;
+                        SpawnRoomPos = spawnedRoom.transform.position;
+                        break;
+                    case "Boss Room":
+                        break;
                 }
             }
 
@@ -373,6 +347,8 @@ namespace Map
             //and will need to be updated appropriately.
             //
 
+            GameObject prevRoom = null;
+            
             //Ok this needs to be redone, this isn't nice and just makes clutter.
             for (int pathIndex = 1; pathIndex < path.Count - 1; pathIndex++)
             {
@@ -402,12 +378,20 @@ namespace Map
                     {
                         // Spawn the room
                         SpawnRoom(roomObj, new Vector3(currNode.gridPos.x, currNode.gridPos.y), "Room");
+                        prevRoom = roomObj;
                         break;
                     }
 
                     if (examinedRooms.Count == roomCont.RegularRooms.Count)
                     {
                         Debug.LogError("Ran out of rooms, about to enter infinite loop. Breaking from loop");
+                        Debug.Log("The last room we looked at was " + prevRoom.name);
+                        
+                        #if UNITY_EDITOR 
+                        UnityEditor.EditorApplication.isPlaying = false;
+                        #else
+                        Application.Quit();
+                        #endif
                     }
 
                 } while (examinedRooms.Count != roomCont.RegularRooms.Count);

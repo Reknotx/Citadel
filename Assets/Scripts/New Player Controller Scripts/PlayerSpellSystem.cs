@@ -99,19 +99,21 @@ namespace CombatSystem
         
         private bool sufficientMana;
 
-        public bool CanCast => OnCooldown && sufficientMana;
+        public bool CanCast => !OnCooldown && sufficientMana;
 
         public bool OnCooldown => remainingCooldown > 0;
 
         private float cooldownTime;
 
-        private float remainingCooldown;
+        private float remainingCooldown = 0;
         
         [HideInInspector]
         private bool isEmpty;
 
         public void AssignSpell(GameObject spell)
         {
+            if (Spell != null && remainingCooldown > 0) return;
+            
             Spell = spell;
             manaCost = spell.GetComponent<Spell>().stats.manaCost;
             manaCostText.text = manaCost.ToString();
@@ -119,14 +121,16 @@ namespace CombatSystem
             spellImage.sprite = spell.GetComponent<Spell>().spellUIImage;
             spellImage.enabled = true;
 
-            cooldownTime = spell.GetComponent<Spell>().stats.manaCost;
+            cooldownTime = spell.GetComponent<Spell>().stats.cooldown;
             
             isEmpty = Spell == null;
+            remainingCooldown = 0;
         }
 
         public void DecreaseCooldown(float deltaTime)
         {
             remainingCooldown -= deltaTime;
+            Debug.Log(remainingCooldown);
             if (remainingCooldown <= 0f)
             {
                 remainingCooldown = 0;
@@ -136,7 +140,7 @@ namespace CombatSystem
         
         public void CompareCurrManaToManaCost(int playerMana)
         {
-            sufficientMana = playerMana < manaCost;
+            sufficientMana = playerMana >= manaCost;
             UpdateSlot();
         }
 
