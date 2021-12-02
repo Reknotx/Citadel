@@ -91,7 +91,7 @@ public class PlayerInventory
         public void MineGoldToPermGold(int amount)
         {
             permanentGold += amount;
-            
+            PlayerPrefs.SetFloat(permGoldStorage, permanentGold);
         }
     }
 }
