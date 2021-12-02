@@ -10,12 +10,12 @@ public class PlayerInventory
     public int HealthPotions = 0;
     private const int _MaxHealthPotions = 5;
 
-    public bool HealthPotionSpace { get { return HealthPotions < _MaxHealthPotions; } }
+    public bool HealthPotionSpace => HealthPotions < _MaxHealthPotions;
 
     public int ManaPotions = 0;
     private const int _MaxManaPotions = 5;
 
-    public bool ManaPotionSpace { get { return ManaPotions < _MaxManaPotions; } }
+    public bool ManaPotionSpace => ManaPotions < _MaxManaPotions;
 
     public bool shuues = false;
     public bool undying = false;
@@ -78,19 +78,27 @@ public class PlayerInventory
             permanentGold = permGold != 0 ? permGold : 0;
         }
 
-        /// <summary>
-        /// Adds the gold in the player's inventory to their permanent gold, and saves it.
-        /// </summary>
-        public void AddGoldToStorage()
+        /// <summary> Adds the gold in the player's inventory to their permanent gold, and saves it. </summary>
+        public void AddHeldGoldToStorage()
         {
             permanentGold += gold;
             PlayerPrefs.SetFloat(permGoldStorage, permanentGold);
             gold = 0;
         }
 
-        public void AddGoldFromMinesToStorage(int amount)
+        /// <summary> The amount of gold to add to the player's permanent gold from the mines. </summary>
+        /// <param name="amount">The amount of gold to add to our permanent storage</param>
+        public void MineGoldToPermGold(int amount)
         {
             permanentGold += amount;
+            PlayerPrefs.SetFloat(permGoldStorage, permanentGold);
+        }
+
+        /// <summary> Used to add gold to the player's held gold. Not permanent gold. </summary>
+        /// <param name="amount">The amount of gold to add to the player's bag.</param>
+        public void AddGold(int amount)
+        {
+            gold += amount;
         }
     }
 }
