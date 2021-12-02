@@ -53,7 +53,10 @@ public class Unit : MonoBehaviour, IDamageable
             }
 
             if (HealthBar != null)
+            {
                 HealthBar.value = _health;
+                HealthBar.GetComponentInChildren<Text>().text = value.ToString();
+            }
         }
     }
 
@@ -77,23 +80,13 @@ public class Unit : MonoBehaviour, IDamageable
     protected bool grounded = true;
 
     ///<summary>This determines if the unit just preformed a jump or not.</summary>
-    [HideInInspector]
     protected bool justJumped = false;
 
     ///<summary>This determines what direction the unit is facing.</summary>
     [HideInInspector]
     public bool facingRight;
 
-    ///<summary>This determines what direction the unit hit another unit.</summary>
-    [HideInInspector]
-    protected bool hitOnRight;
-
-    /// <summary>this determines if the unit can cast a spell or not</summary>
-    [HideInInspector]
-    protected bool canCast;
-
     /// <summary> this determines if the unit is on fire or not </summary>
-    [HideInInspector]
     protected bool onFire;
 
     /// <summary> this determines if the unit is poisoned or not </summary>
@@ -102,44 +95,24 @@ public class Unit : MonoBehaviour, IDamageable
     public bool poisoned;
 
     /// <summary> this determines if the unit has recently taken ticking poison damage </summary>
-    [HideInInspector]
-    protected bool poisonDamageTaken;
+    private bool poisonDamageTaken;
 
     /// <summary> this determines if the unit has recently taken ticking fire damage </summary>
-    [HideInInspector]
-    protected bool fireDamageTaken;
+    private bool fireDamageTaken;
     #endregion
     
     #region Unit's Attacks
-
-    ///<summary>This is the cool down between melee attacks for the unit .</summary>
-    [HideInInspector]
-    protected float attackCoolDown =  1f;
-
-    ///<summary>This trakcs when the unit can deal damage again.</summary>
-    [HideInInspector]
-    protected float nextDamageEvent;
-
-
-    ///// <summary> This determines how fast a Unit can cast spells </summary>
-    //[HideInInspector]
-    //protected float spellCastRate = 1f;
-
     /// <summary> this determines how long the unit will be on fire for</summary>
-    [HideInInspector]
     protected float onFireDuration;
 
     /// <summary> this determines how much damage per tick will be applied to the unit</summary>
-    [HideInInspector]
     protected int onFireDamage;
 
     /// <summary> this determines how quickly on fire damage will tick against health </summary>
- [HideInInspector]
-    protected float onFireDamageRate = 1f;
+    private float onFireDamageRate = 1f;
 
     /// <summary> This determines the delay between taking on fire damage</summary>
-    [HideInInspector]
-    protected float onFireDamageDelay = 2f;
+    private float onFireDamageDelay = 2f;
 
     /// <summary> this determines how long the unit will be on fire for</summary>
     [HideInInspector]
@@ -223,4 +196,8 @@ public class Unit : MonoBehaviour, IDamageable
     }
 
     #endregion
+    
+    
+    
+    
 }
