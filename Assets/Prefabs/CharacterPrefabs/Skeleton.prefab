@@ -205,7 +205,7 @@ MonoBehaviour:
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
   _rigidBody: {fileID: 2982838568778839160}
   m_render: {fileID: 2982838568778839163}
-  contactDamage: 0
+  contactDamage: 1
   facingRightLocal: 0
   yDistance: 0
   jumpVelocity: 7
@@ -664,6 +664,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2275206346662444220, guid: 55a3d8768dca86049b1f21d3eb50f93d, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: -8468983757882266563, guid: 6ca048b1f16caf34698c16b95c6dc830, type: 3}
     - target: {fileID: 919132149155446097, guid: 55a3d8768dca86049b1f21d3eb50f93d, type: 3}
       propertyPath: m_Name
       value: skeleton_archer
