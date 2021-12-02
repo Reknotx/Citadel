@@ -145,12 +145,16 @@ public class GoldHandler : MonoBehaviour
     /// </summary>
     private float elapsed = 0f;
 
+
+    public PlayerInventory player;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
             Destroy(Instance.gameObject);
 
         Instance = this;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInventory>();
     }
 
 
@@ -199,6 +203,7 @@ public class GoldHandler : MonoBehaviour
             {
                 revenue = baseGoldIncrease + (numOfMiners * minerIncrease) + (numOfCarts * cartIncrease) + (numOfPicks * pickIncrease) + (numOfMoles * moleIncrease) + (numOfWizards * wizardIncrease);
                 AddHardGold(revenue);
+                player.
             }
             elapsed = 0f;
         }
