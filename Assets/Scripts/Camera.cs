@@ -15,7 +15,7 @@ public class Camera : MonoBehaviour
 {
     ///<summary>This targets the camera to the player.</summary>
     public Transform target;
-
+    
     public float smoothSpeed;
 
     public Vector3 offset;

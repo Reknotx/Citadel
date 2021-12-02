@@ -232,26 +232,33 @@ public class Goblin : Enemy
         goblinAttack_L.SetActive(false);
     }
 
-    
+    ///// <summary> this allows the weapons collider to interact with things </summary>
+    //public IEnumerator lightAttackCoroutine()
+    //{
+    //    _lightCollider.enabled = true;
+    //    yield return new WaitForSeconds(.8f);
+    //    _lightCollider.enabled = false;
+    //}
 
-    public void GoblinMeleeAttack()
-    {
-        if (Time.time >= nextDamageEvent)
-        {
-            nextDamageEvent = Time.time + attackCoolDown;
-            if (facingRight == true)
-            {
-                _lightCollider.transform.position = goblinAttack_R.transform.position;
-                _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale / 2);
-                StartCoroutine(lightAttackCoroutine());
 
-            }
-            else
-            {
-                _lightCollider.transform.position = goblinAttack_L.transform.position;
-                _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
-                StartCoroutine(lightAttackCoroutine());
-            }
-        }
-    }
+    //public void GoblinMeleeAttack()
+    //{
+        //if (Time.time >= nextDamageEvent)
+        //{
+        //    nextDamageEvent = Time.time + attackCoolDown;
+        //    if (facingRight == true)
+        //    {
+        //        _lightCollider.transform.position = goblinAttack_R.transform.position;
+        //        _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale / 2);
+        //        StartCoroutine(lightAttackCoroutine());
+
+        //    }
+        //    else
+        //    {
+        //        _lightCollider.transform.position = goblinAttack_L.transform.position;
+        //        _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
+        //        StartCoroutine(lightAttackCoroutine());
+        //    }
+        //}
+    //}
 }

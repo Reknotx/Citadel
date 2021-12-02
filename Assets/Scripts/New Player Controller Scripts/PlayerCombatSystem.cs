@@ -24,7 +24,9 @@ namespace CombatSystem
         public PlayerMeleeSystem meleeSystem;
         public PlayerSpellSystem spellSystem;
 
+        [HideInInspector]
         public Slider healthBar;
+        [HideInInspector]
         public Slider manaBar;
 
 
