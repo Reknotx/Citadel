@@ -246,7 +246,7 @@ public class Goblin : Enemy
     }
 
     
-
+    /*
     public void GoblinMeleeAttack()
     {
         if (Time.time >= nextDamageEvent)
@@ -268,4 +268,5 @@ public class Goblin : Enemy
             }
         }
     }
+    */
 }
