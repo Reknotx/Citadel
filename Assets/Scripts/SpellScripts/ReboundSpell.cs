@@ -82,6 +82,7 @@ public class ReboundSpell : Spell
     {
         movingSpell = false;
         player = GameObject.FindGameObjectWithTag("Player");
+        PlayerAnimationManager.Instance.ActivateTrigger("castRebound");
         facingRight = player.GetComponent<NewPlayer>().facingRight;
 
         damage = stats.damage;
