@@ -48,13 +48,13 @@ public class Orc : Enemy
 
         base.Update();
 
-        if(Vector2.Distance(transform.position, base.player.transform.position) <= orcMeleeRange)
-        {
-           if (canAttack)
-            {
-                OrcAttack();
-            }
-        }
+        //if(Vector2.Distance(transform.position, base.player.transform.position) <= orcMeleeRange)
+        //{
+        //    if (canAttack)
+        //    {
+        //        OrcAttack();
+        //    }
+        //}
 
 
         
@@ -62,23 +62,29 @@ public class Orc : Enemy
 
     private void OrcAttack()
     {
-        if (facingRight)
-        {
-            StartCoroutine(WaitBetweenVisual_Right());
-           
-            StartCoroutine(WaitBetweenAttack());
-            
-            player.GetComponent<NewPlayer>().TakeDamage(orcDamage); 
-            
-        }
-        else
-        {
-            StartCoroutine(WaitBetweenVisual_Left());
-            
-            StartCoroutine(WaitBetweenAttack());
-
-            player.GetComponent<NewPlayer>().TakeDamage(orcDamage);
-        }
+        // if (facingRight)
+        // {
+        //     StartCoroutine(WaitBetweenVisual_Right());
+        //    
+        //     StartCoroutine(WaitBetweenAttack());
+        //
+        //     if(player.invulnActive == false)
+        //     {
+        //         player.TakeDamage(orcDamage);
+        //     }
+        //     
+        // }
+        // else
+        // {
+        //     StartCoroutine(WaitBetweenVisual_Left());
+        //     
+        //     StartCoroutine(WaitBetweenAttack());
+        //
+        //     if (player.invulnActive == false)
+        //     {
+        //         player.TakeDamage(orcDamage);
+        //     }
+        // }
     }
 
     IEnumerator WaitBetweenAttack()

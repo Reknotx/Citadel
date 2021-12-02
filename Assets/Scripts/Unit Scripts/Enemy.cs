@@ -16,11 +16,18 @@ public class Enemy : Unit
 {
     public LootTable enemyLootTable;
 
+    [HideInInspector]
+    ///<summary>This determines whether the unit is on a platform or not.</summary>
+    public bool onPlatform;
+
+    [HideInInspector]
+    ///<summary>This determines whether the unit is going through a platform or not.</summary>
+    public bool throughPlatform;
 
     #region Enemy Stats
 
     #region Enemy's Base Stats/Important Controls
- 
+
 
     ///<summary>This is the players Input system.</summary>
     private PlayerInputActions playerInputActions;
