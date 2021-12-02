@@ -293,6 +293,7 @@ public class Enemy : Unit
         ///<summary> this damages the enemy over time if they are on fire</summary>
         if (onFire == true)
         {
+            
             TakeDamage(onFireDamage * Time.deltaTime);
         }
 
@@ -393,7 +394,7 @@ public class Enemy : Unit
     }
 
     #endregion
-
+    private bool PopUpOut = false;
     [Range(0f, 100f)]
     public float percentChanceToDropItem = 40f;
 
@@ -414,9 +415,21 @@ public class Enemy : Unit
             }
         }
         //DamagePopup.Create(transform.position, (int)amount);
-        DamagePopup.Create(transform.position, amount);
+
+        if (!PopUpOut)
+        {
+            DamagePopup.Create(transform.position, amount);
+            StartCoroutine(DmgPopUp());
+        }
 
         base.TakeDamage(amount);
+    }
+
+    IEnumerator DmgPopUp()
+    {
+        PopUpOut = true;
+        yield return new WaitForSeconds(0.5f);
+        PopUpOut = false;
     }
 
 }
