@@ -4,6 +4,9 @@
  * 
  * Brief:this script holds the similar 
  * components/data of all Units in the game 
+ * 
+ * Edited heavily by Chase O'Connor for clean up
+ * and new player system
  */
 
 
@@ -12,6 +15,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using UnityEngine.Serialization;
 
 public class Unit : MonoBehaviour, IDamageable
 {
@@ -29,9 +34,9 @@ public class Unit : MonoBehaviour, IDamageable
    
     #endregion
     #region Health
-    [SerializeField]
     protected float _health;
 
+    public Slider HealthBar;
 
     ///<summary>This is the units health.</summary>
     public virtual float Health
@@ -47,40 +52,23 @@ public class Unit : MonoBehaviour, IDamageable
                 ///Destroy the object here
                 Destroy(gameObject);
             }
+
+            if (HealthBar != null)
+                HealthBar.value = _health;
         }
     }
 
     ///<summary>The player's maximum health.</summary>
-    private float _maxHealth;
+    [SerializeField]
+    private float maxHealth;
 
     public float MaxHealth
     {
-        get => _maxHealth;
-        set { _maxHealth = value; }
+        get => maxHealth;
+        set => maxHealth = value;
     }
     #endregion
 
-
-    #endregion
-
-    #region Unit's Attached Colliders/Gameobjects
-    [Header("unit colliders/ground detection")]
-
-
-    ///<summary>This is the unit's collider that detects the ground.</summary>
-    [SerializeField]
-    [HideInInspector]
-    public Collider _groundCollider;
-    ///<summary>This is the unit's collider that detects the ground.</summary>
-    [SerializeField]
-    [HideInInspector]
-    protected Collider _platformCollider;
-
-
-    ///<summary>This dis the units collider for their light attack.</summary>
-    [SerializeField]
-    [HideInInspector]
-    protected Collider _lightCollider;
 
     #endregion
 
@@ -88,14 +76,6 @@ public class Unit : MonoBehaviour, IDamageable
 
     ///<summary>This determines whether the unit is on the ground or not.</summary>
     protected bool grounded = true;
-
-    [HideInInspector]
-    ///<summary>This determines whether the unit is on a platform or not.</summary>
-    public bool onPlatform;
-
-    [HideInInspector]
-    ///<summary>This determines whether the unit is going through a platform or not.</summary>
-    public bool throughPlatform;
 
     ///<summary>This determines if the unit just preformed a jump or not.</summary>
     [HideInInspector]
@@ -124,7 +104,7 @@ public class Unit : MonoBehaviour, IDamageable
 
     /// <summary> this determines if the unit has recently taken ticking poison damage </summary>
     [HideInInspector]
-    public bool poisonDamageTaken;
+    protected bool poisonDamageTaken;
 
     /// <summary> this determines if the unit has recently taken ticking fire damage </summary>
     [HideInInspector]
@@ -141,13 +121,10 @@ public class Unit : MonoBehaviour, IDamageable
     [HideInInspector]
     protected float nextDamageEvent;
 
-    /// <summary> This is the time units must wait between casting spells </summary>
-    [HideInInspector]
-    protected float spellCastDelay;
 
-    /// <summary> This determines how fast a Unit can cast spells </summary>
-    [HideInInspector]
-    protected float spellCastRate = 1f;
+    ///// <summary> This determines how fast a Unit can cast spells </summary>
+    //[HideInInspector]
+    //protected float spellCastRate = 1f;
 
     /// <summary> this determines how long the unit will be on fire for</summary>
     [HideInInspector]
@@ -185,7 +162,9 @@ public class Unit : MonoBehaviour, IDamageable
 
     public virtual void Awake()
     {
-        MaxHealth = Health;
+        if (HealthBar != null)
+            HealthBar.maxValue = MaxHealth;
+        Health = MaxHealth;
     }
 
     public virtual void Start()
@@ -195,10 +174,7 @@ public class Unit : MonoBehaviour, IDamageable
 
     public virtual void Update()
     {
-      
-
-
-        ///<summary>this determines if the unit can take damage from a initially cast fire spell</summary>
+        //this determines if the unit can take damage from a initially cast fire spell
         onFireDamageDelay -= Time.deltaTime * onFireDamageRate;
         if (onFireDamageDelay <= 0)
         {
@@ -231,21 +207,6 @@ public class Unit : MonoBehaviour, IDamageable
     
    
     #region IEnumerator Coroutines
-   
-
-
-    /// <summary> this allows the weapons collider to interact with things </summary>
-    public IEnumerator lightAttackCoroutine()
-    {
-        _lightCollider.enabled = true;
-        yield return new WaitForSeconds(.8f);
-        _lightCollider.enabled = false;
-    }
-
-
-
-    
-
     public IEnumerator onFireCoroutine ()
     {
         
