@@ -153,7 +153,7 @@ public class Enemy : Unit
     private float calculateHealth;
 
     [SerializeField]
-    private Transform pfDamagePopup;
+   // private Transform pfDamagePopup;
 
 
     public override float Health
@@ -364,6 +364,7 @@ public class Enemy : Unit
         ///<summary> this damages the enemy over time if they are on fire</summary>
         if (onFire == true)
         {
+            
             TakeDamage(onFireDamage * Time.deltaTime);
         }
 
@@ -470,7 +471,7 @@ public class Enemy : Unit
     }
 
     #endregion
-
+    private bool PopUpOut = false;
     [Range(0f, 100f)]
     public float percentChanceToDropItem = 40f;
 
@@ -500,7 +501,12 @@ public class Enemy : Unit
             
         }
         //DamagePopup.Create(transform.position, (int)amount);
-        DamagePopup.Create(transform.position, amount);
+
+        if (!PopUpOut)
+        {
+            DamagePopup.Create(transform.position, amount);
+            StartCoroutine(DmgPopUp());
+        }
 
         
     }
@@ -525,6 +531,13 @@ public class Enemy : Unit
         Astar.enabled = false;
         yield return new WaitForSeconds(waitTime);
         Destroy(this.gameObject);
+    }
+
+    IEnumerator DmgPopUp()
+    {
+        PopUpOut = true;
+        yield return new WaitForSeconds(0.5f);
+        PopUpOut = false;
     }
 
 }
