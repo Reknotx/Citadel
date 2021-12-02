@@ -512,6 +512,7 @@ public class Enemy : Unit
     public IEnumerator deathCoroutine()
     {
         var waitTime = 4f;
+        Astar.enabled = false;
         yield return new WaitForSeconds(waitTime);
         Destroy(this.gameObject);
     }

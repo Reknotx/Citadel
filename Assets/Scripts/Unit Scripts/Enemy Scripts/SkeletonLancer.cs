@@ -74,6 +74,11 @@ public class SkeletonLancer : Enemy
             HealthIMG.gameObject.SetActive(false);
         }*/
 
+        if(isDead)
+        {
+            isDashing = false;
+        }
+
         if (isDashing)
         {
 

@@ -61,6 +61,11 @@ public class Skeleton : Enemy
             HealthIMG.gameObject.SetActive(false);
         }*/
 
+        if(isDead)
+        {
+            canShoot = false;
+        }
+
         if (Vector2.Distance(transform.position, player.transform.position) <= skeletonShootingDistance)
         {
             if (canShoot)
