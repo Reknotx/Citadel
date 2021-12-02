@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0.99999946, b: 0.99999946, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.92282265, b: 0.92282265, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -132,7 +132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 875725707}
-  - component: {fileID: 875725708}
   m_Layer: 0
   m_Name: pfDamagePopup
   m_TagString: Untagged
@@ -154,20 +153,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &875725708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875725706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 045158e11f628604d934218be14415a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pfDamagePopup: {fileID: 1607627505768768750, guid: 379fde1e6e004b94eaea14114ee2ffd3, type: 3}
-  popupText: {fileID: 0}
 --- !u!1 &1348896160
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,50 +227,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1729734566
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1729734568}
-  - component: {fileID: 1729734567}
-  m_Layer: 0
-  m_Name: GameAssets
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1729734567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1729734566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3e22cbc789ee6b4db1bd11165a9df09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pfDamagePopup: {fileID: 1607627505768768746, guid: 379fde1e6e004b94eaea14114ee2ffd3, type: 3}
---- !u!4 &1729734568
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1729734566}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 742.38257, y: 779.019, z: -20.041382}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1741357473
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -347,7 +288,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8874638582064189755, guid: 0d7525fe95d7d1649a528a67c5b9d13d, type: 3}
       propertyPath: data.dataString
-      value: UEsDBBQAAAgIAACAn+uwUuxPhwIAAEYFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVMty4jAQ/BVK54XyCxv2tuuQZA9JqJCtXHyR5TFWYUsuPQIkxb+vJNvYYU+Inp5R98zIX4gy2QJRXDwIWjzxAtDPGbJn9GM2Bh/hhPec7egnDJx3WqjKkrDjvGJFucF9myZ5A0pQ8ovta0v2DKgZLbloNsUeUi6VNHCJawkmJLiy2cxAXzN0Mj/ztU05m1OQ2NOnOa292cUcCTAFYqT6QbJIlj3bXw7kRRAmXrzczP3IpWlGaty0UFgPY3awjBZDcrB2TGYM9iTPxQivayp7fUidW+c/xa3Uxp0hFBQbv06UtV8B3VfKFpwmv5SlBNU3Q+DzHRWmbV1V9Jt3vWywPHTiPnCt7T3zwI+SaBXG0cqp64o//c/zY9+L/dAPfMcrBW8eByG+Zy9VFSWHV3wmWKpJ96fw3Xcnmh1xfcB5De8VsGf+ILhmxSRXSwjuJv+vbtMKiFWohIar6htQt+MchnH7i2S18sN1HG7mXtIPc24sXVx3TmlNm9xNJuqAXc3bYcVAmNH9MfLdNskRtYr+SnjD++na9YF7KqQyod4zs1JzroWloo3roHWmVcoFAwf3BlpguFbnrSmjbid8E5tcexO5x/aB9Zf3seHd3KQ4eOR73k1oy4/X0cmKH59AVi9a1ZTBKNoGnk2fUs5Yt4DTngxpOy1KTCZpe02L7xuHEgxFHudeGUYhwTmZ56tlHpOIROGyXIfBCrlNpMz4xPW2E9q3xwyNjcWZ2Tpb8ZXzZjZ8fAqBjw/0s+GTjlNW8h0RAOylK3DVDcLcYV5tsSmo6c8OlKLMjRt9Zajm5ABFdi2UOaObkxI4G6tkqKUfXFkkQ6n7zmTIwte13gr4oHC0lw/FLujyD1BLAwQUAAAICAAAgJ/rGh++p20AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0knliakqSWZJBmrGJcXJiUrJukoVpklmySbKJsWmapbGRhVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAgJ/rsFLsT4cCAABGBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAgJ/rGh++p20AAAB4AAAACQAkAAAAAAAAAAAAAADUAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAIwDAAAAAA==
+      value: UEsDBBQAAAgIAACAn+tfFp/BfQIAADgFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMziXjLzD01jok6SENE9rJxRdZXmMNsuTRR4Bk+O+VZBs79IR4+3b13u7Kn4hy1QLRQj5KWj6LEtD3GXJn9G02Bp/ghPeC7+gHDJw3WurakbDnvGJNhcVDl6ZEA1pS8oPvmSMHFjScVkI2m3IPmVBaWbjCTIENSaFdNrfQ5wyd7M987VLO9hSl7vRhT+tgdrFHAlyDHKlhlN6li54dLnpyxzWcMNy0UDrhY0q0HoqvPY1bSz0juHMViGCMql4R0ufWO85wq4z1Ywklxdahl+EM10D3tXYFp8kvVaVA9/YlPt9TaRvVVUU/Rde9BqtDp+wdM+PumUdhkiareJmsvLqu+PP/vHAZBsswDqPQ8yopmqdBSBi4S3VNyeEVnwlWetLvKXz/1YnhR8wOuGDwVgP/LR6lMLyc5BoF0f3k/9VtVgNxCrU0cFV9A5p2HMIw4PAuXa3CeL2MN/Mg7cc3t5YuvjunjNGm8JNJOmDHRDssFUg7ul9Wvt8fNaJO0V8Ff/B+umh94IFKpW2o98yd1EIY6aho4zvonBmdCcnBw72BFjhm+ry1ZfTthG9ik2tvIg/YPan+8j42vJSbFA+P/CC4CW3F8To6VYvjM6j6xWhGOYyiXeC37VMmOO8WcNqTIW1nZIXJJG1vaPl141CKoSyWRVDFSUxwQebFalEsSUKSeFGt42iF/CZSbn1itu2E9u2xQ+NjcW63zlV8FaKZDZ+bUuLjI/1oxKTjlFdiRyQAf+kKXHWDtHfYV1tuSmr7swOtKffjRp85YoIcoMyvhXJvdHPSEudjlRy19F1oh+Qo81+WHDn4utZbCe8Uju7yodgFXf4BUEsDBBQAAAgIAACAn+saH76nbQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrSSeWJqSpJZkkGasYlxcmJSsm6ShWmSWbJJsomxaZqlsZGFUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAACAn+tfFp/BfQIAADgFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAACAn+saH76nbQAAAHgAAAAJACQAAAAAAAAAAAAAAMoCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAggMAAAAA
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d7525fe95d7d1649a528a67c5b9d13d, type: 3}
@@ -379,7 +320,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.9256128, g: 0.8392157, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
