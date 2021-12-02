@@ -10,12 +10,12 @@ public class PlayerInventory
     public int HealthPotions = 0;
     private const int _MaxHealthPotions = 5;
 
-    public bool HealthPotionSpace { get { return HealthPotions < _MaxHealthPotions; } }
+    public bool HealthPotionSpace => HealthPotions < _MaxHealthPotions;
 
     public int ManaPotions = 0;
     private const int _MaxManaPotions = 5;
 
-    public bool ManaPotionSpace { get { return ManaPotions < _MaxManaPotions; } }
+    public bool ManaPotionSpace => ManaPotions < _MaxManaPotions;
 
     public bool shuues = false;
     public bool undying = false;
@@ -81,16 +81,17 @@ public class PlayerInventory
         /// <summary>
         /// Adds the gold in the player's inventory to their permanent gold, and saves it.
         /// </summary>
-        public void AddGoldToStorage()
+        public void AddHeldGoldToStorage()
         {
             permanentGold += gold;
             PlayerPrefs.SetFloat(permGoldStorage, permanentGold);
             gold = 0;
         }
 
-        public void AddGoldFromMinesToStorage(int amount)
+        public void MineGoldToPermGold(int amount)
         {
             permanentGold += amount;
+            
         }
     }
 }
