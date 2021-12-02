@@ -99,7 +99,11 @@ public class NewPlayer : Unit, IDamageable
         set
         {
             _mana = value;
-            if (ManaBar != null) ManaBar.value = value;
+            if (ManaBar != null)
+            {
+                ManaBar.value = value;
+                ManaBar.GetComponentInChildren<Text>().text = value.ToString(); 
+            }
 
             combatSystem.spellSystem.UpdateSpellSystemUI(_mana);
         }
