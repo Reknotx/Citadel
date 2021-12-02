@@ -1181,18 +1181,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  _health: 40
-  _groundCollider: {fileID: 0}
-  _platformCollider: {fileID: 0}
-  _lightCollider: {fileID: 0}
-  onPlatform: 0
-  throughPlatform: 0
+  HealthBar: {fileID: 0}
+  maxHealth: 10
   facingRight: 0
   poisoned: 0
-  poisonDamageTaken: 0
   poisonedDuration: 5
   poisonedDamage: 0
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
+  onPlatform: 0
+  throughPlatform: 0
   _rigidBody: {fileID: 7116494046359205883}
   m_render: {fileID: 58997126835756005}
   contactDamage: 5
