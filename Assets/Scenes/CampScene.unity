@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.59062594, g: 0.6201522, b: 0.62113816, a: 1}
+  m_IndirectSpecularColor: {r: 0.5906246, g: 0.620151, b: 0.6211365, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -649,7 +649,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fe6e980a75e7b3847b9c8aff48f1da70, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe6e980a75e7b3847b9c8aff48f1da70, type: 3}
@@ -4092,6 +4092,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2538794694078608465, guid: 069fd06376c414145b66ada860487f28, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2538794694078608465, guid: 069fd06376c414145b66ada860487f28, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -4144,12 +4148,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6091635305826757835, guid: 069fd06376c414145b66ada860487f28, type: 3}
-      propertyPath: _mana
-      value: 100
+      propertyPath: maxMana
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091635305826757835, guid: 069fd06376c414145b66ada860487f28, type: 3}
+      propertyPath: maxHealth
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091635305826757835, guid: 069fd06376c414145b66ada860487f28, type: 3}
+      propertyPath: groundLayerMask.m_Bits
+      value: 2147484672
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091635305826757835, guid: 069fd06376c414145b66ada860487f28, type: 3}
+      propertyPath: platformLayerMask.m_Bits
+      value: 2048
       objectReference: {fileID: 0}
     - target: {fileID: 6091635305826757878, guid: 069fd06376c414145b66ada860487f28, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6804153462006229432, guid: 069fd06376c414145b66ada860487f28, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6804153462006229432, guid: 069fd06376c414145b66ada860487f28, type: 3}
       propertyPath: m_AnchorMax.y
