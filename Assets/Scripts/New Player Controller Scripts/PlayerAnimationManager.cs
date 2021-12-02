@@ -34,6 +34,12 @@ public class PlayerAnimationManager : MonoBehaviour
 
     }
 
+    public struct SpellAnimations
+    {
+        public static string ICICLE = "castIcicle";
+        public static string FIREWALL = "castFirewall";
+    }
+
     private Animator animator;
 
     private void Awake()
