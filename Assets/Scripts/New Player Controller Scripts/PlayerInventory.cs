@@ -78,9 +78,7 @@ public class PlayerInventory
             permanentGold = permGold != 0 ? permGold : 0;
         }
 
-        /// <summary>
-        /// Adds the gold in the player's inventory to their permanent gold, and saves it.
-        /// </summary>
+        /// <summary> Adds the gold in the player's inventory to their permanent gold, and saves it. </summary>
         public void AddHeldGoldToStorage()
         {
             permanentGold += gold;
@@ -88,10 +86,19 @@ public class PlayerInventory
             gold = 0;
         }
 
+        /// <summary> The amount of gold to add to the player's permanent gold from the mines. </summary>
+        /// <param name="amount">The amount of gold to add to our permanent storage</param>
         public void MineGoldToPermGold(int amount)
         {
             permanentGold += amount;
             PlayerPrefs.SetFloat(permGoldStorage, permanentGold);
+        }
+
+        /// <summary> Used to add gold to the player's held gold. Not permanent gold. </summary>
+        /// <param name="amount">The amount of gold to add to the player's bag.</param>
+        public void AddGold(int amount)
+        {
+            gold += amount;
         }
     }
 }
