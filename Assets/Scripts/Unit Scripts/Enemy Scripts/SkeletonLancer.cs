@@ -74,6 +74,11 @@ public class SkeletonLancer : Enemy
             HealthIMG.gameObject.SetActive(false);
         }*/
 
+        if(isDead)
+        {
+            isDashing = false;
+        }
+
         if (isDashing)
         {
 
@@ -107,6 +112,7 @@ public class SkeletonLancer : Enemy
 
     IEnumerator DashRight()
     {
+        isAttacking = true;
         Lance_R.SetActive(true);
         Astar.canMove = false;
         yield return new WaitForSeconds(1f);
@@ -118,6 +124,7 @@ public class SkeletonLancer : Enemy
 
     IEnumerator DashLeft()
     {
+        isAttacking = true;
         Lance_L.SetActive(true);
         Astar.canMove = false;
         yield return new WaitForSeconds(1f);
@@ -130,14 +137,20 @@ public class SkeletonLancer : Enemy
     IEnumerator Dash()
     {
         isDashing = true;
+        isAttacking = true;
         yield return new WaitForSeconds(1f);
         isDashing = false;
     }
 
     IEnumerator DashCooldown()
     {
+
         canDash = false;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
+        isAttacking = false;
+
+        yield return new WaitForSeconds(3f);
+       
         canDash = true;
     }
 }

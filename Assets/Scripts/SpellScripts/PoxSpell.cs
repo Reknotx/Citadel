@@ -31,8 +31,10 @@ public class PoxSpell : Spell
 
     public void Awake()
     {
+        
         movingSpell = false;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        PlayerAnimationManager.Instance.ActivateTrigger("castPox");
     }
 
     // Start is called before the first frame update

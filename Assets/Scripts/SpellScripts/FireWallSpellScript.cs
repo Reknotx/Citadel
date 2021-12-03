@@ -45,6 +45,11 @@ public class FireWallSpellScript : Spell
 
     #endregion
 
+    private void Awake()
+    {
+        PlayerAnimationManager.Instance.ActivateTrigger("castFirewall");
+    }
+
     public void FixedUpdate()
     {
         ///<summary> switches the colliders and renderers enabled state of the cast's to the wall's</summary>

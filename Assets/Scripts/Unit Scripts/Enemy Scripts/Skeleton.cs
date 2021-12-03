@@ -61,6 +61,11 @@ public class Skeleton : Enemy
             HealthIMG.gameObject.SetActive(false);
         }*/
 
+        if(isDead)
+        {
+            canShoot = false;
+        }
+
         if (Vector2.Distance(transform.position, player.transform.position) <= skeletonShootingDistance)
         {
             if (canShoot)
@@ -68,7 +73,10 @@ public class Skeleton : Enemy
                 
                 if (Mathf.Abs(yDistance) < 2)
                 {
+
+                    isAttacking = true;
                     //transform.LookAt(player.transform);
+                    shootLocation = player.transform;
                     Instantiate(projectile, shootLocation.position, Quaternion.identity);
                     StartCoroutine(ProjectileCooldown());
                 }
@@ -123,6 +131,8 @@ public class Skeleton : Enemy
     IEnumerator ProjectileCooldown()
     {
         canShoot = false;
+        yield return new WaitForSeconds(1f);
+        isAttacking = false;
         yield return new WaitForSeconds(1f);
         canShoot = true;
     }

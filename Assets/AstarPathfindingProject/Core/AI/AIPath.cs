@@ -337,14 +337,19 @@ namespace Pathfinding {
 			path = null;
 			interpolator.SetPath(null);
 			reachedEndOfPath = false;
+            
 		}
 
 		/// <summary>Called during either Update or FixedUpdate depending on if rigidbodies are used for movement or not</summary>
 		protected override void MovementUpdateInternal (float deltaTime, out Vector3 nextPosition, out Quaternion nextRotation) {
 			float currentAcceleration = maxAcceleration;
+            
 
-			// If negative, calculate the acceleration from the max speed
-			if (currentAcceleration < 0) currentAcceleration *= -maxSpeed;
+          
+
+
+            // If negative, calculate the acceleration from the max speed
+            if (currentAcceleration < 0) currentAcceleration *= -maxSpeed;
 
 			if (updatePosition) {
 				// Get our current position. We read from transform.position as few times as possible as it is relatively slow
@@ -374,6 +379,7 @@ namespace Pathfinding {
 			// Check if we have a valid path to follow and some other script has not stopped the character
 			bool stopped = isStopped || (reachedDestination && whenCloseToDestination == CloseToDestinationMode.Stop);
 			if (interpolator.valid && !stopped) {
+               
 				// How fast to move depending on the distance to the destination.
 				// Move slower as the character gets closer to the destination.
 				// This is always a value between 0 and 1.
@@ -382,15 +388,17 @@ namespace Pathfinding {
 				if (reachedEndOfPath && whenCloseToDestination == CloseToDestinationMode.Stop) {
 					// Slow down as quickly as possible
 					velocity2D -= Vector2.ClampMagnitude(velocity2D, currentAcceleration * deltaTime);
-				} else {
+                   
+                } else {
 					velocity2D += MovementUtilities.CalculateAccelerationToReachPoint(dir, dir.normalized*maxSpeed, velocity2D, currentAcceleration, rotationSpeed, maxSpeed, forwards) * deltaTime;
 				}
 			} else {
 				slowdown = 1;
 				// Slow down as quickly as possible
 				velocity2D -= Vector2.ClampMagnitude(velocity2D, currentAcceleration * deltaTime);
+               
 			}
-
+            
 			velocity2D = MovementUtilities.ClampVelocity(velocity2D, maxSpeed, slowdown, slowWhenNotFacingTarget && enableRotation, forwards);
 
 			ApplyGravity(deltaTime);
@@ -403,7 +411,8 @@ namespace Pathfinding {
 		}
 
 		protected virtual void CalculateNextRotation (float slowdown, out Quaternion nextRotation) {
-			if (lastDeltaTime > 0.00001f && enableRotation) {
+            
+            if (lastDeltaTime > 0.00001f && enableRotation) {
 				Vector2 desiredRotationDirection;
 				desiredRotationDirection = velocity2D;
 

@@ -85,6 +85,11 @@ public class Goblin : Enemy
             Astar.canMove = true;
         }*/
 
+        if(isDead)
+        {
+            canLunge = false;
+        }
+
         if(distanceToPlayer < followDistance)
         {
             GoblinSpotted = true;
@@ -105,9 +110,9 @@ public class Goblin : Enemy
         {
             if (facingRight)
             {
-
+                
                 StartCoroutine(LungeRight());
-
+                
                 StartCoroutine(WaitBetweenAttack());
 
             }
@@ -115,7 +120,7 @@ public class Goblin : Enemy
             {
 
                 StartCoroutine(LungeLeft());
-
+                
                 StartCoroutine(WaitBetweenAttack());
 
             }
@@ -160,6 +165,7 @@ public class Goblin : Enemy
 
     private void GoblinAttack()
     {
+        
         if (facingRight)
         {
             StartCoroutine(WaitBetweenVisual_Right());
@@ -184,15 +190,18 @@ public class Goblin : Enemy
     IEnumerator Lunge()
     {
         canLunge = true;
+        isAttacking = true;
+        animator.SetBool("isAttacking", isAttacking);
         yield return new WaitForSeconds(1f);
         canLunge = false;
     }
 
     IEnumerator LungeLeft()
     {
+        
         StartCoroutine(WaitBetweenVisual_Left());
         _rigidBody.AddForce(transform.right * goblinDashForce);
-        Debug.Log("Hey Andrew it added the force");
+        //Debug.Log("Hey Andrew it added the force");
         if(distanceToPlayer <= 1)
         {
             playerLife.TakeDamage(goblinDamage);
@@ -202,6 +211,7 @@ public class Goblin : Enemy
     }
     IEnumerator LungeRight()
     {
+        
         StartCoroutine(WaitBetweenVisual_Right());
         _rigidBody.AddForce(-transform.right * goblinDashForce);
         if (distanceToPlayer <= 1)
@@ -214,8 +224,11 @@ public class Goblin : Enemy
     IEnumerator WaitBetweenAttack()
     {
         canAttack = false;
+        
         yield return new WaitForSeconds(2f);
         canAttack = true;
+        isAttacking = false;
+        animator.SetBool("isAttacking", isAttacking);
     }
 
     IEnumerator WaitBetweenVisual_Right()
@@ -232,33 +245,28 @@ public class Goblin : Enemy
         goblinAttack_L.SetActive(false);
     }
 
-    ///// <summary> this allows the weapons collider to interact with things </summary>
-    //public IEnumerator lightAttackCoroutine()
-    //{
-    //    _lightCollider.enabled = true;
-    //    yield return new WaitForSeconds(.8f);
-    //    _lightCollider.enabled = false;
-    //}
+    
+    /*
+    public void GoblinMeleeAttack()
+    {
+        if (Time.time >= nextDamageEvent)
+        {
+            
+            nextDamageEvent = Time.time + attackCoolDown;
+            if (facingRight == true)
+            {
+                _lightCollider.transform.position = goblinAttack_R.transform.position;
+                _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale / 2);
+                StartCoroutine(lightAttackCoroutine());
 
-
-    //public void GoblinMeleeAttack()
-    //{
-        //if (Time.time >= nextDamageEvent)
-        //{
-        //    nextDamageEvent = Time.time + attackCoolDown;
-        //    if (facingRight == true)
-        //    {
-        //        _lightCollider.transform.position = goblinAttack_R.transform.position;
-        //        _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale / 2);
-        //        StartCoroutine(lightAttackCoroutine());
-
-        //    }
-        //    else
-        //    {
-        //        _lightCollider.transform.position = goblinAttack_L.transform.position;
-        //        _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
-        //        StartCoroutine(lightAttackCoroutine());
-        //    }
-        //}
-    //}
+            }
+            else
+            {
+                _lightCollider.transform.position = goblinAttack_L.transform.position;
+                _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
+                StartCoroutine(lightAttackCoroutine());
+            }
+        }
+    }
+    */
 }

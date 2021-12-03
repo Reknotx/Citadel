@@ -75,7 +75,7 @@ public class Enemy : Unit
     RaycastHit hit;
 
     ///<summary>This targets the player for the Enemy.</summary>
-    [HideInInspector]
+    //[HideInInspector]
     public GameObject player;
 
     public bool GoblinSpotted = false;
@@ -123,11 +123,19 @@ public class Enemy : Unit
 
 
     #endregion
+    #region Enemy Animations
+    public Animator animator;
+    public bool isAttacking;
+    public bool isDead;
+    public bool isMoving;
 
     #endregion
 
+    private bool lootDropped = false;
+    #endregion
 
-    
+
+
 
     [HideInInspector]
     public bool seenByCamera = false;
@@ -145,7 +153,38 @@ public class Enemy : Unit
     private float calculateHealth;
 
     [SerializeField]
-    private Transform pfDamagePopup;
+   // private Transform pfDamagePopup;
+
+
+    public override float Health
+    {
+        get => _health;
+        set
+        {
+            _health = value;
+
+            if (_health <= 0)
+            {
+                isDead = true;
+                
+            }
+        }
+    }
+
+    public override void Awake()
+    {
+        base.Awake();
+        player = GameObject.FindGameObjectWithTag("Player");
+        Astar = GetComponent<AIPath>();
+        normalSpeed = speed;
+        HealthIMG.gameObject.SetActive(false);
+        if (animator != null)
+        {
+            animator.SetBool("isMoving", isMoving);
+            animator.SetBool("isAttacking", isAttacking);
+            animator.SetBool("isDead", isDead);
+        }
+    }
 
     public override void Start()
     {
@@ -158,10 +197,21 @@ public class Enemy : Unit
         Astar = GetComponent<AIPath>();
 
         HealthIMG.gameObject.SetActive(false);
+
+        if (animator != null)
+        {
+            animator.SetBool("isMoving", isMoving);
+            animator.SetBool("isAttacking", isAttacking);
+            animator.SetBool("isDead", isDead);
+        }
     }
 
     public override void Update()
     {
+        if(isDead == true)
+        {
+            StartCoroutine(deathCoroutine());
+        }
 
         if (killThis) TakeDamage(1000);
 
@@ -181,13 +231,22 @@ public class Enemy : Unit
         }
 
 
+        if (animator != null)
+        {
+            animator.SetBool("isMoving", isMoving);
+            animator.SetBool("isAttacking", isAttacking);
+            animator.SetBool("isDead", isDead);
+        }
+
         #region Enemy AI Movement
         Move();
         #endregion
 
-        yDistance = player.transform.position.y - transform.position.y;
+        
 
         distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+
+        yDistance = player.transform.position.y - transform.position.y;
 
         if (!GoblinSpotted)
         {
@@ -213,6 +272,8 @@ public class Enemy : Unit
                 }
             }
         }
+
+        StartCoroutine(movingTest());
 
         if (grounded)
         {
@@ -303,6 +364,7 @@ public class Enemy : Unit
         ///<summary> this damages the enemy over time if they are on fire</summary>
         if (onFire == true)
         {
+            
             TakeDamage(onFireDamage * Time.deltaTime);
         }
 
@@ -332,10 +394,6 @@ public class Enemy : Unit
     {
         if (seenByCamera)
         {
-            if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-            }
 
             if (transform.position.x - player.transform.position.x > 0)
             {
@@ -347,6 +405,16 @@ public class Enemy : Unit
             {
                 facingRight = false;
             }
+
+
+            if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+            {
+                
+                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+               
+            }
+
+          
         }
     }
     #endregion
@@ -364,13 +432,16 @@ public class Enemy : Unit
         if (other.gameObject.tag == "swordHeavy")
         {
             hitOnRight = player.GetComponent<NewPlayer>().facingRight;
-
+            
+            Debug.Log("DamagePopup");
             _rigidBody.AddForce(new Vector3(hitOnRight ? 5 : -5, 0, 0), ForceMode.Impulse);
         }
 
         if (other.gameObject.layer == 7 || other.gameObject.layer == 12)
         {
             NewPlayer.Instance.TakeDamage(contactDamage);
+            
+            Debug.Log("DamagePopup");
             return;
         }
 
@@ -400,30 +471,73 @@ public class Enemy : Unit
     }
 
     #endregion
-
+    private bool PopUpOut = false;
     [Range(0f, 100f)]
     public float percentChanceToDropItem = 40f;
 
     public override void TakeDamage(float amount)
     {
-        if (Health - amount <= 0)
+        var currentHealth = Health;
+        base.TakeDamage(amount);
+
+        if (currentHealth - amount <= 0)
         {
-            float dropYes = Random.Range(0f, 100f);
-
-            if (dropYes >= percentChanceToDropItem) return;
-
-            GameObject item = enemyLootTable.Drop();
-
-            if (item != null)
+            if(lootDropped == false)
             {
-                //Debug.Log("Success");
-                Instantiate(item, transform.position, Quaternion.identity);
+                contactDamage = 0;
+                lootDropped = true;
+                float dropYes = Random.Range(0f, 100f);
+
+                if (dropYes >= percentChanceToDropItem) return;
+
+                GameObject item = enemyLootTable.Drop();
+
+                if (item != null)
+                {
+                    //Debug.Log("Success");
+                    Instantiate(item, transform.position, Quaternion.identity);
+                }
             }
+            
         }
         //DamagePopup.Create(transform.position, (int)amount);
 
+        if (!PopUpOut)
+        {
+            DamagePopup.Create(transform.position, amount);
+            StartCoroutine(DmgPopUp());
+        }
 
-        base.TakeDamage(amount);
+        
+    }
+
+    public IEnumerator movingTest()
+    {
+        var testPos = this.transform.position;
+        yield return new WaitForSeconds(1f);
+        if(testPos == this.transform.position)
+        {
+            isMoving = false;
+        }
+        else
+        {
+            isMoving = true;
+        }
+    }
+
+    public IEnumerator deathCoroutine()
+    {
+        var waitTime = 4f;
+        Astar.enabled = false;
+        yield return new WaitForSeconds(waitTime);
+        Destroy(this.gameObject);
+    }
+
+    IEnumerator DmgPopUp()
+    {
+        PopUpOut = true;
+        yield return new WaitForSeconds(0.5f);
+        PopUpOut = false;
     }
 
 }
