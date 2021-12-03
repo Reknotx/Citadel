@@ -90,7 +90,7 @@ public class Goblin : Enemy
             canLunge = false;
         }
 
-        if(distanceToPlayer < followDistance)
+        if(distanceToPlayer < followDistance && !isDead)
         {
             GoblinSpotted = true;
         }
@@ -106,7 +106,7 @@ public class Goblin : Enemy
                 
             }
         }
-        if (canLunge)
+        if (canLunge && !isDead)
         {
             if (facingRight)
             {
