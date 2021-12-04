@@ -212,7 +212,6 @@ public class Enemy : Unit
         {
             this.GetComponent<BoxCollider>().enabled = false;
             _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
-            
             StartCoroutine(deathCoroutine());
         }
 
