@@ -27,4 +27,13 @@ public abstract class Sword : MonoBehaviour
             enemiesAttacked.Add(other.gameObject);
         }
     }
+
+    public IEnumerator turnOffAfterAnimationCoroutine()
+    {
+        float waitTime = 2f;
+        yield return new WaitForSeconds(waitTime);
+        gameObject.SetActive(false);
+    } 
+    
+    
 }

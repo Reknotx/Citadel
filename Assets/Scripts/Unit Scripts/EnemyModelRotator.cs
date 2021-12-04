@@ -26,14 +26,16 @@ public class EnemyModelRotator : MonoBehaviour
 
     public void checkDirection()
     {
-        if (facingRightLocal == true)
+        if(enemy.GetComponent<Enemy>().isDead == false)
         {
-            this.gameObject.transform.eulerAngles = new Vector3(0f, -90f, 0f);
+            if (facingRightLocal == true)
+            {
+                this.gameObject.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            }
+            else
+            {
+                this.gameObject.transform.eulerAngles = new Vector3(0f, 180f, 0f);
+            }
         }
-        else
-        {
-            this.gameObject.transform.eulerAngles = new Vector3(0f, 90f, 0f);
-        }
-
     }
 }

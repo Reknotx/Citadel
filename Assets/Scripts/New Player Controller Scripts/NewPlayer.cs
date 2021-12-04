@@ -73,7 +73,11 @@ public class NewPlayer : Unit, IDamageable
         set
         {
             _health = Mathf.Clamp(value, 0, MaxHealth);
-            if (HealthBar != null) HealthBar.value = value;
+            if (HealthBar != null)
+            {
+                HealthBar.value = value;
+                HealthBar.GetComponentInChildren<Text>().text = value.ToString();
+            }
             if (Health == 0)
             {
                 //Activate game over logic
@@ -150,12 +154,9 @@ public class NewPlayer : Unit, IDamageable
         if (isPaused) return;
 
         Move();
-
+        
         GroundedCheck();
-
     }
-
-
 
     public void OnTriggerEnter(Collider other)
     {

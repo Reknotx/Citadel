@@ -47,6 +47,7 @@ public class Unit : MonoBehaviour, IDamageable
 
             if (_health <= 0)
             {
+                
                 ///Destroy the object here
                 Destroy(gameObject);
             }
@@ -82,7 +83,7 @@ public class Unit : MonoBehaviour, IDamageable
     protected bool justJumped = false;
 
     ///<summary>This determines what direction the unit is facing.</summary>
-    [HideInInspector]
+    [SerializeField]
     public bool facingRight;
 
     /// <summary> this determines if the unit is on fire or not </summary>

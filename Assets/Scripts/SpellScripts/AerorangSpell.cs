@@ -62,6 +62,7 @@ public class AerorangSpell : Spell
         movingSpell = false;
         player = GameObject.FindGameObjectWithTag("Player");
         facingRight = player.GetComponent<NewPlayer>().facingRight;
+        PlayerAnimationManager.Instance.ActivateTrigger("castFirewall");
         startingPos = player.transform.position;
         //this.transform.position = currentPos;
         currentPos = startingPos;
