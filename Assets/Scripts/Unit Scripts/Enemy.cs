@@ -215,8 +215,12 @@ public class Enemy : Unit
             {
                 colliders[i].enabled = false;
             }
-                this.GetComponent<Collider>().enabled = false;
-            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+               
+            if(grounded)
+            {
+                _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+            }
+           
             StartCoroutine(deathCoroutine());
         }
 
