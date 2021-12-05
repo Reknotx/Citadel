@@ -349,16 +349,6 @@ public class Player : Unit, IDamageable
     #endregion
 
     private int maxHealth;
-    
-    ///<summary>This is the cool down between melee attacks for the unit .</summary>
-    protected float attackCoolDown =  1f;
-
-    ///<summary>This trakcs when the unit can deal damage again.</summary>
-    protected float nextDamageEvent;
-    
-    /// <summary>this determines if the unit can cast a spell or not</summary>
-    protected bool canCast;
-
 
     //private void Awake()
     //{
