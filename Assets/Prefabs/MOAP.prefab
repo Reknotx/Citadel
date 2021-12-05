@@ -1535,6 +1535,62 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Close Tutorial
+--- !u!1 &4099812757271108615
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4124591364521059693}
+  - component: {fileID: 2788296093247489587}
+  m_Layer: 0
+  m_Name: ItemAssets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4124591364521059693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4099812757271108615}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 74.58074, y: 450.30734, z: 0.20214272}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3042122612190196581}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2788296093247489587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4099812757271108615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72fd3192b299b6944946426da245dc9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  healthPotSprite: {fileID: 21300000, guid: 6db417b20d15118449305de3f23e047d, type: 3}
+  manaPotSprite: {fileID: 0}
+  shuuesSprite: {fileID: 21300000, guid: 34a83a7b4c11f3047915504c4e84a65f, type: 3}
+  undyingSprite: {fileID: 21300000, guid: fa1614e1f7d4d1f498ce73db662615b9, type: 3}
+  floatingShieldSprite: {fileID: 21300000, guid: 760aa244f722d1d4faf4f4fcf7398a4a, type: 3}
+  medicineStashSprite: {fileID: 21300000, guid: 1ecae54c9cd29f74d8aaf901be1b1f52, type: 3}
+  compassSprite: {fileID: 21300000, guid: 5c25b8488803a1b4f9ea2e2cda9d6c19, type: 3}
+  serratedStoneSprite: {fileID: 0}
+  spellStoneSprite: {fileID: 21300000, guid: a1d276900a416d84ab6abee6361e94e0, type: 3}
+  defaultSprite: {fileID: 0}
+  itemType: 0
+  amount: 0
 --- !u!1 &4275335793405549905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1985,6 +2041,8 @@ Transform:
   - {fileID: 3453574958481903663}
   - {fileID: 1886419055984676816}
   - {fileID: 6369113276812765840}
+  - {fileID: 4124591364521059693}
+  - {fileID: 9189128259173181054}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4102,6 +4160,50 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8493732162034648238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9189128259173181054}
+  - component: {fileID: 4085363635791905944}
+  m_Layer: 0
+  m_Name: UIInventoryController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9189128259173181054
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8493732162034648238}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 74.58074, y: 450.30734, z: 0.20214272}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3042122612190196581}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4085363635791905944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8493732162034648238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0bb1d2f46d09e44a978ef9af6de91b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &8931407156420241324
 GameObject:
   m_ObjectHideFlags: 0
