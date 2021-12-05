@@ -153,8 +153,7 @@ public class NewPlayer : Unit, IDamageable
     public override void Update()
     {
         if (isPaused) return;
-        capHealth();
-        capMana();
+        
 
         Move();
         
@@ -385,21 +384,5 @@ public class NewPlayer : Unit, IDamageable
 
 
 
-    public void capHealth()
-    {
-        if(Health > MaxHealth)
-        {
-            Health = MaxHealth;
-        }
-
-        
-    }
-
-    public void capMana()
-    {
-        if (Mana > MaxMana)
-        {
-            Mana = MaxMana;
-        }
-    }
+   
 }
