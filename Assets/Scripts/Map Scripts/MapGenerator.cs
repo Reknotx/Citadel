@@ -57,13 +57,13 @@ namespace Map
         /// 
         /// </summary>
         private Vector2 SpawnRoomPos, SpawnRoomGridPos;
+
         private Vector2 BossRoomPos, BossRoomGridPos;
         private Vector2 trueGridSize;
 
         public GridInfo gridInfo = new GridInfo();
 
-        [HideInInspector]
-        public static List<Room> specialRooms;
+        [HideInInspector] public static List<Room> specialRooms;
 
         [Header("Enable this if we want to only have one row on the map.")]
         public bool OneRowOnly = false;
@@ -88,12 +88,14 @@ namespace Map
 
         public void Start()
         {
-            trueGridSize = OneRowOnly ? new Vector2(gridInfo.gridSize + 1, 1) : new Vector2(gridInfo.gridSize + 1, gridInfo.gridSize);
+            trueGridSize = OneRowOnly
+                ? new Vector2(gridInfo.gridSize + 1, 1)
+                : new Vector2(gridInfo.gridSize + 1, gridInfo.gridSize);
 
-            grid = new Room[(int)trueGridSize.y, (int)trueGridSize.x];
-            conceptGrid = new GridNode[(int)trueGridSize.y, (int)trueGridSize.x];
-            columns = (int)trueGridSize.x;
-            rows = (int)trueGridSize.y;
+            grid = new Room[(int) trueGridSize.y, (int) trueGridSize.x];
+            conceptGrid = new GridNode[(int) trueGridSize.y, (int) trueGridSize.x];
+            columns = (int) trueGridSize.x;
+            rows = (int) trueGridSize.y;
 
 
             //Initializing the concept grid.
@@ -124,28 +126,32 @@ namespace Map
             RoomInfo tempRoomInfo;
 
             #region Spawning the spawn room
-            int SRY = Random.Range(0, (int)trueGridSize.y);
 
-            GameObject spawnRoom = SpawnRoom(roomCont.SpawnRooms[Random.Range(0, roomCont.SpawnRooms.Count)], new Vector2(0, SRY), "Spawn Room");
+            int SRY = Random.Range(0, (int) trueGridSize.y);
+
+            GameObject spawnRoom = SpawnRoom(roomCont.SpawnRooms[Random.Range(0, roomCont.SpawnRooms.Count)],
+                new Vector2(0, SRY), "Spawn Room");
             AddSpecialRoomToList(spawnRoom);
 
             tempRoomInfo = spawnRoom.GetComponent<Room>().roomInfo;
             spawnRoom.GetComponent<Room>().fogEnabledOnStart = false;
 
-            conceptGrid[(int)SpawnRoomGridPos.y, 0] = new GridNode(SpawnRoomGridPos,
-                                                                   GridNode.RoomType.Spawn,
-                                                                   tempRoomInfo.CalcDoorsLeftSide(),
-                                                                   tempRoomInfo.CalcDoorsRightSide(),
-                                                                   tempRoomInfo.CalcDoorsTopSide(),
-                                                                   tempRoomInfo.CalcDoorsBottomSide());
+            conceptGrid[(int) SpawnRoomGridPos.y, 0] = new GridNode(SpawnRoomGridPos,
+                GridNode.RoomType.Spawn,
+                tempRoomInfo.CalcDoorsLeftSide(),
+                tempRoomInfo.CalcDoorsRightSide(),
+                tempRoomInfo.CalcDoorsTopSide(),
+                tempRoomInfo.CalcDoorsBottomSide());
+
             #endregion
 
             #region Spawning Boss Room
+
             Vector3 BRPos;
             do
             {
-                int BRGX = Random.Range(1, (int)trueGridSize.x);
-                int BRGY = Random.Range(0, (int)trueGridSize.y);
+                int BRGX = Random.Range(1, (int) trueGridSize.x);
+                int BRGY = Random.Range(0, (int) trueGridSize.y);
 
                 BRPos = new Vector3(BRGX * roomSize, BRGY * roomSize);
             } while (!gridInfo.CheckSpawnBossDist(SpawnRoomPos, BRPos));
@@ -153,18 +159,19 @@ namespace Map
             BossRoomGridPos = new Vector2(BRPos.x / roomSize, BRPos.y / roomSize);
 
             GameObject bossRoom = SpawnRoom(roomCont.BossRooms[Random.Range(0, roomCont.BossRooms.Count)],
-                                            BossRoomGridPos, 
-                                            "Boss Room");
+                BossRoomGridPos,
+                "Boss Room");
             AddSpecialRoomToList(bossRoom);
 
             BossRoomPos = bossRoom.transform.position;
 
-            conceptGrid[(int)BossRoomGridPos.y, (int)BossRoomGridPos.x] = new GridNode(BossRoomGridPos, 
-                                                                                       GridNode.RoomType.Boss,
-                                                                                       tempRoomInfo.CalcDoorsLeftSide(),
-                                                                                       tempRoomInfo.CalcDoorsRightSide(),
-                                                                                       tempRoomInfo.CalcDoorsTopSide(),
-                                                                                       tempRoomInfo.CalcDoorsBottomSide());
+            conceptGrid[(int) BossRoomGridPos.y, (int) BossRoomGridPos.x] = new GridNode(BossRoomGridPos,
+                GridNode.RoomType.Boss,
+                tempRoomInfo.CalcDoorsLeftSide(),
+                tempRoomInfo.CalcDoorsRightSide(),
+                tempRoomInfo.CalcDoorsTopSide(),
+                tempRoomInfo.CalcDoorsBottomSide());
+
             #endregion
 
             //To remind myself as to what a room needs:
@@ -173,28 +180,30 @@ namespace Map
             //3. Dead end rooms will obviously have one connection.
             //
             //Time to adjust the Astar algorithm to utilize my internal class rather than the room class.
-            
+
             //Spawning steps
             //1. Create the spawn and boss rooms and assign them in the grid.
-                //Force filled rooms around the boss room to avoid having neighbors to said room
+            //Force filled rooms around the boss room to avoid having neighbors to said room
             //2. Create the treasure and shop rooms and surround them with filled rooms except on the
             //side with the entrance
             //3. Create the path from the spawn room to all special rooms using the astar algorithm
-            
+
             //The locations of all of the special rooms can actually be assigned at random
             //when the conceptual grid is created as we only need to do it once.
 
             #region Spawning Shops
+
             //Something else to note here for spawning the shop rooms and the treasure rooms is that we
             //can ensure that there will be forced wrapping by spawning filled rooms around the special
             //rooms, effectively forcing the astar algorithm to path around the rooms, and take a longer
             //path
 
             //AddSpecialRoomToList(shopRoom);
+
             #endregion
 
-            CreatePath(AStar(conceptGrid[(int)SpawnRoomGridPos.y, 0],
-                             conceptGrid[(int)BossRoomGridPos.y, (int)BossRoomGridPos.x]));
+            CreatePath(AStar(conceptGrid[(int) SpawnRoomGridPos.y, 0],
+                conceptGrid[(int) BossRoomGridPos.y, (int) BossRoomGridPos.x]));
 
 
             #region Spawn in rooms that will go on the path
@@ -221,8 +230,8 @@ namespace Map
                     if (grid[y, x] != null) continue;
 
                     GameObject temp = Instantiate(roomCont.filledRoom,
-                                                  new Vector3(roomSize * x, roomSize * y),
-                                                  Quaternion.identity);
+                        new Vector3(roomSize * x, roomSize * y),
+                        Quaternion.identity);
 
                     temp.GetComponent<Room>().gridPos = new Vector2(x, y);
 
@@ -245,14 +254,14 @@ namespace Map
         /// included in the name automatically.</param>
         private GameObject SpawnRoom(GameObject room, Vector2 gridCord, string name = "")
         {
-            if (grid[(int)gridCord.y, (int)gridCord.x] != null) return null;
+            if (grid[(int) gridCord.y, (int) gridCord.x] != null) return null;
 
             GameObject spawnedRoom = Instantiate(room, new Vector3(gridCord.x * roomSize, gridCord.y * roomSize),
-                                                Quaternion.identity);
+                Quaternion.identity);
 
             spawnedRoom.GetComponent<Room>().gridPos = gridCord;
 
-            grid[(int)gridCord.y, (int)gridCord.x] = spawnedRoom.GetComponent<Room>();
+            grid[(int) gridCord.y, (int) gridCord.x] = spawnedRoom.GetComponent<Room>();
 
             if (!name.Equals(""))
             {
@@ -316,7 +325,10 @@ namespace Map
             //For each grid spot I will need to make sure that the prefab matches
             //EXACTLY what it is that is needed.
 
-            if (path == null) { Debug.LogError("Huh"); }
+            if (path == null)
+            {
+                Debug.LogError("Huh");
+            }
 
             for (int index = 0; index < path.Count; index++)
             {
@@ -348,7 +360,7 @@ namespace Map
             //
 
             GameObject prevRoom = null;
-            
+
             //Ok this needs to be redone, this isn't nice and just makes clutter.
             for (int pathIndex = 1; pathIndex < path.Count - 1; pathIndex++)
             {
@@ -373,7 +385,7 @@ namespace Map
                         && EnsureEntrancesLineUp(tempInfo,
                             grid[(int) path[pathIndex - 1].gridPos.y, (int) path[pathIndex - 1].gridPos.x].roomInfo,
                             GetPrevRoomDir(currNode.gridPos, path[pathIndex - 1].gridPos))
-                        )
+                    )
 
                     {
                         // Spawn the room
@@ -386,12 +398,12 @@ namespace Map
                     {
                         Debug.LogError("Ran out of rooms, about to enter infinite loop. Breaking from loop");
                         Debug.Log("The last room we looked at was " + prevRoom.name);
-                        
-                        #if UNITY_EDITOR 
+
+#if UNITY_EDITOR
                         UnityEditor.EditorApplication.isPlaying = false;
-                        #else
+#else
                         Application.Quit();
-                        #endif
+#endif
                     }
 
                 } while (examinedRooms.Count != roomCont.RegularRooms.Count);
@@ -400,6 +412,7 @@ namespace Map
             }
 
             #region Helper Functions
+
             void DetermineDir(GridNode currNode, GridNode prevNode, bool onlyOneOpening = false)
             {
                 int numOpenings = 1;
@@ -487,6 +500,7 @@ namespace Map
                                     {
                                         lineUp = true;
                                     }
+
                                     break;
 
                                 case DoorPositions.RightMiddle:
@@ -494,6 +508,7 @@ namespace Map
                                     {
                                         lineUp = true;
                                     }
+
                                     break;
 
                                 case DoorPositions.RightBottom:
@@ -501,6 +516,7 @@ namespace Map
                                     {
                                         lineUp = true;
                                     }
+
                                     break;
                             }
                         }
@@ -514,6 +530,7 @@ namespace Map
                                     {
                                         lineUp = true;
                                     }
+
                                     break;
 
                                 case DoorPositions.LeftMiddle:
@@ -521,6 +538,7 @@ namespace Map
                                     {
                                         lineUp = true;
                                     }
+
                                     break;
 
                                 case DoorPositions.LeftBottom:
@@ -528,6 +546,7 @@ namespace Map
                                     {
                                         lineUp = true;
                                     }
+
                                     break;
                             }
                         }
@@ -541,6 +560,7 @@ namespace Map
                                     {
                                         lineUp = true;
                                     }
+
                                     break;
 
                                 case DoorPositions.TopMiddle:
@@ -548,6 +568,7 @@ namespace Map
                                     {
                                         lineUp = true;
                                     }
+
                                     break;
 
                                 case DoorPositions.TopRight:
@@ -555,6 +576,7 @@ namespace Map
                                     {
                                         lineUp = true;
                                     }
+
                                     break;
                             }
                         }
@@ -570,6 +592,7 @@ namespace Map
                                     {
                                         lineUp = true;
                                     }
+
                                     break;
 
                                 case DoorPositions.BottomMiddle:
@@ -577,6 +600,7 @@ namespace Map
                                     {
                                         lineUp = true;
                                     }
+
                                     break;
 
                                 case DoorPositions.BottomRight:
@@ -584,9 +608,11 @@ namespace Map
                                     {
                                         lineUp = true;
                                     }
+
                                     break;
                             }
                         }
+
                         if (lineUp) break;
                     }
                 }
@@ -624,6 +650,7 @@ namespace Map
         }
 
         #region Grid concept Astar
+
         public List<GridNode> AStar(GridNode start, GridNode end)
         {
             List<GridNode> frontier = new List<GridNode>(0);
@@ -711,8 +738,8 @@ namespace Map
         /// <returns>The distance cost between <paramref name="nodeA"/> and <paramref name="nodeB"/>.</returns>
         public int GetDistCost(GridNode nodeA, GridNode nodeB)
         {
-            int distZ = (int)Mathf.Abs(nodeA.gridPos.y - nodeB.gridPos.y);
-            int distX = (int)Mathf.Abs(nodeA.gridPos.x - nodeB.gridPos.x);
+            int distZ = (int) Mathf.Abs(nodeA.gridPos.y - nodeB.gridPos.y);
+            int distX = (int) Mathf.Abs(nodeA.gridPos.x - nodeB.gridPos.x);
 
             if (distX > distZ) return 10 * distZ + 10 * (distX - distZ);
             else return 10 * distX + 10 * (distZ - distX);
@@ -726,8 +753,8 @@ namespace Map
         {
             List<GridNode> neighbors = new List<GridNode>();
 
-            int gridPosX = (int)node.gridPos.x;
-            int gridPosY = (int)node.gridPos.y;
+            int gridPosX = (int) node.gridPos.x;
+            int gridPosY = (int) node.gridPos.y;
 
             //Checking left
             if (gridPosX > 1) neighbors.Add(conceptGrid[gridPosY, gridPosX - 1]);
@@ -746,128 +773,133 @@ namespace Map
 
         #endregion
 
-    }
 
-    #region Local classes
-    [System.Serializable]
-    public class GridInfo
-    {
-        [Tooltip("Represents the size of the grid")]
-        [Range(1, 15)]
-        public int gridSize = 7;
+        #region Local classes
 
-        [Tooltip("Represents the minimum distance from the spawn room to the boss room.")]
-        [Range(1f, 10f)]
-        public float minDistSTB;
-
-        public GridInfo() { minDistSTB = 4f; }
-
-        public bool CheckSpawnBossDist(Vector2 SpawnRoomPos, Vector2 BRPos)
+        [System.Serializable]
+        public class GridInfo
         {
-            //Debug.Log("Dist of STB = " + Vector3.Distance(SpawnRoomPos, BRPos) / 31);
-            return Vector3.Distance(SpawnRoomPos, BRPos) / 31 > minDistSTB;
-        }
-    }
+            [Tooltip("Represents the size of the grid")] [Range(1, 15)]
+            public int gridSize = 7;
 
-    /// <summary>
-    /// A class that makes a node for the grid that will be used to help in conceptualizing
-    /// the map as it is being generated.
-    /// </summary>
-    public class GridNode
-    {
-        public struct Openings
-        {
-            [Range(0, 3)]
-            public int LeftSide;
+            [Tooltip("Represents the minimum distance from the spawn room to the boss room.")] [Range(1f, 10f)]
+            public float minDistSTB;
 
-            [Range(0, 3)]
-            public int RightSide;
-
-            [Range(0, 3)]
-            public int TopSide;
-
-            [Range(0, 3)]
-            public int BottomSide;
-
-            public override string ToString()
+            public GridInfo()
             {
-                Debug.LogFormat("Node openings - Top: {0}, Bottom: {1}, Left: {2}, Right: {3}", TopSide, BottomSide, LeftSide, RightSide);
-                return "";
+                minDistSTB = 4f;
             }
 
-            public int TotalOpenings()
+            public bool CheckSpawnBossDist(Vector2 SpawnRoomPos, Vector2 BRPos)
             {
-                return LeftSide + RightSide + TopSide + BottomSide;
+                //Debug.Log("Dist of STB = " + Vector3.Distance(SpawnRoomPos, BRPos) / 31);
+                return Vector3.Distance(SpawnRoomPos, BRPos) / 31 > minDistSTB;
             }
         }
 
-        public enum RoomType
+        /// <summary>
+        /// A class that makes a node for the grid that will be used to help in conceptualizing
+        /// the map as it is being generated.
+        /// </summary>
+        public class GridNode
         {
-            Normal,
-            Spawn,
-            Boss,
-            Shop,
-            Treasure,
-            Filled
+            public struct Openings
+            {
+                [Range(0, 3)] public int LeftSide;
+
+                [Range(0, 3)] public int RightSide;
+
+                [Range(0, 3)] public int TopSide;
+
+                [Range(0, 3)] public int BottomSide;
+
+                public override string ToString()
+                {
+                    Debug.LogFormat("Node openings - Top: {0}, Bottom: {1}, Left: {2}, Right: {3}", TopSide, BottomSide,
+                        LeftSide, RightSide);
+                    return "";
+                }
+
+                public int TotalOpenings()
+                {
+                    return LeftSide + RightSide + TopSide + BottomSide;
+                }
+            }
+
+            public enum RoomType
+            {
+                Normal,
+                Spawn,
+                Boss,
+                Shop,
+                Treasure,
+                Filled
+            }
+
+            public Vector2 gridPos;
+            public Openings openings;
+            public RoomType roomType = RoomType.Normal;
+
+            public int gCost;
+
+            public int hCost;
+
+            public int fCost
+            {
+                get => gCost + hCost;
+            }
+
+            public GridNode parent;
+
+            /// <summary> Parameterless constructor that just gives a basic initialization of node. </summary>
+            public GridNode()
+            {
+                Initialization();
+            }
+
+            /// <summary> Constructor that allows specifying room type if anything other than normal. </summary>
+            /// <param name="roomType">The type of the room that is placed on the grid.</param>
+            public GridNode(RoomType roomType)
+            {
+                Initialization();
+                this.roomType = roomType;
+            }
+
+            public GridNode(Vector2 gridPos)
+            {
+                Initialization();
+                this.gridPos = gridPos;
+            }
+
+            /// <summary> Construct that allows specificying room type as well as openings on the sides if known. </summary>
+            /// <param name="roomType">The type of room that is placed on the grid.</param>
+            /// <param name="leftSide">Number of openings on the left side.</param>
+            /// <param name="rightSide">Number of openings on the right side.</param>
+            /// <param name="topSide">Number of openings on the top side.</param>
+            /// <param name="bottomSide">Number of openings on the bottom side.</param>
+            public GridNode(Vector2 gridPos, RoomType roomType, int leftSide = 0, int rightSide = 0, int topSide = 0,
+                int bottomSide = 0)
+            {
+                Initialization();
+                this.gridPos = gridPos;
+                this.roomType = roomType;
+                openings.LeftSide = leftSide;
+                openings.RightSide = rightSide;
+                openings.TopSide = topSide;
+                openings.BottomSide = bottomSide;
+
+            }
+
+            /// <summary> Little helper function for constructors that initializes the basic variables. </summary>
+            private void Initialization()
+            {
+                gridPos = Vector2.zero;
+                gCost = 0;
+                hCost = 0;
+                parent = null;
+            }
         }
 
-        public Vector2 gridPos;
-        public Openings openings;
-        public RoomType roomType = RoomType.Normal;
-
-        public int gCost;
-
-        public int hCost;
-
-        public int fCost { get => gCost + hCost; }
-
-        public GridNode parent;
-
-        /// <summary> Parameterless constructor that just gives a basic initialization of node. </summary>
-        public GridNode()
-        {
-            Initialization();
-        }
-
-        /// <summary> Constructor that allows specifying room type if anything other than normal. </summary>
-        /// <param name="roomType">The type of the room that is placed on the grid.</param>
-        public GridNode(RoomType roomType)
-        {
-            Initialization();
-            this.roomType = roomType;
-        }
-        public GridNode(Vector2 gridPos)
-        {
-            Initialization();
-            this.gridPos = gridPos;
-        }
-
-        /// <summary> Construct that allows specificying room type as well as openings on the sides if known. </summary>
-        /// <param name="roomType">The type of room that is placed on the grid.</param>
-        /// <param name="leftSide">Number of openings on the left side.</param>
-        /// <param name="rightSide">Number of openings on the right side.</param>
-        /// <param name="topSide">Number of openings on the top side.</param>
-        /// <param name="bottomSide">Number of openings on the bottom side.</param>
-        public GridNode(Vector2 gridPos, RoomType roomType, int leftSide = 0, int rightSide = 0, int topSide = 0, int bottomSide = 0)
-        {
-            Initialization();
-            this.gridPos = gridPos;
-            this.roomType = roomType;
-            openings.LeftSide = leftSide;
-            openings.RightSide = rightSide;
-            openings.TopSide = topSide;
-            openings.BottomSide = bottomSide;
-
-        }
-
-        /// <summary> Little helper function for constructors that initializes the basic variables. </summary>
-        private void Initialization()
-        {
-            gridPos = Vector2.zero;
-            gCost = 0;
-            hCost = 0;
-            parent = null;
-        }
+        #endregion
     }
-    #endregion
 }
