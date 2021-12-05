@@ -96,6 +96,8 @@ namespace CombatSystem
         public Image spellImage;
 
         public Text manaCostText;
+
+        public Image cooldownCircleImage;
         
         private bool sufficientMana;
 
@@ -120,6 +122,7 @@ namespace CombatSystem
             manaCostText.enabled = true;
             spellImage.sprite = spell.GetComponent<Spell>().spellUIImage;
             spellImage.enabled = true;
+            cooldownCircleImage.fillAmount = 0f;
 
             cooldownTime = spell.GetComponent<Spell>().stats.cooldown;
             
@@ -130,7 +133,9 @@ namespace CombatSystem
         public void DecreaseCooldown(float deltaTime)
         {
             remainingCooldown -= deltaTime;
-            Debug.Log(remainingCooldown);
+
+            cooldownCircleImage.fillAmount = remainingCooldown / cooldownTime;
+            
             if (remainingCooldown <= 0f)
             {
                 remainingCooldown = 0;
