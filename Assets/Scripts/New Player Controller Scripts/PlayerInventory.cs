@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory
 {
     private int healthPotionHealAmnt = 10;
     private int manaPotionRefillAmnt = 10;

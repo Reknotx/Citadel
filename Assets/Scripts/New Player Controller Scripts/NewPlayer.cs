@@ -54,11 +54,6 @@ public class NewPlayer : Unit, IDamageable
 
     public PlayerInventory inventory;
 
-    [SerializeField]
-    private UI_Inventory uiInventory;
-
-    private InventoryDisplay inventoryDisplay;
-
     private Interactable currentInteractableItem;
 
     [NotNull] public Slider ManaBar;
@@ -141,8 +136,6 @@ public class NewPlayer : Unit, IDamageable
 
         ManaBar.maxValue = MaxMana;
         Mana = MaxMana;
-
-        uiInventory.SetInventory(inventoryDisplay);
 
         base.Awake();
     }
