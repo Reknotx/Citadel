@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class GraphMover : MonoBehaviour
     {
         var graph = AstarPath.active.data.gridGraph;
         graph.center = pos;
+        graph.SetDimensions(58, 58, 0.5f);
         AstarPath.active.Scan(graph);
     }
 }
