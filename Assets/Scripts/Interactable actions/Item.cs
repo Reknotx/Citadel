@@ -16,8 +16,21 @@ using UnityEngine;
 
 namespace Interactables
 {
+
     public abstract class Item : Interactable
     {
+
+        
+
+        public bool grounded = false;
+
+        public void Awake()
+        {
+            this.GetComponent<Rigidbody>().AddForce(new Vector3(0, 200, 0));
+            StartCoroutine(pickUpDelay());
+        }
+
+
 
         /// <summary>
         /// The base interact function for all items which destroys them.
@@ -25,6 +38,21 @@ namespace Interactables
         public override void Interact()
         {
             Destroy(gameObject);
+        }
+
+
+        public void Update()
+        {
+
+
+            
+        }
+
+        public IEnumerator pickUpDelay()
+        {
+            float delayTime = 1.5f;
+            yield return new WaitForSeconds(delayTime);
+            grounded = true;
         }
     }
 }

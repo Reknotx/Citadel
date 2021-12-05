@@ -14,19 +14,27 @@ namespace Interactables
 
         public override void Interact()
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<PlayerInventory>().serratedStone = true;
-            base.Interact();
+            if(grounded)
+            {
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                player.GetComponent<PlayerInventory>().serratedStone = true;
+                base.Interact();
+            }
+            
         }
 
 
-        public void OnTriggerEnter(Collider other)
+        public void OnTriggerStay(Collider other)
         {
             if (other.gameObject.layer == 7)
             {
-                given = true;
-                NewPlayer.Instance.inventory.serratedStone = true;
-                Destroy(this.gameObject);
+                if(grounded)
+                {
+                    given = true;
+                    NewPlayer.Instance.inventory.serratedStone = true;
+                    Destroy(this.gameObject);
+                }
+               
             }
         }
     }

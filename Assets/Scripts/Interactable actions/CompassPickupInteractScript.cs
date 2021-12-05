@@ -13,19 +13,27 @@ namespace Interactables
 
         public override void Interact()
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<PlayerInventory>().compass = true;
-            base.Interact();
+            if(grounded)
+            {
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                player.GetComponent<PlayerInventory>().compass = true;
+                base.Interact();
+            }
+           
         }
 
 
-        public void OnTriggerEnter(Collider other)
+        public void OnTriggerStay(Collider other)
         {
             if (other.gameObject.layer == 7)
             {
-                given = true;
-                NewPlayer.Instance.inventory.compass = true;
-                Destroy(this.gameObject);
+                if(grounded)
+                {
+                    given = true;
+                    NewPlayer.Instance.inventory.compass = true;
+                    Destroy(this.gameObject);
+                }
+               
             }
         }
     }

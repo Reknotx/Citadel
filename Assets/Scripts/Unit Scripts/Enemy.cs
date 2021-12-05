@@ -210,6 +210,13 @@ public class Enemy : Unit
     {
         if(isDead == true)
         {
+            BoxCollider[] colliders = GetComponents<BoxCollider>();
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                colliders[i].enabled = false;
+            }
+                this.GetComponent<BoxCollider>().enabled = false;
+            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
             StartCoroutine(deathCoroutine());
         }
 

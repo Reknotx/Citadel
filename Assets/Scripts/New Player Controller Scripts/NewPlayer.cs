@@ -144,10 +144,12 @@ public class NewPlayer : Unit, IDamageable
     public override void Update()
     {
         if (isPaused) return;
+        
 
         Move();
         
         GroundedCheck();
+        
     }
 
     public void OnTriggerEnter(Collider other)
@@ -366,4 +368,8 @@ public class NewPlayer : Unit, IDamageable
         }
         invulnerable = false;
     }
+
+
+
+   
 }
