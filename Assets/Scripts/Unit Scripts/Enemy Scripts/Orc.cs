@@ -62,29 +62,29 @@ public class Orc : Enemy
 
     private void OrcAttack()
     {
-        //if (facingRight)
-        //{
-        //    StartCoroutine(WaitBetweenVisual_Right());
-           
-        //    StartCoroutine(WaitBetweenAttack());
-
-        //    if(player.invulnActive == false)
-        //    {
-        //        player.TakeDamage(orcDamage);
-        //    }
-            
-        //}
-        //else
-        //{
-        //    StartCoroutine(WaitBetweenVisual_Left());
-            
-        //    StartCoroutine(WaitBetweenAttack());
-
-        //    if (player.invulnActive == false)
-        //    {
-        //        player.TakeDamage(orcDamage);
-        //    }
-        //}
+        // if (facingRight)
+        // {
+        //     StartCoroutine(WaitBetweenVisual_Right());
+        //    
+        //     StartCoroutine(WaitBetweenAttack());
+        //
+        //     if(player.invulnActive == false)
+        //     {
+        //         player.TakeDamage(orcDamage);
+        //     }
+        //     
+        // }
+        // else
+        // {
+        //     StartCoroutine(WaitBetweenVisual_Left());
+        //     
+        //     StartCoroutine(WaitBetweenAttack());
+        //
+        //     if (player.invulnActive == false)
+        //     {
+        //         player.TakeDamage(orcDamage);
+        //     }
+        // }
     }
 
     IEnumerator WaitBetweenAttack()

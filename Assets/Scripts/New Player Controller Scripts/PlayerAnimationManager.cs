@@ -6,24 +6,39 @@ public class PlayerAnimationManager : MonoBehaviour
 {
     public static PlayerAnimationManager Instance;
     
-    public static string IDLE = "isIdle";
+    public struct TriggerAnimations
+    {
+        /// <summary> Activates the light attack animation trigger. </summary>
+        public static string LIGHT_ATTACK = "castLightAttack";
 
-    /// <summary> Activates the light attack animation trigger. </summary>
-    public static string LIGHT_ATTACK = "castLightAttack";
+        /// <summary> Activates the heavy attack animation trigger. </summary>
+        public static string HEAVY_ATTACK = "castHeavyAttack";
 
-    /// <summary> Activates the heavy attack animation trigger. </summary>
-    public static string HEAVY_ATTACK = "castHeavyAttack";
-    public static string RUNNING = "isMoving";
+        /// <summary> Activates the jump animation trigger. </summary>
+        public static string JUMP = "castJump";
+
+        /// <summary> Activates the landing animation trigger. </summary>
+        public static string LANDING = "castLanded";
+    }
+
+    public struct BoolAnimations
+    {
+        public static string IDLE = "isIdle";
+
+        public static string RUNNING = "isRunning";
     
-    /// <summary> Activates the jump animation trigger. </summary>
-    public static string JUMP = "castJump";
 
-    /// <summary> Reference to the falling animation boolean. </summary>
-    /// <remarks>Remember all transitions into the falling animation can't have exit time.</remarks>
-    public static string FALLING = "isFalling";
+        /// <summary> Reference to the falling animation boolean. </summary>
+        /// <remarks>Remember all transitions into the falling animation can't have exit time.</remarks>
+        public static string FALLING = "isFalling";
 
-    /// <summary> Activates the landing animation trigger. </summary>
-    public static string LANDING = "castLanded";
+    }
+
+    public struct SpellAnimations
+    {
+        public static string ICICLE = "castIcicle";
+        public static string FIREWALL = "castFirewall";
+    }
 
     private Animator animator;
 
@@ -39,9 +54,7 @@ public class PlayerAnimationManager : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// Pass in one of the static strings from the PlayerAnimationManager.
-    /// </summary>
+    /// <summary> Pass in one of the static strings from the PlayerAnimationManager.</summary>
     /// <param name="animation">The name of the animation to play</param>
     /// <remarks>The name of the animation shou ld be related to a 
     /// bool or trigger in animator</remarks>
@@ -55,9 +68,9 @@ public class PlayerAnimationManager : MonoBehaviour
     public void RunningAnimation(bool on)
     {
         animator.SetBool("isRunning", on);
-        ///This is just a nice little way to ensure that if running is on idle
-        ///will be off and we don't need to write an if block
-        animator.SetBool("isIdle", on == true ? false : true);
+        //This is just a nice little way to ensure that if running is on idle
+        //will be off and we don't need to write an if block
+        animator.SetBool("isIdle", !on);
     }
 
     public void SetBool(string animation, bool value)

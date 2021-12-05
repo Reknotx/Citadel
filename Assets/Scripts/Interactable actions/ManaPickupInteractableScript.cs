@@ -19,10 +19,14 @@ namespace Interactables
 
         public override void Interact()
         {
-            
-                GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player.GetComponent<NewPlayer>().Mana != player.GetComponent<NewPlayer>().MaxMana)
+            {
                 player.GetComponent<NewPlayer>().Mana += dropAmount;
-            Destroy(this.gameObject);
+                Destroy(this.gameObject);
+            }
+                
+                
 
 
         }

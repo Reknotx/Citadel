@@ -6,7 +6,7 @@ namespace Interactables
 {
     public class GoldPickupInteractableScript : Interactable
     {
-        public float dropAmount = 1;
+        public int dropAmount = 1;
 
        // private bool given = false;
 
@@ -19,8 +19,9 @@ namespace Interactables
         public override void Interact()
         {
             
-                GameObject goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
-                goldHandler.GetComponent<GoldHandler>().MyHardGold += dropAmount;
+                
+            NewPlayer.Instance.inventory.goldStorage.MineGoldToPermGold(dropAmount);
+            
             Destroy(this.gameObject);
 
 

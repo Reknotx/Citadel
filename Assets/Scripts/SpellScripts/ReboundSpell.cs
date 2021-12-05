@@ -82,6 +82,7 @@ public class ReboundSpell : Spell
     {
         movingSpell = false;
         player = GameObject.FindGameObjectWithTag("Player");
+        PlayerAnimationManager.Instance.ActivateTrigger("castIcicle");
         facingRight = player.GetComponent<NewPlayer>().facingRight;
 
         damage = stats.damage;
@@ -276,7 +277,7 @@ public class ReboundSpell : Spell
 
     public void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.layer == 10 || other.gameObject.layer == 11 || other.gameObject.layer == 31)
+        if(other.gameObject.layer == 10 || other.gameObject.layer == 11 || other.gameObject.layer == 31 || other.gameObject.tag == "ground")
         {
            
             changeDirection();
@@ -296,7 +297,7 @@ public class ReboundSpell : Spell
 
     public override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 10 || other.gameObject.layer == 11 || other.gameObject.layer == 31)
+        if (other.gameObject.layer == 10 || other.gameObject.layer == 11 || other.gameObject.layer == 31 || other.gameObject.tag == "ground")
         {
             if (canAdd)
             {

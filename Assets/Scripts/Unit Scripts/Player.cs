@@ -36,21 +36,21 @@ public class Player : Unit, IDamageable
         get => base.Health; 
         set
         {
-            _health = Mathf.Clamp(value, 0, maxHealth);
-            if (_health <= 0)
-            {
-                if (undying == true)
-                {
-                    undying = false;
-                    myHealth = Mathf.Round(maxHealth * 0.15f);
-                }
-                else
-                {
-                    Debug.Log("Reset");
-                    ResetGame();
-                }
-
-            }
+            // _health = Mathf.Clamp(value, 0, maxHealth);
+            // if (_health <= 0)
+            // {
+            //     if (undying == true)
+            //     {
+            //         undying = false;
+            //         myHealth = Mathf.Round(maxHealth * 0.15f);
+            //     }
+            //     else
+            //     {
+            //         Debug.Log("Reset");
+            //         ResetGame();
+            //     }
+            //
+            // }
         }
     }
 
@@ -348,7 +348,17 @@ public class Player : Unit, IDamageable
 
     #endregion
 
-    private int maxHealth;
+    // private int maxHealth;
+    
+    ///<summary>This is the cool down between melee attacks for the unit .</summary>
+    protected float attackCoolDown =  1f;
+
+    ///<summary>This trakcs when the unit can deal damage again.</summary>
+    protected float nextDamageEvent;
+    
+    /// <summary>this determines if the unit can cast a spell or not</summary>
+    protected bool canCast;
+
 
     //private void Awake()
     //{
@@ -382,291 +392,285 @@ public class Player : Unit, IDamageable
    
     public override void Update()
     {
-      
+
+        #region OLD SYSTEMS
+
+        //  base.Update();
+
+        //  #region Player Stat/Item controls
+        //  Application.targetFrameRate = 60;
+        //  facingRightLocal = facingRight;
+        //  _rigidBody.velocity = myVelocity;
+        //  if (dmgPlayerByTick)
+        //  {
+        //      dmgPlayerByTick = false;
+        //      TakeDamage(1);
+        //  }
+
+        //  myHealth = Health;
+        //  if(myHealth <= 0)
+        //  {
+        //      ResetGame();
+        //  }
+
+        //  if (myMana >= maxMana)
+        //  {
+        //      myMana = maxMana;
+        //  }
+
+        //  if (Interacting == true)
+        //  {
+        //      StartCoroutine(InteractCoroutine());
+        //  }
+
+        //  handleGravity();
+        //  handleJump();
+
+        //  ///<summary>this sets the rate for how quickly players can cast spells </summary>
+        //  //spellCastDelay -= Time.deltaTime * spellCastRate;
+        //  if (spellCastDelay <= 0)
+        //  {
+        //      canCast = true;
+        //      spellCastDelay = 3f;
+        //  }
+
+        //  if (floatingShield)
+        //  {
+        //      floatingShieldObj.SetActive(true);
+        //  }
+        //  if (medicineStash == true)
+        //  {
+        //      manaPotionMax = 3;
+        //      healthPotionMax = 3;
+        //      potionMax = 4;
+        //  }
+
+        //  #endregion
+
+        //  #region Player Movement Detection
+        //  ///<summary>This moves the player constantly while the input is held.</summary>
+        //if(!hittingWallLeft || !hittingWallRight)
+        //{
+
+        //  if (canMove == true)
+        //  {
+        //      if(isRunning && !hittingWallLeft && !hittingWallRight)
+        //      {
+        //              Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
+        //              _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
+        //              _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+        //      }
 
 
-        base.Update();
 
-        #region Player Stat/Item controls
-        Application.targetFrameRate = 60;
-        facingRightLocal = facingRight;
-        _rigidBody.velocity = myVelocity;
-        if (dmgPlayerByTick)
-        {
-            dmgPlayerByTick = false;
-            TakeDamage(1);
-        }
 
-        myHealth = Health;
-        if(myHealth <= 0)
-        {
-            ResetGame();
-        }
 
-        if (myMana >= maxMana)
-        {
-            myMana = maxMana;
-        }
+        //        if (animator != null)
+        //        {
+        //              animator.SetBool("isRunning", isRunning);
+        //              animator.SetBool("isJumping", isJumping);
+        //              animator.SetBool("isFalling", isFalling);
+        //              animator.SetBool("isGrounded", base.grounded);
+        //              animator.SetBool("Icicle", isCastingIcicle);
+        //        }
 
-        if (Interacting == true)
-        {
-            StartCoroutine(InteractCoroutine());
-        }
+        //  }
+        //}
+        //  else
+        //  {
+        //      _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+        //  }
 
-        handleGravity();
-        handleJump();
+        //  ///standing on a platform is the same as standing on the ground 
+        //  //if (onPlatform == true && !isJumpPressed)
+        //  //{
+        //  //    base.grounded = true;
+        //  //}
+        //  grounded = base.grounded;
+        //  ///when you are back on the ground, it resets whether or not you can double jump or not is you have the shuues
+        //  if(base.grounded == true)
+        //  {
+        //      canDoubleJump = true;
+        //      hasDoubleJump = false;
+        //  }
 
-        ///<summary>this sets the rate for how quickly players can cast spells </summary>
-        spellCastDelay -= Time.deltaTime * spellCastRate;
-        if (spellCastDelay <= 0)
-        {
-            canCast = true;
-            spellCastDelay = 3f;
-        }
+        //  if(hittingWallLeft && isJumpPressed)
+        //  {
+        //      base.grounded = false;
+        //  }
+        //  else if(hittingWallLeft && !isJumpPressed)
+        //  {
+        //      isFalling = true;
+        //  }
 
-        if (floatingShield)
-        {
-            floatingShieldObj.SetActive(true);
-        }
-        if (medicineStash == true)
-        {
-            manaPotionMax = 3;
-            healthPotionMax = 3;
-            potionMax = 4;
-        }
+        //  if (hittingWallRight && isJumpPressed)
+        //  {
+        //      base.grounded = false;
+        //  }
+        //  else if (hittingWallRight && !isJumpPressed)
+        //  {
+        //      isFalling = true;
+        //  }
 
+        //  if(base.grounded)
+        //  {
+        //      hittingWallLeft = false;
+        //      hittingWallRight = false;
+        //  }
+
+        //  if (facingRight)
+        //  {
+        //      hittingWallLeft = false;
+        //  }
+        //  else
+        //  {
+        //      hittingWallRight = false;
+        //  }
+
+        //  if(isCastingIcicle)
+        //  {
+        //      StartCoroutine(IcicleCoroutine());
+        //  }
+
+
+        //  if(pauseActive == true)
+        //  {
+        //      canMove = false;
+        //  }
+        //  else
+        //  {
+        //      canMove = true;
+        //  }
+
+
+
+
+
+
+        //  #endregion
+
+        //  #region Ground/Platform detection
+        //  ///<summary>This determines whether the unit is on a platform or not.</summary>
+        //  var groundCheck = transform.TransformDirection(Vector3.down);
+        //  Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
+        //  //if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "platform")
+        //  //{
+        //  //    onPlatform = true;
+        //  //    isJumping = false;
+        //  //}
+        //  //else
+        //  //{
+        //  //    onPlatform = false;
+        //  //}
+
+        //  ///<summary>This determines whether the unit is on the ground or not.</summary>
+        //  Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
+        //  if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "ground" && !isJumpPressed)
+        //  {
+        //      base.grounded = true;
+        //      isJumping = false;
+        //  }
+        //  else
+        //  {
+        //      base.grounded = false;
+        //  }
+
+
+        //  ///<summary>This determines whether the unit is on the ground or not.</summary>
+        //  var wallCheck = transform.TransformDirection(Vector3.right);
+        //  Debug.DrawRay(transform.position, wallCheck * _Reach/2, Color.red);
+        //  if (Physics.Raycast(transform.position, wallCheck, out hit, _Reach/2) && hit.transform.tag == "ground")
+        //  {
+        //      if(facingRight && !base.grounded)
+        //      {
+        //          hittingWallRight = true;
+        //      }
+        //      else
+        //      {
+        //          hittingWallRight = false;
+        //      }
+
+
+
+        //  }
+        //  else if(base.grounded)
+        //  {
+        //      hittingWallRight = false;
+        //  }
+
+        //  var wallCheck2 = transform.TransformDirection(Vector3.left);
+        //  Debug.DrawRay(transform.position, wallCheck2 * _Reach/2, Color.red);
+        //  if (Physics.Raycast(transform.position, wallCheck2, out hit, _Reach/2) && hit.transform.tag == "ground")
+        //  {
+        //     if(!facingRight && !base.grounded)
+        //     {
+        //          hittingWallLeft = true;
+        //     }
+        //     else
+        //     {
+        //          hittingWallLeft = false;
+        //     }
+
+
+        //  }
+        //  else if (base.grounded)
+        //  {
+        //      hittingWallLeft = false;
+        //  }
+
+
+
+        //  ///<summary>This determines whether the unit is trying to jump up through a platform or not.</summary>
+        //  var roofCheck = transform.TransformDirection(Vector3.up);
+        //  Debug.DrawRay(transform.position, roofCheck * _Reach, Color.red);
+        //  if (Physics.Raycast(transform.position, roofCheck, out hit, _Reach) && hit.transform.tag == "platform")
+        //  {
+        //      throughPlatform = true;
+        //      //hit.transform.gameObject.GetComponent<PlatformColliderControllerScript>().isPassing = true;
+
+        //  }
+        //  else
+        //  {
+        //      throughPlatform = false;
+
+
+        //  }
+
+
+        //  ///<summary>this checks if the unit is trying to pass up through a platform and will assist.</summary>
+        //  if (throughPlatform == true && justJumped == true && !base.grounded)
+        //  {
+        //      //StartCoroutine(dropDown());
+        //      _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 12);
+
+        //  }
+
+
+
+
+
+        //  #endregion
         #endregion
 
-        #region Player Movement Detection
-        ///<summary>This moves the player constantly while the input is held.</summary>
-      if(!hittingWallLeft || !hittingWallRight)
-      {
-
-        if (canMove == true)
-        {
-            if(isRunning && !hittingWallLeft && !hittingWallRight)
-            {
-                    Vector2 inputVector = playerInputActions.PlayerControl.Movement.ReadValue<Vector2>();
-                    _rigidBody.MovePosition(transform.position + new Vector3(inputVector.x, 0, 0) * speed * Time.deltaTime);
-                    _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-            }
-               
-                
-           
-
-
-              if (animator != null)
-              {
-                    animator.SetBool("isRunning", isRunning);
-                    animator.SetBool("isJumping", isJumping);
-                    animator.SetBool("isFalling", isFalling);
-                    animator.SetBool("isGrounded", base.grounded);
-                    animator.SetBool("Icicle", isCastingIcicle);
-              }
-                
-        }
-      }
-        else
-        {
-            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
-        }
-
-        ///standing on a platform is the same as standing on the ground 
-        if (onPlatform == true && !isJumpPressed)
-        {
-            base.grounded = true;
-        }
-        grounded = base.grounded;
-        ///when you are back on the ground, it resets whether or not you can double jump or not is you have the shuues
-        if(base.grounded == true)
-        {
-            canDoubleJump = true;
-            hasDoubleJump = false;
-        }
-
-        if(hittingWallLeft && isJumpPressed)
-        {
-            base.grounded = false;
-        }
-        else if(hittingWallLeft && !isJumpPressed)
-        {
-            isFalling = true;
-        }
-
-        if (hittingWallRight && isJumpPressed)
-        {
-            base.grounded = false;
-        }
-        else if (hittingWallRight && !isJumpPressed)
-        {
-            isFalling = true;
-        }
-
-        if(base.grounded)
-        {
-            hittingWallLeft = false;
-            hittingWallRight = false;
-        }
-
-        if (facingRight)
-        {
-            hittingWallLeft = false;
-        }
-        else
-        {
-            hittingWallRight = false;
-        }
-
-        if(isCastingIcicle)
-        {
-            StartCoroutine(IcicleCoroutine());
-        }
-       
-
-        if(pauseActive == true)
-        {
-            canMove = false;
-        }
-        else
-        {
-            canMove = true;
-        }
-
-
-        
-
-
-
-        #endregion
-
-        #region Ground/Platform detection
-        ///<summary>This determines whether the unit is on a platform or not.</summary>
-        var groundCheck = transform.TransformDirection(Vector3.down);
-        Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
-        if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "platform")
-        {
-            onPlatform = true;
-            isJumping = false;
-            
-
-           
-
-        }
-        else
-        {
-            
-            onPlatform = false;
-           
-        }
-
-        ///<summary>This determines whether the unit is on the ground or not.</summary>
-        Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
-        if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "ground" && !isJumpPressed)
-        {
-            base.grounded = true;
-            isJumping = false;
-        }
-        else
-        {
-            base.grounded = false;
-        }
-
-       
-        ///<summary>This determines whether the unit is on the ground or not.</summary>
-        var wallCheck = transform.TransformDirection(Vector3.right);
-        Debug.DrawRay(transform.position, wallCheck * _Reach/2, Color.red);
-        if (Physics.Raycast(transform.position, wallCheck, out hit, _Reach/2) && hit.transform.tag == "ground")
-        {
-            if(facingRight && !base.grounded)
-            {
-                hittingWallRight = true;
-            }
-            else
-            {
-                hittingWallRight = false;
-            }
-            
-        
-        
-        }
-        else if(base.grounded)
-        {
-            hittingWallRight = false;
-        }
-
-        var wallCheck2 = transform.TransformDirection(Vector3.left);
-        Debug.DrawRay(transform.position, wallCheck2 * _Reach/2, Color.red);
-        if (Physics.Raycast(transform.position, wallCheck2, out hit, _Reach/2) && hit.transform.tag == "ground")
-        {
-           if(!facingRight && !base.grounded)
-           {
-                hittingWallLeft = true;
-           }
-           else
-           {
-                hittingWallLeft = false;
-           }
-       
-        
-        }
-        else if (base.grounded)
-        {
-            hittingWallLeft = false;
-        }
-
-
-
-        ///<summary>This determines whether the unit is trying to jump up through a platform or not.</summary>
-        var roofCheck = transform.TransformDirection(Vector3.up);
-        Debug.DrawRay(transform.position, roofCheck * _Reach, Color.red);
-        if (Physics.Raycast(transform.position, roofCheck, out hit, _Reach) && hit.transform.tag == "platform")
-        {
-            throughPlatform = true;
-            //hit.transform.gameObject.GetComponent<PlatformColliderControllerScript>().isPassing = true;
-
-        }
-        else
-        {
-            throughPlatform = false;
-            
-
-        }
-
-
-        ///<summary>this checks if the unit is trying to pass up through a platform and will assist.</summary>
-        if (throughPlatform == true && justJumped == true && !base.grounded)
-        {
-            //StartCoroutine(dropDown());
-            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 12);
-            
-        }
-
-
-       
-
-
-        #endregion
-
-        
     }
 
     #region health and mana bar functionality
 
     private void FixedUpdate()
     {
-        if (healthBar != null)
-        {
-            calculateHealth = Health / maxHealth;
-            healthBar.fillAmount = Mathf.MoveTowards(healthBar.fillAmount, calculateHealth, Time.deltaTime);
-            healthText.text = "" + (int)myHealth;
-        }
-
-        if (manaBar != null)
-        {
-            calculateMana = myMana / maxMana;
-            manaBar.fillAmount = Mathf.MoveTowards(manaBar.fillAmount, calculateMana, Time.deltaTime);
-            manaText.text = "" + myMana;
-        }
+        // if (healthBar != null)
+        // {
+        //     calculateHealth = Health / maxHealth;
+        //     healthBar.fillAmount = Mathf.MoveTowards(healthBar.fillAmount, calculateHealth, Time.deltaTime);
+        //     healthText.text = "" + (int)myHealth;
+        // }
+        //
+        // if (manaBar != null)
+        // {
+        //     calculateMana = myMana / maxMana;
+        //     manaBar.fillAmount = Mathf.MoveTowards(manaBar.fillAmount, calculateMana, Time.deltaTime);
+        //     manaText.text = "" + myMana;
+        // }
     }
 
     #endregion
@@ -688,7 +692,7 @@ public class Player : Unit, IDamageable
         var goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
         goldHandler.GetComponent<GoldHandler>()._mySoftGold = goldHandler.GetComponent<GoldHandler>().startingSoftGold;
         var goldTracker = GameObject.FindGameObjectWithTag("GoldTracker");
-        //goldTracker.GetComponent<PlayerGoldTrackerScript>().playerDead = true;
+        //goldTracker.GetComponent<PlayerStatTrackerScript>().playerDead = true;
         GameObject SceneManager = GameObject.FindGameObjectWithTag("SceneManager");
         SceneManager.GetComponent<SceneManagerScript>().goToCamp();
 
@@ -779,75 +783,75 @@ public class Player : Unit, IDamageable
 
     void handleGravity()
     {
-        if (onPlatform)
-        {
-            base.grounded = true;
-        }
-        isFalling = myVelocity.y <= 0.0f || !isJumpPressed;
-        float fallMultiplier = 2.0f;
-        if(base.grounded)
-        {
-            isJumping = false;
-            myVelocity.y = groundedGravity;
-        }
-        else if(onPlatform)
-        {
-            isJumping = false;
-            myVelocity.y = groundedGravity;
-        }
-        else if(isFalling)
-        {
-            isJumping = false;
-            float previousYVelocity = myVelocity.y;
-            float newYVelocity = myVelocity.y + (gravity * fallMultiplier* Time.deltaTime);
-            float nextYVelocity = Mathf.Max((previousYVelocity + newYVelocity) * .5f, -10.0f);
-            myVelocity.y = nextYVelocity;
-        }
-        else
-        {
-            float previousYVelocity = myVelocity.y;
-            float newYVelocity = myVelocity.y + (gravity * Time.deltaTime);
-            float nextYVelocity = (previousYVelocity + newYVelocity) * .5f;
-            myVelocity.y = nextYVelocity ;
-        }
+        //if (onPlatform)
+        //{
+        //    base.grounded = true;
+        //}
+        //isFalling = myVelocity.y <= 0.0f || !isJumpPressed;
+        //float fallMultiplier = 2.0f;
+        //if(base.grounded)
+        //{
+        //    isJumping = false;
+        //    myVelocity.y = groundedGravity;
+        //}
+        //else if(onPlatform)
+        //{
+        //    isJumping = false;
+        //    myVelocity.y = groundedGravity;
+        //}
+        //else if(isFalling)
+        //{
+        //    isJumping = false;
+        //    float previousYVelocity = myVelocity.y;
+        //    float newYVelocity = myVelocity.y + (gravity * fallMultiplier* Time.deltaTime);
+        //    float nextYVelocity = Mathf.Max((previousYVelocity + newYVelocity) * .5f, -10.0f);
+        //    myVelocity.y = nextYVelocity;
+        //}
+        //else
+        //{
+        //    float previousYVelocity = myVelocity.y;
+        //    float newYVelocity = myVelocity.y + (gravity * Time.deltaTime);
+        //    float nextYVelocity = (previousYVelocity + newYVelocity) * .5f;
+        //    myVelocity.y = nextYVelocity ;
+        //}
     }
     void handleJump()
     {
-        if(!isJumping && base.grounded  && isJumpPressed)
-        {
-            isJumping = true;
-            myVelocity.y = initialJumpVelocity * .5f;
-            canDoubleJump = true;
-            StartCoroutine(Jumped());
-        }
-        else if(isJumping && isJumpPressed && shuues && canDoubleJump)
-        {
-            myVelocity.y = initialJumpVelocity * .5f;
-            canDoubleJump = false;
-            StartCoroutine(Jumped());
-        }
-        else if(!isJumpPressed && base.grounded && isJumping)
-        {
-            isJumping = false;
-        }
+        //if(!isJumping && base.grounded  && isJumpPressed)
+        //{
+        //    isJumping = true;
+        //    myVelocity.y = initialJumpVelocity * .5f;
+        //    canDoubleJump = true;
+        //    StartCoroutine(Jumped());
+        //}
+        //else if(isJumping && isJumpPressed && shuues && canDoubleJump)
+        //{
+        //    myVelocity.y = initialJumpVelocity * .5f;
+        //    canDoubleJump = false;
+        //    StartCoroutine(Jumped());
+        //}
+        //else if(!isJumpPressed && base.grounded && isJumping)
+        //{
+        //    isJumping = false;
+        //}
 
-        if (!isJumping && onPlatform && isJumpPressed)
-        {
-            isJumping = true;
-            myVelocity.y = initialJumpVelocity * .5f;
-            canDoubleJump = true;
-            StartCoroutine(Jumped());
-        }
-        else if (isJumping && isJumpPressed && shuues && canDoubleJump)
-        {
-            myVelocity.y = initialJumpVelocity * .5f;
-            canDoubleJump = false;
-            StartCoroutine(Jumped());
-        }
-        else if (!isJumpPressed && onPlatform && isJumping)
-        {
-            isJumping = false;
-        }
+        //if (!isJumping && onPlatform && isJumpPressed)
+        //{
+        //    isJumping = true;
+        //    myVelocity.y = initialJumpVelocity * .5f;
+        //    canDoubleJump = true;
+        //    StartCoroutine(Jumped());
+        //}
+        //else if (isJumping && isJumpPressed && shuues && canDoubleJump)
+        //{
+        //    myVelocity.y = initialJumpVelocity * .5f;
+        //    canDoubleJump = false;
+        //    StartCoroutine(Jumped());
+        //}
+        //else if (!isJumpPressed && onPlatform && isJumping)
+        //{
+        //    isJumping = false;
+        //}
 
 
     }
@@ -1114,34 +1118,34 @@ public class Player : Unit, IDamageable
     public void lightAttack()
     {
         //Tyler made an edit to 1.0f y from 0.3fy
-        _lightCollider.gameObject.transform.localScale = new Vector3(1f, meleeAttackRange, 1f) ;
+        //_lightCollider.gameObject.transform.localScale = new Vector3(1f, meleeAttackRange, 1f) ;
 
-        if (Time.time >= nextDamageEvent)
-        {
-            nextDamageEvent = Time.time + attackCoolDown/2;
-            triggered = true;
-            if (facingRight == true)
-            {
+        //if (Time.time >= nextDamageEvent)
+        //{
+        //    nextDamageEvent = Time.time + attackCoolDown/2;
+        //    triggered = true;
+        //    if (facingRight == true)
+        //    {
                 
-                _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale/2);
+        //        _lightCollider.transform.position = _lightCollider.transform.position + (_lightCollider.gameObject.transform.localScale/2);
                 
-                _lightCollider.transform.localPosition = new Vector3(0f, 0f, 0f);
-                StartCoroutine(lightAttackCoroutine());
+        //        _lightCollider.transform.localPosition = new Vector3(0f, 0f, 0f);
+        //        StartCoroutine(lightAttackCoroutine());
               
-            }
-            else
-            {
+        //    }
+        //    else
+        //    {
                
-                _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
+        //        _lightCollider.transform.position = _lightCollider.transform.position - (_lightCollider.gameObject.transform.localScale / 2);
                 
-                _lightCollider.transform.localPosition = new Vector3(0f, 0f, 0f);
-                StartCoroutine(lightAttackCoroutine());
+        //        _lightCollider.transform.localPosition = new Vector3(0f, 0f, 0f);
+        //        StartCoroutine(lightAttackCoroutine());
                 
-            }
+        //    }
 
            
 
-        }
+        //}
         
         if (triggered && animator != null)
         {
@@ -1169,7 +1173,6 @@ public class Player : Unit, IDamageable
             {
                
                 _heavyCollider.transform.position = _heavyCollider.transform.position + (_heavyCollider.gameObject.transform.localScale / 2);
-                
                 _heavyCollider.transform.localPosition = new Vector3(0f, 0f, 0f); ;
                 StartCoroutine(heavyAttackCoroutine());
                
@@ -1179,7 +1182,6 @@ public class Player : Unit, IDamageable
             {
                 
                 _heavyCollider.transform.position = _heavyCollider.transform.position - (_heavyCollider.gameObject.transform.localScale / 2);
-                
                 _heavyCollider.transform.localPosition = new Vector3(0f, 0f, 0f);
                 StartCoroutine(heavyAttackCoroutine());
                
@@ -1204,20 +1206,20 @@ public class Player : Unit, IDamageable
 
     public void useHealthPotion()
     {
-        if(Health < maxHealth)
-        {
-            if (healthPotions > 0)
-            {
-                if (!usingPotion)
-                {
-                    usingPotion = true;
-                    healthPotions--;
-                    Health = Health + (maxHealth * 0.4f);
-                    StartCoroutine(usePotionCoroutine());
-                }
-
-            }
-        }
+        // if(Health < maxHealth)
+        // {
+        //     if (healthPotions > 0)
+        //     {
+        //         if (!usingPotion)
+        //         {
+        //             usingPotion = true;
+        //             healthPotions--;
+        //             Health = Health + (maxHealth * 0.4f);
+        //             StartCoroutine(usePotionCoroutine());
+        //         }
+        //
+        //     }
+        // }
         
     }
 
@@ -1446,7 +1448,7 @@ public class Player : Unit, IDamageable
 
         if (other.gameObject.tag =="ground")
         {
-            _groundCollider.enabled = true;
+            //_groundCollider.enabled = true;
         }
         
     }
