@@ -12,6 +12,8 @@ public class AerorangSpell : Spell
     [Tooltip("the spells transform that is affected to make it move")]
     public Transform myTransform;
 
+    public GameObject model;
+
     [HideInInspector]
     public Vector3 startingPos;
 
@@ -21,7 +23,7 @@ public class AerorangSpell : Spell
     [SerializeField]
     public Vector3 targetPos;
 
-    [HideInInspector]
+    [SerializeField]
     public bool facingRight;
 
     [SerializeField]
@@ -69,7 +71,7 @@ public class AerorangSpell : Spell
 
         damage = stats.damage;
         manaCost = stats.manaCost;
-
+        model.transform.eulerAngles = new Vector3(0f, 270f, 0f);
         if (facingRight)
         {
             targetPos = new Vector3(startingPos.x + travelDistance, startingPos.y + 1, 0);
@@ -77,6 +79,8 @@ public class AerorangSpell : Spell
             targetPos.z = Mathf.Round(targetPos.z * 10f) / 10f;
             targetPos.x = Mathf.Round(targetPos.x * 10f) / 10f;
             targetPos.y = Mathf.Round(targetPos.y * 10f) / 10f;
+
+           
         }
         else
         {
@@ -85,6 +89,8 @@ public class AerorangSpell : Spell
             targetPos.z = Mathf.Round(targetPos.z * 10f) / 10f;
             targetPos.x = Mathf.Round(targetPos.x * 10f) / 10f;
             targetPos.y = Mathf.Round(targetPos.y * 10f) / 10f;
+
+            //model.transform.eulerAngles = new Vector3(0f, 90f, 0f);
         }
 
        
@@ -94,7 +100,7 @@ public class AerorangSpell : Spell
     private void FixedUpdate()
     {
 
-
+        facingRight = player.GetComponent<NewPlayer>().facingRight;
         currentPos = this.transform.position;
         zPos = 0f;
         currentPos.z = zPos;
@@ -110,6 +116,7 @@ public class AerorangSpell : Spell
 
         if (!goingBack)
         {
+           
             zPos = 0f;
             currentPos.z = zPos;
 
@@ -131,6 +138,16 @@ public class AerorangSpell : Spell
         }
         else
         {
+            if (model.transform.position.x - player.transform.position.x > 0)
+            {
+                model.transform.localEulerAngles = new Vector3(0f, 270f, 0f);
+
+            }
+
+            if (model.transform.position.x - player.transform.position.x < 0)
+            {
+                model.transform.localEulerAngles = new Vector3(0f, 270f, 0f);
+            }
             targetPos = player.transform.position;
 
 
