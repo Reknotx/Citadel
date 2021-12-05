@@ -40,7 +40,13 @@ namespace Interactables
             }
         }
 
-
+        public void OnTriggerStay(Collider other)
+        {
+            if (other.gameObject.layer == 7)
+            {
+                Interact();
+            }
+        }
 
 
     }
