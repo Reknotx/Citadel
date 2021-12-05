@@ -76,7 +76,7 @@ public class Skeleton : Enemy
 
                     isAttacking = true;
                     //transform.LookAt(player.transform);
-                    shootLocation = player.transform;
+                    //shootLocation = player.transform;
                     Instantiate(projectile, shootLocation.position, Quaternion.identity);
                     StartCoroutine(ProjectileCooldown());
                 }
