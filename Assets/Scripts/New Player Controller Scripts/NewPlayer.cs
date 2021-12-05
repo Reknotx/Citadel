@@ -153,10 +153,13 @@ public class NewPlayer : Unit, IDamageable
     public override void Update()
     {
         if (isPaused) return;
+        capHealth();
+        capMana();
 
         Move();
         
         GroundedCheck();
+        
     }
 
     public void OnTriggerEnter(Collider other)
@@ -378,5 +381,25 @@ public class NewPlayer : Unit, IDamageable
                 break;
         }
         invulnerable = false;
+    }
+
+
+
+    public void capHealth()
+    {
+        if(Health > MaxHealth)
+        {
+            Health = MaxHealth;
+        }
+
+        
+    }
+
+    public void capMana()
+    {
+        if (Mana > MaxMana)
+        {
+            Mana = MaxMana;
+        }
     }
 }
