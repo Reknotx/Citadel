@@ -180,14 +180,10 @@ public class PlayerStatTrackerScript : MonoBehaviour
     {
         if (statsUpdated == false && currentSceneName != "MainMenuScene" && currentSceneName != "MineScene")
         {
-            if (playerDead == true)
+            if (currentSceneName == "CampScene" || currentSceneName == "CastleScene")
             {
-                    playerSpeed =  startingSpeed;
-                    playerMaxHealth =  startingMaxHealth;
-                    playerMaxMana = startingMaxMana;
-                    playerAttackDamage =startingAttackDamage ;
-                    //playerAttackRange =  startingAttackRange;
-                    playerDead = false;
+                playerMaxHealth = player.GetComponent<NewPlayer>().MaxHealth;
+                playerMaxMana = player.GetComponent<NewPlayer>().MaxMana;
             }
 
 
