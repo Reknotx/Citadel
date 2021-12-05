@@ -24,7 +24,7 @@ namespace Interactables
         }
 
 
-        public void OnTriggerEnter(Collider other)
+        public void OnTriggerStay(Collider other)
         {
             if (other.gameObject.layer == 7)
             {
