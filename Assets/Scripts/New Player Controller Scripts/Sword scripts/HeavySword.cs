@@ -7,6 +7,7 @@ public class HeavySword : Sword
     public override void OnEnable()
     {
         base.OnEnable();
-        PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.HEAVY_ATTACK);
+        PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.TriggerAnimations.HEAVY_ATTACK);
+        StartCoroutine(turnOffAfterAnimationCoroutine());
     }
 }

@@ -118,22 +118,22 @@ public class GoldHandler : MonoBehaviour
     /// The increase in the player's revenue for every miner they own
     /// </summary>
     [SerializeField]
-    public int minerIncrease;
+    public int minerIncrease = 2;
 
     /// <summary>
     /// The increase in the player's revenue for every mine cart they own
     /// </summary>
     [SerializeField]
-    public int cartIncrease;
+    public int cartIncrease = 4;
 
     [SerializeField]
-    public int pickIncrease;
+    public int pickIncrease = 6;
 
     [SerializeField]
-    public int moleIncrease;
+    public int moleIncrease = 8;
 
     [SerializeField]
-    public int wizardIncrease;
+    public int wizardIncrease = 10;
 
     /// <summary>
     /// The player's current revenue (passively gained gold)
@@ -145,19 +145,28 @@ public class GoldHandler : MonoBehaviour
     /// </summary>
     private float elapsed = 0f;
 
+
+    public GameObject player;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
             Destroy(Instance.gameObject);
 
         Instance = this;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
 
     private void Start()
     {
         currentScene = SceneManager.GetActiveScene();
-         
+        baseGoldIncrease = 1;
+        minerIncrease = 1;
+        pickIncrease = 2;
+        cartIncrease = 3;
+        moleIncrease = 5;
+        wizardIncrease = 10;
          
     }
 
@@ -194,7 +203,9 @@ public class GoldHandler : MonoBehaviour
             if (!(mainMenuName == currentScene.name))
             {
                 revenue = baseGoldIncrease + (numOfMiners * minerIncrease) + (numOfCarts * cartIncrease) + (numOfPicks * pickIncrease) + (numOfMoles * moleIncrease) + (numOfWizards * wizardIncrease);
-                AddHardGold(revenue);
+                //AddHardGold(revenue);
+                NewPlayer.Instance.inventory.goldStorage.MineGoldToPermGold(revenue);
+                MyHardGold = NewPlayer.Instance.inventory.goldStorage.permanentGold;
             }
             elapsed = 0f;
         }

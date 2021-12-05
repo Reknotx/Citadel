@@ -7,6 +7,7 @@ public class LightSword : Sword
     public override void OnEnable()
     {
         base.OnEnable();
-        PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.LIGHT_ATTACK);
+        PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.TriggerAnimations.LIGHT_ATTACK);
+        StartCoroutine(turnOffAfterAnimationCoroutine());
     }
 }

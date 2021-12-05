@@ -22,10 +22,24 @@ namespace Interactables
         {
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<NewPlayer>().Health += dropAmount;
 
+            if (player.GetComponent<NewPlayer>().Health !=player.GetComponent<NewPlayer>().MaxHealth)
+            {
+                if(player.GetComponent<NewPlayer>().Health + dropAmount <= player.GetComponent<NewPlayer>().MaxHealth)
+                {
+                    player.GetComponent<NewPlayer>().Health += dropAmount;
+                }
+                else
+                {
+                    player.GetComponent<NewPlayer>().Health = player.GetComponent<NewPlayer>().MaxHealth;
+                }
                
-            Destroy(this.gameObject);
+
+                
+
+                    Destroy(this.gameObject);
+            }
+           
 
 
         }
