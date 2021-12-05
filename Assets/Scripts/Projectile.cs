@@ -39,10 +39,14 @@ public class Projectile : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    void dealDamage()
+    {
+
+    }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.gameObject.layer == 7)
         {
             NewPlayer.Instance.TakeDamage(projectileDamage);
             

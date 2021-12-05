@@ -3,8 +3,6 @@
  * Date: 11/10/2021.
  * 
  * Brief: A new and improved player controller for the game.
- * 
- * 
  */
 
 using System.Collections;
@@ -22,11 +20,6 @@ public class NewPlayer : Unit, IDamageable
 {
     public Renderer bodyRenderer;
     
-    #region Fields
-
-
-
-    #endregion
     /// <summary> The static instance of the New Player in the scene. </summary>
     public static NewPlayer Instance;
 
@@ -48,9 +41,8 @@ public class NewPlayer : Unit, IDamageable
     
     private int playerLayer = 7;
     private int ignorePlayerLayer = 12;
-
+    
     public PlayerCombatSystem combatSystem;
-
 
     public PlayerInventory inventory;
 
@@ -73,7 +65,11 @@ public class NewPlayer : Unit, IDamageable
         set
         {
             _health = Mathf.Clamp(value, 0, MaxHealth);
-            if (HealthBar != null) HealthBar.value = value;
+            if (HealthBar != null)
+            {
+                HealthBar.value = value;
+                HealthBar.GetComponentInChildren<Text>().text = value.ToString();
+            }
             if (Health == 0)
             {
                 //Activate game over logic
@@ -136,7 +132,7 @@ public class NewPlayer : Unit, IDamageable
 
         ManaBar.maxValue = MaxMana;
         Mana = MaxMana;
-
+        
         base.Awake();
     }
 
@@ -148,14 +144,13 @@ public class NewPlayer : Unit, IDamageable
     public override void Update()
     {
         if (isPaused) return;
+        
 
         Move();
-
+        
         GroundedCheck();
-
+        
     }
-
-
 
     public void OnTriggerEnter(Collider other)
     {
@@ -207,13 +202,9 @@ public class NewPlayer : Unit, IDamageable
         bool CheckForWalls()
         {
             LayerMask layerMask;
-            if (physicalBody.layer == ignorePlayerLayer)
-            {
-                layerMask = groundLayerMask;
-            }
+            if (physicalBody.layer == ignorePlayerLayer) layerMask = groundLayerMask;
             else layerMask = groundLayerMask | platformLayerMask;
-
-
+            
             //Here I'll want to do a physics cast instead of a ray cast
             //so that I get all of the information easily and without trial 
             //and error 
@@ -222,7 +213,7 @@ public class NewPlayer : Unit, IDamageable
                                    moveDir,
                                    Quaternion.identity,
                                    0.3f,
-                                   layerMask); ;
+                                   layerMask);
         }
     }
 
@@ -377,4 +368,8 @@ public class NewPlayer : Unit, IDamageable
         }
         invulnerable = false;
     }
+
+
+
+   
 }

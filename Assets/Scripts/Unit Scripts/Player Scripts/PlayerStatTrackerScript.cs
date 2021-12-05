@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerGoldTrackerScript : MonoBehaviour
+public class PlayerStatTrackerScript : MonoBehaviour
 {
 
     public GameObject goldHandler;
     public GameObject player;
 
 
-    private static PlayerGoldTrackerScript _instance;
+    private static PlayerStatTrackerScript _instance;
 
     [SerializeField]
-    public static PlayerGoldTrackerScript Instance { get { return _instance; } }
+    public static PlayerStatTrackerScript Instance { get { return _instance; } }
 
     public float playerSoftGold;
     public float playerHardGold;
@@ -180,20 +180,16 @@ public class PlayerGoldTrackerScript : MonoBehaviour
     {
         if (statsUpdated == false && currentSceneName != "MainMenuScene" && currentSceneName != "MineScene")
         {
-            if (playerDead == true)
+            if (currentSceneName == "CampScene" || currentSceneName == "CastleScene")
             {
-                    playerSpeed =  startingSpeed;
-                    playerMaxHealth =  startingMaxHealth;
-                    playerMaxMana = startingMaxMana;
-                    playerAttackDamage =startingAttackDamage ;
-                    //playerAttackRange =  startingAttackRange;
-                    playerDead = false;
+                playerMaxHealth = player.GetComponent<NewPlayer>().MaxHealth;
+                playerMaxMana = player.GetComponent<NewPlayer>().MaxMana;
             }
 
 
-            //player.GetComponent<NewPlayer>().Health = playerMaxHealth;
-            //player.GetComponent<NewPlayer>().Mana = playerMaxMana;
-            //player.GetComponent<NewPlayer>().speed = playerSpeed;
+            player.GetComponent<NewPlayer>().Health = playerMaxHealth;
+            player.GetComponent<NewPlayer>().Mana = playerMaxMana;
+            player.GetComponent<NewPlayer>().speed = playerSpeed;
             player.GetComponentInChildren<CombatSystem.PlayerMeleeSystem>().playerMeleeDamage = playerAttackDamage;
             //player.GetComponent<Player>().meleeAttackRange = playerAttackRange;
             //player.GetComponent<Player>().Attack1 = attack1;

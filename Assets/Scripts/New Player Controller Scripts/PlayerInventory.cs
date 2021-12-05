@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class PlayerInventory
 {
-    private int healthPotionHealAmnt = 10;
-    private int manaPotionRefillAmnt = 10;
-
-    public int HealthPotions = 0;
+    private const int healthPotionHealAmnt = 10;
+    private const int manaPotionRefillAmnt = 10;
+    
     private const int _MaxHealthPotions = 5;
-
-    public bool HealthPotionSpace => HealthPotions < _MaxHealthPotions;
-
-    public int ManaPotions = 0;
     private const int _MaxManaPotions = 5;
+    
+
+
+    public int HealthPotions;
+    public int ManaPotions;
+
 
     public bool ManaPotionSpace => ManaPotions < _MaxManaPotions;
-
+    public bool HealthPotionSpace => HealthPotions < _MaxHealthPotions;
+    
     public bool shuues = false;
     public bool undying = false;
     public bool spellStone = false;
@@ -63,11 +65,11 @@ public class PlayerInventory
 
     public class GoldStorage
     {
-        /// <summary> The gold that the player has saved up that can be used in the casle. </summary>
+        /// <summary> The gold that the player has saved up that can be used in the castle. </summary>
         public float permanentGold;
 
         /// <summary> The gold in the player's inventory in the castle. This can be lost on death. </summary>
-        public float gold;
+        private float gold;
 
         private const string permGoldStorage = "permanentGold";
 
