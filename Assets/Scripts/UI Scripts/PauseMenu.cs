@@ -12,17 +12,14 @@ namespace Menu
 
         public Button returnToCampButton;
 
-        public NewPlayer player;
-
         private void Awake()
         {
             if (Instance != null && Instance != this)
                 Destroy(Instance);
 
             Instance = this;
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<NewPlayer>();
+
             gameObject.SetActive(false);
-            
         }
 
         public void OnEnable()
@@ -55,8 +52,7 @@ namespace Menu
 
         void resumeGame()
         {
-           
-            player.isPaused = false;
+            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<NewPlayer>();
             Time.timeScale = 1f;
         }
 

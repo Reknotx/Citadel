@@ -1,4 +1,4 @@
-/**
+/*
  * Author: Chase O'Connor
  * Date: 10/26/2021
  * 
@@ -9,8 +9,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
-public class Squiggmar : MonoBehaviour, IDamageable
+public class Squiggmar : Enemy, IDamageable
 {
     ///Notes for Squiggmar
     ///1. The head needs to be invulnerable until all tentacles are killed.
@@ -30,7 +31,7 @@ public class Squiggmar : MonoBehaviour, IDamageable
     ///4. Squiggmar's head should be kept away from the terrain
     ///and be allowed to pass through everything. There shouldn't
     ///be ay form of clipping happening that makes him behave
-    ///weirdly and eratic.
+    ///weirdly and erratic.
     ///
 
     public static Squiggmar Instance;
@@ -70,7 +71,7 @@ public class Squiggmar : MonoBehaviour, IDamageable
     [SerializeField]
     private bool headVulnerable = false;
 
-    public int GetActiveTentacles
+    private int GetActiveTentacles
     {
         get
         {
@@ -84,11 +85,8 @@ public class Squiggmar : MonoBehaviour, IDamageable
             return count;
         }
     }
-    private float _maxHealth;
-
-    [SerializeField]
-    private float _health;
-    public float Health 
+        
+    public override float Health 
     { 
         get => _health; 
         set
@@ -97,34 +95,24 @@ public class Squiggmar : MonoBehaviour, IDamageable
             Debug.Log("Squiggmar health is now " + _health);
             endGameMenu.SetActive(true);
             Destroy(gameObject);
-            ///Perform death logic to end the game/proceed to
-            ///the next level
+            //Perform death logic to end the game/proceed to
+            //the next level
         }
     }
-
-
-
-
+    
     public bool isGoingUp = false;
-    public bool isDead = false;
 
-    public Animator animator;
-
-
-    private void Awake()
+    public override void Awake()
     {
         if (Instance != null && Instance != this)
             Destroy(Instance);
 
         Instance = this;
-
     }
 
-    public void Start()
+    public override void Start()
     {
         transform.GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1f, 1f, 1f, 0.5f);
-
-        _maxHealth = Health;
 
         foreach (Transform child in transform)
         {
@@ -139,14 +127,14 @@ public class Squiggmar : MonoBehaviour, IDamageable
     public void FixedUpdate()
     {
 
-        ///hunter added
-        ///tracks the health real time incase of sudden enemy death 
+        //hunter added
+        //tracks the health real time incase of sudden enemy death 
         if (_health <= 0)
         {
             _health = 0;
 
 
-            ///this triggers the death animation and delays setting Active to false for a second to let the animation play
+            //this triggers the death animation and delays setting Active to false for a second to let the animation play
             isDead = true;
             animator.SetBool("isDead", isDead);
             if (isDead)
@@ -155,8 +143,8 @@ public class Squiggmar : MonoBehaviour, IDamageable
             }
         }
 
-        ///hunter added
-        ///tracks the animator and attached bools for activating animations
+        //hunter added
+        //tracks the animator and attached bools for activating animations
         if (animator != null)
         {
             animator.SetBool("isGoingUp", isGoingUp);
@@ -168,6 +156,11 @@ public class Squiggmar : MonoBehaviour, IDamageable
             CombatLogic();
     }
 
+    public override void Update()
+    {
+        
+    }
+
 
     public void CombatLogic()
     {
@@ -175,7 +168,7 @@ public class Squiggmar : MonoBehaviour, IDamageable
         {
             if (!headVulnerable)
             {
-                ///Squiggmar is now vulnerable
+                //Squiggmar is now vulnerable
                 headVulnerable = true;
                 StartCoroutine(HeadVulnerableTime());
             }
@@ -212,8 +205,8 @@ public class Squiggmar : MonoBehaviour, IDamageable
         bool moving = true;
         float startTime = Time.time;
 
-        ///hunter added 
-        ///starts the going up animation 
+        //hunter added 
+        //starts the going up animation 
         isGoingUp = true;
         animator.SetBool("isGoingUp", isGoingUp);
 
@@ -238,8 +231,8 @@ public class Squiggmar : MonoBehaviour, IDamageable
 
         }
 
-        ///hunter added
-        ///ends the going up animation 
+        //hunter added
+        //ends the going up animation 
         isGoingUp = false;
         animator.SetBool("isGoingUp", isGoingUp);
 
@@ -285,6 +278,7 @@ public class Squiggmar : MonoBehaviour, IDamageable
     {
         Health -= amount;
     }
+    
 
     /// <summary>
     /// delays the setActive to false for a second to give animations time to finish

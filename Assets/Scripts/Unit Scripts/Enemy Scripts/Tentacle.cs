@@ -1,4 +1,4 @@
-/**
+/*
  * Author: Chase O'Connor
  * Date: 10/26/2021
  * 
@@ -11,7 +11,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class Tentacle : Enemy, IDamageable
+public class Tentacle : Enemy
 {
     public Vector3 idlePos;
     private Vector3 swipeStartPoint, swipeEndPoint;
@@ -65,11 +65,13 @@ public class Tentacle : Enemy, IDamageable
     ///and put into a neutral state so that it can be reactivated
     ///later on and doesn't need to be spawned in. 
     ///
+    //
+    // [SerializeField]
+    // private float _health;
+    //
+    // private float _maxHealth;
 
-    
 
-    
-    [SerializeField]
     public override float Health 
     { 
         get => _health; 
@@ -80,15 +82,14 @@ public class Tentacle : Enemy, IDamageable
             {
                 _health = 0;
 
-               // StopAllCoroutines();
-               //ReturnToIdle();
+                StopAllCoroutines();
+                ReturnToIdle();
             }
         }
     }
 
     public override void Awake()
     {
-        base.Awake();
         idlePos = transform.position;
 
         //hunter added
@@ -106,23 +107,20 @@ public class Tentacle : Enemy, IDamageable
     public override void Start()
     {
         playerScript = NewPlayer.Instance;
-        
-        base.Start();
-        
     }
 
-    private void FixedUpdate()
+    public override void Update()
     {
         //hunter added
         //tracking health in update because the base health would not trigger as soon as health hit 0
-        HealthIMG.gameObject.transform.position = new Vector3(idlePos.x, idlePos.y-.5f, idlePos.z+1f);
+        
         if (_health <= 0)
         {
             _health = 0;
 
             //this triggers the death animation and delays setting Active to false for a second to let the animation play
             isDead = true;
-            animator.SetBool("isDead", isDead);
+            animator.SetBool(IsDead, isDead);
             if (isDead)
             {
                 StartCoroutine(turnOff());
@@ -137,13 +135,13 @@ public class Tentacle : Enemy, IDamageable
         //tracks the animator and attached bools for activating animations
         if (animator != null)
         {
-            animator.SetBool("isAttacking", isAttacking);
-            animator.SetBool("isDead", isDead);
+            animator.SetBool(IsAttacking, isAttacking);
+            animator.SetBool(IsDead, isDead);
         }
 
-        swipeStartPoint.y = playerScript.transform.position.y+.5f;
-        swipeEndPoint.y = swipeStartPoint.y+.5f;
-        transform.position = new Vector3(swipeStartPoint.x, swipeStartPoint.y+.5f, 0f);
+        swipeStartPoint.y = playerScript.transform.position.y;
+        swipeEndPoint.y = swipeStartPoint.y;
+        transform.position = new Vector3(swipeStartPoint.x, swipeStartPoint.y, 0f);
 
 
         //hunter added 
@@ -200,7 +198,6 @@ public class Tentacle : Enemy, IDamageable
 
     public override void OnTriggerEnter(Collider other)
     {
-        base.OnTriggerEnter(other);
         if (!attacking) return;
 
         if (other.gameObject == playerScript.gameObject)

@@ -16,7 +16,7 @@ using JetBrains.Annotations;
 using UnityEngine.Serialization;
 
 
-public class NewPlayer : Unit, IDamageable
+public class NewPlayer : Unit
 {
     public Renderer bodyRenderer;
     
@@ -54,8 +54,7 @@ public class NewPlayer : Unit, IDamageable
     [Tooltip("The height of the model for collision detection purposes.")]
     public float modelHeight = 1.5f;
 
-    [HideInInspector]
-    public bool isPaused;
+    public bool IsPaused => PauseMenu.Instance.gameObject.activeSelf;
 
     private bool _canDoubleJump;
     
@@ -149,7 +148,7 @@ public class NewPlayer : Unit, IDamageable
 
     public override void Update()
     {
-        if (isPaused) return;
+        if (IsPaused) return;
         
 
         Move();
@@ -262,7 +261,7 @@ public class NewPlayer : Unit, IDamageable
 
     public void OnMove(InputValue value)
     {
-        if (isPaused) return;
+        if (IsPaused) return;
         //Use forces to move the player in the desired direction instead
         //use the technique that Brackey's utilized in the Ball wars video
         //Limit the velocity the player can have in the x direction only 
@@ -285,7 +284,7 @@ public class NewPlayer : Unit, IDamageable
 
     public void OnJump()
     {
-        if ((!grounded && !_canDoubleJump) || isPaused) return;
+        if ((!grounded && !_canDoubleJump) || IsPaused) return;
 
         if (!grounded && _canDoubleJump) _canDoubleJump = false;
         LeftGround();
@@ -296,7 +295,7 @@ public class NewPlayer : Unit, IDamageable
 
     public void OnDropDown()
     {
-        if (!grounded || isPaused) return;
+        if (!grounded || IsPaused) return;
         PlayerAnimationManager.Instance.SetBool(PlayerAnimationManager.BoolAnimations.FALLING, true);
         LeftGround();
         falling = true;
@@ -304,19 +303,18 @@ public class NewPlayer : Unit, IDamageable
 
     public void OnInteract()
     {
-        if (currentInteractableItem != null && !isPaused) currentInteractableItem.Interact();
+        if (currentInteractableItem != null && !IsPaused) currentInteractableItem.Interact();
     }
 
     public void OnPause()
     {
         PauseMenu.Instance.gameObject.SetActive(!PauseMenu.Instance.gameObject.activeSelf);
-        isPaused = PauseMenu.Instance.gameObject.activeSelf;
         combatSystem.spellSystem.spellBook.gameObject.SetActive(false);
     }
 
     public void OnUsePotion()
     {
-        if (isPaused) return;
+        if (IsPaused) return;
         
         if (Keyboard.current.fKey.isPressed)
             inventory.UseHealthPotion();

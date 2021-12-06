@@ -144,5 +144,8 @@ public class Unit : MonoBehaviour, IDamageable
         Health -= amount;
     }
 
-   
+    public virtual IEnumerator Bleed()
+    {
+        throw new System.NotImplementedException();
+    }
 }
