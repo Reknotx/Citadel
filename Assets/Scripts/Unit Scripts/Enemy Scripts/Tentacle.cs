@@ -138,9 +138,9 @@ public class Tentacle : Enemy, IDamageable
             animator.SetBool("isDead", isDead);
         }
 
-        swipeStartPoint.y = playerScript.transform.position.y;
-        swipeEndPoint.y = swipeStartPoint.y;
-        transform.position = new Vector3(swipeStartPoint.x, swipeStartPoint.y, 0f);
+        swipeStartPoint.y = playerScript.transform.position.y+.5f;
+        swipeEndPoint.y = swipeStartPoint.y+.5f;
+        transform.position = new Vector3(swipeStartPoint.x, swipeStartPoint.y+.5f, 0f);
 
 
         //hunter added 
