@@ -384,7 +384,7 @@ namespace Map
 
             GameObject prevRoom = null;
             
-            Debug.Log(path[path.Count - 1].);
+            // Debug.Log(path[path.Count - 1].);
 
             //Ok this needs to be redone, this isn't nice and just makes clutter.
             for (int pathIndex = 1; pathIndex < path.Count - 1; pathIndex++)
