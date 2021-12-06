@@ -7,6 +7,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 
 //Notes:
@@ -330,6 +331,10 @@ namespace Map
                 Debug.LogError("Huh");
             }
 
+            // foreach (GridNode node in path)
+            // {
+            //     
+            // }
             for (int index = 0; index < path.Count; index++)
             {
                 if (path[index].roomType == GridNode.RoomType.Spawn) continue;
