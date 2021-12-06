@@ -38,7 +38,7 @@ public abstract class Spell : MonoBehaviour
             TriggerSpell(other.gameObject);
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         NewPlayer.Instance.Mana -= stats.manaCost 
                                    - (NewPlayer.Instance.inventory.spellStone
