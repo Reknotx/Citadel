@@ -96,16 +96,16 @@ public class Orc : Enemy
 
     IEnumerator WaitBetweenVisual_Right()
     {
-        orcAttack_R.SetActive(true);
+        //orcAttack_R.SetActive(true);
         yield return new WaitForSeconds(0.5f);
-        orcAttack_R.SetActive(false);
+        //orcAttack_R.SetActive(false);
     }
 
     IEnumerator WaitBetweenVisual_Left()
     {
-        orcAttack_L.SetActive(true);
+        //orcAttack_L.SetActive(true);
         yield return new WaitForSeconds(0.5f);
-        orcAttack_L.SetActive(false);
+        //orcAttack_L.SetActive(false);
     }
 
     
