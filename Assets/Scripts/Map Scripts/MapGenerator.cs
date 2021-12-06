@@ -157,28 +157,14 @@ namespace Map
             Vector3 BRPos;
             do
             {
-<<<<<<< Updated upstream
-                int BRGX = Random.Range(1, (int) trueGridSize.x);
-                int BRGY = Random.Range(0, (int) trueGridSize.y);
-=======
                 int BRGX = Random.Range(4, (int) columns - 1);
                 int BRGY = Random.Range(1, (int) rows - 1);
->>>>>>> Stashed changes
 
                 BRPos = new Vector3(BRGX * roomSize, BRGY * roomSize);
                 
                 BossRoomGridPos = new Vector2(BRGX, BRGY);
             } while (!gridInfo.CheckSpawnBossDist(SpawnRoomPos, BRPos));
 
-<<<<<<< Updated upstream
-            BossRoomGridPos = new Vector2(BRPos.x / roomSize, BRPos.y / roomSize);
-
-            GameObject bossRoom = SpawnRoom(roomCont.BossRooms[Random.Range(0, roomCont.BossRooms.Count)],
-                BossRoomGridPos,
-                "Boss Room");
-            AddSpecialRoomToList(bossRoom);
-=======
->>>>>>> Stashed changes
 
             // GameObject bossRoom = SpawnRoom(roomCont.BossRooms[Random.Range(0, roomCont.BossRooms.Count)],
             //     BossRoomGridPos,
@@ -194,8 +180,6 @@ namespace Map
                 bossRoomInfo.CalcDoorsTopSide(),
                 bossRoomInfo.CalcDoorsBottomSide());
 
-<<<<<<< Updated upstream
-=======
             #region 2a. Put filled rooms around the boss room except for the entrance side
 
 
@@ -213,7 +197,6 @@ namespace Map
             #endregion
 
             
->>>>>>> Stashed changes
             #endregion
 
             //To remind myself as to what a room needs:
@@ -541,127 +524,31 @@ namespace Map
                         if (prevDir == Dir.Left)
                         {
                             //Curr must have openings on left
-<<<<<<< Updated upstream
-                            switch (prevPos)
-                            {
-                                case DoorPositions.RightTop:
-                                    if (currPos == DoorPositions.LeftTop)
-                                    {
-                                        lineUp = true;
-                                    }
-
-                                    break;
-
-                                case DoorPositions.RightMiddle:
-                                    if (currPos == DoorPositions.LeftMiddle)
-                                    {
-                                        lineUp = true;
-                                    }
-
-                                    break;
-
-                                case DoorPositions.RightBottom:
-                                    if (currPos == DoorPositions.LeftBottom)
-                                    {
-                                        lineUp = true;
-                                    }
-
-                                    break;
-=======
-                            if (prevPos == DoorPositions.RightTop && currPos == DoorPositions.LeftTop)
+                            if ((prevPos == DoorPositions.RightTop && currPos == DoorPositions.LeftTop) ||
+                                (prevPos == DoorPositions.RightMiddle && currPos == DoorPositions.LeftMiddle) ||
+                                (prevPos == DoorPositions.RightBottom && currPos == DoorPositions.LeftBottom))
                             {
                                 lineUp = true;
-                            }
-                            else if (prevPos == DoorPositions.RightMiddle && currPos == DoorPositions.LeftMiddle)
-                            {
-                                lineUp = true;
-                            }
-                            else if (prevPos == DoorPositions.RightBottom && currPos == DoorPositions.LeftBottom)
-                            {
-                                lineUp = true;
->>>>>>> Stashed changes
                             }
                         }
                         else if (prevDir == Dir.Right)
                         {
                             //Curr must have openings on right
-<<<<<<< Updated upstream
-                            switch (prevPos)
-=======
-                            if (prevPos == DoorPositions.LeftTop && currPos == DoorPositions.RightTop)
-                            {
-                                lineUp = true;
-                            }
-                            else if (prevPos == DoorPositions.LeftMiddle && currPos == DoorPositions.RightMiddle)
->>>>>>> Stashed changes
-                            {
-                                case DoorPositions.LeftTop:
-                                    if (currPos == DoorPositions.RightTop)
-                                    {
-                                        lineUp = true;
-                                    }
-
-                                    break;
-
-                                case DoorPositions.LeftMiddle:
-                                    if (currPos == DoorPositions.RightMiddle)
-                                    {
-                                        lineUp = true;
-                                    }
-
-                                    break;
-
-                                case DoorPositions.LeftBottom:
-                                    if (currPos == DoorPositions.RightBottom)
-                                    {
-                                        lineUp = true;
-                                    }
-
-                                    break;
-                            }
+                            if ((prevPos == DoorPositions.LeftTop && currPos == DoorPositions.RightTop) ||
+                                (prevPos == DoorPositions.LeftMiddle && currPos == DoorPositions.RightMiddle) ||
+                                (prevPos == DoorPositions.LeftTop && currPos == DoorPositions.RightTop))
+                                {
+                                    lineUp = true;
+                                }
                         }
                         else if (prevDir == Dir.Below)
                         {
                             //Curr must have openings on bottom
-<<<<<<< Updated upstream
-                            switch (prevPos)
-                            {
-                                case DoorPositions.TopLeft:
-                                    if (currPos == DoorPositions.BottomLeft)
-                                    {
-                                        lineUp = true;
-                                    }
-
-                                    break;
-
-                                case DoorPositions.TopMiddle:
-                                    if (currPos == DoorPositions.BottomMiddle)
-                                    {
-                                        lineUp = true;
-                                    }
-
-                                    break;
-
-                                case DoorPositions.TopRight:
-                                    if (currPos == DoorPositions.BottomRight)
-                                    {
-                                        lineUp = true;
-                                    }
-
-                                    break;
-=======
-                            if (prevPos == DoorPositions.TopLeft && currPos == DoorPositions.BottomLeft)
+                            if ((prevPos == DoorPositions.TopLeft && currPos == DoorPositions.BottomLeft) ||
+                                (prevPos == DoorPositions.TopMiddle && currPos == DoorPositions.BottomMiddle) ||
+                                (prevPos == DoorPositions.TopRight && currPos == DoorPositions.BottomRight))
                             {
                                 lineUp = true;
-                            }
-                            else if (prevPos == DoorPositions.TopMiddle && currPos == DoorPositions.BottomMiddle)
-                            {
-                                lineUp = true;
-                            }
-                            else if (prevPos == DoorPositions.TopRight && currPos == DoorPositions.BottomRight)
-                            {
-                                lineUp = true;
->>>>>>> Stashed changes
                             }
                         }
                         else
@@ -669,45 +556,11 @@ namespace Map
                             Debug.Log("Prev room above current");
                             Debug.Log(prevPos.ToString());
                             //Curr must have openings on top
-<<<<<<< Updated upstream
-                            switch (prevPos)
-                            {
-                                case DoorPositions.BottomLeft:
-                                    if (currPos == DoorPositions.TopLeft)
-                                    {
-                                        lineUp = true;
-                                    }
-
-                                    break;
-
-                                case DoorPositions.BottomMiddle:
-                                    if (currPos == DoorPositions.TopMiddle)
-                                    {
-                                        lineUp = true;
-                                    }
-
-                                    break;
-
-                                case DoorPositions.BottomRight:
-                                    if (currPos == DoorPositions.TopRight)
-                                    {
-                                        lineUp = true;
-                                    }
-
-                                    break;
-=======
-                            if (prevPos == DoorPositions.BottomLeft && currPos == DoorPositions.TopLeft)
+                            if ((prevPos == DoorPositions.BottomLeft && currPos == DoorPositions.TopLeft) ||
+                                (prevPos == DoorPositions.BottomMiddle && currPos == DoorPositions.TopMiddle) ||
+                                (prevPos == DoorPositions.BottomRight && currPos == DoorPositions.TopRight))
                             {
                                 lineUp = true;
-                            }
-                            else if (prevPos == DoorPositions.BottomMiddle && currPos == DoorPositions.TopMiddle)
-                            {
-                                lineUp = true;
-                            }
-                            else if (prevPos == DoorPositions.BottomRight && currPos == DoorPositions.TopRight)
-                            {
-                                lineUp = true;
->>>>>>> Stashed changes
                             }
                         }
 
@@ -724,22 +577,13 @@ namespace Map
                 //Debug.Log(prevRoomPos);
 
                 if (currRoomPos.x > prevRoomPos.x)
-                {
                     //Curr room to right of prev room so the prev room dir is left
                     return Dir.Left;
-                }
-                else if (currRoomPos.x < prevRoomPos.x)
-                {
+                
+                if (currRoomPos.x < prevRoomPos.x)
                     return Dir.Right;
-                }
-                else if (currRoomPos.y > prevRoomPos.y)
-                {
-                    return Dir.Below;
-                }
-                else
-                {
-                    return Dir.Top;
-                }
+
+                return currRoomPos.y > prevRoomPos.y ? Dir.Below : Dir.Top;
             }
 
 
