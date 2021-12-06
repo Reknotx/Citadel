@@ -14,6 +14,7 @@ public class InvulnSpell : Spell
         movingSpell = false;
         player = GameObject.FindGameObjectWithTag("Player");
         PlayerAnimationManager.Instance.ActivateTrigger("castPox");
+        
     }
 
     public void FixedUpdate()
@@ -24,11 +25,13 @@ public class InvulnSpell : Spell
     private void OnEnable()
     {
         TriggerSpell(player);
+      StartCoroutine(delayDestroy());
     }
 
     protected override void TriggerSpell(GameObject target)
     {
-        target.GetComponent<NewPlayer>().IFrames(invulnDurration);
+       
+        target.GetComponent<NewPlayer>().StartCoroutine(player.GetComponent<NewPlayer>().IFrames(invulnDurration));
     }
 
     protected override void Move()
@@ -40,7 +43,13 @@ public class InvulnSpell : Spell
     public void trackPlayer()
     {
 
-        //transform.position = player.transform.position;
-        transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z);
+        
+        transform.position = new Vector3(player.transform.position.x, player.transform.position.y + .8f, player.transform.position.z);
+    }
+
+    public IEnumerator delayDestroy()
+    {
+        yield return new WaitForSeconds(invulnDurration);
+        Destroy(this.gameObject);
     }
 }
