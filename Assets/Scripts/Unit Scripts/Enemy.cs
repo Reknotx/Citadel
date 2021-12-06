@@ -16,12 +16,12 @@ public class Enemy : Unit
 {
     public LootTable enemyLootTable;
 
-    [HideInInspector]
     ///<summary>This determines whether the unit is on a platform or not.</summary>
+    [HideInInspector]
     public bool onPlatform;
 
-    [HideInInspector]
     ///<summary>This determines whether the unit is going through a platform or not.</summary>
+    [HideInInspector]
     public bool throughPlatform;
 
     #region Enemy Stats
@@ -172,6 +172,48 @@ public class Enemy : Unit
             }
         }
     }
+   
+   #region Poisoned and fire and bleed shit
+   /// <summary> this determines if the unit has recently taken ticking poison damage </summary>
+   private bool poisonDamageTaken;
+   /// <summary> this determines if the unit has recently taken ticking fire damage </summary>
+   private bool fireDamageTaken;
+    
+   /// <summary> this determines how quickly on fire damage will tick against health </summary>
+   private float onFireDamageRate = 1f;
+   /// <summary> This determines the delay between taking on fire damage</summary>
+   private float onFireDamageDelay = 2f;
+   /// <summary> this determines how quickly on fire damage will tick against health </summary>
+   private float poisonedDamageRate = 1f;
+   
+   /// <summary> This determines the delay between taking on fire damage</summary>
+   private float poisonedDamageDelay = 2f;
+    
+   /// <summary> this determines how long the unit will be on fire for</summary>
+   private float onFireDuration;
+   /// <summary> this determines how much damage per tick will be applied to the unit</summary>
+   private int onFireDamage;
+   /// <summary> this determines if the unit is on fire or not </summary>
+   private bool onFire;
+   /// <summary> this determines if the unit is poisoned or not </summary>
+   //[HideInInspector]
+   [HideInInspector]
+   public bool poisoned;
+   /// <summary> this determines how long the unit will be on fire for</summary>
+   [HideInInspector]
+   public float poisonedDuration = 5f;
+   /// <summary> this determines how much damage per tick will be applied to the unit</summary>
+   [HideInInspector]
+   public int poisonedDamage;
+   
+   private int bleedDuration = 5;
+   private float bleedDamage;
+   private float nextTick;
+   private float tickDelay = 1f;
+   public bool bleeding;
+   #endregion
+
+
 
     public override void Awake()
     {
@@ -266,12 +308,9 @@ public class Enemy : Unit
 
         if (!GoblinSpotted)
         {
-            if (distanceToPlayer < followDistance)
+            if (distanceToPlayer < followDistance && Mathf.Abs(yDistance) < 9)
             {
-                if (Mathf.Abs(yDistance) < 9)
-                {
-                    Astar.canMove = true;
-                }
+                Astar.canMove = true;
             }
             else
             {
@@ -280,73 +319,44 @@ public class Enemy : Unit
         }
         else if (GoblinSpotted)
         {
-            if (distanceToPlayer < goblinFollowDistance)
+            if (distanceToPlayer < goblinFollowDistance && Mathf.Abs(yDistance) < 100)
             {
-                if (Mathf.Abs(yDistance) < 100)
-                {
-                    Astar.canMove = true;
-                }
+                Astar.canMove = true;
             }
         }
 
         StartCoroutine(movingTest());
 
-        if (grounded)
+        if (grounded && canJump)
         {
-            if (canJump)
-            {
-                //jump toward player
+            //jump toward player
 
-                //_rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpVelocity));
-                StartCoroutine(IsJumping());
-
-            }
+            //_rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpVelocity));
+            StartCoroutine(IsJumping());
 
         }
 
-        if (yDistance < noJumpHeight)
-        {
-            speed = stopSpeed;
-        }
-        else
-        {
-            speed = normalSpeed;
-        }
-
-        /*if (onPlatform == true)
-        {
-            _rigidBody.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpVelocity));
-            StartCoroutine(Jumped());
-
-        }*/
-
+        speed = yDistance < noJumpHeight ? stopSpeed : normalSpeed;
 
 
         #region Player Detection
-        ///<summary>This sets the player as the target in the scene.</summary>
+        //This sets the player as the target in the scene.
         if (player == null) player = GameObject.FindGameObjectWithTag("Player");
 
         #endregion
 
 
         #region Ground/Platform detection
-        ///<summary>This determines whether the unit is on a platform or not.</summary>
+        //This determines whether the unit is on a platform or not.
         var groundCheck = transform.TransformDirection(Vector3.down);
         Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
-        if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "platform")
-        {
-            onPlatform = true;
+        
+        onPlatform = Physics.Raycast(transform.position, groundCheck, out hit, _Reach) &&
+                     hit.transform.CompareTag("platform");
 
-        }
-        else
-        {
-            onPlatform = false;
-
-        }
-
-        ///<summary>This determines whether the unit is on the ground or not.</summary>
+        //This determines whether the unit is on the ground or not.
         Debug.DrawRay(transform.position, groundCheck * _Reach, Color.red);
-        if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.tag == "ground")
+        if (Physics.Raycast(transform.position, groundCheck, out hit, _Reach) && hit.transform.CompareTag("ground"))
         {
             grounded = true;
         }
@@ -358,18 +368,10 @@ public class Enemy : Unit
 
         var roofCheck = transform.TransformDirection(Vector3.up);
         Debug.DrawRay(transform.position, roofCheck * _Reach, Color.red);
-        if (Physics.Raycast(transform.position, roofCheck, out hit, _Reach) && hit.transform.tag == "platform")
-        {
-            throughPlatform = true;
+        throughPlatform = Physics.Raycast(transform.position, roofCheck, out hit, _Reach) &&
+                          hit.transform.CompareTag("platform");
 
-        }
-        else
-        {
-            throughPlatform = false;
-
-        }
-
-        ///<summary>this checks if the unit is trying to pass up through a platform and will assist.</summary>
+        //this checks if the unit is trying to pass up through a platform and will assist.
         if (throughPlatform == true && justJumped == true)
         {
             //StartCoroutine(dropDown());
@@ -377,27 +379,55 @@ public class Enemy : Unit
         }
         #endregion
 
-        ///<summary> this damages the enemy over time if they are on fire</summary>
-        if (onFire == true)
+        
+        #region onfire and poison shit and bleed
+        //this determines if the unit can take damage from a initially cast fire spell
+        if (onFire)
         {
-            
-            TakeDamage(onFireDamage * Time.deltaTime);
-            if (!PopUpOut)
+            onFireDamageDelay -= Time.deltaTime * onFireDamageRate;
+            if (onFireDamageDelay <= 0)
             {
-                DamagePopup.Create(transform.position, onFireDamage);
-                StartCoroutine(DmgPopUp());
+                fireDamageTaken = false;
+                onFireDamageDelay = 2f;
+                TakeDamage(onFireDamage * Time.deltaTime);
+                if (!PopUpOut)
+                {
+                    DamagePopup.Create(transform.position, onFireDamage);
+                    StartCoroutine(DmgPopUp());
+                }
             }
         }
-
-        if(poisoned == true)
+        if (poisoned)
         {
-            TakeDamage(poisonedDamage * Time.deltaTime);
-            if (!PopUpOut)
+            poisonedDamageDelay -= Time.deltaTime * poisonedDamageRate;
+            if (poisonedDamageDelay <= 0)
             {
-                DamagePopup.Create(transform.position, poisonedDamage);
-                StartCoroutine(DmgPopUp());
+                poisonDamageTaken = false;
+                poisonedDamageDelay = 2f;
+                TakeDamage(poisonedDamage * Time.deltaTime);
+                if (!PopUpOut)
+                {
+                    DamagePopup.Create(transform.position, poisonedDamage);
+                    StartCoroutine(DmgPopUp());
+                }
             }
         }
+        if (bleeding)
+        {
+            nextTick -= Time.deltaTime;
+            if (nextTick <= 0)
+            {
+                TakeDamage(bleedDamage);
+                nextTick = Time.time + tickDelay;
+                if (!PopUpOut)
+                {
+                    DamagePopup.Create(transform.position, bleedDamage);
+                    StartCoroutine(DmgPopUp());
+                }
+            }
+        }
+        
+        #endregion
     }
 
     #region Interactions with the Player
@@ -421,18 +451,13 @@ public class Enemy : Unit
         {
 
             if (transform.position.x - player.transform.position.x > 0)
-            {
                 facingRight = true;
-
-            }
-
-            if (transform.position.x - player.transform.position.x < 0)
-            {
+            else if (transform.position.x - player.transform.position.x < 0)
                 facingRight = false;
-            }
 
 
-            if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+            if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance &&
+                    Vector2.Distance(transform.position, player.transform.position) < followDistance)
             {
                 
                 transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
@@ -554,4 +579,30 @@ public class Enemy : Unit
         PopUpOut = false;
     }
 
+    IEnumerator onFireCoroutine ()
+    {
+        
+        onFire = true;
+        yield return new WaitForSeconds(onFireDuration);
+        onFire = false;
+    }
+    
+    public IEnumerator poisonedCoroutine()
+    {
+        poisoned = true;
+        yield return new WaitForSeconds(poisonedDuration);
+        poisoned = false;
+    }
+    public void StartBleed(float dmg)
+    {
+        bleedDamage = dmg / bleedDuration;
+        StartCoroutine(Bleed());
+    }
+    
+    IEnumerator Bleed()
+    {
+        bleeding = true;
+        yield return new WaitForSeconds(bleedDuration);
+        bleeding = false;
+    }
 }
