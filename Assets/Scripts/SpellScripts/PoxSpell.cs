@@ -76,6 +76,7 @@ public class PoxSpell : Spell
     protected override void TriggerSpell(GameObject target)
     {
         target.GetComponent<IDamageable>().TakeDamage(stats.damage);
+        DamagePopup.Create(transform.position, stats.damage);
     }
 
     protected override void Move()
