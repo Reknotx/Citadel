@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Tentacle : MonoBehaviour, IDamageable
+public class Tentacle : Enemy, IDamageable
 {
     public Vector3 idlePos;
     private Vector3 swipeStartPoint, swipeEndPoint;
@@ -84,25 +84,19 @@ public class Tentacle : MonoBehaviour, IDamageable
 
     private float _maxHealth;
 
-    public float Health 
+    public override float Health 
     { 
         get => _health; 
         set
         {
             _health = value;
-
-            
             if (_health <= 0)
             {
                 _health = 0;
 
                 StopAllCoroutines();
                 ReturnToIdle();
-
-                
             }
-            
-
         }
     }
 
