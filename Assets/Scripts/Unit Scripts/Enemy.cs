@@ -82,7 +82,7 @@ public class Enemy : Unit
 
     #endregion
     #region Enemy AI Movement Stats
-    [HideInInspector]
+    //[HideInInspector]
     public float followDistance;
 
     [HideInInspector]
@@ -104,7 +104,7 @@ public class Enemy : Unit
     [HideInInspector]
     Vector2 currentDirection;
 
-    [HideInInspector]
+    //[HideInInspector]
     public float distanceToPlayer;
 
     [HideInInspector]
@@ -120,6 +120,8 @@ public class Enemy : Unit
     //bool reachedEndOfPath = false;
 
     protected Seeker seeker;
+
+    public AIDestinationSetter AIDS;
 
 
     #endregion
@@ -176,6 +178,7 @@ public class Enemy : Unit
         base.Awake();
         player = GameObject.FindGameObjectWithTag("Player");
         Astar = GetComponent<AIPath>();
+        AIDS = GetComponent<AIDestinationSetter>();
         normalSpeed = speed;
         HealthIMG.gameObject.SetActive(false);
         if (animator != null)
@@ -195,6 +198,8 @@ public class Enemy : Unit
         player = GameObject.FindGameObjectWithTag("Player");
 
         Astar = GetComponent<AIPath>();
+
+        AIDS.target = player.transform;
 
         HealthIMG.gameObject.SetActive(false);
 
@@ -547,7 +552,7 @@ public class Enemy : Unit
     IEnumerator DmgPopUp()
     {
         PopUpOut = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         PopUpOut = false;
     }
 
