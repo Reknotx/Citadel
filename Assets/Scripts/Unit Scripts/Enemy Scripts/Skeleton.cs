@@ -86,11 +86,17 @@ public class Skeleton : Enemy
         if (Vector2.Distance(transform.position, player.transform.position) < runAwayDistance && !isDead)
         {
             Astar.canMove = false;
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, -1 * runAwaySpeed * Time.deltaTime);
+
+            if (!isDead)
+                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, -1 * runAwaySpeed * Time.deltaTime);
         }
         else
         {
-            Astar.canMove = true;
+            if(!isDead)
+            {
+                Astar.canMove = true;
+            }
+          
         }
     }
 
