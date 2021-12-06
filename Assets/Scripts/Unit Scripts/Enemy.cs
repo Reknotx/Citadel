@@ -25,9 +25,6 @@ public class Enemy : Unit
     public bool throughPlatform;
 
     #region Enemy Stats
-    
-    ///<summary>This determines what direction the unit hit another unit.</summary>
-    protected bool hitOnRight;
 
     #region Enemy's Base Stats/Important Controls
 
@@ -88,8 +85,8 @@ public class Enemy : Unit
     [HideInInspector]
     public float goblinFollowDistance = 150f;
 
-    [HideInInspector]
     ///<summary>This is the distance from the player the enemy wills top at</summary>
+    [HideInInspector]
     public float stoppingDistance;
 
     [HideInInspector]
@@ -255,7 +252,7 @@ public class Enemy : Unit
 
     public override void Update()
     {
-        if(isDead == true)
+        if(isDead)
         {
             Collider[] colliders = GetComponents<Collider>();
             for (int i = 0; i < colliders.Length; i++)
