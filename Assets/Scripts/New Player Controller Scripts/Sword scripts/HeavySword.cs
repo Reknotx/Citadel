@@ -16,6 +16,7 @@ public class HeavySword : Sword
         if (NewPlayer.Instance.inventory.serratedStone && !target.bleeding)
         {
             target.StartBleed(dmg + Mathf.RoundToInt(dmg * 0.5f));
+            DamagePopup.Create(transform.position, dmg + Mathf.RoundToInt(dmg * 0.5f));
         }
         
     }
