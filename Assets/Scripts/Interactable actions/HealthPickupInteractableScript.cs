@@ -8,30 +8,38 @@ namespace Interactables
     {
 
 
-        public int dropAmount = 1;
+        public float dropAmount = 1;
 
         private bool given = false;
+
+
+        private NewPlayer player;
+        private void Awake()
+        {
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<NewPlayer>();
+        }
+
 
         // Update is called once per frame
         void Update()
         {
-
+            dropAmount = player.MaxHealth * .025f;
         }
 
         public override void Interact()
         {
 
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            
 
-            if (player.GetComponent<NewPlayer>().Health !=player.GetComponent<NewPlayer>().MaxHealth)
+            if (player.Health !=player.MaxHealth)
             {
-                if(player.GetComponent<NewPlayer>().Health + dropAmount <= player.GetComponent<NewPlayer>().MaxHealth)
+                if(player.Health + dropAmount <= player.MaxHealth)
                 {
-                    player.GetComponent<NewPlayer>().Health += dropAmount;
+                    player.Health += dropAmount;
                 }
                 else
                 {
-                    player.GetComponent<NewPlayer>().Health = player.GetComponent<NewPlayer>().MaxHealth;
+                    player.Health = player.MaxHealth;
                 }
                
 
@@ -45,6 +53,14 @@ namespace Interactables
         }
 
         public void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.layer == 7)
+            {
+                Interact();
+            }
+        } 
+        
+        public void OnTriggerStay(Collider other)
         {
             if (other.gameObject.layer == 7)
             {

@@ -485,21 +485,11 @@ namespace Map
                 if (node == null) Debug.LogError("Help node null");
                 //node.openings.ToString();
                 //roomInfo.ToString();
-                if (node.openings.TotalOpenings() != roomInfo.numOpenings
-                    || node.openings.RightSide != roomInfo.CalcDoorsRightSide()
-                    || node.openings.LeftSide != roomInfo.CalcDoorsLeftSide()
-                    || node.openings.TopSide != roomInfo.CalcDoorsTopSide()
-                    || node.openings.BottomSide != roomInfo.CalcDoorsBottomSide())
-                {
-                    //Here we will compare the number of the entrances to
-                    //make sure that the room being looked at matches the number
-                    //of entrances we need on each individual side.
-                    //Debug.Log("Fail");
-                    return false;
-                }
-
-
-                return true;
+                return node.openings.TotalOpenings() == roomInfo.numOpenings &&
+                       node.openings.RightSide == roomInfo.CalcDoorsRightSide() &&
+                       node.openings.LeftSide == roomInfo.CalcDoorsLeftSide() &&
+                       node.openings.TopSide == roomInfo.CalcDoorsTopSide() &&
+                       node.openings.BottomSide == roomInfo.CalcDoorsBottomSide();
             }
 
             //I need to figure out the positioning of the previous room in relation
@@ -553,8 +543,8 @@ namespace Map
                         }
                         else
                         {
-                            Debug.Log("Prev room above current");
-                            Debug.Log(prevPos.ToString());
+                            // Debug.Log("Prev room above current");
+                            // Debug.Log(prevPos.ToString());
                             //Curr must have openings on top
                             if ((prevPos == DoorPositions.BottomLeft && currPos == DoorPositions.TopLeft) ||
                                 (prevPos == DoorPositions.BottomMiddle && currPos == DoorPositions.TopMiddle) ||
