@@ -8,6 +8,8 @@ namespace Interactables
     {
         public bool given = false;
 
+        public GameObject spellStoneGameObject;
+
 
         public override void Interact()
         {
@@ -15,6 +17,7 @@ namespace Interactables
             {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 player.GetComponent<PlayerInventory>().spellStone = true;
+                player.GetComponent<Inventory_UI>().AddItem(spellStoneGameObject);
                 base.Interact();
             }
             

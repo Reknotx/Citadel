@@ -10,6 +10,8 @@ namespace Interactables
     {
         public bool given = false;
 
+        public GameObject compassGameObject;
+
 
         public override void Interact()
         {
@@ -17,6 +19,7 @@ namespace Interactables
             {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 player.GetComponent<PlayerInventory>().compass = true;
+                player.GetComponent<Inventory_UI>().AddItem(compassGameObject);
                 base.Interact();
             }
            

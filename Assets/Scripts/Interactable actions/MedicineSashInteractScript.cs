@@ -9,12 +9,15 @@ namespace Interactables
     {
         public bool given = false;
 
+        public GameObject medicineSashGameObject;
+
         public override void Interact()
         {
             if(grounded)
             {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 player.GetComponent<PlayerInventory>().medicineStash = true;
+                player.GetComponent<Inventory_UI>().AddItem(medicineSashGameObject);
                 base.Interact();
             }
             

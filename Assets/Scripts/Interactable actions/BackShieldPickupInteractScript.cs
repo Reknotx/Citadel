@@ -9,12 +9,15 @@ namespace Interactables
 
         public bool given = false;
 
+        public GameObject floatingShieldGameObject;
+
         public override void Interact()
         {
             if(grounded)
             {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 player.GetComponent<PlayerInventory>().floatingShield = true;
+                player.GetComponent<Inventory_UI>().AddItem(floatingShieldGameObject);
                 base.Interact();
             }
             

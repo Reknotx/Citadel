@@ -8,7 +8,9 @@ namespace Interactables
     {
 
         public bool given = false;
-       
+
+        public GameObject shuuesGameObject;
+
 
         public override void Interact()
         {
@@ -16,6 +18,7 @@ namespace Interactables
             {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 player.GetComponent<PlayerInventory>().shuues = true;
+                player.GetComponent<Inventory_UI>().AddItem(shuuesGameObject);
                 base.Interact();
             }
            

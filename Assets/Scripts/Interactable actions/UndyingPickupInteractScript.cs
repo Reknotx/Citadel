@@ -7,7 +7,8 @@ namespace Interactables
     public class UndyingPickupInteractScript : Item
     {
         public bool given = false;
-        
+
+        public GameObject undyingGameObject;
 
         public override void Interact()
         {
@@ -15,6 +16,7 @@ namespace Interactables
             {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 player.GetComponent<PlayerInventory>().undying = true;
+                player.GetComponent<Inventory_UI>().AddItem(undyingGameObject);
                 base.Interact();
             }
            
