@@ -263,13 +263,13 @@ public class ReboundSpell : Spell
     }
 
 
-    public override void TriggerSpell(GameObject target)
+    protected override void TriggerSpell(GameObject target)
     {
        
         return;
     }
 
-    public override void Move()
+    protected override void Move()
     {
         ///Activate the movement logic here
         return;

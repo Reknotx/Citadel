@@ -13,16 +13,13 @@ public class IcicleSpell : Spell
     }
 
 
-    public override void Move()
+    protected override void Move()
     {
         ///Activate the movement logic here
     }
 
-    
 
-  
-    
-    public override void TriggerSpell(GameObject target)
+    protected override void TriggerSpell(GameObject target)
     {
         target.GetComponent<IDamageable>().TakeDamage(stats.damage);
         DamagePopup.Create(transform.position, stats.damage);
