@@ -288,6 +288,7 @@ public class ReboundSpell : Spell
         if(other.gameObject.layer == 8)
         {
             other.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+            DamagePopup.Create(transform.position, damage);
             Destroy(this.gameObject);
         }
 
