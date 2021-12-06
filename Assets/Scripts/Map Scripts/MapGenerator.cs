@@ -67,7 +67,7 @@ namespace Map
         public static List<Room> specialRooms;
 
         [Header("Enable this if we want to only have one row on the map.")]
-        public bool OneRowOnly = false;
+        public bool OneRowOnly;
 
 
         public void Awake()
@@ -123,12 +123,11 @@ namespace Map
             //     at column position zero except for the spawn room.
             //     
 
-            Vector2 tempGridPos;
             RoomInfo tempRoomInfo;
 
             #region Spawning the spawn room
 
-            int SRY = Random.Range(0, (int) rows);
+            int SRY = Random.Range(0, rows);
 
             GameObject spawnRoom = SpawnRoom(roomCont.SpawnRooms[Random.Range(0, roomCont.SpawnRooms.Count)],
                 new Vector2(0, SRY), "Spawn Room");
@@ -157,19 +156,14 @@ namespace Map
             Vector3 BRPos;
             do
             {
-                int BRGX = Random.Range(4, (int) columns - 1);
-                int BRGY = Random.Range(1, (int) rows - 1);
+                int BRGX = Random.Range(4, columns - 1);
+                int BRGY = Random.Range(1, rows - 1);
 
                 BRPos = new Vector3(BRGX * roomSize, BRGY * roomSize);
                 
                 BossRoomGridPos = new Vector2(BRGX, BRGY);
             } while (!gridInfo.CheckSpawnBossDist(SpawnRoomPos, BRPos));
-
-
-            // GameObject bossRoom = SpawnRoom(roomCont.BossRooms[Random.Range(0, roomCont.BossRooms.Count)],
-            //     BossRoomGridPos,
-            //     "Boss Room");
-            // AddSpecialRoomToList(bossRoom);
+            
             bossRoom = roomCont.BossRooms[Random.Range(0, roomCont.BossRooms.Count)];
             bossRoomInfo = bossRoom.GetComponent<Room>().roomInfo;
 
@@ -179,23 +173,23 @@ namespace Map
                 bossRoomInfo.CalcDoorsRightSide(),
                 bossRoomInfo.CalcDoorsTopSide(),
                 bossRoomInfo.CalcDoorsBottomSide());
-
             #region 2a. Put filled rooms around the boss room except for the entrance side
 
 
-            // if (bossRoomInfo.CalcDoorsTopSide() == 0)
-            //     conceptGrid[(int) BossRoomGridPos.y + 1, (int) BossRoomGridPos.x].roomType = GridNode.RoomType.Filled; // Top
-            //
-            // if (bossRoomInfo.CalcDoorsBottomSide() == 0)
-            //     conceptGrid[(int) BossRoomGridPos.y - 1, (int) BossRoomGridPos.x].roomType = GridNode.RoomType.Filled; // Bottom
-            //
-            // if (bossRoomInfo.CalcDoorsLeftSide() == 0)
-            //     conceptGrid[(int) BossRoomGridPos.y, (int) BossRoomGridPos.x - 1].roomType = GridNode.RoomType.Filled; // Left
-            //     
-            // if (bossRoomInfo.CalcDoorsRightSide() == 0)
-            //     conceptGrid[(int) BossRoomGridPos.y, (int) BossRoomGridPos.x + 1].roomType = GridNode.RoomType.Filled; // Right
+            if (bossRoomInfo.CalcDoorsTopSide() == 0)
+                conceptGrid[(int) BossRoomGridPos.y + 1, (int) BossRoomGridPos.x].roomType = GridNode.RoomType.Filled; // Top
+            if (bossRoomInfo.CalcDoorsBottomSide() == 0)
+                conceptGrid[(int) BossRoomGridPos.y - 1, (int) BossRoomGridPos.x].roomType = GridNode.RoomType.Filled; // Bottom
+            if (bossRoomInfo.CalcDoorsLeftSide() == 0)
+                conceptGrid[(int) BossRoomGridPos.y, (int) BossRoomGridPos.x - 1].roomType = GridNode.RoomType.Filled; // Left
+            if (bossRoomInfo.CalcDoorsRightSide() == 0)
+                conceptGrid[(int) BossRoomGridPos.y, (int) BossRoomGridPos.x + 1].roomType = GridNode.RoomType.Filled; // Right
             #endregion
 
+            // bossRoom = SpawnRoom(bossRoom,
+            //                      BossRoomGridPos,
+            //                      "Boss Room");
+            // AddSpecialRoomToList(bossRoom);
             
             #endregion
 
@@ -389,6 +383,8 @@ namespace Map
             //
 
             GameObject prevRoom = null;
+            
+            Debug.Log(path[path.Count - 1].);
 
             //Ok this needs to be redone, this isn't nice and just makes clutter.
             for (int pathIndex = 1; pathIndex < path.Count - 1; pathIndex++)
@@ -691,22 +687,26 @@ namespace Map
             //Checking left
             if (gridPosX > 1 && conceptGrid[gridPosY, gridPosX - 1].roomType != GridNode.RoomType.Filled)
                 neighbors.Add(conceptGrid[gridPosY, gridPosX - 1]);
+            else Debug.Log("Left filled");
 
             //Checking right
             if (gridPosX < columns - 1 && conceptGrid[gridPosY, gridPosX + 1].roomType != GridNode.RoomType.Filled)
                 neighbors.Add(conceptGrid[gridPosY, gridPosX + 1]);
+            else Debug.Log("Right filled");
 
-            //This is used for when we are looking at the neighbors of the spawn room to avoid
+                //This is used for when we are looking at the neighbors of the spawn room to avoid
             //looking above or below it as we can never go that way
             if (gridPosX != 0)
             {
                 //Checking up
                 if (gridPosY < rows - 1 && conceptGrid[gridPosY + 1, gridPosX].roomType != GridNode.RoomType.Filled)
                     neighbors.Add(conceptGrid[gridPosY + 1, gridPosX]);
+                else Debug.Log("Top filled");
 
                 //Checking down
                 if (gridPosY > 0 && conceptGrid[gridPosY - 1, gridPosX].roomType != GridNode.RoomType.Filled)
                     neighbors.Add(conceptGrid[gridPosY - 1, gridPosX]);
+                else Debug.Log("Bottom filled");
             }
 
             return neighbors;

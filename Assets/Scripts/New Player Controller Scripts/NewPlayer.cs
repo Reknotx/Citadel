@@ -16,7 +16,7 @@ using JetBrains.Annotations;
 using UnityEngine.Serialization;
 
 
-public class NewPlayer : Unit, IDamageable
+public class NewPlayer : Unit
 {
     public Renderer bodyRenderer;
     
