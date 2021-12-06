@@ -168,13 +168,13 @@ public class AerorangSpell : Spell
     }
 
 
-    public override void TriggerSpell(GameObject target)
+    protected override void TriggerSpell(GameObject target)
     {
         //target.GetComponent<Enemy>().TakeDamage(damage);
         Destroy(this.gameObject);
     }
 
-    public override void Move()
+    protected override void Move()
     {
         ///Activate the movement logic here
         return;

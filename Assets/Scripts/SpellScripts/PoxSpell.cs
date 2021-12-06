@@ -73,14 +73,14 @@ public class PoxSpell : Spell
     }
 
 
-    public override void TriggerSpell(GameObject target)
+    protected override void TriggerSpell(GameObject target)
     {
         target.GetComponent<IDamageable>().TakeDamage(stats.damage);
     }
 
-    public override void Move()
+    protected override void Move()
     {
-        ///Activate the movement logic here
+        //Activate the movement logic here
         return;
     }
 
@@ -110,7 +110,7 @@ public class PoxSpell : Spell
 
         yield return new WaitForSeconds(spellDuration);
 
-        Destroy(this.gameObject);
+        Destroy(gameObject);
         
 
 
@@ -119,8 +119,6 @@ public class PoxSpell : Spell
 
     public override void OnTriggerEnter(Collider other)
     {
-      
-
         if (other.gameObject.layer == 31)
         {
             return;
