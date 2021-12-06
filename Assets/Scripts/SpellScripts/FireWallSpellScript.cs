@@ -65,7 +65,7 @@ public class FireWallSpellScript : Spell
         }
     }
 
-    public override void Move()
+    protected override void Move()
     {
         if(!changed)
         GetComponent<Rigidbody>().velocity += down *.01f;
@@ -94,7 +94,7 @@ public class FireWallSpellScript : Spell
         }
     }
 
-    public override void TriggerSpell(GameObject target)
+    protected override void TriggerSpell(GameObject target)
     {
         throw new System.NotImplementedException();
     }
