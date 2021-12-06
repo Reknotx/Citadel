@@ -54,17 +54,17 @@ namespace Map
 
         public RoomContainer roomCont;
 
-        /// <summary>
-        /// 
-        /// </summary>
         private Vector2 SpawnRoomPos, SpawnRoomGridPos;
 
-        private Vector2 BossRoomPos, BossRoomGridPos;
+        private Vector2 BossRoomGridPos;
         private Vector2 trueGridSize;
 
         public GridInfo gridInfo = new GridInfo();
 
-        [HideInInspector] public static List<Room> specialRooms;
+        private RoomInfo bossRoomInfo;
+        private GameObject bossRoom;
+
+        public static List<Room> specialRooms;
 
         [Header("Enable this if we want to only have one row on the map.")]
         public bool OneRowOnly = false;
@@ -101,9 +101,9 @@ namespace Map
 
             //Initializing the concept grid.
             Debug.Log("Initializing the concept grid.");
-            for (int y = 0; y < trueGridSize.y; y++)
+            for (int y = 0; y < rows; y++)
             {
-                for (int x = 0; x < trueGridSize.x; x++)
+                for (int x = 0; x < columns; x++)
                 {
                     conceptGrid[y, x] = new GridNode(new Vector2(x, y));
                 }
@@ -128,10 +128,16 @@ namespace Map
 
             #region Spawning the spawn room
 
-            int SRY = Random.Range(0, (int) trueGridSize.y);
+            int SRY = Random.Range(0, (int) rows);
 
             GameObject spawnRoom = SpawnRoom(roomCont.SpawnRooms[Random.Range(0, roomCont.SpawnRooms.Count)],
                 new Vector2(0, SRY), "Spawn Room");
+            for (int y = 0; y < rows; y++)
+            {
+                if (y == SRY) continue;
+
+                conceptGrid[y, 0].roomType = GridNode.RoomType.Filled;
+            }
             AddSpecialRoomToList(spawnRoom);
 
             tempRoomInfo = spawnRoom.GetComponent<Room>().roomInfo;
@@ -151,28 +157,63 @@ namespace Map
             Vector3 BRPos;
             do
             {
+<<<<<<< Updated upstream
                 int BRGX = Random.Range(1, (int) trueGridSize.x);
                 int BRGY = Random.Range(0, (int) trueGridSize.y);
+=======
+                int BRGX = Random.Range(4, (int) columns - 1);
+                int BRGY = Random.Range(1, (int) rows - 1);
+>>>>>>> Stashed changes
 
                 BRPos = new Vector3(BRGX * roomSize, BRGY * roomSize);
+                
+                BossRoomGridPos = new Vector2(BRGX, BRGY);
             } while (!gridInfo.CheckSpawnBossDist(SpawnRoomPos, BRPos));
 
+<<<<<<< Updated upstream
             BossRoomGridPos = new Vector2(BRPos.x / roomSize, BRPos.y / roomSize);
 
             GameObject bossRoom = SpawnRoom(roomCont.BossRooms[Random.Range(0, roomCont.BossRooms.Count)],
                 BossRoomGridPos,
                 "Boss Room");
             AddSpecialRoomToList(bossRoom);
+=======
+>>>>>>> Stashed changes
 
-            BossRoomPos = bossRoom.transform.position;
+            // GameObject bossRoom = SpawnRoom(roomCont.BossRooms[Random.Range(0, roomCont.BossRooms.Count)],
+            //     BossRoomGridPos,
+            //     "Boss Room");
+            // AddSpecialRoomToList(bossRoom);
+            bossRoom = roomCont.BossRooms[Random.Range(0, roomCont.BossRooms.Count)];
+            bossRoomInfo = bossRoom.GetComponent<Room>().roomInfo;
 
             conceptGrid[(int) BossRoomGridPos.y, (int) BossRoomGridPos.x] = new GridNode(BossRoomGridPos,
                 GridNode.RoomType.Boss,
-                tempRoomInfo.CalcDoorsLeftSide(),
-                tempRoomInfo.CalcDoorsRightSide(),
-                tempRoomInfo.CalcDoorsTopSide(),
-                tempRoomInfo.CalcDoorsBottomSide());
+                bossRoomInfo.CalcDoorsLeftSide(),
+                bossRoomInfo.CalcDoorsRightSide(),
+                bossRoomInfo.CalcDoorsTopSide(),
+                bossRoomInfo.CalcDoorsBottomSide());
 
+<<<<<<< Updated upstream
+=======
+            #region 2a. Put filled rooms around the boss room except for the entrance side
+
+
+            // if (bossRoomInfo.CalcDoorsTopSide() == 0)
+            //     conceptGrid[(int) BossRoomGridPos.y + 1, (int) BossRoomGridPos.x].roomType = GridNode.RoomType.Filled; // Top
+            //
+            // if (bossRoomInfo.CalcDoorsBottomSide() == 0)
+            //     conceptGrid[(int) BossRoomGridPos.y - 1, (int) BossRoomGridPos.x].roomType = GridNode.RoomType.Filled; // Bottom
+            //
+            // if (bossRoomInfo.CalcDoorsLeftSide() == 0)
+            //     conceptGrid[(int) BossRoomGridPos.y, (int) BossRoomGridPos.x - 1].roomType = GridNode.RoomType.Filled; // Left
+            //     
+            // if (bossRoomInfo.CalcDoorsRightSide() == 0)
+            //     conceptGrid[(int) BossRoomGridPos.y, (int) BossRoomGridPos.x + 1].roomType = GridNode.RoomType.Filled; // Right
+            #endregion
+
+            
+>>>>>>> Stashed changes
             #endregion
 
             //To remind myself as to what a room needs:
@@ -218,15 +259,15 @@ namespace Map
 
             #region Spawning in filled rooms
 
-            ///Spawning a row
-            for (int y = 0; y < trueGridSize.y; y++)
+            //Spawning a row
+            for (int y = 0; y < rows; y++)
             {
 
                 GameObject row = new GameObject("Row " + y);
                 row.transform.parent = transform;
 
-                ///Spawning in a column
-                for (int x = 0; x < trueGridSize.x; x++)
+                //Spawning in a column
+                for (int x = 0; x < columns; x++)
                 {
                     if (grid[y, x] != null) continue;
 
@@ -376,6 +417,8 @@ namespace Map
                 {
                     int listIndex = Random.Range(0, roomCont.RegularRooms.Count);
 
+                    if (roomCont.RegularRooms[listIndex] == null) continue;
+
                     if (examinedRooms.Contains(roomCont.RegularRooms[listIndex].GetComponent<Room>()))
                     {
                         continue;
@@ -498,6 +541,7 @@ namespace Map
                         if (prevDir == Dir.Left)
                         {
                             //Curr must have openings on left
+<<<<<<< Updated upstream
                             switch (prevPos)
                             {
                                 case DoorPositions.RightTop:
@@ -523,12 +567,33 @@ namespace Map
                                     }
 
                                     break;
+=======
+                            if (prevPos == DoorPositions.RightTop && currPos == DoorPositions.LeftTop)
+                            {
+                                lineUp = true;
+                            }
+                            else if (prevPos == DoorPositions.RightMiddle && currPos == DoorPositions.LeftMiddle)
+                            {
+                                lineUp = true;
+                            }
+                            else if (prevPos == DoorPositions.RightBottom && currPos == DoorPositions.LeftBottom)
+                            {
+                                lineUp = true;
+>>>>>>> Stashed changes
                             }
                         }
                         else if (prevDir == Dir.Right)
                         {
                             //Curr must have openings on right
+<<<<<<< Updated upstream
                             switch (prevPos)
+=======
+                            if (prevPos == DoorPositions.LeftTop && currPos == DoorPositions.RightTop)
+                            {
+                                lineUp = true;
+                            }
+                            else if (prevPos == DoorPositions.LeftMiddle && currPos == DoorPositions.RightMiddle)
+>>>>>>> Stashed changes
                             {
                                 case DoorPositions.LeftTop:
                                     if (currPos == DoorPositions.RightTop)
@@ -558,6 +623,7 @@ namespace Map
                         else if (prevDir == Dir.Below)
                         {
                             //Curr must have openings on bottom
+<<<<<<< Updated upstream
                             switch (prevPos)
                             {
                                 case DoorPositions.TopLeft:
@@ -583,6 +649,19 @@ namespace Map
                                     }
 
                                     break;
+=======
+                            if (prevPos == DoorPositions.TopLeft && currPos == DoorPositions.BottomLeft)
+                            {
+                                lineUp = true;
+                            }
+                            else if (prevPos == DoorPositions.TopMiddle && currPos == DoorPositions.BottomMiddle)
+                            {
+                                lineUp = true;
+                            }
+                            else if (prevPos == DoorPositions.TopRight && currPos == DoorPositions.BottomRight)
+                            {
+                                lineUp = true;
+>>>>>>> Stashed changes
                             }
                         }
                         else
@@ -590,6 +669,7 @@ namespace Map
                             Debug.Log("Prev room above current");
                             Debug.Log(prevPos.ToString());
                             //Curr must have openings on top
+<<<<<<< Updated upstream
                             switch (prevPos)
                             {
                                 case DoorPositions.BottomLeft:
@@ -615,6 +695,19 @@ namespace Map
                                     }
 
                                     break;
+=======
+                            if (prevPos == DoorPositions.BottomLeft && currPos == DoorPositions.TopLeft)
+                            {
+                                lineUp = true;
+                            }
+                            else if (prevPos == DoorPositions.BottomMiddle && currPos == DoorPositions.TopMiddle)
+                            {
+                                lineUp = true;
+                            }
+                            else if (prevPos == DoorPositions.BottomRight && currPos == DoorPositions.TopRight)
+                            {
+                                lineUp = true;
+>>>>>>> Stashed changes
                             }
                         }
 
@@ -762,16 +855,25 @@ namespace Map
             int gridPosY = (int) node.gridPos.y;
 
             //Checking left
-            if (gridPosX > 1) neighbors.Add(conceptGrid[gridPosY, gridPosX - 1]);
+            if (gridPosX > 1 && conceptGrid[gridPosY, gridPosX - 1].roomType != GridNode.RoomType.Filled)
+                neighbors.Add(conceptGrid[gridPosY, gridPosX - 1]);
 
             //Checking right
-            if (gridPosX < columns - 1) neighbors.Add(conceptGrid[gridPosY, gridPosX + 1]);
+            if (gridPosX < columns - 1 && conceptGrid[gridPosY, gridPosX + 1].roomType != GridNode.RoomType.Filled)
+                neighbors.Add(conceptGrid[gridPosY, gridPosX + 1]);
 
-            //Checking up
-            if (gridPosY < rows - 1 && gridPosX != 0) neighbors.Add(conceptGrid[gridPosY + 1, gridPosX]);
+            //This is used for when we are looking at the neighbors of the spawn room to avoid
+            //looking above or below it as we can never go that way
+            if (gridPosX != 0)
+            {
+                //Checking up
+                if (gridPosY < rows - 1 && conceptGrid[gridPosY + 1, gridPosX].roomType != GridNode.RoomType.Filled)
+                    neighbors.Add(conceptGrid[gridPosY + 1, gridPosX]);
 
-            //Checking down
-            if (gridPosY > 0 && gridPosX != 0) neighbors.Add(conceptGrid[gridPosY - 1, gridPosX]);
+                //Checking down
+                if (gridPosY > 0 && conceptGrid[gridPosY - 1, gridPosX].roomType != GridNode.RoomType.Filled)
+                    neighbors.Add(conceptGrid[gridPosY - 1, gridPosX]);
+            }
 
             return neighbors;
         }
@@ -849,10 +951,7 @@ namespace Map
 
             public int hCost;
 
-            public int fCost
-            {
-                get => gCost + hCost;
-            }
+            public int fCost => gCost + hCost;
 
             public GridNode parent;
 
