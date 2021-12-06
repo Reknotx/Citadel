@@ -6,7 +6,7 @@ public class InvulnSpell : Spell
 {
 
     public GameObject player;
-    public float invulnDurration;
+    public float invulnDurration = 5f;
 
     public void Awake()
     {
@@ -16,19 +16,31 @@ public class InvulnSpell : Spell
         PlayerAnimationManager.Instance.ActivateTrigger("castPox");
     }
 
+    public void FixedUpdate()
+    {
+        trackPlayer();
+    }
+
     private void OnEnable()
     {
         TriggerSpell(player);
     }
 
-    public override void TriggerSpell(GameObject target)
+    protected override void TriggerSpell(GameObject target)
     {
         target.GetComponent<NewPlayer>().IFrames(invulnDurration);
     }
 
-    public override void Move()
+    protected override void Move()
     {
         ///Activate the movement logic here
         return;
+    }
+
+    public void trackPlayer()
+    {
+
+        //transform.position = player.transform.position;
+        transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z);
     }
 }
