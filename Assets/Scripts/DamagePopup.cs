@@ -10,7 +10,7 @@ public class DamagePopup : MonoBehaviour
 
     float moveYSpeed = 20f;
 
-    private float disappearTimer;
+    private static float disappearTimer;
     private Color textColor;
     float disappearSpeed = 3f;
 

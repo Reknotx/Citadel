@@ -7,17 +7,14 @@ public class PlayerInventory
     private const int healthPotionHealAmnt = 10;
     private const int manaPotionRefillAmnt = 10;
     
-    private const int _MaxHealthPotions = 5;
-    private const int _MaxManaPotions = 5;
-    
-
+    public int MaxHealthPotions = 5;
+    public int MaxManaPotions = 5;
 
     public int HealthPotions;
     public int ManaPotions;
 
-
-    public bool ManaPotionSpace => ManaPotions < _MaxManaPotions;
-    public bool HealthPotionSpace => HealthPotions < _MaxHealthPotions;
+    public bool ManaPotionSpace => ManaPotions < MaxManaPotions;
+    public bool HealthPotionSpace => HealthPotions < MaxHealthPotions;
     
     public bool shuues = false;
     public bool undying = false;
@@ -29,39 +26,30 @@ public class PlayerInventory
 
     public GoldStorage goldStorage;
 
-    public PlayerInventory()
-    {
-        goldStorage = new GoldStorage();
-    }
+    public PlayerInventory() => goldStorage = new GoldStorage();
 
     public void UseManaPotion()
     {
-        if (ManaPotions == 0) return;
+        if (ManaPotions == 0) return; 
         NewPlayer.Instance.Mana += manaPotionRefillAmnt;
-
+        ManaPotions--;
     }
 
     /// <summary>
     /// 
     /// </summary>
     /// <returns></returns>
-    public void AddManaPotion()
-    {
-        ManaPotions = Mathf.Clamp(ManaPotions++, 0, _MaxManaPotions);
-    }
+    public void AddManaPotion() => ManaPotions = Mathf.Clamp(ManaPotions++, 0, MaxManaPotions);
 
     public void UseHealthPotion()
     {
         if (HealthPotions == 0) return;
 
+        HealthPotions--;
         NewPlayer.Instance.Health += healthPotionHealAmnt;
-
     }
 
-    public void AddHealthPotion()
-    {
-        HealthPotions = Mathf.Clamp(HealthPotions++, 0, _MaxHealthPotions);
-    }
+    public void AddHealthPotion() => HealthPotions = Mathf.Clamp(HealthPotions++, 0, MaxHealthPotions);
 
     public class GoldStorage
     {
@@ -98,9 +86,6 @@ public class PlayerInventory
 
         /// <summary> Used to add gold to the player's held gold. Not permanent gold. </summary>
         /// <param name="amount">The amount of gold to add to the player's bag.</param>
-        public void AddGold(int amount)
-        {
-            gold += amount;
-        }
+        public void AddGold(int amount) => gold += amount;
     }
 }

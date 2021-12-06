@@ -136,7 +136,7 @@ public class Enemy : Unit
     private bool lootDropped = false;
     #endregion
 
-
+    public bool PopUpOut = false;
 
 
     [HideInInspector]
@@ -178,7 +178,7 @@ public class Enemy : Unit
         base.Awake();
         player = GameObject.FindGameObjectWithTag("Player");
         Astar = GetComponent<AIPath>();
-        AIDS = GetComponent<AIDestinationSetter>();
+        
         normalSpeed = speed;
         HealthIMG.gameObject.SetActive(false);
         if (animator != null)
@@ -192,7 +192,7 @@ public class Enemy : Unit
     public override void Start()
     {
         base.Start();
-
+        AIDS = GetComponent<AIDestinationSetter>();
         normalSpeed = speed;
         //Tyler Added code
         player = GameObject.FindGameObjectWithTag("Player");
@@ -382,12 +382,21 @@ public class Enemy : Unit
         {
             
             TakeDamage(onFireDamage * Time.deltaTime);
+            if (!PopUpOut)
+            {
+                DamagePopup.Create(transform.position, onFireDamage);
+                StartCoroutine(DmgPopUp());
+            }
         }
 
         if(poisoned == true)
         {
             TakeDamage(poisonedDamage * Time.deltaTime);
-
+            if (!PopUpOut)
+            {
+                DamagePopup.Create(transform.position, poisonedDamage);
+                StartCoroutine(DmgPopUp());
+            }
         }
     }
 
@@ -448,16 +457,12 @@ public class Enemy : Unit
         if (other.gameObject.tag == "swordHeavy")
         {
             hitOnRight = player.GetComponent<NewPlayer>().facingRight;
-            
-            Debug.Log("DamagePopup");
             _rigidBody.AddForce(new Vector3(hitOnRight ? 5 : -5, 0, 0), ForceMode.Impulse);
         }
 
         if (other.gameObject.layer == 7 || other.gameObject.layer == 12)
         {
             NewPlayer.Instance.TakeDamage(contactDamage);
-            
-            Debug.Log("DamagePopup");
             return;
         }
 
@@ -487,7 +492,8 @@ public class Enemy : Unit
     }
 
     #endregion
-    private bool PopUpOut = false;
+    
+    
     [Range(0f, 100f)]
     public float percentChanceToDropItem = 40f;
 
@@ -517,14 +523,6 @@ public class Enemy : Unit
             
         }
         //DamagePopup.Create(transform.position, (int)amount);
-
-        if (!PopUpOut)
-        {
-            DamagePopup.Create(transform.position, amount);
-            StartCoroutine(DmgPopUp());
-        }
-
-        
     }
 
     public IEnumerator movingTest()
@@ -549,10 +547,10 @@ public class Enemy : Unit
         Destroy(this.gameObject);
     }
 
-    IEnumerator DmgPopUp()
+    public IEnumerator DmgPopUp()
     {
         PopUpOut = true;
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         PopUpOut = false;
     }
 

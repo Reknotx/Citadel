@@ -24,6 +24,7 @@ public abstract class Sword : MonoBehaviour
         if (other.gameObject.layer == 8 && !enemiesAttacked.Contains(other.gameObject))
         {
             other.gameObject.GetComponent<IDamageable>().TakeDamage(NewPlayer.Instance.combatSystem.meleeSystem.playerMeleeDamage);
+            DamagePopup.Create(transform.position, NewPlayer.Instance.combatSystem.meleeSystem.playerMeleeDamage);
             enemiesAttacked.Add(other.gameObject);
         }
     }
