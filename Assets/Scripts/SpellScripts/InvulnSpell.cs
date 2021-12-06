@@ -30,21 +30,20 @@ public class InvulnSpell : Spell
 
     protected override void TriggerSpell(GameObject target)
     {
-
         target.GetComponent<NewPlayer>().StartCoroutine(player.GetComponent<NewPlayer>().IFrames(invulnDurration));
     }
 
     protected override void Move()
     {
-        ///Activate the movement logic here
+        //Activate the movement logic here
         return;
     }
 
     public void trackPlayer()
     {
-
-
-        transform.position = new Vector3(player.transform.position.x, player.transform.position.y + .8f, player.transform.position.z);
+        transform.position = new Vector3(player.transform.position.x, 
+                                       player.transform.position.y + .8f,
+                                         player.transform.position.z);
     }
 
     public IEnumerator delayDestroy()

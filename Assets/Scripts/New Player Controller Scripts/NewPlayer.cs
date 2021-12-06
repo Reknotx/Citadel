@@ -358,7 +358,7 @@ public class NewPlayer : Unit, IDamageable
         float startTime = Time.time;
         float blinkTime = 0.25f;
         
-        while (true)
+        while (true)    
         {
             //Turn on 50% opacity
             Color origColor = bodyRenderer.material.color;
@@ -380,8 +380,4 @@ public class NewPlayer : Unit, IDamageable
         }
         invulnerable = false;
     }
-
-
-
-   
 }
