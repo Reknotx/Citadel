@@ -32,6 +32,7 @@ namespace Menu
         public void OnDisable()
         {
             Time.timeScale = 1f;
+            NewPlayer.Instance.isPaused = false;
         }
         
 
