@@ -11,9 +11,9 @@ public class Inventory_UI : MonoBehaviour
 
     public void AddItem(GameObject itemIMG)
     {
-        for(int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < slots.Length; i++)
         {
-            if(isFull[i] == false)
+            if (isFull[i] == false)
             {
                 //add item
                 isFull[i] = true;
@@ -26,11 +26,11 @@ public class Inventory_UI : MonoBehaviour
 
     public void RemoveItem(GameObject itemIMG /*item to remove*/ )
     {
-        for(int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < slots.Length; i++)
         {
-            if(isFull[i] == true)
+            if (isFull[i] == true)
             {
-                if(itemIMG.tag == tracker[i].tag)
+                if (itemIMG.tag == tracker[i].tag)
                 {
                     isFull[i] = false;
                     foreach (Transform child in transform)

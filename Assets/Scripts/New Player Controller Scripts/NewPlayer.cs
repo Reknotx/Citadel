@@ -3,8 +3,6 @@
  * Date: 11/10/2021.
  * 
  * Brief: A new and improved player controller for the game.
- * 
- * 
  */
 
 using System.Collections;
@@ -22,11 +20,6 @@ public class NewPlayer : Unit, IDamageable
 {
     public Renderer bodyRenderer;
     
-    #region Fields
-
-
-
-    #endregion
     /// <summary> The static instance of the New Player in the scene. </summary>
     public static NewPlayer Instance;
 
@@ -48,9 +41,8 @@ public class NewPlayer : Unit, IDamageable
     
     private int playerLayer = 7;
     private int ignorePlayerLayer = 12;
-
+    
     public PlayerCombatSystem combatSystem;
-
 
     public PlayerInventory inventory;
 
@@ -73,7 +65,11 @@ public class NewPlayer : Unit, IDamageable
         set
         {
             _health = Mathf.Clamp(value, 0, MaxHealth);
-            if (HealthBar != null) HealthBar.value = value;
+            if (HealthBar != null)
+            {
+                HealthBar.value = value;
+                HealthBar.GetComponentInChildren<Text>().text = value.ToString();
+            }
             if (Health == 0)
             {
                 //Activate game over logic
@@ -132,7 +128,7 @@ public class NewPlayer : Unit, IDamageable
 
         ManaBar.maxValue = MaxMana;
         Mana = MaxMana;
-
+        
         base.Awake();
     }
 
@@ -144,14 +140,13 @@ public class NewPlayer : Unit, IDamageable
     public override void Update()
     {
         if (isPaused) return;
+        
 
         Move();
-
+        
         GroundedCheck();
-
+        
     }
-
-
 
     public void OnTriggerEnter(Collider other)
     {
@@ -203,13 +198,9 @@ public class NewPlayer : Unit, IDamageable
         bool CheckForWalls()
         {
             LayerMask layerMask;
-            if (physicalBody.layer == ignorePlayerLayer)
-            {
-                layerMask = groundLayerMask;
-            }
+            if (physicalBody.layer == ignorePlayerLayer) layerMask = groundLayerMask;
             else layerMask = groundLayerMask | platformLayerMask;
-
-
+            
             //Here I'll want to do a physics cast instead of a ray cast
             //so that I get all of the information easily and without trial 
             //and error 
@@ -218,7 +209,7 @@ public class NewPlayer : Unit, IDamageable
                                    moveDir,
                                    Quaternion.identity,
                                    0.3f,
-                                   layerMask); ;
+                                   layerMask);
         }
     }
 
@@ -341,48 +332,8 @@ public class NewPlayer : Unit, IDamageable
         StartCoroutine(IFrames());
 
     }
-
-    void Attack()
-    {
-        //How can we process the attack to make it more dynamic?
-        //Ideas I need ideas
-        //Having a secondary class that processes a string
-        //sent in via the input system that then returns a 
-        //stored object which is used to instantiate spells
-        //
-        //However, we can make it simpler by setting up harder references to
-        //sword attacks versus spells
-        //A spell system object that's an empty gameobject a child of the player
-        //game object
-        //
-        //A player Combat system script is going to be the best course of action here
-        //The player combat system script will take in string inputs and then
-        //use that string information to make the appropriate calls to other 
-        //combat class scripts for melee attacks and spell attacks 
-        //the melee attack script can trigger the animations and turn on the spell
-        //while the spell attack script can spawn in spells and fire them 
-        //away from the player
-        //
-        //The possible way to have it work with spells and the sword is to change
-        //the combat system entirely from what Tyler wants and allow for the player 
-        //to cast spells and swing the sword at the same time.
-        //The melee combat system script will register if we need to swing
-        //the light attack or the heavy attack
-        //
-        //The spell combat sysstem script will hold all of the spells and allow
-        //the player to select two or three spells they can fire off by pressing
-        //the number keys and then spawns the spells fired off into the direction
-        //the player is facing
-        //the player can right click and select the number slot the spell will be in
-        //The spell book will have it's own special UI so that the player can
-        //examine the spells and what damage they will do and what special
-        //effects they have
-        //
-        //This will help make things more dynamic for us and allow for
-        //as many spells as want for the player to have.x
-    }
-
-    private bool invulnerable;
+    
+    public bool invulnerable;
 
     [Tooltip("Indicates how long the invulnerability frames last for.")]
     public float iFrameDuration = 3f;
@@ -403,8 +354,6 @@ public class NewPlayer : Unit, IDamageable
             origColor.a = 1f;
             bodyRenderer.material.color = origColor;
             yield return new WaitForSeconds(blinkTime);
-
-            
             
             //wait 0.125 seconds
             //turn opacity back to 100%
@@ -413,10 +362,10 @@ public class NewPlayer : Unit, IDamageable
             if (Time.time - startTime >= iFrameDuration)
                 break;
         }
-
-
-
         invulnerable = false;
-
     }
+
+
+
+   
 }

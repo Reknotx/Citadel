@@ -72,14 +72,14 @@ public class Enemy : Unit
     RaycastHit hit;
 
     ///<summary>This targets the player for the Enemy.</summary>
-    [HideInInspector]
+    //[HideInInspector]
     public GameObject player;
 
     public bool GoblinSpotted = false;
 
     #endregion
     #region Enemy AI Movement Stats
-    [HideInInspector]
+    //[HideInInspector]
     public float followDistance;
 
     [HideInInspector]
@@ -101,7 +101,7 @@ public class Enemy : Unit
     [HideInInspector]
     Vector2 currentDirection;
 
-    [HideInInspector]
+    //[HideInInspector]
     public float distanceToPlayer;
 
     [HideInInspector]
@@ -118,13 +118,23 @@ public class Enemy : Unit
 
     protected Seeker seeker;
 
+    public AIDestinationSetter AIDS;
+
+
+    #endregion
+    #region Enemy Animations
+    public Animator animator;
+    public bool isAttacking;
+    public bool isDead;
+    public bool isMoving;
 
     #endregion
 
+    private bool lootDropped = false;
     #endregion
 
 
-    
+
 
     [HideInInspector]
     public bool seenByCamera = false;
@@ -144,6 +154,38 @@ public class Enemy : Unit
     [SerializeField]
    // private Transform pfDamagePopup;
 
+
+    public override float Health
+    {
+        get => _health;
+        set
+        {
+            _health = value;
+
+            if (_health <= 0)
+            {
+                isDead = true;
+                
+            }
+        }
+    }
+
+    public override void Awake()
+    {
+        base.Awake();
+        player = GameObject.FindGameObjectWithTag("Player");
+        Astar = GetComponent<AIPath>();
+        AIDS = GetComponent<AIDestinationSetter>();
+        normalSpeed = speed;
+        HealthIMG.gameObject.SetActive(false);
+        if (animator != null)
+        {
+            animator.SetBool("isMoving", isMoving);
+            animator.SetBool("isAttacking", isAttacking);
+            animator.SetBool("isDead", isDead);
+        }
+    }
+
     public override void Start()
     {
         base.Start();
@@ -154,11 +196,35 @@ public class Enemy : Unit
 
         Astar = GetComponent<AIPath>();
 
+        AIDS.target = player.transform;
+
         HealthIMG.gameObject.SetActive(false);
+
+        if (animator != null)
+        {
+            animator.SetBool("isMoving", isMoving);
+            animator.SetBool("isAttacking", isAttacking);
+            animator.SetBool("isDead", isDead);
+        }
     }
 
     public override void Update()
     {
+        if(isDead == true)
+        {
+            Collider[] colliders = GetComponents<Collider>();
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                colliders[i].enabled = false;
+            }
+               
+            if(grounded)
+            {
+                _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+            }
+           
+            StartCoroutine(deathCoroutine());
+        }
 
         if (killThis) TakeDamage(1000);
 
@@ -178,13 +244,22 @@ public class Enemy : Unit
         }
 
 
+        if (animator != null)
+        {
+            animator.SetBool("isMoving", isMoving);
+            animator.SetBool("isAttacking", isAttacking);
+            animator.SetBool("isDead", isDead);
+        }
+
         #region Enemy AI Movement
         Move();
         #endregion
 
-        yDistance = player.transform.position.y - transform.position.y;
+        
 
         distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+
+        yDistance = player.transform.position.y - transform.position.y;
 
         if (!GoblinSpotted)
         {
@@ -210,6 +285,8 @@ public class Enemy : Unit
                 }
             }
         }
+
+        StartCoroutine(movingTest());
 
         if (grounded)
         {
@@ -330,10 +407,6 @@ public class Enemy : Unit
     {
         if (seenByCamera)
         {
-            if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-            }
 
             if (transform.position.x - player.transform.position.x > 0)
             {
@@ -345,6 +418,16 @@ public class Enemy : Unit
             {
                 facingRight = false;
             }
+
+
+            if (Vector2.Distance(transform.position, player.transform.position) > stoppingDistance && Vector2.Distance(transform.position, player.transform.position) < followDistance)
+            {
+                
+                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+               
+            }
+
+          
         }
     }
     #endregion
@@ -407,19 +490,28 @@ public class Enemy : Unit
 
     public override void TakeDamage(float amount)
     {
-        if (Health - amount <= 0)
+        var currentHealth = Health;
+        base.TakeDamage(amount);
+
+        if (currentHealth - amount <= 0)
         {
-            float dropYes = Random.Range(0f, 100f);
-
-            if (dropYes >= percentChanceToDropItem) return;
-
-            GameObject item = enemyLootTable.Drop();
-
-            if (item != null)
+            if(lootDropped == false)
             {
-                //Debug.Log("Success");
-                Instantiate(item, transform.position, Quaternion.identity);
+                contactDamage = 0;
+                lootDropped = true;
+                float dropYes = Random.Range(0f, 100f);
+
+                if (dropYes >= percentChanceToDropItem) return;
+
+                GameObject item = enemyLootTable.Drop();
+
+                if (item != null)
+                {
+                    //Debug.Log("Success");
+                    Instantiate(item, transform.position, Quaternion.identity);
+                }
             }
+            
         }
         //DamagePopup.Create(transform.position, (int)amount);
 
@@ -429,13 +521,35 @@ public class Enemy : Unit
             StartCoroutine(DmgPopUp());
         }
 
-        base.TakeDamage(amount);
+        
+    }
+
+    public IEnumerator movingTest()
+    {
+        var testPos = this.transform.position;
+        yield return new WaitForSeconds(1f);
+        if(testPos == this.transform.position)
+        {
+            isMoving = false;
+        }
+        else
+        {
+            isMoving = true;
+        }
+    }
+
+    public IEnumerator deathCoroutine()
+    {
+        var waitTime = 4f;
+        Astar.enabled = false;
+        yield return new WaitForSeconds(waitTime);
+        Destroy(this.gameObject);
     }
 
     IEnumerator DmgPopUp()
     {
         PopUpOut = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         PopUpOut = false;
     }
 

@@ -145,12 +145,16 @@ public class GoldHandler : MonoBehaviour
     /// </summary>
     private float elapsed = 0f;
 
+
+    public GameObject player;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
             Destroy(Instance.gameObject);
 
         Instance = this;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
 
@@ -199,7 +203,9 @@ public class GoldHandler : MonoBehaviour
             if (!(mainMenuName == currentScene.name))
             {
                 revenue = baseGoldIncrease + (numOfMiners * minerIncrease) + (numOfCarts * cartIncrease) + (numOfPicks * pickIncrease) + (numOfMoles * moleIncrease) + (numOfWizards * wizardIncrease);
-                AddHardGold(revenue);
+                //AddHardGold(revenue);
+                NewPlayer.Instance.inventory.goldStorage.MineGoldToPermGold(revenue);
+                MyHardGold = NewPlayer.Instance.inventory.goldStorage.permanentGold;
             }
             elapsed = 0f;
         }

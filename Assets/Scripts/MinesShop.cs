@@ -117,7 +117,8 @@ public class MinesShop : MonoBehaviour
         if( (int)gold.MyHardGold >= baseMinerCost)
         {
             gold.numOfMiners += 1;
-            gold.MyHardGold -= baseMinerCost;
+            //gold.MyHardGold -= baseMinerCost;
+            NewPlayer.Instance.inventory.goldStorage.MineGoldToPermGold(-baseMinerCost);
             baseMinerCost += (minerCostIncrease * gold.numOfMiners);
         }
     }
@@ -130,7 +131,8 @@ public class MinesShop : MonoBehaviour
         if ((int)gold.MyHardGold >= baseCartCost)
         {
             gold.numOfCarts += 1;
-            gold.MyHardGold -= baseCartCost;
+            //gold.MyHardGold -= baseCartCost;
+            NewPlayer.Instance.inventory.goldStorage.MineGoldToPermGold(-baseCartCost);
             baseCartCost += (cartCostIncrease * gold.numOfCarts);
         }
     }
@@ -140,7 +142,8 @@ public class MinesShop : MonoBehaviour
         if ((int)gold.MyHardGold >= basePickCost)
         {
             gold.numOfPicks += 1;
-            gold.MyHardGold -= basePickCost;
+            NewPlayer.Instance.inventory.goldStorage.MineGoldToPermGold(-basePickCost);
+           // gold.MyHardGold -= basePickCost;
             basePickCost += (pickCostIncrease * gold.numOfPicks);
         }
     }
@@ -150,7 +153,8 @@ public class MinesShop : MonoBehaviour
         if ((int)gold.MyHardGold >= baseMoleCost)
         {
             gold.numOfMoles += 1;
-            gold.MyHardGold -= baseMoleCost;
+            NewPlayer.Instance.inventory.goldStorage.MineGoldToPermGold(-baseMoleCost);
+            //gold.MyHardGold -= baseMoleCost;
             baseMoleCost += (moleCostIncrease * gold.numOfMoles);
         }
     }
@@ -160,7 +164,8 @@ public class MinesShop : MonoBehaviour
         if ((int)gold.MyHardGold >= baseWizardCost)
         {
             gold.numOfWizards += 1;
-            gold.MyHardGold -= baseWizardCost;
+            NewPlayer.Instance.inventory.goldStorage.MineGoldToPermGold(-baseWizardCost);
+           // gold.MyHardGold -= baseWizardCost;
             baseWizardCost += (wizardCostIncrease * gold.numOfWizards);
         }
     }

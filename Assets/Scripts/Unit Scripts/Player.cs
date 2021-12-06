@@ -36,21 +36,21 @@ public class Player : Unit, IDamageable
         get => base.Health; 
         set
         {
-            _health = Mathf.Clamp(value, 0, maxHealth);
-            if (_health <= 0)
-            {
-                if (undying == true)
-                {
-                    undying = false;
-                    myHealth = Mathf.Round(maxHealth * 0.15f);
-                }
-                else
-                {
-                    Debug.Log("Reset");
-                    ResetGame();
-                }
-
-            }
+            // _health = Mathf.Clamp(value, 0, maxHealth);
+            // if (_health <= 0)
+            // {
+            //     if (undying == true)
+            //     {
+            //         undying = false;
+            //         myHealth = Mathf.Round(maxHealth * 0.15f);
+            //     }
+            //     else
+            //     {
+            //         Debug.Log("Reset");
+            //         ResetGame();
+            //     }
+            //
+            // }
         }
     }
 
@@ -348,7 +348,17 @@ public class Player : Unit, IDamageable
 
     #endregion
 
-    private int maxHealth;
+    // private int maxHealth;
+    
+    ///<summary>This is the cool down between melee attacks for the unit .</summary>
+    protected float attackCoolDown =  1f;
+
+    ///<summary>This trakcs when the unit can deal damage again.</summary>
+    protected float nextDamageEvent;
+    
+    /// <summary>this determines if the unit can cast a spell or not</summary>
+    protected bool canCast;
+
 
     //private void Awake()
     //{
@@ -648,19 +658,19 @@ public class Player : Unit, IDamageable
 
     private void FixedUpdate()
     {
-        if (healthBar != null)
-        {
-            calculateHealth = Health / maxHealth;
-            healthBar.fillAmount = Mathf.MoveTowards(healthBar.fillAmount, calculateHealth, Time.deltaTime);
-            healthText.text = "" + (int)myHealth;
-        }
-
-        if (manaBar != null)
-        {
-            calculateMana = myMana / maxMana;
-            manaBar.fillAmount = Mathf.MoveTowards(manaBar.fillAmount, calculateMana, Time.deltaTime);
-            manaText.text = "" + myMana;
-        }
+        // if (healthBar != null)
+        // {
+        //     calculateHealth = Health / maxHealth;
+        //     healthBar.fillAmount = Mathf.MoveTowards(healthBar.fillAmount, calculateHealth, Time.deltaTime);
+        //     healthText.text = "" + (int)myHealth;
+        // }
+        //
+        // if (manaBar != null)
+        // {
+        //     calculateMana = myMana / maxMana;
+        //     manaBar.fillAmount = Mathf.MoveTowards(manaBar.fillAmount, calculateMana, Time.deltaTime);
+        //     manaText.text = "" + myMana;
+        // }
     }
 
     #endregion
@@ -682,7 +692,7 @@ public class Player : Unit, IDamageable
         var goldHandler = GameObject.FindGameObjectWithTag("PlayerGoldHandler");
         goldHandler.GetComponent<GoldHandler>()._mySoftGold = goldHandler.GetComponent<GoldHandler>().startingSoftGold;
         var goldTracker = GameObject.FindGameObjectWithTag("GoldTracker");
-        //goldTracker.GetComponent<PlayerGoldTrackerScript>().playerDead = true;
+        //goldTracker.GetComponent<PlayerStatTrackerScript>().playerDead = true;
         GameObject SceneManager = GameObject.FindGameObjectWithTag("SceneManager");
         SceneManager.GetComponent<SceneManagerScript>().goToCamp();
 
@@ -1196,20 +1206,20 @@ public class Player : Unit, IDamageable
 
     public void useHealthPotion()
     {
-        if(Health < maxHealth)
-        {
-            if (healthPotions > 0)
-            {
-                if (!usingPotion)
-                {
-                    usingPotion = true;
-                    healthPotions--;
-                    Health = Health + (maxHealth * 0.4f);
-                    StartCoroutine(usePotionCoroutine());
-                }
-
-            }
-        }
+        // if(Health < maxHealth)
+        // {
+        //     if (healthPotions > 0)
+        //     {
+        //         if (!usingPotion)
+        //         {
+        //             usingPotion = true;
+        //             healthPotions--;
+        //             Health = Health + (maxHealth * 0.4f);
+        //             StartCoroutine(usePotionCoroutine());
+        //         }
+        //
+        //     }
+        // }
         
     }
 

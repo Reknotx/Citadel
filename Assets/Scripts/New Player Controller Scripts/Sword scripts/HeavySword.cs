@@ -8,5 +8,6 @@ public class HeavySword : Sword
     {
         base.OnEnable();
         PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.TriggerAnimations.HEAVY_ATTACK);
+        StartCoroutine(turnOffAfterAnimationCoroutine());
     }
 }

@@ -8,5 +8,6 @@ public class LightSword : Sword
     {
         base.OnEnable();
         PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.TriggerAnimations.LIGHT_ATTACK);
+        StartCoroutine(turnOffAfterAnimationCoroutine());
     }
 }

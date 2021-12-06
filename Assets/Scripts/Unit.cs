@@ -26,7 +26,6 @@ public class Unit : MonoBehaviour, IDamageable
     [Header("unit base stats")]
     #region Unit's Movement Stats 
 
-    ///<summary>This is the unit's speed.</summary>
     [Range(0, 10f)]
     [Tooltip("This is the unit's maximum speed.")]
     public float speed;
@@ -48,6 +47,7 @@ public class Unit : MonoBehaviour, IDamageable
 
             if (_health <= 0)
             {
+                
                 ///Destroy the object here
                 Destroy(gameObject);
             }
@@ -81,7 +81,7 @@ public class Unit : MonoBehaviour, IDamageable
     protected bool justJumped = false;
 
     ///<summary>This determines what direction the unit is facing.</summary>
-    [HideInInspector]
+    [SerializeField]
     public bool facingRight;
 
     ///<summary>This determines what direction the unit hit another unit.</summary>
@@ -150,12 +150,10 @@ public class Unit : MonoBehaviour, IDamageable
     public int poisonedDamage;
 
     /// <summary> this determines how quickly on fire damage will tick against health </summary>
-    [HideInInspector]
-    protected float poisonedDamageRate = 1f;
+    private float poisonedDamageRate = 1f;
 
     /// <summary> This determines the delay between taking on fire damage</summary>
-    [HideInInspector]
-    protected float poisonedDamageDelay = 2f;
+    private float poisonedDamageDelay = 2f;
 
     #endregion
 
@@ -174,21 +172,25 @@ public class Unit : MonoBehaviour, IDamageable
     public virtual void Update()
     {
         //this determines if the unit can take damage from a initially cast fire spell
-        onFireDamageDelay -= Time.deltaTime * onFireDamageRate;
-        if (onFireDamageDelay <= 0)
+        if (onFire)
         {
-            fireDamageTaken = false;
-            onFireDamageDelay = 2f;
+            onFireDamageDelay -= Time.deltaTime * onFireDamageRate;
+            if (onFireDamageDelay <= 0)
+            {
+                fireDamageTaken = false;
+                onFireDamageDelay = 2f;
+            }
         }
 
-        poisonedDamageDelay -= Time.deltaTime * poisonedDamageRate;
-        if (poisonedDamageDelay <= 0)
+        if (poisoned)
         {
-            poisonDamageTaken = false;
-            poisonedDamageDelay = 2f;
+            poisonedDamageDelay -= Time.deltaTime * poisonedDamageRate;
+            if (poisonedDamageDelay <= 0)
+            {
+                poisonDamageTaken = false;
+                poisonedDamageDelay = 2f;
+            }
         }
-
-
     }
 
     /// Author: Chase O'Connor
@@ -203,8 +205,7 @@ public class Unit : MonoBehaviour, IDamageable
         Debug.Log("Dealing " + amount + " points of damage to " + name);
         Health -= amount;
     }
-    
-   
+
     #region IEnumerator Coroutines
     public IEnumerator onFireCoroutine ()
     {

@@ -54,9 +54,7 @@ public class PlayerAnimationManager : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// Pass in one of the static strings from the PlayerAnimationManager.
-    /// </summary>
+    /// <summary> Pass in one of the static strings from the PlayerAnimationManager.</summary>
     /// <param name="animation">The name of the animation to play</param>
     /// <remarks>The name of the animation shou ld be related to a 
     /// bool or trigger in animator</remarks>
