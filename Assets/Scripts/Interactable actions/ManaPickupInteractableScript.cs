@@ -11,18 +11,25 @@ namespace Interactables
 
         private bool given = false;
 
+        private NewPlayer player;
+        private void Awake()
+        {
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<NewPlayer>();
+        }
+
+
         // Update is called once per frame
         void Update()
         {
-
+            dropAmount = player.MaxMana /20;
         }
 
         public override void Interact()
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player.GetComponent<NewPlayer>().Mana != player.GetComponent<NewPlayer>().MaxMana)
+            
+            if (player.Mana != player.MaxMana)
             {
-                player.GetComponent<NewPlayer>().Mana += dropAmount;
+                player.Mana += dropAmount;
                 Destroy(this.gameObject);
             }
                 
