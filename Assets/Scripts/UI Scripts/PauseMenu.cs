@@ -31,7 +31,8 @@ namespace Menu
 
         public void OnDisable()
         {
-            Time.timeScale = 1f;
+
+            resumeGame();
         }
         
 
@@ -47,6 +48,13 @@ namespace Menu
         #else
             Application.Quit();
         #endif
+        }
+
+        void resumeGame()
+        {
+            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<NewPlayer>();
+            player.isPaused = false;
+            Time.timeScale = 1f;
         }
 
     }
