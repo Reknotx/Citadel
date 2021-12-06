@@ -348,7 +348,6 @@ public class NewPlayer : Unit, IDamageable
         if (invulnerable) return;
 
         base.TakeDamage(amount);
-        invulnerable = true;
         StartCoroutine(IFrames(iFrameDuration));
 
     }
@@ -359,6 +358,7 @@ public class NewPlayer : Unit, IDamageable
     public float iFrameDuration = 3f;
     public IEnumerator IFrames(float duration)
     {
+        invulnerable = true;
         float startTime = Time.time;
         float blinkTime = 0.25f;
         
