@@ -236,8 +236,8 @@ public class Enemy : Unit
         //Tyler Added code
         player = GameObject.FindGameObjectWithTag("Player");
 
+       
         Astar = GetComponent<AIPath>();
-
         AIDS.target = player.transform;
 
         HealthIMG.gameObject.SetActive(false);
@@ -294,6 +294,7 @@ public class Enemy : Unit
         }
 
         #region Enemy AI Movement
+        if(this.gameObject.tag != "Tentacle")
         Move();
         #endregion
 
@@ -307,18 +308,21 @@ public class Enemy : Unit
         {
             if (distanceToPlayer < followDistance && Mathf.Abs(yDistance) < 9)
             {
-                Astar.canMove = true;
+                if (this.gameObject.tag != "Tentacle")
+                    Astar.canMove = true;
             }
             else
             {
-                Astar.canMove = false;
+                if (this.gameObject.tag != "Tentacle")
+                    Astar.canMove = false;
             }
         }
         else if (GoblinSpotted)
         {
             if (distanceToPlayer < goblinFollowDistance && Mathf.Abs(yDistance) < 100)
             {
-                Astar.canMove = true;
+                if (this.gameObject.tag != "Tentacle")
+                    Astar.canMove = true;
             }
         }
 
@@ -473,7 +477,7 @@ public class Enemy : Unit
 
     #region Collision Detection
     ///<summary>These track the collisions between the enemy and in-game objects .</summary>
-    public void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         ///This triggers when the enemy is hit with the heavy attack.
         if (other.gameObject.tag == "swordHeavy")

@@ -66,11 +66,10 @@ public class Tentacle : Enemy, IDamageable
     ///later on and doesn't need to be spawned in. 
     ///
 
+    
+
+    
     [SerializeField]
-    private float _health;
-
-    private float _maxHealth;
-
     public override float Health 
     { 
         get => _health; 
@@ -81,14 +80,15 @@ public class Tentacle : Enemy, IDamageable
             {
                 _health = 0;
 
-                StopAllCoroutines();
-                ReturnToIdle();
+               // StopAllCoroutines();
+               //ReturnToIdle();
             }
         }
     }
 
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
         idlePos = transform.position;
 
         //hunter added
@@ -103,16 +103,19 @@ public class Tentacle : Enemy, IDamageable
         myCollider.center = new Vector3(0, 2, 0);
     }
 
-    private void Start()
+    public override void Start()
     {
         playerScript = NewPlayer.Instance;
+        
+        base.Start();
+        
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         //hunter added
         //tracking health in update because the base health would not trigger as soon as health hit 0
-        
+        HealthIMG.gameObject.transform.position = new Vector3(idlePos.x, idlePos.y-.5f, idlePos.z+1f);
         if (_health <= 0)
         {
             _health = 0;
@@ -195,8 +198,9 @@ public class Tentacle : Enemy, IDamageable
 
     }
 
-    public void OnTriggerEnter(Collider other)
+    public override void OnTriggerEnter(Collider other)
     {
+        base.OnTriggerEnter(other);
         if (!attacking) return;
 
         if (other.gameObject == playerScript.gameObject)
@@ -236,7 +240,7 @@ public class Tentacle : Enemy, IDamageable
         ReturnToIdle();
     }
 
-    public void TakeDamage(float amount)
+    public override void TakeDamage(float amount)
     {
         if (attacking)
             return;
