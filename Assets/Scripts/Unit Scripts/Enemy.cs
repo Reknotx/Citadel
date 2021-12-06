@@ -25,9 +25,6 @@ public class Enemy : Unit
     public bool throughPlatform;
 
     #region Enemy Stats
-    
-    ///<summary>This determines what direction the unit hit another unit.</summary>
-    protected bool hitOnRight;
 
     #region Enemy's Base Stats/Important Controls
 

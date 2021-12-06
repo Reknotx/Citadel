@@ -68,9 +68,9 @@ public class PlayerAnimationManager : MonoBehaviour
     public void RunningAnimation(bool on)
     {
         animator.SetBool("isRunning", on);
-        //This is just a nice little way to ensure that if running is on idle
-        //will be off and we don't need to write an if block
-        animator.SetBool("isIdle", !on);
+        ///This is just a nice little way to ensure that if running is on idle
+        ///will be off and we don't need to write an if block
+        animator.SetBool("isIdle", on == true ? false : true);
     }
 
     public void SetBool(string animation, bool value)
