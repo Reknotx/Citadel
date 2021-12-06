@@ -57,6 +57,8 @@ public class NewPlayer : Unit, IDamageable
     [HideInInspector]
     public bool isPaused;
 
+    private bool _canDoubleJump;
+    
     /// <summary> The player's health. </summary>
     public override float Health
     {
@@ -72,6 +74,14 @@ public class NewPlayer : Unit, IDamageable
             }
             if (Health == 0)
             {
+                if (inventory.undying)
+                {
+                    //Remove ring from inventory and update UI
+                    //Then set player's health to 10% of the max
+                    inventory.undying = false;
+                    _health = MaxHealth * 0.1f;
+                    return;
+                }
                 //Activate game over logic
                 //after game over logic it is better to turn off the player 
                 //object rather than destroy it
@@ -226,12 +236,14 @@ public class NewPlayer : Unit, IDamageable
             physicalBody.layer = playerLayer;
             grounded = true;
             falling = false;
+            if (inventory.shuues) _canDoubleJump = true;
             Debug.Log("Landed");
             PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.TriggerAnimations.LANDING);
         }
         else if (playerRB.velocity.y < 0)
         {
             falling = true;
+            grounded = false;
         }
         PlayerAnimationManager.Instance.SetBool(PlayerAnimationManager.BoolAnimations.FALLING, falling);
 
@@ -277,7 +289,9 @@ public class NewPlayer : Unit, IDamageable
 
     public void OnJump()
     {
-        if (!grounded || isPaused) return;
+        if ((!grounded && !_canDoubleJump) || isPaused) return;
+
+        if (!grounded && _canDoubleJump) _canDoubleJump = false;
         LeftGround();
         Debug.Log("Jump");
         playerRB.velocity = new Vector3(0, Mathf.Sqrt(-2.0f * Physics.gravity.y * jumpHeight));
@@ -306,6 +320,8 @@ public class NewPlayer : Unit, IDamageable
 
     public void OnUsePotion()
     {
+        if (isPaused) return;
+        
         if (Keyboard.current.fKey.isPressed)
             inventory.UseHealthPotion();
         else
@@ -333,7 +349,7 @@ public class NewPlayer : Unit, IDamageable
 
         base.TakeDamage(amount);
         invulnerable = true;
-        StartCoroutine(IFrames());
+        StartCoroutine(IFrames(iFrameDuration));
 
     }
     
@@ -341,7 +357,7 @@ public class NewPlayer : Unit, IDamageable
 
     [Tooltip("Indicates how long the invulnerability frames last for.")]
     public float iFrameDuration = 3f;
-    public IEnumerator IFrames()
+    public IEnumerator IFrames(float duration)
     {
         float startTime = Time.time;
         float blinkTime = 0.25f;
@@ -363,7 +379,7 @@ public class NewPlayer : Unit, IDamageable
             //turn opacity back to 100%
 
             yield return new WaitForFixedUpdate();
-            if (Time.time - startTime >= iFrameDuration)
+            if (Time.time - startTime >= duration)
                 break;
         }
         invulnerable = false;

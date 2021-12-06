@@ -19,9 +19,9 @@ public abstract class Spell : MonoBehaviour
 
     public bool movingSpell = true;
 
-    public abstract void TriggerSpell(GameObject target);
+    protected abstract void TriggerSpell(GameObject target);
 
-    public abstract void Move();
+    protected abstract void Move();
 
     public void Update()
     {
@@ -40,7 +40,10 @@ public abstract class Spell : MonoBehaviour
 
     private void OnEnable()
     {
-        NewPlayer.Instance.Mana -= stats.manaCost;
+        NewPlayer.Instance.Mana -= stats.manaCost 
+                                   - (NewPlayer.Instance.inventory.spellStone
+                                       ? Mathf.RoundToInt(stats.manaCost * 0.25f)
+                                       : 0);
     }
 
 }
