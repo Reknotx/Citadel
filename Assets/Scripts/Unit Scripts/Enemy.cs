@@ -75,9 +75,10 @@ public class Enemy : Unit
     RaycastHit hit;
 
     ///<summary>This targets the player for the Enemy.</summary>
-    //[HideInInspector]
+    [HideInInspector]
     public GameObject player;
 
+    [HideInInspector]
     public bool GoblinSpotted = false;
 
     #endregion
@@ -125,8 +126,14 @@ public class Enemy : Unit
     #endregion
     #region Enemy Animations
     public Animator animator;
+
+    [HideInInspector]
     public bool isAttacking;
+
+    [HideInInspector]
     public bool isDead;
+
+    [HideInInspector]
     public bool isMoving;
 
     #endregion
@@ -215,12 +222,8 @@ public class Enemy : Unit
             {
                 colliders[i].enabled = false;
             }
-               
-            if(grounded)
-            {
-                _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
-            }
-           
+            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+
             StartCoroutine(deathCoroutine());
         }
 
@@ -265,6 +268,7 @@ public class Enemy : Unit
             {
                 if (Mathf.Abs(yDistance) < 9)
                 {
+                    if(!isDead)
                     Astar.canMove = true;
                 }
             }
@@ -279,7 +283,8 @@ public class Enemy : Unit
             {
                 if (Mathf.Abs(yDistance) < 100)
                 {
-                    Astar.canMove = true;
+                    if (!isDead)
+                        Astar.canMove = true;
                 }
             }
         }
