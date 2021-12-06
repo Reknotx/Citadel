@@ -308,21 +308,18 @@ public class Enemy : Unit
         {
             if (distanceToPlayer < followDistance && Mathf.Abs(yDistance) < 9)
             {
-                if (this.gameObject.tag != "Tentacle")
-                    Astar.canMove = true;
+                Astar.canMove = true;
             }
             else
             {
-                if (this.gameObject.tag != "Tentacle")
-                    Astar.canMove = false;
+                Astar.canMove = false;
             }
         }
         else if (GoblinSpotted)
         {
             if (distanceToPlayer < goblinFollowDistance && Mathf.Abs(yDistance) < 100)
             {
-                if (this.gameObject.tag != "Tentacle")
-                    Astar.canMove = true;
+                Astar.canMove = true;
             }
         }
 
