@@ -48,43 +48,43 @@ public class Orc : Enemy
 
         base.Update();
 
-        //if(Vector2.Distance(transform.position, base.player.transform.position) <= orcMeleeRange)
-        //{
-        //    if (canAttack)
-        //    {
-        //        OrcAttack();
-        //    }
-        //}
+        if (Vector2.Distance(transform.position, base.player.transform.position) <= orcMeleeRange)
+        {
+            if (canAttack)
+            {
+                OrcAttack();
+            }
+        }
 
 
-        
+
     }
 
     private void OrcAttack()
     {
-        // if (facingRight)
-        // {
-        //     StartCoroutine(WaitBetweenVisual_Right());
-        //    
-        //     StartCoroutine(WaitBetweenAttack());
-        //
-        //     if(player.invulnActive == false)
-        //     {
-        //         player.TakeDamage(orcDamage);
-        //     }
-        //     
-        // }
-        // else
-        // {
-        //     StartCoroutine(WaitBetweenVisual_Left());
-        //     
-        //     StartCoroutine(WaitBetweenAttack());
-        //
-        //     if (player.invulnActive == false)
-        //     {
-        //         player.TakeDamage(orcDamage);
-        //     }
-        // }
+        if (facingRight)
+        {
+            StartCoroutine(WaitBetweenVisual_Right());
+
+            StartCoroutine(WaitBetweenAttack());
+
+            if (player.GetComponent<NewPlayer>().invulnerable == false)
+            {
+                player.GetComponent<NewPlayer>().TakeDamage(orcDamage);
+            }
+
+        }
+        else
+        {
+            StartCoroutine(WaitBetweenVisual_Left());
+
+            StartCoroutine(WaitBetweenAttack());
+
+            if (player.GetComponent<NewPlayer>().invulnerable == false)
+            {
+                player.GetComponent<NewPlayer>().TakeDamage(orcDamage);
+            }
+        }
     }
 
     IEnumerator WaitBetweenAttack()
@@ -96,16 +96,16 @@ public class Orc : Enemy
 
     IEnumerator WaitBetweenVisual_Right()
     {
-        orcAttack_R.SetActive(true);
+        //orcAttack_R.SetActive(true);
         yield return new WaitForSeconds(0.5f);
-        orcAttack_R.SetActive(false);
+        //orcAttack_R.SetActive(false);
     }
 
     IEnumerator WaitBetweenVisual_Left()
     {
-        orcAttack_L.SetActive(true);
+        //orcAttack_L.SetActive(true);
         yield return new WaitForSeconds(0.5f);
-        orcAttack_L.SetActive(false);
+        //orcAttack_L.SetActive(false);
     }
 
     

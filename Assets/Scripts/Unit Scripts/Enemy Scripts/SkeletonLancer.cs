@@ -113,25 +113,25 @@ public class SkeletonLancer : Enemy
     IEnumerator DashRight()
     {
         isAttacking = true;
-        Lance_R.SetActive(true);
+        //Lance_R.SetActive(true);
         Astar.canMove = false;
         yield return new WaitForSeconds(1f);
         Astar.canMove = true;
         _rigidBody.AddForce(-transform.right * dashForce);
         yield return new WaitForSeconds(1.5f);
-        Lance_R.SetActive(false);
+        //Lance_R.SetActive(false);
     }
 
     IEnumerator DashLeft()
     {
         isAttacking = true;
-        Lance_L.SetActive(true);
+        //Lance_L.SetActive(true);
         Astar.canMove = false;
         yield return new WaitForSeconds(1f);
         Astar.canMove = true;
         _rigidBody.AddForce(transform.right * dashForce);
         yield return new WaitForSeconds(1.5f);
-        Lance_L.SetActive(false);
+        //Lance_L.SetActive(false);
     }
 
     IEnumerator Dash()

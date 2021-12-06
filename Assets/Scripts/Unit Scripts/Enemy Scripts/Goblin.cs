@@ -233,16 +233,16 @@ public class Goblin : Enemy
 
     IEnumerator WaitBetweenVisual_Right()
     {
-        goblinAttack_R.SetActive(true);
+        //goblinAttack_R.SetActive(true);
         yield return new WaitForSeconds(0.5f);
-        goblinAttack_R.SetActive(false);
+        //goblinAttack_R.SetActive(false);
     }
 
     IEnumerator WaitBetweenVisual_Left()
     {
-        goblinAttack_L.SetActive(true);
+        //goblinAttack_L.SetActive(true);
         yield return new WaitForSeconds(0.5f);
-        goblinAttack_L.SetActive(false);
+        //goblinAttack_L.SetActive(false);
     }
 
     

@@ -82,7 +82,7 @@ public class Enemy : Unit
 
     #endregion
     #region Enemy AI Movement Stats
-    [HideInInspector]
+    //[HideInInspector]
     public float followDistance;
 
     [HideInInspector]
@@ -104,7 +104,7 @@ public class Enemy : Unit
     [HideInInspector]
     Vector2 currentDirection;
 
-    [HideInInspector]
+    //[HideInInspector]
     public float distanceToPlayer;
 
     [HideInInspector]
@@ -120,6 +120,8 @@ public class Enemy : Unit
     //bool reachedEndOfPath = false;
 
     protected Seeker seeker;
+
+    public AIDestinationSetter AIDS;
 
 
     #endregion
@@ -224,6 +226,7 @@ public class Enemy : Unit
         base.Awake();
         player = GameObject.FindGameObjectWithTag("Player");
         Astar = GetComponent<AIPath>();
+        AIDS = GetComponent<AIDestinationSetter>();
         normalSpeed = speed;
         HealthIMG.gameObject.SetActive(false);
         if (animator != null)
@@ -244,6 +247,8 @@ public class Enemy : Unit
 
         Astar = GetComponent<AIPath>();
 
+        AIDS.target = player.transform;
+
         HealthIMG.gameObject.SetActive(false);
 
         if (animator != null)
@@ -258,13 +263,17 @@ public class Enemy : Unit
     {
         if(isDead == true)
         {
-            BoxCollider[] colliders = GetComponents<BoxCollider>();
+            Collider[] colliders = GetComponents<Collider>();
             for (int i = 0; i < colliders.Length; i++)
             {
                 colliders[i].enabled = false;
             }
-                this.GetComponent<BoxCollider>().enabled = false;
-            _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+               
+            if(grounded)
+            {
+                _rigidBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+            }
+           
             StartCoroutine(deathCoroutine());
         }
 
@@ -560,7 +569,7 @@ public class Enemy : Unit
     IEnumerator DmgPopUp()
     {
         PopUpOut = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         PopUpOut = false;
     }
 

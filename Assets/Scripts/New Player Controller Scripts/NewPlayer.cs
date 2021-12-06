@@ -353,7 +353,7 @@ public class NewPlayer : Unit, IDamageable
 
     }
     
-    private bool invulnerable;
+    public bool invulnerable;
 
     [Tooltip("Indicates how long the invulnerability frames last for.")]
     public float iFrameDuration = 3f;
