@@ -26,7 +26,7 @@ namespace Menu
         {
             Time.timeScale = 0f;
 
-            returnToCampButton.interactable = SceneManager.GetActiveScene().name == "CampScene";
+            returnToCampButton.interactable = SceneManager.GetActiveScene().name != "CampScene";
         }
 
         public void OnDisable()
