@@ -646,16 +646,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d6629821766d2645a4c9c1b09107429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6.7
+  speed: 4
   HealthBar: {fileID: 7503102015063552248}
-  maxHealth: 10
+  maxHealth: 250
   facingRight: 0
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
   onPlatform: 0
   throughPlatform: 0
   _rigidBody: {fileID: 1065828198705947067}
   m_render: {fileID: 1065828198705947070}
-  contactDamage: 1
+  contactDamage: 0
   facingRightLocal: 0
   yDistance: 0
   jumpVelocity: 7
@@ -687,7 +687,7 @@ MonoBehaviour:
   bleeding: 0
   percentChanceToDropItem: 40
   orcMeleeRange: 2
-  orcDamage: 15
+  orcDamage: 25
   orcAttack_L: {fileID: 1065828199501566337}
   orcAttack_R: {fileID: 1065828199163735791}
   attack: {fileID: 2727811913161832067}

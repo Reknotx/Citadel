@@ -1861,6 +1861,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2431696919760416771, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: revenue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2431696919760416771, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
       propertyPath: hardGold
       value: 
       objectReference: {fileID: 1061628242}
@@ -1869,9 +1873,29 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2431696919760416771, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: cartIncrease
+      value: 750
+      objectReference: {fileID: 0}
+    - target: {fileID: 2431696919760416771, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
       propertyPath: hardGoldText
       value: 
       objectReference: {fileID: 1061628243}
+    - target: {fileID: 2431696919760416771, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: moleIncrease
+      value: 12500
+      objectReference: {fileID: 0}
+    - target: {fileID: 2431696919760416771, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: pickIncrease
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 2431696919760416771, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: minerIncrease
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2431696919760416771, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
+      propertyPath: wizardIncrease
+      value: 62500
+      objectReference: {fileID: 0}
     - target: {fileID: 2431696919760416771, guid: 6a67d66c9e88d8d4e95ad2e25f726de2, type: 3}
       propertyPath: baseGoldIncrease
       value: 2
@@ -2208,11 +2232,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gold: {fileID: 1061628241}
-  minerCostIncrease: 75
-  cartCostIncrease: 1500
-  pickCostIncrease: 600
-  moleCostIncrease: 25000
-  wizardCostIncrease: 125000
+  minerCostIncrease: 37
+  cartCostIncrease: 750
+  pickCostIncrease: 300
+  moleCostIncrease: 12500
+  wizardCostIncrease: 62500
   minecartCost: {fileID: 469288808}
   minerCost: {fileID: 1770781974}
   pickCost: {fileID: 1653235236}

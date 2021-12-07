@@ -161,12 +161,12 @@ public class GoldHandler : MonoBehaviour
     private void Start()
     {
         currentScene = SceneManager.GetActiveScene();
-        baseGoldIncrease = 1;
-        minerIncrease = 1;
-        pickIncrease = 2;
-        cartIncrease = 3;
-        moleIncrease = 5;
-        wizardIncrease = 10;
+        baseGoldIncrease = 2;
+        minerIncrease = 2;
+        pickIncrease = 6;
+        cartIncrease = 10;
+        moleIncrease = 20;
+        wizardIncrease = 40;
          
     }
 
