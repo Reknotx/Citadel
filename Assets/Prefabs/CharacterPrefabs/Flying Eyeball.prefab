@@ -1135,6 +1135,7 @@ GameObject:
   - component: {fileID: 7116494046359205880}
   - component: {fileID: 6625780130842779017}
   - component: {fileID: 1485452955331553000}
+  - component: {fileID: 7876028741511777327}
   m_Layer: 8
   m_Name: Flying Eyeball
   m_TagString: Untagged
@@ -1219,9 +1220,6 @@ MonoBehaviour:
   HealthBar: {fileID: 5754144583115290996}
   maxHealth: 10
   facingRight: 0
-  poisoned: 0
-  poisonedDuration: 5
-  poisonedDamage: 0
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
   onPlatform: 0
   throughPlatform: 0
@@ -1246,11 +1244,17 @@ MonoBehaviour:
   isAttacking: 0
   isDead: 0
   isMoving: 0
+  PopUpOut: 0
   seenByCamera: 0
   debug: 0
   killThis: 0
   enemyHealth: {fileID: 1733830180518621750}
   HealthIMG: {fileID: 9046293808419453266}
+  hitOnRight: 0
+  poisoned: 0
+  poisonedDuration: 5
+  poisonedDamage: 0
+  bleeding: 0
   percentChanceToDropItem: 40
   attackRate: 5
   lurchDist: 5
@@ -1313,6 +1317,20 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
+--- !u!114 &7876028741511777327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7116494046359205881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  target: {fileID: 0}
 --- !u!1 &7122895216490660959
 GameObject:
   m_ObjectHideFlags: 0
