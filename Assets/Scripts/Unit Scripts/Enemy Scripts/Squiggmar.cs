@@ -98,8 +98,8 @@ public class Squiggmar : Enemy, IDamageable
             if (_health <= 0)
             {
                 endGameMenu.SetActive(true);
-                NewPlayer.Instance.canReturn = true;
-               // Destroy(gameObject);
+             
+               
                 //Perform death logic to end the game/proceed to
                 //the next level
             }
