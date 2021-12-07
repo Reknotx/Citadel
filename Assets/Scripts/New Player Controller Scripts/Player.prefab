@@ -2419,9 +2419,6 @@ MonoBehaviour:
   HealthBar: {fileID: 3789113024412507344}
   maxHealth: 20
   facingRight: 0
-  poisoned: 0
-  poisonedDuration: 5
-  poisonedDamage: 0
   bodyRenderer: {fileID: 6290232320150385263}
   playerRB: {fileID: 0}
   moveDir: {x: 0, y: 0}
@@ -2436,8 +2433,8 @@ MonoBehaviour:
   combatSystem: {fileID: 1204021025}
   ManaBar: {fileID: 2280079510671871358}
   modelHeight: 1.5
-  isPaused: 0
   maxMana: 20
+  invulnerable: 0
   iFrameDuration: 3
 --- !u!114 &6091635305826757834
 MonoBehaviour:
@@ -3798,6 +3795,14 @@ PrefabInstance:
     - target: {fileID: 2128168866562224769, guid: ae3ddc40635fb20438c4abe64b1050eb, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128168866603653892, guid: ae3ddc40635fb20438c4abe64b1050eb, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128168866603653894, guid: ae3ddc40635fb20438c4abe64b1050eb, type: 3}
+      propertyPath: m_TagString
+      value: UIPauseReturnBTN
       objectReference: {fileID: 0}
     - target: {fileID: 2128168866603653895, guid: ae3ddc40635fb20438c4abe64b1050eb, type: 3}
       propertyPath: m_AnchorMax.y

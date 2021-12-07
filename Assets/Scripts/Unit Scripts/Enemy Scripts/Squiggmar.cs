@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.UI;
 
 public class Squiggmar : Enemy, IDamageable
 {
@@ -67,7 +68,7 @@ public class Squiggmar : Enemy, IDamageable
     float nextCombatLogicStart;
 
     public GameObject endGameMenu;
-
+   
     [SerializeField]
     private bool headVulnerable = false;
 
@@ -97,6 +98,7 @@ public class Squiggmar : Enemy, IDamageable
             if (_health <= 0)
             {
                 endGameMenu.SetActive(true);
+                NewPlayer.Instance.canReturn = true;
                // Destroy(gameObject);
                 //Perform death logic to end the game/proceed to
                 //the next level
@@ -148,6 +150,8 @@ public class Squiggmar : Enemy, IDamageable
             {
                 StartCoroutine(turnOff());
             }
+            
+            
         }
 
         //hunter added

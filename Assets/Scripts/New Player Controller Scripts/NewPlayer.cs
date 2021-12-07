@@ -57,6 +57,9 @@ public class NewPlayer : Unit
     public bool IsPaused => PauseMenu.Instance.gameObject.activeSelf;
 
     private bool _canDoubleJump;
+
+    [HideInInspector]
+    public bool canReturn = false;
     
     /// <summary> The player's health. </summary>
     public override float Health
@@ -155,6 +158,11 @@ public class NewPlayer : Unit
         
         GroundedCheck();
         
+
+        if(canReturn)
+        {
+            PauseMenu.Instance.returnToCampButton.interactable = true;
+        }
     }
 
     public void OnTriggerEnter(Collider other)
