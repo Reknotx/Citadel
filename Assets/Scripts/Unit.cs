@@ -62,7 +62,11 @@ public class Unit : MonoBehaviour, IDamageable
     public float MaxHealth
     {
         get => maxHealth;
-        set => maxHealth = value;
+        set
+        {
+            maxHealth = value;
+            if (HealthBar != null) HealthBar.maxValue = value;
+        }
     }
     #endregion
 

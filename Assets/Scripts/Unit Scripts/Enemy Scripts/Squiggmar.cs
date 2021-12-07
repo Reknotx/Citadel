@@ -255,7 +255,10 @@ public class Squiggmar : Enemy, IDamageable
         transform.GetChild(0).gameObject.SetActive(false);
         Debug.Log("Head made invulnerable.");
 
-
+        foreach (Tentacle tentacle in tentacles)
+        {
+            tentacle.gameObject.SetActive(true);
+        }
     }
 
     public void TakeDamage(float amount)
