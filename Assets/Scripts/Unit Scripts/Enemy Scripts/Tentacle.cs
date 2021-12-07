@@ -88,8 +88,12 @@ public class Tentacle : Enemy
         }
     }
 
+    public float localHealth;
+
     public override void Awake()
     {
+        _health = MaxHealth;
+        localHealth = Health;
         idlePos = transform.position;
 
         //hunter added
@@ -113,7 +117,7 @@ public class Tentacle : Enemy
     {
         //hunter added
         //tracking health in update because the base health would not trigger as soon as health hit 0
-        
+        localHealth = Health;
         if (_health <= 0)
         {
             _health = 0;
@@ -139,9 +143,9 @@ public class Tentacle : Enemy
             animator.SetBool(IsDead, isDead);
         }
 
-        swipeStartPoint.y = playerScript.transform.position.y;
-        swipeEndPoint.y = swipeStartPoint.y;
-        transform.position = new Vector3(swipeStartPoint.x, swipeStartPoint.y, 0f);
+        swipeStartPoint.y = playerScript.transform.position.y+.5f;
+        swipeEndPoint.y = swipeStartPoint.y + .5f;
+        transform.position = new Vector3(swipeStartPoint.x, swipeStartPoint.y + .5f, 0f);
 
 
         //hunter added 
@@ -200,8 +204,8 @@ public class Tentacle : Enemy
     {
         if (!attacking) return;
 
-        if (other.gameObject == playerScript.gameObject)
-            playerScript.TakeDamage(damage);
+        if (other.gameObject.layer == 7)
+            NewPlayer.Instance.TakeDamage(contactDamage);
     }
 
     IEnumerator SwipeMovement()
