@@ -17,7 +17,6 @@ namespace Interactables
             {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 player.GetComponent<PlayerInventory>().floatingShield = true;
-                player.GetComponent<Inventory_UI>().AddItem(floatingShieldGameObject);
                 base.Interact();
             }
             
@@ -32,6 +31,7 @@ namespace Interactables
                 {
                     given = true;
                     NewPlayer.Instance.inventory.floatingShield = true;
+                    NewPlayer.Instance.GetComponent<Inventory_UI>().AddItem(floatingShieldGameObject);
                     Destroy(this.gameObject);
                 }
                 

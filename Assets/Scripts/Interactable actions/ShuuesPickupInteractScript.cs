@@ -18,7 +18,6 @@ namespace Interactables
             {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 player.GetComponent<PlayerInventory>().shuues = true;
-                player.GetComponent<Inventory_UI>().AddItem(shuuesGameObject);
                 base.Interact();
             }
            
@@ -32,6 +31,7 @@ namespace Interactables
                 {
                     given = true;
                     NewPlayer.Instance.inventory.shuues = true;
+                    NewPlayer.Instance.GetComponent<Inventory_UI>().AddItem(shuuesGameObject);
                     Destroy(this.gameObject);
                 }
                

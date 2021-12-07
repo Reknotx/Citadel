@@ -17,7 +17,6 @@ namespace Interactables
             {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 player.GetComponent<PlayerInventory>().spellStone = true;
-                player.GetComponent<Inventory_UI>().AddItem(spellStoneGameObject);
                 base.Interact();
             }
             
@@ -32,6 +31,7 @@ namespace Interactables
                 {
                     given = true;
                     NewPlayer.Instance.inventory.spellStone = true;
+                    NewPlayer.Instance.GetComponent<Inventory_UI>().AddItem(spellStoneGameObject);
                     Destroy(this.gameObject);
                 }
                

@@ -17,7 +17,6 @@ namespace Interactables
             {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 player.GetComponent<PlayerInventory>().medicineStash = true;
-                player.GetComponent<Inventory_UI>().AddItem(medicineSashGameObject);
                 base.Interact();
             }
             
@@ -32,6 +31,7 @@ namespace Interactables
                 {
                     given = true;
                     NewPlayer.Instance.inventory.medicineStash = true;
+                    NewPlayer.Instance.GetComponent<Inventory_UI>().AddItem(medicineSashGameObject);
                     Destroy(this.gameObject);
                 }
                
