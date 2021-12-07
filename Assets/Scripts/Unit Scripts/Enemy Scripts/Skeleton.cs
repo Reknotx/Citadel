@@ -39,11 +39,18 @@ public class Skeleton : Enemy
 
     public bool los = false;
 
+    public AudioSource attack;
+    public AudioSource idle;
+    public AudioSource hurt;
+    public AudioSource die;
+
     public override void Start()
     {
         //Tyler Added Code
         player = GameObject.FindGameObjectWithTag("Player");
         //End
+
+        idle.Play();
     }
 
     public override void Update()
@@ -64,6 +71,7 @@ public class Skeleton : Enemy
         if(isDead)
         {
             canShoot = false;
+            die.Play();
         }
 
         if (Vector2.Distance(transform.position, player.transform.position) <= skeletonShootingDistance && !isDead)
@@ -77,6 +85,7 @@ public class Skeleton : Enemy
                     isAttacking = true;
                     //transform.LookAt(player.transform);
                     //shootLocation = player.transform;
+                    attack.Play();
                     Instantiate(projectile, shootLocation.position, Quaternion.identity);
                     StartCoroutine(ProjectileCooldown());
                 }
@@ -98,6 +107,13 @@ public class Skeleton : Enemy
             }
           
         }
+    }
+
+    public override void TakeDamage(float amount)
+    {
+        base.TakeDamage(amount);
+
+        hurt.Play();
     }
 
     /*private bool CanSeePlayer(float distance)
