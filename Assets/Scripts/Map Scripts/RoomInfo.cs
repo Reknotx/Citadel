@@ -120,7 +120,8 @@ namespace Map
 
         public override string ToString()
         {
-            Debug.LogFormat("Room openings - Top: {0}, Bottom: {1}, Left: {2}, Right: {3}", CalcDoorsTopSide(), CalcDoorsBottomSide(), CalcDoorsLeftSide(), CalcDoorsRightSide());
+            Debug.LogFormat("Room openings - Top: {0}, Bottom: {1}, Left: {2}, Right: {3}", CalcDoorsTopSide(),
+                CalcDoorsBottomSide(), CalcDoorsLeftSide(), CalcDoorsRightSide());
             return "";
         }
 
