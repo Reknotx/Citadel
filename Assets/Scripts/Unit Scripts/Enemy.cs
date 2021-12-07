@@ -452,12 +452,16 @@ public class Enemy : Unit
     ///<summary>These track the collisions between the enemy and in-game objects .</summary>
     public virtual void OnTriggerEnter(Collider other)
     {
-        //This triggers when the enemy is hit with the heavy attack.
-        if (other.gameObject.CompareTag("swordHeavy"))
+        if(this.gameObject.tag != "Squig")
         {
-            hitOnRight = player.GetComponent<NewPlayer>().facingRight;
-            _rigidBody.AddForce(new Vector3(hitOnRight ? 5 : -5, 0, 0), ForceMode.Impulse);
+            //This triggers when the enemy is hit with the heavy attack.
+            if (other.gameObject.CompareTag("swordHeavy"))
+            {
+                hitOnRight = player.GetComponent<NewPlayer>().facingRight;
+                _rigidBody.AddForce(new Vector3(hitOnRight ? 5 : -5, 0, 0), ForceMode.Impulse);
+            }
         }
+       
 
         if (other.gameObject.layer == 7 || other.gameObject.layer == 12)
         {

@@ -93,14 +93,19 @@ public class Squiggmar : Enemy, IDamageable
         {
             _health = value;
             Debug.Log("Squiggmar health is now " + _health);
-            endGameMenu.SetActive(true);
-            Destroy(gameObject);
-            //Perform death logic to end the game/proceed to
-            //the next level
+
+            if (_health <= 0)
+            {
+                endGameMenu.SetActive(true);
+               // Destroy(gameObject);
+                //Perform death logic to end the game/proceed to
+                //the next level
+            }
         }
     }
     
     public bool isGoingUp = false;
+    public Transform headPos;
 
     public override void Awake()
     {
@@ -108,6 +113,7 @@ public class Squiggmar : Enemy, IDamageable
             Destroy(Instance);
 
         Instance = this;
+        _health = MaxHealth;
     }
 
     public override void Start()
@@ -131,8 +137,9 @@ public class Squiggmar : Enemy, IDamageable
         //tracks the health real time incase of sudden enemy death 
         if (_health <= 0)
         {
-            _health = 0;
 
+            GetComponent<BoxCollider>().enabled = false;
+            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
 
             //this triggers the death animation and delays setting Active to false for a second to let the animation play
             isDead = true;
@@ -150,6 +157,8 @@ public class Squiggmar : Enemy, IDamageable
             animator.SetBool("isGoingUp", isGoingUp);
             animator.SetBool("isDead", isDead);
         }
+
+       GetComponent<BoxCollider>().center =  headPos.position;
 
 
         if (Time.time > nextCombatLogicStart)

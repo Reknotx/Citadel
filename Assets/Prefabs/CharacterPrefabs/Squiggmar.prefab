@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187209794}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: 2.5, z: 0}
+  m_LocalPosition: {x: 15, y: 4.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4549060152791794171}
@@ -2065,7 +2065,7 @@ MonoBehaviour:
   poisonedDuration: 5
   poisonedDamage: 0
   bleeding: 0
-  percentChanceToDropItem: 40
+  percentChanceToDropItem: 100
   idlePos: {x: 0, y: 0, z: 0}
   swipeXPosRange: 0
   swipeCompletionTime: 1
@@ -2073,6 +2073,7 @@ MonoBehaviour:
   damage: 1
   myCollider: {fileID: 4290823173870673991}
   colliderX: 0
+  localHealth: 0
 --- !u!54 &7384020721006286666
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2326,7 +2327,7 @@ MonoBehaviour:
   poisonedDuration: 5
   poisonedDamage: 0
   bleeding: 0
-  percentChanceToDropItem: 40
+  percentChanceToDropItem: 100
   idlePos: {x: 0, y: 0, z: 0}
   swipeXPosRange: 0
   swipeCompletionTime: 1
@@ -2334,6 +2335,7 @@ MonoBehaviour:
   damage: 1
   myCollider: {fileID: 7001575592541763747}
   colliderX: 0
+  localHealth: 0
 --- !u!54 &5889533011294226026
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2909,7 +2911,7 @@ MonoBehaviour:
   poisonedDuration: 5
   poisonedDamage: 0
   bleeding: 0
-  percentChanceToDropItem: 40
+  percentChanceToDropItem: 100
   idlePos: {x: 0, y: 0, z: 0}
   swipeXPosRange: 0
   swipeCompletionTime: 1
@@ -2917,6 +2919,7 @@ MonoBehaviour:
   damage: 1
   myCollider: {fileID: 837159242767514665}
   colliderX: 0
+  localHealth: 0
 --- !u!54 &7340743005685754585
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3582,6 +3585,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4549060152791794171}
   - component: {fileID: 4549060152791794172}
+  - component: {fileID: 5653324975012261542}
   m_Layer: 8
   m_Name: Squiggmar
   m_TagString: Untagged
@@ -3621,15 +3625,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b317e5c22ae4d438f631e8de8b82bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  HealthBar: {fileID: 0}
+  maxHealth: 0
+  facingRight: 0
+  enemyLootTable: {fileID: 0}
+  onPlatform: 0
+  throughPlatform: 0
+  _rigidBody: {fileID: 0}
+  m_render: {fileID: 0}
+  contactDamage: 0
+  facingRightLocal: 0
+  yDistance: 0
+  jumpVelocity: 0
+  jumpHeight: 0
+  player: {fileID: 0}
+  GoblinSpotted: 0
+  followDistance: 0
+  goblinFollowDistance: 150
+  stoppingDistance: 0
+  noJumpHeight: 0
+  distanceToPlayer: 0
+  Astar: {fileID: 0}
+  nextWaypointDistance: 3
+  AIDS: {fileID: 0}
+  animator: {fileID: 0}
+  isAttacking: 0
+  isDead: 0
+  isMoving: 0
+  PopUpOut: 0
+  seenByCamera: 0
+  debug: 0
+  killThis: 0
+  enemyHealth: {fileID: 0}
+  HealthIMG: {fileID: 0}
+  poisoned: 0
+  poisonedDuration: 5
+  poisonedDamage: 0
+  bleeding: 0
+  percentChanceToDropItem: 40
   tentacles: []
   vulnerablePosition: {fileID: 187209795}
   vulnerableTime: 7
   endGameMenu: {fileID: 0}
   headVulnerable: 0
-  _health: 10
   isGoingUp: 0
-  isDead: 0
-  animator: {fileID: 0}
+  headPos: {fileID: 5573988706354254412}
+--- !u!65 &5653324975012261542
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4549060152791794173}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.393554, y: 4.472214, z: 2.0044107}
+  m_Center: {x: 0, y: 2.236107, z: -0.14024666}
 --- !u!1 &4560442524862602885
 GameObject:
   m_ObjectHideFlags: 0
@@ -3736,7 +3790,7 @@ GameObject:
   - component: {fileID: 5573988706354254412}
   - component: {fileID: 1539569579192813668}
   - component: {fileID: 2237132453740316301}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SquiggmarrrHeadIdle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3769,7 +3823,7 @@ BoxCollider:
   m_GameObject: {fileID: 5048844826388760822}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 2.393554, y: 4.472214, z: 2.0044107}
   m_Center: {x: 0, y: 2.236107, z: -0.14024666}
@@ -5661,7 +5715,7 @@ MonoBehaviour:
   poisonedDuration: 5
   poisonedDamage: 0
   bleeding: 0
-  percentChanceToDropItem: 40
+  percentChanceToDropItem: 100
   idlePos: {x: 0, y: 0, z: 0}
   swipeXPosRange: 0
   swipeCompletionTime: 1
@@ -5669,6 +5723,7 @@ MonoBehaviour:
   damage: 1
   myCollider: {fileID: 7861278419077837035}
   colliderX: 0
+  localHealth: 0
 --- !u!54 &6033748241083936386
 Rigidbody:
   m_ObjectHideFlags: 0
