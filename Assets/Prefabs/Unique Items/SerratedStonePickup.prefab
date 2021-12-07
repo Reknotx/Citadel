@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 2966036127054847909}
   - component: {fileID: 2966036127054847908}
   - component: {fileID: 2966036127054847907}
-  - component: {fileID: 2966036127054847906}
   - component: {fileID: 1566062848283576816}
   - component: {fileID: 866999135783045013}
   - component: {fileID: 2966036127054847904}
+  - component: {fileID: 3313834579401906831}
   m_Layer: 0
   m_Name: SerratedStonePickup
   m_TagString: Untagged
@@ -86,19 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2966036127054847906
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2966036127054847905}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: -1.398625, y: 0, z: 0}
 --- !u!65 &1566062848283576816
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -142,6 +129,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grounded: 0
   given: 0
+--- !u!136 &3313834579401906831
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2966036127054847905}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 6
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1001 &6841326996492173550
 PrefabInstance:
   m_ObjectHideFlags: 0
