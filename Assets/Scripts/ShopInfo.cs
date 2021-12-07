@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 
 namespace ShopSystem
@@ -146,6 +147,10 @@ namespace ShopSystem
             {
                 case StatToIncrease.health:
                     player.MaxHealth += (int)increaseStatBy;
+                    player.Health += (int)increaseStatBy;
+                    player.HealthBar.maxValue += increaseStatBy;
+                    player.HealthBar.value += increaseStatBy;
+                    player.HealthBar.gameObject.GetComponentInChildren<Text>().text = player.Health.ToString();
                     Debug.Log("Buying health upgrade");
                     break;
 
@@ -166,6 +171,10 @@ namespace ShopSystem
 
                 case StatToIncrease.mana:
                     player.MaxMana += (int)increaseStatBy;
+                    player.Mana += (int)increaseStatBy;
+                    player.ManaBar.maxValue += increaseStatBy;
+                    player.ManaBar.value += increaseStatBy;
+                    player.ManaBar.gameObject.GetComponentInChildren<Text>().text = player.Mana.ToString();
                     Debug.Log("Buying mana upgrade");
                     break;
 

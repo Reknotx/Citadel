@@ -152,9 +152,6 @@ public class Enemy : Unit
     private float calculateHealth;
 
     public bool hitOnRight;
-    [SerializeField]
-   // private Transform pfDamagePopup;
-
 
     public override float Health
     {

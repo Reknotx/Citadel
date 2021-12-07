@@ -67,18 +67,15 @@ public class PlayerAnimationManager : MonoBehaviour
     /// <param name="on">True indicates we are running, false indicates we are idle.</param>
     public void RunningAnimation(bool on)
     {
-        animator.SetBool("isRunning", on);
-        ///This is just a nice little way to ensure that if running is on idle
-        ///will be off and we don't need to write an if block
-        animator.SetBool("isIdle", on == true ? false : true);
+        animator.SetBool(BoolAnimations.RUNNING, on);
+        //This is just a nice little way to ensure that if running is on idle
+        //will be off and we don't need to write an if block
+        animator.SetBool(BoolAnimations.IDLE, !@on);
     }
 
     public void SetBool(string animation, bool value)
     {
-        if (animator.GetBool(animation) != value)
-        {
-            animator.SetBool(animation, value);
-        }
+        animator.SetBool(animation, value);
     }
 
     public void TurnSwordOff()
