@@ -53,7 +53,6 @@ namespace Menu
         void resumeGame()
         {
             var player = GameObject.FindGameObjectWithTag("Player").GetComponent<NewPlayer>();
-            player.isPaused = false;
             Time.timeScale = 1f;
         }
 

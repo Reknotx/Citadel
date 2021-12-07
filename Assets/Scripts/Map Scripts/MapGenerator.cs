@@ -54,20 +54,20 @@ namespace Map
 
         public RoomContainer roomCont;
 
-        /// <summary>
-        /// 
-        /// </summary>
         private Vector2 SpawnRoomPos, SpawnRoomGridPos;
 
-        private Vector2 BossRoomPos, BossRoomGridPos;
+        private Vector2 BossRoomGridPos;
         private Vector2 trueGridSize;
 
         public GridInfo gridInfo = new GridInfo();
 
-        [HideInInspector] public static List<Room> specialRooms;
+        private RoomInfo bossRoomInfo;
+        private GameObject bossRoom;
+
+        public static List<Room> specialRooms;
 
         [Header("Enable this if we want to only have one row on the map.")]
-        public bool OneRowOnly = false;
+        public bool OneRowOnly;
 
 
         public void Awake()
@@ -101,9 +101,9 @@ namespace Map
 
             //Initializing the concept grid.
             Debug.Log("Initializing the concept grid.");
-            for (int y = 0; y < trueGridSize.y; y++)
+            for (int y = 0; y < rows; y++)
             {
-                for (int x = 0; x < trueGridSize.x; x++)
+                for (int x = 0; x < columns; x++)
                 {
                     conceptGrid[y, x] = new GridNode(new Vector2(x, y));
                 }
@@ -123,15 +123,20 @@ namespace Map
             //     at column position zero except for the spawn room.
             //     
 
-            Vector2 tempGridPos;
             RoomInfo tempRoomInfo;
 
             #region Spawning the spawn room
 
-            int SRY = Random.Range(0, (int) trueGridSize.y);
+            int SRY = Random.Range(0, rows);
 
             GameObject spawnRoom = SpawnRoom(roomCont.SpawnRooms[Random.Range(0, roomCont.SpawnRooms.Count)],
                 new Vector2(0, SRY), "Spawn Room");
+            for (int y = 0; y < rows; y++)
+            {
+                if (y == SRY) continue;
+
+                conceptGrid[y, 0].roomType = GridNode.RoomType.Filled;
+            }
             AddSpecialRoomToList(spawnRoom);
 
             tempRoomInfo = spawnRoom.GetComponent<Room>().roomInfo;
@@ -151,45 +156,40 @@ namespace Map
             Vector3 BRPos;
             do
             {
-                int BRGX = Random.Range(4, (int) trueGridSize.x - 1);
-                int BRGY = Random.Range(1, (int) trueGridSize.y - 1);
+                int BRGX = Random.Range(4, columns - 1);
+                int BRGY = Random.Range(1, rows - 1);
 
                 BRPos = new Vector3(BRGX * roomSize, BRGY * roomSize);
+                
+                BossRoomGridPos = new Vector2(BRGX, BRGY);
             } while (!gridInfo.CheckSpawnBossDist(SpawnRoomPos, BRPos));
-
-            BossRoomGridPos = new Vector2(BRPos.x / roomSize, BRPos.y / roomSize);
-
-            GameObject bossRoom = SpawnRoom(roomCont.BossRooms[Random.Range(0, roomCont.BossRooms.Count)],
-                BossRoomGridPos,
-                "Boss Room");
-            AddSpecialRoomToList(bossRoom);
-            tempRoomInfo = bossRoom.GetComponent<Room>().roomInfo;
-
-            BossRoomPos = bossRoom.transform.position;
+            
+            bossRoom = roomCont.BossRooms[Random.Range(0, roomCont.BossRooms.Count)];
+            bossRoomInfo = bossRoom.GetComponent<Room>().roomInfo;
 
             conceptGrid[(int) BossRoomGridPos.y, (int) BossRoomGridPos.x] = new GridNode(BossRoomGridPos,
                 GridNode.RoomType.Boss,
-                tempRoomInfo.CalcDoorsLeftSide(),
-                tempRoomInfo.CalcDoorsRightSide(),
-                tempRoomInfo.CalcDoorsTopSide(),
-                tempRoomInfo.CalcDoorsBottomSide());
-
+                bossRoomInfo.CalcDoorsLeftSide(),
+                bossRoomInfo.CalcDoorsRightSide(),
+                bossRoomInfo.CalcDoorsTopSide(),
+                bossRoomInfo.CalcDoorsBottomSide());
             #region 2a. Put filled rooms around the boss room except for the entrance side
-                
-            
-            if (tempRoomInfo.CalcDoorsTopSide() == 0)
-                conceptGrid[(int) BRPos.y + 1, (int) BRPos.x].roomType = GridNode.RoomType.Filled; // Top
-                
-            if (tempRoomInfo.CalcDoorsLeftSide() == 0)
-                conceptGrid[(int) BRPos.y - 1, (int) BRPos.x].roomType = GridNode.RoomType.Filled; // Bottom
-                
-            if (tempRoomInfo.CalcDoorsLeftSide() == 0)
-                conceptGrid[(int) BRPos.y, (int) BRPos.x - 1].roomType = GridNode.RoomType.Filled; // Left
-                
-            if (tempRoomInfo.CalcDoorsRightSide() == 0)
-                conceptGrid[(int) BRPos.y, (int) BRPos.x + 1].roomType = GridNode.RoomType.Filled; // Right
+
+
+            if (bossRoomInfo.CalcDoorsTopSide() == 0)
+                conceptGrid[(int) BossRoomGridPos.y + 1, (int) BossRoomGridPos.x].roomType = GridNode.RoomType.Filled; // Top
+            if (bossRoomInfo.CalcDoorsBottomSide() == 0)
+                conceptGrid[(int) BossRoomGridPos.y - 1, (int) BossRoomGridPos.x].roomType = GridNode.RoomType.Filled; // Bottom
+            if (bossRoomInfo.CalcDoorsLeftSide() == 0)
+                conceptGrid[(int) BossRoomGridPos.y, (int) BossRoomGridPos.x - 1].roomType = GridNode.RoomType.Filled; // Left
+            if (bossRoomInfo.CalcDoorsRightSide() == 0)
+                conceptGrid[(int) BossRoomGridPos.y, (int) BossRoomGridPos.x + 1].roomType = GridNode.RoomType.Filled; // Right
             #endregion
 
+            // bossRoom = SpawnRoom(bossRoom,
+            //                      BossRoomGridPos,
+            //                      "Boss Room");
+            // AddSpecialRoomToList(bossRoom);
             
             #endregion
 
@@ -236,15 +236,15 @@ namespace Map
 
             #region Spawning in filled rooms
 
-            ///Spawning a row
-            for (int y = 0; y < trueGridSize.y; y++)
+            //Spawning a row
+            for (int y = 0; y < rows; y++)
             {
 
                 GameObject row = new GameObject("Row " + y);
                 row.transform.parent = transform;
 
-                ///Spawning in a column
-                for (int x = 0; x < trueGridSize.x; x++)
+                //Spawning in a column
+                for (int x = 0; x < columns; x++)
                 {
                     if (grid[y, x] != null) continue;
 
@@ -383,6 +383,8 @@ namespace Map
             //
 
             GameObject prevRoom = null;
+            
+            // Debug.Log(path[path.Count - 1].);
 
             //Ok this needs to be redone, this isn't nice and just makes clutter.
             for (int pathIndex = 1; pathIndex < path.Count - 1; pathIndex++)
@@ -393,6 +395,8 @@ namespace Map
                 do
                 {
                     int listIndex = Random.Range(0, roomCont.RegularRooms.Count);
+
+                    if (roomCont.RegularRooms[listIndex] == null) continue;
 
                     if (examinedRooms.Contains(roomCont.RegularRooms[listIndex].GetComponent<Room>()))
                     {
@@ -506,65 +510,29 @@ namespace Map
                         if (prevDir == Dir.Left)
                         {
                             //Curr must have openings on left
-                            if (prevPos == DoorPositions.RightTop)
+                            if ((prevPos == DoorPositions.RightTop && currPos == DoorPositions.LeftTop) ||
+                                (prevPos == DoorPositions.RightMiddle && currPos == DoorPositions.LeftMiddle) ||
+                                (prevPos == DoorPositions.RightBottom && currPos == DoorPositions.LeftBottom))
                             {
-                                if (currPos == DoorPositions.LeftTop)
-                                {
-                                    lineUp = true;
-                                }
-                            }
-                            else if (prevPos == DoorPositions.RightMiddle)
-                            {
-                                if (currPos == DoorPositions.LeftMiddle)
-                                {
-                                    lineUp = true;
-                                }
-                            }
-                            else if (prevPos == DoorPositions.RightBottom)
-                            {
-                                if (currPos == DoorPositions.LeftBottom)
-                                {
-                                    lineUp = true;
-                                }
+                                lineUp = true;
                             }
                         }
                         else if (prevDir == Dir.Right)
                         {
                             //Curr must have openings on right
-                            if (prevPos == DoorPositions.LeftTop)
-                            {
-                                if (currPos == DoorPositions.RightTop)
+                            if ((prevPos == DoorPositions.LeftTop && currPos == DoorPositions.RightTop) ||
+                                (prevPos == DoorPositions.LeftMiddle && currPos == DoorPositions.RightMiddle) ||
+                                (prevPos == DoorPositions.LeftTop && currPos == DoorPositions.RightTop))
                                 {
                                     lineUp = true;
                                 }
-                            }
-                            else if (prevPos == DoorPositions.LeftMiddle && currPos == DoorPositions.RightMiddle)
-                            {
-                                lineUp = true;
-                            }
-                            else if (prevPos == DoorPositions.LeftBottom && currPos == DoorPositions.RightBottom)
-                            {
-                                lineUp = true;
-                            }
                         }
                         else if (prevDir == Dir.Below)
                         {
                             //Curr must have openings on bottom
-                            if (prevPos == DoorPositions.TopLeft)
-                            {
-                                if (currPos == DoorPositions.BottomLeft)
-                                {
-                                    lineUp = true;
-                                }
-                            }
-                            else if (prevPos == DoorPositions.TopMiddle)
-                            {
-                                if (currPos == DoorPositions.BottomMiddle)
-                                {
-                                    lineUp = true;
-                                }
-                            }
-                            else if (prevPos == DoorPositions.TopRight && currPos == DoorPositions.BottomRight)
+                            if ((prevPos == DoorPositions.TopLeft && currPos == DoorPositions.BottomLeft) ||
+                                (prevPos == DoorPositions.TopMiddle && currPos == DoorPositions.BottomMiddle) ||
+                                (prevPos == DoorPositions.TopRight && currPos == DoorPositions.BottomRight))
                             {
                                 lineUp = true;
                             }
@@ -574,21 +542,9 @@ namespace Map
                             // Debug.Log("Prev room above current");
                             // Debug.Log(prevPos.ToString());
                             //Curr must have openings on top
-                            if (prevPos == DoorPositions.BottomLeft)
-                            {
-                                if (currPos == DoorPositions.TopLeft)
-                                {
-                                    lineUp = true;
-                                }
-                            }
-                            else if (prevPos == DoorPositions.BottomMiddle)
-                            {
-                                if (currPos == DoorPositions.TopMiddle)
-                                {
-                                    lineUp = true;
-                                }
-                            }
-                            else if (prevPos == DoorPositions.BottomRight && currPos == DoorPositions.TopRight)
+                            if ((prevPos == DoorPositions.BottomLeft && currPos == DoorPositions.TopLeft) ||
+                                (prevPos == DoorPositions.BottomMiddle && currPos == DoorPositions.TopMiddle) ||
+                                (prevPos == DoorPositions.BottomRight && currPos == DoorPositions.TopRight))
                             {
                                 lineUp = true;
                             }
@@ -609,7 +565,7 @@ namespace Map
                 if (currRoomPos.x > prevRoomPos.x)
                     //Curr room to right of prev room so the prev room dir is left
                     return Dir.Left;
-
+                
                 if (currRoomPos.x < prevRoomPos.x)
                     return Dir.Right;
 
@@ -729,16 +685,29 @@ namespace Map
             int gridPosY = (int) node.gridPos.y;
 
             //Checking left
-            if (gridPosX > 1) neighbors.Add(conceptGrid[gridPosY, gridPosX - 1]);
+            if (gridPosX > 1 && conceptGrid[gridPosY, gridPosX - 1].roomType != GridNode.RoomType.Filled)
+                neighbors.Add(conceptGrid[gridPosY, gridPosX - 1]);
+            else Debug.Log("Left filled");
 
             //Checking right
-            if (gridPosX < columns - 1) neighbors.Add(conceptGrid[gridPosY, gridPosX + 1]);
+            if (gridPosX < columns - 1 && conceptGrid[gridPosY, gridPosX + 1].roomType != GridNode.RoomType.Filled)
+                neighbors.Add(conceptGrid[gridPosY, gridPosX + 1]);
+            else Debug.Log("Right filled");
 
-            //Checking up
-            if (gridPosY < rows - 1 && gridPosX != 0) neighbors.Add(conceptGrid[gridPosY + 1, gridPosX]);
+                //This is used for when we are looking at the neighbors of the spawn room to avoid
+            //looking above or below it as we can never go that way
+            if (gridPosX != 0)
+            {
+                //Checking up
+                if (gridPosY < rows - 1 && conceptGrid[gridPosY + 1, gridPosX].roomType != GridNode.RoomType.Filled)
+                    neighbors.Add(conceptGrid[gridPosY + 1, gridPosX]);
+                else Debug.Log("Top filled");
 
-            //Checking down
-            if (gridPosY > 0 && gridPosX != 0) neighbors.Add(conceptGrid[gridPosY - 1, gridPosX]);
+                //Checking down
+                if (gridPosY > 0 && conceptGrid[gridPosY - 1, gridPosX].roomType != GridNode.RoomType.Filled)
+                    neighbors.Add(conceptGrid[gridPosY - 1, gridPosX]);
+                else Debug.Log("Bottom filled");
+            }
 
             return neighbors;
         }
@@ -816,10 +785,7 @@ namespace Map
 
             public int hCost;
 
-            public int fCost
-            {
-                get => gCost + hCost;
-            }
+            public int fCost => gCost + hCost;
 
             public GridNode parent;
 
