@@ -9,6 +9,8 @@ namespace Interactables
     {
         public bool given = false;
 
+        public GameObject medicineSashGameObject;
+
         public override void Interact()
         {
             if(grounded)
@@ -29,6 +31,7 @@ namespace Interactables
                 {
                     given = true;
                     NewPlayer.Instance.inventory.medicineStash = true;
+                    NewPlayer.Instance.GetComponent<Inventory_UI>().AddItem(medicineSashGameObject);
                     Destroy(this.gameObject);
                 }
                

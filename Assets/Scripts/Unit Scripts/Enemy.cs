@@ -151,6 +151,7 @@ public class Enemy : Unit
 
     private float calculateHealth;
 
+    public bool hitOnRight;
     [SerializeField]
    // private Transform pfDamagePopup;
 
@@ -447,6 +448,8 @@ public class Enemy : Unit
     {
         seenByCamera = true;
     }
+
+    
 
     #region Collision Detection
     ///<summary>These track the collisions between the enemy and in-game objects .</summary>

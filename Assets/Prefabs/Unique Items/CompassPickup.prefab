@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 8605498469091834975}
   - component: {fileID: 8605498469091834974}
   - component: {fileID: 8605498469091834969}
-  - component: {fileID: 8605498469091834968}
   - component: {fileID: 8174201558595747105}
   - component: {fileID: 5930561734000370799}
   - component: {fileID: 8605498469091835300}
+  - component: {fileID: 3915871898009901246}
   m_Layer: 0
   m_Name: CompassPickup
   m_TagString: Untagged
@@ -86,19 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &8605498469091834968
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8605498469091834971}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: -1.398625}
 --- !u!65 &8174201558595747105
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -142,6 +129,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grounded: 0
   given: 0
+  compassGameObject: {fileID: 1299841961082716169, guid: 5c4a937f8e4f36e4da75d93976aca66d, type: 3}
+--- !u!136 &3915871898009901246
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8605498469091834971}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 6
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1001 &2911298694848423673
 PrefabInstance:
   m_ObjectHideFlags: 0

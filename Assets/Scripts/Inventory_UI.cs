@@ -6,7 +6,7 @@ public class Inventory_UI : MonoBehaviour
 {
     public bool[] isFull;
     public GameObject[] slots;
-    private GameObject[] tracker;
+    //private GameObject[] tracker;
     //public GameObject itemIMG;
 
     public void AddItem(GameObject itemIMG)
@@ -16,15 +16,16 @@ public class Inventory_UI : MonoBehaviour
             if (isFull[i] == false)
             {
                 //add item
+                Debug.Log("Item Picked up and placed");
                 isFull[i] = true;
-                tracker[i] = itemIMG;
+                //tracker[i] = itemIMG;
                 Instantiate(itemIMG, slots[i].transform, false);
                 break;
             }
         }
     }
 
-    public void RemoveItem(GameObject itemIMG /*item to remove*/ )
+    /*public void RemoveItem(GameObject itemIMG /*item to remove )
     {
         for (int i = 0; i < slots.Length; i++)
         {
@@ -40,5 +41,5 @@ public class Inventory_UI : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 }
