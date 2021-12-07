@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 2586544714494761584}
   - component: {fileID: 2586544714494761585}
   - component: {fileID: 2586544714494761582}
-  - component: {fileID: 2586544714494761583}
   - component: {fileID: 4652953213807423271}
   - component: {fileID: -6589150352970851994}
   - component: {fileID: 7357186317454211391}
+  - component: {fileID: 5770106047396595262}
   m_Layer: 0
   m_Name: ShuuesPickup
   m_TagString: Untagged
@@ -86,19 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2586544714494761583
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2586544714494761580}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 1.398625}
 --- !u!114 &4652953213807423271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,6 +129,20 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5, z: 4}
+  m_Center: {x: 0, y: 0.25, z: 0}
+--- !u!136 &5770106047396595262
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2586544714494761580}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 6
+  m_Direction: 2
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1001 &4111485718112526236
 PrefabInstance:
