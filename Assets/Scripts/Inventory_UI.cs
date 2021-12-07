@@ -16,6 +16,7 @@ public class Inventory_UI : MonoBehaviour
             if (isFull[i] == false)
             {
                 //add item
+                Debug.Log("Item Picked up and placed");
                 isFull[i] = true;
                 //tracker[i] = itemIMG;
                 Instantiate(itemIMG, slots[i].transform, false);
