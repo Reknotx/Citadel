@@ -5,36 +5,12 @@
  * 
  */
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using UnityEngine.UI;
 
 public class Squiggmar : Enemy, IDamageable
 {
-    ///Notes for Squiggmar
-    ///1. The head needs to be invulnerable until all tentacles are killed.
-    ///
-    ///2. Need a way to reference the tentacles that he has
-    ///to tell when they are dead and damage can be applied
-    ///to the head.
-    ///
-    ///3. Squiggmar has two states, an invulnerable state when the 
-    ///tentacles are still alive, and a vulnerable state.
-    ///     3a. In the invulnerable state he attacks with his tentacles
-    ///     
-    ///     3b. In the vulnerable state he falls to the ground and 
-    ///     can be damaged by the player. He remains in this state
-    ///     for a few seconds, or until his health hits 0.
-    ///
-    ///4. Squiggmar's head should be kept away from the terrain
-    ///and be allowed to pass through everything. There shouldn't
-    ///be ay form of clipping happening that makes him behave
-    ///weirdly and erratic.
-    ///
-
     public static Squiggmar Instance;
 
     public List<Tentacle> tentacles = new List<Tentacle>();
@@ -51,7 +27,7 @@ public class Squiggmar : Enemy, IDamageable
 
     public float vulnerableTime = 7f;
 
-    private bool _tentacleSwiping = false;
+    private bool _tentacleSwiping;
     public bool TentacleSwiping 
     { 
         get => _tentacleSwiping;
@@ -70,7 +46,7 @@ public class Squiggmar : Enemy, IDamageable
     public GameObject endGameMenu;
    
     [SerializeField]
-    private bool headVulnerable = false;
+    private bool headVulnerable;
 
     private int GetActiveTentacles
     {
@@ -115,7 +91,7 @@ public class Squiggmar : Enemy, IDamageable
             Destroy(Instance);
 
         Instance = this;
-        _health = MaxHealth;
+        Health = MaxHealth;
     }
 
     public override void Start()
@@ -150,8 +126,6 @@ public class Squiggmar : Enemy, IDamageable
             {
                 StartCoroutine(turnOff());
             }
-            
-            
         }
 
         //hunter added
@@ -177,14 +151,11 @@ public class Squiggmar : Enemy, IDamageable
 
     public void CombatLogic()
     {
-        if (GetActiveTentacles == 0)
+        if (GetActiveTentacles == 0 && !headVulnerable)
         {
-            if (!headVulnerable)
-            {
-                //Squiggmar is now vulnerable
-                headVulnerable = true;
-                StartCoroutine(HeadVulnerableTime());
-            }
+            //Squiggmar is now vulnerable
+            headVulnerable = true;
+            StartCoroutine(HeadVulnerableTime());
         }
         else if (!TentacleSwiping)
         {

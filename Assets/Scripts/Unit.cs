@@ -14,9 +14,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using UnityEngine.Serialization;
 
 public class Unit : MonoBehaviour, IDamageable
 {
@@ -48,7 +46,7 @@ public class Unit : MonoBehaviour, IDamageable
             if (_health <= 0)
             {
                 
-                ///Destroy the object here
+                //Destroy the object here
                 Destroy(gameObject);
             }
 
@@ -84,15 +82,6 @@ public class Unit : MonoBehaviour, IDamageable
     [SerializeField]
     public bool facingRight;
 
-    ///<summary>This determines what direction the unit hit another unit.</summary>
-    [HideInInspector]
-    protected bool hitOnRight;
-
-    /// <summary>this determines if the unit can cast a spell or not</summary>
-    [HideInInspector]
-    protected bool canCast;
-
-   
     #endregion
     
     #region Unit's Attacks
