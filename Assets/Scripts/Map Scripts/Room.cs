@@ -39,8 +39,7 @@ namespace Map
 
         #endregion
         #endregion
-
-
+        
         #region Properties
         bool FirstVisit
         {
@@ -49,7 +48,7 @@ namespace Map
             set
             {
                 _firstVisit = value;
-                ///turn off the fog
+                //turn off the fog
                 fog.SetActive(false);
             }
         }
@@ -68,13 +67,11 @@ namespace Map
                 fog.GetComponent<MeshRenderer>().enabled = true;
             }
 
-            if (enemiesParent != null)
+            if (enemiesParent == null) return;
+            foreach (Transform enemy in enemiesParent.transform)
             {
-                foreach (Transform enemy in enemiesParent.transform)
-                {
-                    enemies.Add(enemy.gameObject);
-                    enemy.gameObject.SetActive(false);
-                }
+                enemies.Add(enemy.gameObject);
+                enemy.gameObject.SetActive(false);
             }
         }
 
@@ -99,7 +96,7 @@ namespace Map
                     enemy.SetActive(true);
             }
             //Adjust the grid position for the astar path   
-            Debug.Log("Entered " + name);
+            // Debug.Log("Entered " + name);
         }
 
         /// <summary> The function that will trigger when player leaves the room. </summary>

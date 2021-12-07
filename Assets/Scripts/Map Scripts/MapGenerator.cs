@@ -5,10 +5,12 @@
  * and each time the player moves to another floor.
  */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 //Notes:
 //Chase, please note that for the grid node array, you are just conceptualizing
@@ -383,13 +385,17 @@ namespace Map
             //
 
             GameObject prevRoom = null;
+            GridNode currNode = null;
             
-            // Debug.Log(path[path.Count - 1].);
+            Debug.Log(path[path.Count - 1].gridPos);
 
             //Ok this needs to be redone, this isn't nice and just makes clutter.
+            //Has an issue with the LAST node in the path. I will just make a small easy fix
+            //for the boss room
+            //Currently this only spawns regular rooms
             for (int pathIndex = 1; pathIndex < path.Count - 1; pathIndex++)
             {
-                GridNode currNode = path[pathIndex];
+                currNode = path[pathIndex];
 
                 List<Room> examinedRooms = new List<Room>();
                 do
@@ -398,6 +404,7 @@ namespace Map
 
                     if (roomCont.RegularRooms[listIndex] == null) continue;
 
+                    //Apply change here to make it use all the lists
                     if (examinedRooms.Contains(roomCont.RegularRooms[listIndex].GetComponent<Room>()))
                     {
                         continue;
@@ -413,7 +420,6 @@ namespace Map
                             grid[(int) path[pathIndex - 1].gridPos.y, (int) path[pathIndex - 1].gridPos.x].roomInfo,
                             GetPrevRoomDir(currNode.gridPos, path[pathIndex - 1].gridPos))
                     )
-
                     {
                         // Spawn the room
                         SpawnRoom(roomObj, new Vector3(currNode.gridPos.x, currNode.gridPos.y), "Room");
@@ -436,6 +442,44 @@ namespace Map
                 } while (examinedRooms.Count != roomCont.RegularRooms.Count);
 
                 examinedRooms.Clear();
+            }
+
+            Debug.Log(path[path.Count - 1].roomType);
+
+            if (path[path.Count - 1].roomType == GridNode.RoomType.Boss)
+            {
+                List<Room> examinedRooms = new List<Room>();
+                do
+                {
+                    int roomListIndex = Random.Range(0, roomCont.BossRooms.Count);
+                    int pathIndex = path.Count - 1;
+                    currNode = path[pathIndex];
+                    
+                    if (roomCont.BossRooms[roomListIndex] == null) continue;
+
+                    if (examinedRooms.Contains(roomCont.BossRooms[roomListIndex].GetComponent<Room>()))
+                    {
+                        continue;
+                    }
+
+                    GameObject roomObj = roomCont.BossRooms[roomListIndex];
+                    Room room = roomObj.GetComponent<Room>();
+                    RoomInfo tempInfo = room.roomInfo;
+                    examinedRooms.Add(room);
+
+                    if (CompareNodeToRoom(currNode, tempInfo)
+                        && EnsureEntrancesLineUp(tempInfo,
+                            grid[(int) path[pathIndex - 1].gridPos.y, (int) path[pathIndex - 1].gridPos.x].roomInfo,
+                            GetPrevRoomDir(currNode.gridPos, path[pathIndex - 1].gridPos))
+                    )
+                    {
+                        // Spawn the room
+                        SpawnRoom(roomObj, new Vector3(currNode.gridPos.x, currNode.gridPos.y), "Boss Room");
+                        Debug.Log("Found a valid room");
+                        break;
+                    }
+                } while (examinedRooms.Count != roomCont.BossRooms.Count);
+                
             }
 
             #region Helper Functions
@@ -522,7 +566,7 @@ namespace Map
                             //Curr must have openings on right
                             if ((prevPos == DoorPositions.LeftTop && currPos == DoorPositions.RightTop) ||
                                 (prevPos == DoorPositions.LeftMiddle && currPos == DoorPositions.RightMiddle) ||
-                                (prevPos == DoorPositions.LeftTop && currPos == DoorPositions.RightTop))
+                                (prevPos == DoorPositions.LeftBottom && currPos == DoorPositions.RightBottom))
                                 {
                                     lineUp = true;
                                 }
@@ -687,12 +731,12 @@ namespace Map
             //Checking left
             if (gridPosX > 1 && conceptGrid[gridPosY, gridPosX - 1].roomType != GridNode.RoomType.Filled)
                 neighbors.Add(conceptGrid[gridPosY, gridPosX - 1]);
-            else Debug.Log("Left filled");
+            // else Debug.Log("Left filled");
 
             //Checking right
             if (gridPosX < columns - 1 && conceptGrid[gridPosY, gridPosX + 1].roomType != GridNode.RoomType.Filled)
                 neighbors.Add(conceptGrid[gridPosY, gridPosX + 1]);
-            else Debug.Log("Right filled");
+            // else Debug.Log("Right filled");
 
                 //This is used for when we are looking at the neighbors of the spawn room to avoid
             //looking above or below it as we can never go that way
@@ -701,12 +745,12 @@ namespace Map
                 //Checking up
                 if (gridPosY < rows - 1 && conceptGrid[gridPosY + 1, gridPosX].roomType != GridNode.RoomType.Filled)
                     neighbors.Add(conceptGrid[gridPosY + 1, gridPosX]);
-                else Debug.Log("Top filled");
+                // else Debug.Log("Top filled");
 
                 //Checking down
                 if (gridPosY > 0 && conceptGrid[gridPosY - 1, gridPosX].roomType != GridNode.RoomType.Filled)
                     neighbors.Add(conceptGrid[gridPosY - 1, gridPosX]);
-                else Debug.Log("Bottom filled");
+                // else Debug.Log("Bottom filled");
             }
 
             return neighbors;
@@ -793,14 +837,6 @@ namespace Map
             public GridNode()
             {
                 Initialization();
-            }
-
-            /// <summary> Constructor that allows specifying room type if anything other than normal. </summary>
-            /// <param name="roomType">The type of the room that is placed on the grid.</param>
-            public GridNode(RoomType roomType)
-            {
-                Initialization();
-                this.roomType = roomType;
             }
 
             public GridNode(Vector2 gridPos)

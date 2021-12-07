@@ -708,12 +708,12 @@ namespace Map
                 int SRY = Random.Range(0, rows);
 
                 grid[SRY, 0] = new NewGridNode(new Vector2(0, SRY), NewGridNode.RoomType.Spawn);
-                for (int y = 0; y < rows; y++)
-                {
-                    if (y == SRY) continue;
+                    for (int y = 0; y < rows; y++)
+                    {
+                        if (y == SRY) continue;
 
-                    grid[y, 0].roomType = NewGridNode.RoomType.Filled;
-                }
+                        grid[y, 0].roomType = NewGridNode.RoomType.Filled;
+                    }
 
                 spawnRoomPos = new Vector2(0, SRY);
 
