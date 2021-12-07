@@ -11,6 +11,7 @@ namespace Interactables
     {
         public bool given = false;
 
+        public GameObject serratedStoneGameObject;
 
         public override void Interact()
         {
@@ -32,6 +33,7 @@ namespace Interactables
                 {
                     given = true;
                     NewPlayer.Instance.inventory.serratedStone = true;
+                    NewPlayer.Instance.GetComponent<Inventory_UI>().AddItem(serratedStoneGameObject);
                     Destroy(this.gameObject);
                 }
                
