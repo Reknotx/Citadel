@@ -42,6 +42,10 @@ public class SkeletonLancer : Enemy
 
     #endregion
 
+    public AudioSource attack;
+    public AudioSource idle;
+    public AudioSource hurt;
+    public AudioSource die;
 
     // Start is called before the first frame update
     public override void Start()
@@ -55,6 +59,8 @@ public class SkeletonLancer : Enemy
         canDash = true;
 
         HealthIMG.gameObject.SetActive(false);
+
+        idle.Play();
 
     }
 
@@ -77,11 +83,12 @@ public class SkeletonLancer : Enemy
         if(isDead)
         {
             isDashing = false;
+            die.Play();
         }
 
         if (isDashing)
         {
-
+            attack.Play();
             if (facingRight)
             {
                 
@@ -108,6 +115,13 @@ public class SkeletonLancer : Enemy
             }
 
         }
+    }
+
+    public override void TakeDamage(float amount)
+    {
+        base.TakeDamage(amount);
+
+        hurt.Play();
     }
 
     IEnumerator DashRight()

@@ -28,6 +28,11 @@ public class Eyeball : Enemy
     private float attackCooldown = 0;
     public float lurchDist = 5f;
 
+    public AudioSource attack;
+    public AudioSource die;
+    public AudioSource idle;
+    public AudioSource hurt;
+
     #region Pathfinding
     public Transform playerTrans;
 
@@ -75,6 +80,8 @@ public class Eyeball : Enemy
         startAttackCooldown = true;
         seeker = GetComponent<Seeker>();
 
+        idle.Play();
+
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
 
@@ -90,6 +97,11 @@ public class Eyeball : Enemy
         if (transform.position.x - player.transform.position.x < 0)
         {
             facingRight = false;
+        }
+
+        if (isDead)
+        {
+            die.Play();
         }
 
     }
@@ -211,6 +223,14 @@ public class Eyeball : Enemy
     {
         ///Damage the player and set attacking to false
         Player.Instance.TakeDamage(1);
+        attack.Play();
+    }
+
+    public override void TakeDamage(float amount)
+    {
+        base.TakeDamage(amount);
+
+        hurt.Play();
     }
 
     #region Bobbing
