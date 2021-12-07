@@ -113,7 +113,7 @@ public class Squiggmar : Enemy, IDamageable
 
         //hunter added
         //tracks the health real time incase of sudden enemy death 
-        if (_health <= 0)
+        if (Health <= 0)
         {
 
             GetComponent<BoxCollider>().enabled = false;
