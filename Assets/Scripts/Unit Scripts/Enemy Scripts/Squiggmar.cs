@@ -27,6 +27,8 @@ public class Squiggmar : Enemy, IDamageable
 
     public float vulnerableTime = 7f;
 
+    public AudioSource die;
+
     private bool _tentacleSwiping;
     public bool TentacleSwiping 
     { 
@@ -145,7 +147,10 @@ public class Squiggmar : Enemy, IDamageable
 
     public override void Update()
     {
-        
+        if (isDead)
+        {
+            die.Play();
+        }
     }
 
 
