@@ -19,8 +19,6 @@ namespace Interactables
             {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 player.GetComponent<PlayerInventory>().compass = true;
-                Debug.Log("picked up compass");
-                player.GetComponent<Inventory_UI>().AddItem(compassGameObject);
                 base.Interact();
             }
            
@@ -35,6 +33,7 @@ namespace Interactables
                 {
                     given = true;
                     NewPlayer.Instance.inventory.compass = true;
+                    NewPlayer.Instance.GetComponent<Inventory_UI>().AddItem(compassGameObject);
                     Destroy(this.gameObject);
                 }
                

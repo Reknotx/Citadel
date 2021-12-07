@@ -17,7 +17,6 @@ namespace Interactables
             {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 player.GetComponent<PlayerInventory>().floatingShield = true;
-                Debug.Log("picked up shield");
                 player.GetComponent<Inventory_UI>().AddItem(floatingShieldGameObject);
                 base.Interact();
             }
