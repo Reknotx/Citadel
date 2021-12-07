@@ -10,6 +10,8 @@ namespace Interactables
     {
         public bool given = false;
 
+        public GameObject compassGameObject;
+
 
         public override void Interact()
         {
@@ -31,6 +33,7 @@ namespace Interactables
                 {
                     given = true;
                     NewPlayer.Instance.inventory.compass = true;
+                    NewPlayer.Instance.GetComponent<Inventory_UI>().AddItem(compassGameObject);
                     Destroy(this.gameObject);
                 }
                
