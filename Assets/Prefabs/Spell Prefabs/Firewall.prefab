@@ -223,12 +223,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats:
     cooldown: 1
-    manaCost: 10
-    damage: 3
-  movingRight: 0
+    manaCost: 20
+    damage: 10
   spellUIImage: {fileID: 21300000, guid: d734cb3ce52c2b24ba0240675ca90c49, type: 3}
-  fireWallCollideDamage: 2
-  fireWallBurnDamage: 1
+  movingSpell: 1
+  fireWallCollideDamage: 10
+  fireWallBurnDamage: 5
   spellDuration: 5
   castCollider: {fileID: 1103918510936984279}
   castRenderer: {fileID: 1103918510936984272}
@@ -238,6 +238,7 @@ MonoBehaviour:
   changed: 0
   ballParticles: {fileID: 5365726603366380035}
   wallParticles: {fileID: 7223173894497608097}
+  down: {x: 0, y: -1, z: 0}
 --- !u!54 &1103918510936984277
 Rigidbody:
   m_ObjectHideFlags: 0

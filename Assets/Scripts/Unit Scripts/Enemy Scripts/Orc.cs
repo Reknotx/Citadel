@@ -28,7 +28,10 @@ public class Orc : Enemy
 
     #endregion
 
-   
+    public AudioSource attack;
+    public AudioSource hurt;
+    public AudioSource idle;
+    public AudioSource die;
 
     // Start is called before the first frame update
     public override void Start()
@@ -38,7 +41,7 @@ public class Orc : Enemy
         orcAttack_L.SetActive(false);
         orcAttack_R.SetActive(false);
 
-        
+        idle.Play();
     }
 
     // Update is called once per frame
@@ -53,11 +56,22 @@ public class Orc : Enemy
             if (canAttack)
             {
                 OrcAttack();
+                attack.Play();
             }
         }
 
+        if (isDead)
+        {
+            die.Play();
+        }
 
+    }
 
+    public override void TakeDamage(float amount)
+    {
+        base.TakeDamage(amount);
+
+        hurt.Play();
     }
 
     private void OrcAttack()

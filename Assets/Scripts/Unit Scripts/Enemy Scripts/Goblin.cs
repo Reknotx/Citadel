@@ -31,6 +31,11 @@ public class Goblin : Enemy
 
     private float calculateHealth;*/
 
+    public AudioSource idle;
+    public AudioSource hurt;
+    public AudioSource die;
+    public AudioSource attack;
+
     #region Life Handler for Player
 
     public NewPlayer playerLife;
@@ -58,6 +63,7 @@ public class Goblin : Enemy
         playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<NewPlayer>();
         HealthIMG.gameObject.SetActive(false);
         canLunge = false;
+        idle.Play();
     }
 
     // Update is called once per frame
@@ -102,6 +108,7 @@ public class Goblin : Enemy
                 if(Mathf.Abs(yDistance) <= 2)
                 {
                     StartCoroutine(Lunge());
+                    attack.Play();
                 }
                 
             }
@@ -124,6 +131,11 @@ public class Goblin : Enemy
                 StartCoroutine(WaitBetweenAttack());
 
             }
+        }
+
+        if (isDead)
+        {
+            die.Play();
         }
         
 
@@ -185,6 +197,13 @@ public class Goblin : Enemy
             playerLife.TakeDamage(goblinDamage);
             StartCoroutine(WaitBetweenAttack());
         }
+    }
+
+    public override void TakeDamage(float amount)
+    {
+        base.TakeDamage(amount);
+
+        hurt.Play();
     }
 
     IEnumerator Lunge()

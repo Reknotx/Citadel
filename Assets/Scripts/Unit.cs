@@ -31,7 +31,8 @@ public class Unit : MonoBehaviour, IDamageable
    
     #endregion
     #region Health
-    public float _health;
+
+    protected float _health;
 
     public Slider HealthBar;
 

@@ -192,7 +192,7 @@ public class Enemy : Unit
    [HideInInspector]
    public float poisonedDuration = 5f;
    /// <summary> this determines how much damage per tick will be applied to the unit</summary>
-   [HideInInspector]
+   //[HideInInspector]
    public int poisonedDamage;
    
    private int bleedDuration = 5;
