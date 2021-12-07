@@ -1736,7 +1736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2.15
   HealthBar: {fileID: 5004160763707452780}
-  maxHealth: 100
+  maxHealth: 40
   facingRight: 0
   enemyLootTable: {fileID: 11400000, guid: 960b00adc5cc3d943963ad8bbfe650cc, type: 2}
   onPlatform: 0
@@ -1773,9 +1773,9 @@ MonoBehaviour:
   poisonedDuration: 5
   poisonedDamage: 0
   bleeding: 0
-  percentChanceToDropItem: 20
+  percentChanceToDropItem: 55
   goblinMeleeRange: 3
-  goblinDamage: 10
+  goblinDamage: 5
   goblinDashForce: 10
   idle: {fileID: 1320299699698774925}
   hurt: {fileID: 5889027405816149892}
@@ -1896,7 +1896,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2f22fe18a1281c443bcbfa5580e8c81c, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1940,7 +1940,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
