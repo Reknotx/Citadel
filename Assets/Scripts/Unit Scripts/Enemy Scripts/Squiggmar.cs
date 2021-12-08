@@ -115,7 +115,7 @@ public class Squiggmar : Enemy, IDamageable
 
         //hunter added
         //tracks the health real time incase of sudden enemy death 
-        if (_health <= 0)
+        if (Health <= 0)
         {
 
             GetComponent<BoxCollider>().enabled = false;
@@ -260,7 +260,10 @@ public class Squiggmar : Enemy, IDamageable
         transform.GetChild(0).gameObject.SetActive(false);
         Debug.Log("Head made invulnerable.");
 
-
+        foreach (Tentacle tentacle in tentacles)
+        {
+            tentacle.gameObject.SetActive(true);
+        }
     }
 
     public void TakeDamage(float amount)

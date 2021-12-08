@@ -36,7 +36,6 @@ public class Enemy : Unit
     [SerializeField]
     protected Rigidbody _rigidBody;
 
-    public Renderer m_render;
     #endregion
     #region Enemy's Ground/Directional Detection Stats
 
@@ -44,10 +43,6 @@ public class Enemy : Unit
     private float _Reach = 1f;
 
     public int contactDamage;
-
-    ///<summary>This tracks what direction the enemy is facing.</summary>
-    [HideInInspector]
-    public bool facingRightLocal;
 
     #endregion
     #region Enemy's Player Detection Stats
@@ -98,7 +93,6 @@ public class Enemy : Unit
     [HideInInspector]
     public float noJumpHeight;
 
-    [HideInInspector]
     Vector2 currentDirection;
 
     //[HideInInspector]

@@ -69,26 +69,25 @@ public class NewPlayer : Unit
             if (HealthBar != null)
             {
                 HealthBar.value = value;
-                HealthBar.GetComponentInChildren<Text>().text = value.ToString();
+                HealthBar.gameObject.GetComponentInChildren<Text>().text = _health.ToString();
             }
-            if (Health == 0)
+
+            if (Health != 0) return;
+            if (inventory.undying)
             {
-                if (inventory.undying)
-                {
-                    //Remove ring from inventory and update UI
-                    //Then set player's health to 10% of the max
-                    inventory.undying = false;
-                    _health = MaxHealth * 0.1f;
-                    return;
-                }
-                //Activate game over logic
-                //after game over logic it is better to turn off the player 
-                //object rather than destroy it
-                physicalBody.transform.GetChild(0).gameObject.SetActive(false);
-                enabled = false;
-                GameOver.Instance.gameObject.SetActive(true);
-                Time.timeScale = 0f;
+                //Remove ring from inventory and update UI
+                //Then set player's health to 10% of the max
+                inventory.undying = false;
+                _health = MaxHealth * 0.1f;
+                return;
             }
+            //Activate game over logic
+            //after game over logic it is better to turn off the player 
+            //object rather than destroy it
+            physicalBody.transform.GetChild(0).gameObject.SetActive(false);
+            enabled = false;
+            GameOver.Instance.gameObject.SetActive(true);
+            Time.timeScale = 0f;
         }
     }
     
@@ -104,7 +103,11 @@ public class NewPlayer : Unit
         set
         {
             _mana = value;
-            if (ManaBar != null) ManaBar.value = value;
+            if (ManaBar != null)
+            {
+                ManaBar.value = value;
+                ManaBar.GetComponentInChildren<Text>().text = Mana.ToString();
+            }
 
             combatSystem.spellSystem.UpdateSpellSystemUI(_mana);
         }
@@ -113,7 +116,11 @@ public class NewPlayer : Unit
     public int MaxMana
     {
         get => maxMana;
-        set => maxMana = value;
+        set
+        {
+            maxMana = value;
+            ManaBar.maxValue = value;
+        }
     }
 
     /// <summary> Returns the position of the center of the player prefab. Affected by model height. </summary>
@@ -150,7 +157,6 @@ public class NewPlayer : Unit
     {
         if (IsPaused) return;
         
-
         Move();
         
         GroundedCheck();
