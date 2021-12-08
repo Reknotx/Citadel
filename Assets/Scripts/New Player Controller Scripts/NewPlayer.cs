@@ -69,7 +69,7 @@ public class NewPlayer : Unit
             if (HealthBar != null)
             {
                 HealthBar.value = value;
-                HealthBar.GetComponentInChildren<Text>().text = value.ToString();
+                HealthBar.gameObject.GetComponentInChildren<Text>().text = _health.ToString();
             }
 
             if (Health != 0) return;
@@ -106,7 +106,7 @@ public class NewPlayer : Unit
             if (ManaBar != null)
             {
                 ManaBar.value = value;
-                HealthBar.GetComponentInChildren<Text>().text = value.ToString();
+                ManaBar.GetComponentInChildren<Text>().text = Mana.ToString();
             }
 
             combatSystem.spellSystem.UpdateSpellSystemUI(_mana);
