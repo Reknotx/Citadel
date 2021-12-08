@@ -138,6 +138,7 @@ public class AerorangSpell : Spell
         }
         else
         {
+            
             if (model.transform.position.x - player.transform.position.x > 0)
             {
                 model.transform.localEulerAngles = new Vector3(0f, 270f, 0f);
@@ -148,6 +149,7 @@ public class AerorangSpell : Spell
             {
                 model.transform.localEulerAngles = new Vector3(0f, 270f, 0f);
             }
+            
             targetPos = player.transform.position;
 
 
