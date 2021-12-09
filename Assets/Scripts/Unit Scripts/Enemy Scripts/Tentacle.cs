@@ -77,7 +77,7 @@ public class Tentacle : Enemy
         get => _health; 
         set
         {
-            _health = value;
+            base.Health = value;
             if (_health <= 0)
             {
                 _health = 0;
@@ -196,8 +196,11 @@ public class Tentacle : Enemy
         transform.eulerAngles = Vector3.zero;
         attacking = false;
         Squiggmar.Instance.TentacleSwiping = false;
-        
+    }
 
+    public void OnEnable()
+    {
+        Health = MaxHealth;
     }
 
     public override void OnTriggerEnter(Collider other)
