@@ -75,16 +75,23 @@ public class Squiggmar : Enemy, IDamageable
 
             if (_health <= 0)
             {
+                die.Play();
                 endGameMenu.SetActive(true);
-             
-               
+
+                
+                //hunter added
+                GetComponent<BoxCollider>().enabled = false;
+                GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+
+                //this triggers the death animation and delays setting Active to false for a second to let the animation play
+                animator.SetBool("isDead", true);
+                StartCoroutine(turnOff());
                 //Perform death logic to end the game/proceed to
                 //the next level
             }
         }
     }
     
-    public bool isGoingUp = false;
     public Transform headPos;
 
     public override void Awake()
@@ -112,49 +119,14 @@ public class Squiggmar : Enemy, IDamageable
 
     public void FixedUpdate()
     {
-
-        //hunter added
-        //tracks the health real time incase of sudden enemy death 
-        if (Health <= 0)
-        {
-
-            GetComponent<BoxCollider>().enabled = false;
-            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
-
-            //this triggers the death animation and delays setting Active to false for a second to let the animation play
-            isDead = true;
-            animator.SetBool("isDead", isDead);
-            if (isDead)
-            {
-                StartCoroutine(turnOff());
-            }
-        }
-
-        //hunter added
-        //tracks the animator and attached bools for activating animations
-        if (animator != null)
-        {
-            animator.SetBool("isGoingUp", isGoingUp);
-            animator.SetBool("isDead", isDead);
-        }
-
-       GetComponent<BoxCollider>().center =  headPos.position;
-
-
+        GetComponent<BoxCollider>().center =  headPos.position;
+        
         if (Time.time > nextCombatLogicStart)
             CombatLogic();
     }
 
-    public override void Update()
-    {
-        if (isDead)
-        {
-            die.Play();
-        }
-    }
 
-
-    public void CombatLogic()
+    private void CombatLogic()
     {
         if (GetActiveTentacles == 0 && !headVulnerable)
         {
@@ -175,7 +147,7 @@ public class Squiggmar : Enemy, IDamageable
         
         while (true)
         {
-            int tentacleIndex = UnityEngine.Random.Range(0, tentacles.Count);
+            int tentacleIndex = Random.Range(0, tentacles.Count);
 
             if (!tentacles[tentacleIndex].gameObject.activeSelf)
             {
@@ -196,8 +168,7 @@ public class Squiggmar : Enemy, IDamageable
 
         //hunter added 
         //starts the going up animation 
-        isGoingUp = true;
-        animator.SetBool("isGoingUp", isGoingUp);
+        animator.SetBool("isGoingUp", true);
 
         transform.GetChild(0).gameObject.SetActive(true);
         Vector3 invulnerablePos = transform.GetChild(0).position, vulnerablePos = vulnerablePosition.position, p01;
@@ -222,8 +193,7 @@ public class Squiggmar : Enemy, IDamageable
 
         //hunter added
         //ends the going up animation 
-        isGoingUp = false;
-        animator.SetBool("isGoingUp", isGoingUp);
+        animator.SetBool("isGoingUp", false);
 
         Debug.Log("Head made vulnerable.");
         transform.GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1f, 1f, 1f, 1f);

@@ -5,10 +5,7 @@
  * and each time the player moves to another floor.
  */
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

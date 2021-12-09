@@ -4,18 +4,15 @@
  * 
  * Brief: Class file for Squiggmar's tentacles
  */
-using System;
+
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 public class Tentacle : Enemy
 {
     public Vector3 idlePos;
     private Vector3 swipeStartPoint, swipeEndPoint;
-    public float swipeXPosRange;
+
     [Range(1, 5)]
     public float swipeCompletionTime = 1;
 
@@ -23,18 +20,15 @@ public class Tentacle : Enemy
     private float tentacleXOnRightWall = 28.5f;
 
     private float attackDelay = 2f;
-    private bool trackPlayerY = false;
+    private bool trackPlayerY;
 
     public NewPlayer playerScript;
 
-    private bool attacking = false;
-    public int damage;
-
-
+    private bool attacking;
 
 
     /// huter added 
-    /// holds the animator and collider's posistion
+    /// holds the animator and collider's position
     /// 
    
     #region For Animations 
@@ -77,23 +71,24 @@ public class Tentacle : Enemy
         get => _health; 
         set
         {
-            base.Health = value;
+            _health = value;
             if (_health <= 0)
             {
                 _health = 0;
 
                 StopAllCoroutines();
                 ReturnToIdle();
+                
+                isDead = true;
+                animator.SetBool(IsDead, isDead);
+                StartCoroutine(turnOff());
             }
         }
     }
-
-    public float localHealth;
-
+    
     public override void Awake()
     {
-        _health = MaxHealth;
-        localHealth = Health;
+        Health = MaxHealth;
         idlePos = transform.position;
 
         //hunter added
@@ -115,24 +110,6 @@ public class Tentacle : Enemy
 
     public override void Update()
     {
-        //hunter added
-        //tracking health in update because the base health would not trigger as soon as health hit 0
-        localHealth = Health;
-        if (_health <= 0)
-        {
-            _health = 0;
-
-            //this triggers the death animation and delays setting Active to false for a second to let the animation play
-            isDead = true;
-            animator.SetBool(IsDead, isDead);
-            if (isDead)
-            {
-                StartCoroutine(turnOff());
-            }
-        }
-
-        
-
         if (!trackPlayerY) return;
 
         //hunter added
@@ -149,8 +126,8 @@ public class Tentacle : Enemy
 
 
         //hunter added 
-        //controlls the position of the collider so that it stays up to date with the animated tenticle movements
-        if(isAttacking == true)
+        //controls the position of the collider so that it stays up to date with the animated tentacle movements
+        if(isAttacking)
         {
             colliderX = 1.5f;
             colliderY = 1.5f;

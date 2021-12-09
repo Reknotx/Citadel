@@ -6,7 +6,6 @@
  * will perform certain actions based on events.
  */
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Minimap;
