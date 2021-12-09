@@ -6,7 +6,7 @@ public abstract class Sword : MonoBehaviour
 {
     public static Sword ActiveSword;
 
-    protected List<GameObject> enemiesAttacked = new List<GameObject>();
+    private List<GameObject> enemiesAttacked = new List<GameObject>();
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public abstract class Sword : MonoBehaviour
         StartCoroutine(delayTurnOffCoroutine());
     }
 
-    public abstract void AttackEnemy(Enemy target, int dmg);
+    protected abstract void AttackEnemy(Enemy target, int dmg);
 
     public void OnTriggerEnter(Collider other)
     {

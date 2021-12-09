@@ -10,7 +10,7 @@ public class HeavySword : Sword
         PlayerAnimationManager.Instance.ActivateTrigger(PlayerAnimationManager.TriggerAnimations.HEAVY_ATTACK);
     }
 
-    public override void AttackEnemy(Enemy target, int dmg)
+    protected override void AttackEnemy(Enemy target, int dmg)
     {
         target.GetComponent<IDamageable>().TakeDamage(NewPlayer.Instance.combatSystem.meleeSystem.playerMeleeDamage);
         if (NewPlayer.Instance.inventory.serratedStone && !target.bleeding)
