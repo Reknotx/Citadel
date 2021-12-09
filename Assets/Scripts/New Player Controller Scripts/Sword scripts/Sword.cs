@@ -17,6 +17,7 @@ public abstract class Sword : MonoBehaviour
     {
         ActiveSword = this;
         enemiesAttacked.Clear();
+        StartCoroutine(delayTurnOffCoroutine());
     }
 
     public abstract void AttackEnemy(Enemy target, int dmg);
@@ -29,6 +30,13 @@ public abstract class Sword : MonoBehaviour
             DamagePopup.Create(transform.position, NewPlayer.Instance.combatSystem.meleeSystem.playerMeleeDamage);
             enemiesAttacked.Add(other.gameObject);
         }
+    }
+
+    public IEnumerator delayTurnOffCoroutine()
+    {
+        float waitTime = 2f;
+        yield return new WaitForSeconds(waitTime);
+        gameObject.SetActive(false);
     }
 
 }

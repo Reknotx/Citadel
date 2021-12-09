@@ -180,13 +180,11 @@ public class PlayerStatTrackerScript : MonoBehaviour
     {
         if (statsUpdated == false && currentSceneName != "MainMenuScene" && currentSceneName != "MineScene")
         {
-            if (currentSceneName == "CampScene" || currentSceneName == "CastleScene")
-            {
-                playerMaxHealth = player.GetComponent<NewPlayer>().MaxHealth;
-                playerMaxMana = player.GetComponent<NewPlayer>().MaxMana;
-            }
+            
 
 
+            player.GetComponent<NewPlayer>().MaxHealth = playerMaxHealth;
+            player.GetComponent<NewPlayer>().MaxMana = playerMaxMana;
             player.GetComponent<NewPlayer>().Health = playerMaxHealth;
             player.GetComponent<NewPlayer>().Mana = playerMaxMana;
             player.GetComponent<NewPlayer>().speed = playerSpeed;
@@ -204,8 +202,8 @@ public class PlayerStatTrackerScript : MonoBehaviour
     {
         if (currentSceneName != "MainMenuScene" && currentSceneName != "MineScene")
         {
-            playerMaxHealth = player.GetComponent<NewPlayer>().Health;
-            playerMaxMana = player.GetComponent<NewPlayer>().Mana;
+            playerMaxHealth = player.GetComponent<NewPlayer>().MaxHealth;
+            playerMaxMana = player.GetComponent<NewPlayer>().MaxMana;
             playerSpeed = player.GetComponent<NewPlayer>().speed;
             playerAttackDamage = player.GetComponentInChildren<CombatSystem.PlayerMeleeSystem>().playerMeleeDamage;
            // playerAttackRange = player.GetComponent<Player>().meleeAttackRange;
