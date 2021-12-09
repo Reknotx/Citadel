@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,10 +32,9 @@ public abstract class Sword : MonoBehaviour
         }
     }
 
-    public IEnumerator delayTurnOffCoroutine()
+    IEnumerator delayTurnOffCoroutine()
     {
-        float waitTime = 2f;
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(2f);
         gameObject.SetActive(false);
     }
 
