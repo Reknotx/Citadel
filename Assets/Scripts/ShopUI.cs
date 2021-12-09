@@ -49,10 +49,12 @@ namespace ShopSystem
             shopButtons.Add(speedUpButton);
             shopButtons.Add(manaUpButton);
             shopButtons.Add(spellPotencyUpButton);
+
+            /*
             shopButtons.Add(spell1Button);
             shopButtons.Add(spell2Button);
             shopButtons.Add(spell3Button);
-
+            */
             healthUpButton.onClick.AddListener(() => Buy(info.healthUpInfo));
             attackUpButton.onClick.AddListener(() => Buy(info.attackUpInfo));
             attackRangeUpButton.onClick.AddListener(() => Buy(info.attackRangeUpInfo));
@@ -60,6 +62,7 @@ namespace ShopSystem
             manaUpButton.onClick.AddListener(() => Buy(info.manaUpInfo));
             spellPotencyUpButton.onClick.AddListener(() => Buy(info.spellPotencyUpInfo));
 
+            /*
             spell1Button.onClick.AddListener(() => Buy(info.spell1Info));
             spell2Button.onClick.AddListener(() => Buy(info.spell2Info));
             spell3Button.onClick.AddListener(() => Buy(info.spell3Info));
@@ -67,6 +70,7 @@ namespace ShopSystem
             spell1Button.GetComponentInChildren<Text>().text = info.spell1Info.name;
             spell2Button.GetComponentInChildren<Text>().text = info.spell2Info.name;
             spell3Button.GetComponentInChildren<Text>().text = info.spell3Info.name;
+            */
         }
 
         public void OnEnable()
@@ -109,12 +113,13 @@ namespace ShopSystem
                 case "mana": item = info.manaUpInfo; break;
 
                 case "spellPotent": item = info.spellPotencyUpInfo; break;
-
+                /*
                 case "spell 1": item = info.spell1Info; break;
 
                 case "spell 2": item = info.spell2Info; break;
 
                 case "spell 3": item = info.spell3Info; break;
+                */
             }
 
             if (item == null) Debug.LogError("What's going on here");
@@ -148,7 +153,7 @@ namespace ShopSystem
             //spellPotencyUpButton.interactable = hardGold > info.spellPotencyUpInfo.upgradeCost;
             spellPotencyUpButton.interactable = false;
 
-            spell1Button.interactable = hardGold > info.spell1Info.spellCost;
+           // spell1Button.interactable = hardGold > info.spell1Info.spellCost;
         }
 
         ///Hunter added code here down

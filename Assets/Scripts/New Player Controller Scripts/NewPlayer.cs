@@ -144,7 +144,7 @@ public class NewPlayer : Unit
 
         ManaBar.maxValue = MaxMana;
         Mana = MaxMana;
-        
+        Health = MaxHealth;
         base.Awake();
     }
 
