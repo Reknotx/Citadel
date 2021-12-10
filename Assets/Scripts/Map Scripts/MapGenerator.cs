@@ -191,24 +191,7 @@ namespace Map
             // AddSpecialRoomToList(bossRoom);
             
             #endregion
-
-            //To remind myself as to what a room needs:
-            //1. A room on the path will have at least two connections.
-            //2. Rooms can have a max of four.
-            //3. Dead end rooms will obviously have one connection.
-            //
-            //Time to adjust the Astar algorithm to utilize my internal class rather than the room class.
-
-            //Spawning steps
-            //1. Create the spawn and boss rooms and assign them in the grid.
-            //Force filled rooms around the boss room to avoid having neighbors to said room
-            //2. Create the treasure and shop rooms and surround them with filled rooms except on the
-            //side with the entrance
-            //3. Create the path from the spawn room to all special rooms using the astar algorithm
-
-            //The locations of all of the special rooms can actually be assigned at random
-            //when the conceptual grid is created as we only need to do it once.
-
+            
             #region Spawning Shops
 
             //Something else to note here for spawning the shop rooms and the treasure rooms is that we
