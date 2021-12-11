@@ -11,18 +11,18 @@ public class ResetPlayerPrefGold : MonoBehaviour
 {
     public void ResetPermanentGold()
     {
-        PlayerPrefs.DeleteKey("permanentGold_h872003871");
+        PlayerPrefs.DeleteKey("permanentGold");
     }
 
     //for testing (obviously)
     public void TestPermanentGold()
     {
 
-        if (PlayerPrefs.HasKey("permanentGold_h872003871"))
+        if (PlayerPrefs.HasKey("permanentGold"))
         {
-            Debug.Log("The key " + "permanentGold_h872003871" + " exists");
+            Debug.Log("The key " + "permanentGold" + " exists");
         }
         else
-            Debug.Log("The key " + "permanentGold_h872003871" + " does not exist");
+            Debug.Log("The key " + "permanentGold" + " does not exist");
     }
 }
