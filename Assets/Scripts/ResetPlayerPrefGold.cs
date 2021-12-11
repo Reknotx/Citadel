@@ -1,5 +1,7 @@
 //author: Beren Franklin
-//description: used to 
+//12/10/2021
+//description: used to reset the permanent gold by deleting the key in PlayerPrefs
+// the key comes back when you start a new game, and it should theoretically not be stuck at 0 anymore
 
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ public class ResetPlayerPrefGold : MonoBehaviour
         PlayerPrefs.DeleteKey("permanentGold_h872003871");
     }
 
+    //for testing (obviously)
     public void TestPermanentGold()
     {
 
@@ -21,7 +24,5 @@ public class ResetPlayerPrefGold : MonoBehaviour
         }
         else
             Debug.Log("The key " + "permanentGold_h872003871" + " does not exist");
-
-        //PlayerPrefs.DeleteKey("permanentGold_h872003871");
     }
 }
