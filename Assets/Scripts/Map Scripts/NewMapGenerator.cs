@@ -3,23 +3,38 @@
  * 
  * Brief: This script spawns in the map at the start of the game
  * and each time the player moves to another floor.
+ *
+ * Overhauled on 12/1/2021. Overhaul was needed in order to make the generator
+ * work with different room types and to make it more flexible overall.
  */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Pathfinding;
 using UnityEngine;
 //Included this statement to help shorten code character count.
 using static Map.NewMapGenerator.ConceptGrid.NewGridNode;
+using Random = UnityEngine.Random;
 
 namespace Map
 {
-
     /// <summary> The map generator that spawns in the rooms in a 6x6 grid. </summary>
     public class NewMapGenerator : MonoBehaviour
     {
+        #region Fields
+        #region Public
         public static NewMapGenerator Instance;
 
+        public static List<Room> specialRooms;
+
+        public NewGridInfo gridInfo = new NewGridInfo();
+
+        [Header("Enable this if we want to only have one row on the map.")]
+        public bool OneRowOnly;
+        #endregion
+
+        #region Private
         /// <summary>
         /// <para>
         /// Grid size is set as follows.
@@ -47,21 +62,13 @@ namespace Map
 
         public RoomContainer roomCont;
 
-        /// <summary>
-        /// 
-        /// </summary>
         private Vector2 SpawnRoomPos, SpawnRoomGridPos;
 
         private Vector2 BossRoomPos, BossRoomGridPos;
         private Vector2 trueGridSize;
 
-        public NewGridInfo gridInfo = new NewGridInfo();
-
-        public static List<Room> specialRooms;
-
-        [Header("Enable this if we want to only have one row on the map.")]
-        public bool OneRowOnly;
-
+        #endregion
+        #endregion
 
         public void Awake()
         {
@@ -103,29 +110,11 @@ namespace Map
             //2. Levels need to be picked based on the number of openings they have on each side
             //by just comparing the room openings we can preplan certain rooms so we don't
             //have to delete and respawn prefabs.
-            //The filled rooms will be spawned by panning over the entire grid and looking for nodes
-            //that are marked as filled
-            
 
-            // #region Spawning the spawn room
-            //
-            // GameObject spawnRoom = SpawnRoom(roomCont.SpawnRooms[Random.Range(0, roomCont.SpawnRooms.Count)],
-            //                                  conceptGrid.spawnRoomPos, "Spawn Room");
-            // AddSpecialRoomToList(spawnRoom);
-            //
-            // spawnRoom.GetComponent<Room>().fogEnabledOnStart = false;
-            // #endregion
-
-            #region Spawning Boss Room
-
-            GameObject bossRoom = SpawnRoom(roomCont.BossRooms[Random.Range(0, roomCont.BossRooms.Count)],
-                BossRoomGridPos,
-                "Boss Room");
-            AddSpecialRoomToList(bossRoom);
-
-            BossRoomPos = bossRoom.transform.position;
-            
-            #endregion
+            foreach (List<ConceptGrid.NewGridNode> path in conceptGrid.Paths)
+            {
+                CreatePath(path);
+            }
 
             #region Spawning in filled rooms
             ConceptGrid.NewGridNode[,] tempConceptGrid = conceptGrid.grid;
@@ -142,28 +131,14 @@ namespace Map
                 {
                     if (map[y, x] != null && tempConceptGrid[y,x].roomType != (RoomType.Filled | RoomType.EMPTY)) continue;
 
-                    GameObject roomToSpawn = null;
-                    RoomType tempRoomType = tempConceptGrid[y, x].roomType;
-
-                    if (tempRoomType == RoomType.Filled)
-                    {
-                        roomToSpawn = roomCont.filledRoom;
-                    }
-
-                    GameObject temp = Instantiate(roomToSpawn,
-                    new Vector3(roomSize * x, roomSize * y),
-                    Quaternion.identity);
-
-                    temp.GetComponent<Room>().gridPos = new Vector2(x, y);
-
-                    temp.transform.parent = row.transform;
-
-                    map[y, x] = temp.GetComponent<Room>();
+                    GameObject tempFilledRoom = SpawnRoom(roomCont.filledRoom, new Vector2(x, y), "Filled Room");
+                    
+                    tempFilledRoom.transform.parent = row.transform;
                 }
             }
             #endregion 
            
-            #region Create Path
+            #region Create Path Function
             // <summary>
             // Spawns the necessary rooms along a path by following the layout of the
             // conceptual grid.
@@ -171,57 +146,60 @@ namespace Map
             // <param name="path">The list of nodes along a path on the grid.</param>
             void CreatePath(List<ConceptGrid.NewGridNode> path)
             {
-                List<List<ConceptGrid.NewGridNode>> paths = conceptGrid.GetPaths();
-                
-                //Now spawn in the rooms
                 //Logic notes for spawning.
                 //1. Each room has a certain number of openings each side
                 //2. Each door is located in one of three positions on each side.
                 //3. Rooms must match their neighbors in terms of the positioning of their
                 //doorways that lead to the neighboring rooms.
-                //
-                //For the time being rooms will only have a max of one entrance on each side.
-                //In the future there will be rooms that have multiple entrances on one side,
-                //and will need to be updated appropriately.
-                //
 
                 GameObject prevRoom = null;
 
                 //Ok this needs to be redone, this isn't nice and just makes clutter.
-                for (int pathIndex = 1; pathIndex < path.Count - 1; pathIndex++)
+                for (int pathIndex = 0; pathIndex < path.Count - 1; pathIndex++)
                 {
                     ConceptGrid.NewGridNode currNode = path[pathIndex];
 
-                    List<Room> examinedRooms = new List<Room>();
+                    List<GameObject> examinedRooms = new List<GameObject>();
                     do
                     {
-                        int listIndex = Random.Range(0, roomCont.RegularRooms.Count);
-
-                        if (examinedRooms.Contains(roomCont.RegularRooms[listIndex].GetComponent<Room>()))
-                        {
+                        if (map[(int) currNode.gridPos.y, (int) currNode.gridPos.x] != null) break;
+                        
+                        #region Local Scope Variables
+                        GameObject roomObj = GetRoom(currNode.roomType, examinedRooms);
+                        
+                        if (examinedRooms.Contains(roomObj.GetComponent<GameObject>()))
                             continue;
-                        }
 
-                        GameObject roomObj = roomCont.RegularRooms[listIndex];
                         Room room = roomObj.GetComponent<Room>();
                         RoomInfo tempInfo = room.roomInfo;
-                        examinedRooms.Add(room);
+                        string roomName = GetRoomName(currNode.roomType);
+                        #endregion
 
-                        if (CompareNodeToRoom(currNode, tempInfo)
+                        examinedRooms.Add(roomObj);
+                        
+                        if (currNode.roomType == RoomType.Spawn)
+                        {
+                            SpawnRoom(roomObj, currNode.gridPos, roomName);
+                            room.fogEnabledOnStart = false;
+                            prevRoom = roomObj;
+                            break;
+                        }
+                        else if (CompareNodeToRoom(currNode, tempInfo)
                             && EnsureEntrancesLineUp(tempInfo,
                                 map[(int) path[pathIndex - 1].gridPos.y, (int) path[pathIndex - 1].gridPos.x].roomInfo,
                                 GetPrevRoomDir(currNode.gridPos, path[pathIndex - 1].gridPos))
                         )
                         {
                             // Spawn the room
-                            SpawnRoom(roomObj, new Vector3(currNode.gridPos.x, currNode.gridPos.y), "Room");
+                            SpawnRoom(roomObj, currNode.gridPos, roomName);
                             prevRoom = roomObj;
                             break;
                         }
 
-                        if (examinedRooms.Count == roomCont.RegularRooms.Count)
+                        if (examinedRooms.Count == GetListCount(currNode.roomType))
                         {
-                            Debug.LogError("Ran out of rooms, about to enter infinite loop. Breaking from loop");
+                            Debug.LogError("Ran out of rooms of type " + currNode.roomType +
+                                           ", about to enter infinite loop. Breaking from loop");
                             Debug.Log("The last room we looked at was " + prevRoom.name);
 
                             #if UNITY_EDITOR
@@ -231,12 +209,75 @@ namespace Map
                             #endif
                         }
         
-                    } while (examinedRooms.Count != roomCont.RegularRooms.Count);
+                    } while (true);
 
                     examinedRooms.Clear();
                 }
                 
                 #region Helper Functions
+
+                GameObject GetRoom(ConceptGrid.NewGridNode.RoomType type, List<GameObject> examinedRooms)
+                {
+                    GameObject room = null;
+
+                    // while (true)
+                    // {
+                        switch (type)
+                        {
+                            case RoomType.Normal:
+                                room = roomCont.RegularRooms[Random.Range(0, roomCont.RegularRooms.Count)];
+                                break;
+                            case RoomType.Spawn:
+                                room = roomCont.SpawnRooms[Random.Range(0, roomCont.SpawnRooms.Count)];
+                                break;
+                            case RoomType.Boss:
+                                room = roomCont.SpawnRooms[Random.Range(0, roomCont.BossRooms.Count)];
+                                break;
+                            case RoomType.Shop:
+                                room = roomCont.ShopRooms[Random.Range(0, roomCont.ShopRooms.Count)];
+                                break;
+                        }
+                    //     
+                    //     if (!examinedRooms.Contains(room)) break;
+                    // }
+
+                    Debug.Log("Room found");
+
+                    return room;
+                }
+
+                int GetListCount(ConceptGrid.NewGridNode.RoomType type)
+                {
+                    switch (type)
+                    {
+                        case RoomType.Spawn:
+                            return roomCont.SpawnRooms.Count;
+                        case RoomType.Boss:
+                            return roomCont.BossRooms.Count;
+                        case RoomType.Shop:
+                            return roomCont.BossRooms.Count;
+                        default:
+                            return roomCont.RegularRooms.Count;
+                    }
+                }
+
+                string GetRoomName(ConceptGrid.NewGridNode.RoomType type)
+                {
+                    switch (type)
+                    {
+                        case RoomType.Spawn:
+                            return "Spawn Room";
+                        case RoomType.Boss:
+                            return "Boss Room";
+                        case RoomType.Shop:
+                            return "Shop Room";
+                        case RoomType.Filled:
+                            return "Filled Room";
+                        default:
+                            return "Room";
+                    }
+                }
+                
                 bool CompareNodeToRoom(ConceptGrid.NewGridNode node, RoomInfo roomInfo)
                 {
                     if (node == null) Debug.LogError("Help node null");
@@ -248,12 +289,6 @@ namespace Map
                            node.openings.TopSide == roomInfo.CalcDoorsTopSide() &&
                            node.openings.BottomSide == roomInfo.CalcDoorsBottomSide();
                 }
-
-                //I need to figure out the positioning of the previous room in relation
-                //to the current room so I can limit the amount of doors I'm actually looking at 
-                //to ensure they line up properly
-                //
-                //I also need to ensure that the room has doors al appropriate places
 
                 bool EnsureEntrancesLineUp(RoomInfo currRoom, RoomInfo prevRoom, Dir prevDir)
                 {
@@ -363,6 +398,8 @@ namespace Map
                         SpawnRoomPos = spawnedRoom.transform.position;
                         break;
                     case "Boss Room":
+                        BossRoomGridPos = gridCord;
+                        BossRoomPos = spawnedRoom.transform.position;
                         break;
                 }
             }
@@ -371,17 +408,11 @@ namespace Map
         }
 
 
-        private void AddSpecialRoomToList(GameObject roomObj)
-        {
-            specialRooms.Add(roomObj.GetComponent<Room>());
-        }
+        private void AddSpecialRoomToList(GameObject roomObj) => specialRooms.Add(roomObj.GetComponent<Room>());
 
         public void ExposeSpecialRooms()
         {
-            foreach (Room room in specialRooms)
-            {
-                room.TurnOffFog();
-            }
+            foreach (Room room in specialRooms) room.TurnOffFog();
         }
 
         /// <summary> A small directional enum for aiding the algorithm. </summary>
@@ -398,22 +429,16 @@ namespace Map
         [System.Serializable]
         public class NewGridInfo
         {
-            [Tooltip("Represents the size of the grid")] [Range(7, 15)]
+            [Tooltip("Represents the size of the grid"), Range(7, 15)] 
             public int gridSize = 7;
 
-            [Tooltip("Represents the minimum distance from the spawn room to the boss room.")] [Range(4f, 15f)]
+            [Tooltip("Represents the minimum distance from the spawn room to the boss room."), Range(4f, 15f)] 
             public float minDistSTB;
 
-            public NewGridInfo()
-            {
-                minDistSTB = 4f;
-            }
+            public NewGridInfo() => minDistSTB = 4f;
 
-            public bool CheckSpawnBossDist(Vector2 SpawnRoomPos, Vector2 bossRoomPos)
-            {
-                //Debug.Log("Dist of STB = " + Vector3.Distance(SpawnRoomPos, bossRoomPos) / 31);
-                return Vector3.Distance(SpawnRoomPos, bossRoomPos) / 31 > minDistSTB;
-            }
+            public bool CheckSpawnBossDist(Vector2 SpawnRoomPos, Vector2 bossRoomPos) =>
+                Vector3.Distance(SpawnRoomPos, bossRoomPos) / 31 > minDistSTB;
         }
 
         #region New Concept Grid Class
@@ -580,10 +605,8 @@ namespace Map
 
                 foreach (List<NewGridNode> path in Paths)
                 {
-                    for (int index = 0; index < path.Count; index++)
+                    for (int index = 1; index < path.Count; index++)
                     {
-                        if (path[index].roomType == RoomType.Spawn) continue;
-
                         if (path[index].roomType == RoomType.EMPTY)
                             path[index].roomType = RoomType.Normal;
 
@@ -609,7 +632,7 @@ namespace Map
                 {
                     int numOpenings = 1;
 
-                    //if (onlyOneOpening == false)
+                    //if (!onlyOneOpening)
                     //    numOpenings = Random.Range(1, 4);
 
                     if (currNode.gridPos.y > prevNode.gridPos.y)
@@ -638,11 +661,6 @@ namespace Map
                         currNode.openings.RightSide = numOpenings;
                     }
                 }
-            }
-
-            public List<List<NewGridNode>> GetPaths()
-            {
-                return Paths;
             }
             
             #region Grid concept Astar
@@ -820,7 +838,6 @@ namespace Map
                     Spawn,
                     Boss,
                     Shop,
-                    Treasure,
                     Filled
                 }
 
@@ -833,14 +850,6 @@ namespace Map
                 public int fCost => gCost + hCost;
 
                 public NewGridNode parent;
-
-                /// <summary> Constructor that allows specifying room type if anything other than normal. </summary>
-                /// <param name="roomType">The type of the room that is placed on the grid.</param>
-                public NewGridNode(RoomType roomType)
-                {
-                    Initialization();
-                    this.roomType = roomType;
-                }
 
                 public NewGridNode(Vector2 gridPos)
                 {

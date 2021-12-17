@@ -367,8 +367,6 @@ namespace Map
             GameObject prevRoom = null;
             GridNode currNode = null;
             
-            Debug.Log(path[path.Count - 1].gridPos);
-
             //Ok this needs to be redone, this isn't nice and just makes clutter.
             //Has an issue with the LAST node in the path. I will just make a small easy fix
             //for the boss room
