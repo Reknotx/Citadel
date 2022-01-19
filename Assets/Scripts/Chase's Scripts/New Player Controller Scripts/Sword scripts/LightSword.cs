@@ -1,3 +1,9 @@
+/*
+ *Author: Chase O'Connor
+ *
+ * Brief: Class for the player's light sword
+ */
+
 public class LightSword : Sword
 {
     public override void OnEnable()

@@ -4,8 +4,6 @@
  * Brief: This script manages the projectile fired by the skeleton enemy.
  */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour

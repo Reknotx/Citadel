@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -32,7 +30,7 @@ namespace Interactables
                     given = true;
                     NewPlayer.Instance.inventory.medicineStash = true;
                     NewPlayer.Instance.GetComponent<Inventory_UI>().AddItem(medicineSashGameObject);
-                    Destroy(this.gameObject);
+                    Destroy(gameObject);
                 }
                
             }

@@ -5,7 +5,7 @@
  * Brief: This script contains lists of all of the spawnable rooms made by
  * the level designers.
  */
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 

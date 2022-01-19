@@ -11,7 +11,6 @@
  */
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Interactables
@@ -26,7 +25,7 @@ namespace Interactables
 
         public void Awake()
         {
-            this.GetComponent<Rigidbody>().AddForce(new Vector3(0, 200, 0));
+            GetComponent<Rigidbody>().AddForce(new Vector3(0, 200, 0));
             StartCoroutine(pickUpDelay());
         }
 

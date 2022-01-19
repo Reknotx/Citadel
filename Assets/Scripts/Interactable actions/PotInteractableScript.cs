@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Interactables
@@ -20,7 +18,7 @@ namespace Interactables
             if (isBroken == true)
             {
                 randomSpawn();
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
         }
 

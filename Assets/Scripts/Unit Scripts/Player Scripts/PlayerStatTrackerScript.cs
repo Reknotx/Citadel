@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -62,7 +60,7 @@ public class PlayerStatTrackerScript : MonoBehaviour
 
         if (_instance != null && _instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
         else if(_instance == null)
         _instance = this;
@@ -90,7 +88,7 @@ public class PlayerStatTrackerScript : MonoBehaviour
         currentSceneName = SceneManager.GetActiveScene().name;
         if (_instance != null && _instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
 
 

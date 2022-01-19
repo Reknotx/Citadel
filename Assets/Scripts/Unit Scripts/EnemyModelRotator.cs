@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyModelRotator : MonoBehaviour
@@ -30,11 +28,11 @@ public class EnemyModelRotator : MonoBehaviour
         {
             if (facingRightLocal == true)
             {
-                this.gameObject.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+                gameObject.transform.eulerAngles = new Vector3(0f, 0f, 0f);
             }
             else
             {
-                this.gameObject.transform.eulerAngles = new Vector3(0f, 180f, 0f);
+                gameObject.transform.eulerAngles = new Vector3(0f, 180f, 0f);
             }
         }
     }

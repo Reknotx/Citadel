@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InvulnSpell : Spell
@@ -49,6 +48,6 @@ public class InvulnSpell : Spell
     public IEnumerator delayDestroy()
     {
         yield return new WaitForSeconds(invulnDurration);
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }

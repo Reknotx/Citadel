@@ -13,7 +13,6 @@ using Interactables;
 using Menu;
 using CombatSystem;
 using JetBrains.Annotations;
-using UnityEngine.Serialization;
 
 
 public class NewPlayer : Unit

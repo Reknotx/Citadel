@@ -143,7 +143,7 @@ public class Tentacle : Enemy
     {
         //Determine if swiping from left to right, or right to left
         Squiggmar.Instance.TentacleSwiping = true;
-        bool swipeFromRight = UnityEngine.Random.Range(0, 2) == 0;
+        bool swipeFromRight = Random.Range(0, 2) == 0;
 
         swipeStartPoint = new Vector3(swipeFromRight ? tentacleXOnRightWall : tentacleXOnLeftWall, 0, 0f);
         swipeEndPoint = new Vector3(swipeFromRight ? tentacleXOnLeftWall : tentacleXOnRightWall, 0, 0f);

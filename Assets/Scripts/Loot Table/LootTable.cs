@@ -1,9 +1,13 @@
-using System.Collections;
+/*
+ * Author: Chase O'Connor
+ *
+ *Brief: A loot table for the possible drops that an enemy
+ * can have, if any.
+ */
+
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEditor;
-using UnityEditor.UIElements;
 
 [System.Serializable]
 public class LootInfo
@@ -40,25 +44,22 @@ public class LootTable : ScriptableObject
     {
         float total = GetWeightTotal();
 
-        insertionSort(loot);
+        InsertionSort(loot);
 
-        float num = UnityEngine.Random.Range(0, total);
+        float num = Random.Range(0, total);
 
         foreach (LootInfo info in loot)
         {
-            if (num <= info.rate)
-            {
-                return info.item;
-            }
-            else
-            {
-                num -= info.rate;
-            }
+            if (num <= info.rate) return info.item;
+
+            num -= info.rate;
         }
 
         return null;
 
-        void insertionSort(List<LootInfo> unsortedLoot)
+        //Ensures that the list of loot will be sorted so we don't need to be concerned
+        //with organization in the inspector.
+        void InsertionSort(List<LootInfo> unsortedLoot)
         {
             int n = unsortedLoot.Count;
             for (int i = 1; i < n; ++i)

@@ -6,8 +6,6 @@
  * fills the respective bars accordingly
  */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -7,7 +7,6 @@
  */
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FireWallSpellScript : Spell
@@ -104,6 +103,6 @@ public class FireWallSpellScript : Spell
     IEnumerator SpellDuration()
     {
         yield return new WaitForSeconds(spellDuration);
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }

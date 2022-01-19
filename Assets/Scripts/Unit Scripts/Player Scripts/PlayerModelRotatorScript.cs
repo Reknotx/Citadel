@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerModelRotatorScript : MonoBehaviour
@@ -24,11 +22,11 @@ public class PlayerModelRotatorScript : MonoBehaviour
     {
         if (facingRightLocal == false)
         {
-            this.gameObject.transform.eulerAngles = new Vector3(0f, -90f, 0f);
+            gameObject.transform.eulerAngles = new Vector3(0f, -90f, 0f);
         }
         else
         {
-            this.gameObject.transform.eulerAngles = new Vector3(0f, 90f, 0f);
+            gameObject.transform.eulerAngles = new Vector3(0f, 90f, 0f);
         }
         
     }

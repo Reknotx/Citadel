@@ -129,7 +129,7 @@ public class Eyeball : Enemy
         else if (startAttackCooldown)
         {
             //Debug.Log("Adding to attack cooldown");
-            this.attackCooldown += Time.deltaTime;
+            attackCooldown += Time.deltaTime;
             if (attackCooldown >= attackRate)
                 canAttack = true;
             else

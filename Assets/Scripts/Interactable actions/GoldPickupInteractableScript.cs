@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Interactables
@@ -22,7 +20,7 @@ namespace Interactables
                 
             NewPlayer.Instance.inventory.goldStorage.MineGoldToPermGold(dropAmount);
             
-            Destroy(this.gameObject);
+            Destroy(gameObject);
 
 
 

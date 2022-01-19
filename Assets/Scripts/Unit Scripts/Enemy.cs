@@ -285,7 +285,7 @@ public class Enemy : Unit
         }
 
         #region Enemy AI Movement
-        if(this.gameObject.tag != "Tentacle")
+        if(gameObject.tag != "Tentacle")
         Move();
         #endregion
 
@@ -445,7 +445,7 @@ public class Enemy : Unit
     ///<summary>These track the collisions between the enemy and in-game objects .</summary>
     public virtual void OnTriggerEnter(Collider other)
     {
-        if(this.gameObject.tag != "Squig")
+        if(gameObject.tag != "Squig")
         {
             //This triggers when the enemy is hit with the heavy attack.
             if (other.gameObject.CompareTag("swordHeavy"))
@@ -497,25 +497,21 @@ public class Enemy : Unit
         var currentHealth = Health;
         base.TakeDamage(amount);
 
-        if (currentHealth - amount <= 0)
+        if (currentHealth - amount <= 0 && lootDropped == false)
         {
-            if(lootDropped == false)
+            contactDamage = 0;
+            lootDropped = true;
+            float dropYes = Random.Range(0f, 100f);
+
+            if (dropYes >= percentChanceToDropItem) return;
+
+            GameObject item = enemyLootTable.Drop();
+
+            if (item != null)
             {
-                contactDamage = 0;
-                lootDropped = true;
-                float dropYes = Random.Range(0f, 100f);
-
-                if (dropYes >= percentChanceToDropItem) return;
-
-                GameObject item = enemyLootTable.Drop();
-
-                if (item != null)
-                {
-                    //Debug.Log("Success");
-                    Instantiate(item, transform.position, Quaternion.identity);
-                }
+                //Debug.Log("Success");
+                Instantiate(item, transform.position, Quaternion.identity);
             }
-            
         }
         //DamagePopup.Create(transform.position, (int)amount);
     }

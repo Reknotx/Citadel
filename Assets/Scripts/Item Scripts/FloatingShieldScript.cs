@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-using UnityEngine.UI;
 
 public class FloatingShieldScript : MonoBehaviour
 {
@@ -16,7 +13,7 @@ public class FloatingShieldScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        myCollider = this.gameObject.GetComponent<Collider>();
+        myCollider = gameObject.GetComponent<Collider>();
 
         Color alpha = myMaterial.color;
         alpha.a = 1f;

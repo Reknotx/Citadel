@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Interactables
@@ -28,7 +26,7 @@ namespace Interactables
         // Start is called before the first frame update
         void Awake()
         {
-            myCollider = this.GetComponent<Collider>();
+            myCollider = GetComponent<Collider>();
             //GameObject player = GameObject.FindGameObjectWithTag("Player");
         }
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Interactables
@@ -30,7 +28,7 @@ namespace Interactables
             if (player.Mana != player.MaxMana)
             {
                 player.Mana += dropAmount;
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
                 
                 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Interactables
@@ -32,7 +30,7 @@ namespace Interactables
                     given = true;
                     NewPlayer.Instance.inventory.spellStone = true;
                     NewPlayer.Instance.GetComponent<Inventory_UI>().AddItem(spellStoneGameObject);
-                    Destroy(this.gameObject);
+                    Destroy(gameObject);
                 }
                
             }

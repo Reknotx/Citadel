@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
-/// <summary>
+
+namespace Map
+{
+    /// <summary>
     /// A class that makes a node for the grid that will be used to help in conceptualizing
     /// the map as it is being generated.
     /// </summary>
@@ -23,7 +26,7 @@
                 TopSide = top;
                 BottomSide = bottom;
             }
-            
+
             public override string ToString()
             {
                 Debug.LogFormat("Node openings - Top: {0}, Bottom: {1}, Left: {2}, Right: {3}", TopSide,
@@ -45,6 +48,7 @@
 
         public int fCost => gCost + hCost;
 
+        /// <summary>The parent to this node. </summary>
         public NewGridNode parent;
 
         public NewGridNode(Vector2 gridPos)
@@ -78,3 +82,4 @@
             parent = null;
         }
     }
+}

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class IcicleSpell : Spell
@@ -23,6 +21,6 @@ public class IcicleSpell : Spell
     {
         target.GetComponent<IDamageable>().TakeDamage(stats.damage);
         DamagePopup.Create(transform.position, stats.damage);
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }

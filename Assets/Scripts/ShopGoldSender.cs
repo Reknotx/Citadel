@@ -5,8 +5,6 @@
  * adding a proportional amount of gold depending on the number of miners the players has purchased.
  */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShopGoldSender : MonoBehaviour

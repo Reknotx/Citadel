@@ -1,5 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+/*
+ * Author: Chase O'Connor
+ *
+ *  Brief: Manages the minimap so that the player can tell where they are.
+ *
+ */
+
 using UnityEngine;
 
 namespace Minimap
@@ -22,5 +27,12 @@ namespace Minimap
         {
             gameObject.transform.position = new Vector3(pos.x, pos.y, transform.position.z);
         }
+
+        public void ExpandMap()
+        {
+            //Take minimap from top right corner and expand it so that the player can see the whole
+            //map of the castle.
+        }
+        
     }
 }

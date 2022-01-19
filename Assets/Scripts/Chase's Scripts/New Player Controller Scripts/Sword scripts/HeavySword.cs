@@ -1,5 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+/*
+ *Author: Chase O'Connor
+ *
+ * Brief: Script for the player's heavy sword which deals more damage.
+ * 
+ */
+
 using UnityEngine;
 
 public class HeavySword : Sword

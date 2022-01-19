@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AerorangSpell : Spell
@@ -101,7 +99,7 @@ public class AerorangSpell : Spell
     {
 
         facingRight = player.GetComponent<NewPlayer>().facingRight;
-        currentPos = this.transform.position;
+        currentPos = transform.position;
         zPos = 0f;
         currentPos.z = zPos;
 
@@ -164,7 +162,7 @@ public class AerorangSpell : Spell
 
             if (currentPos == targetPos)
             {
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
         }
     }
@@ -173,7 +171,7 @@ public class AerorangSpell : Spell
     protected override void TriggerSpell(GameObject target)
     {
         //target.GetComponent<Enemy>().TakeDamage(damage);
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     protected override void Move()
@@ -189,7 +187,7 @@ public class AerorangSpell : Spell
         {
             if (goingBack)
             {
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
 
         }

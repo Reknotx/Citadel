@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Interactables
@@ -31,7 +29,7 @@ namespace Interactables
                     given = true;
                     NewPlayer.Instance.inventory.undying = true;
                     NewPlayer.Instance.GetComponent<Inventory_UI>().AddItem(undyingGameObject);
-                    Destroy(this.gameObject);
+                    Destroy(gameObject);
                 }
                 
             }

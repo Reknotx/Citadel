@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -105,7 +104,7 @@ public class ReboundSpell : Spell
 
         if(bounceCount >= 8)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
 
         #region possible direction detection
@@ -289,7 +288,7 @@ public class ReboundSpell : Spell
         {
             other.gameObject.GetComponent<Enemy>().TakeDamage(damage);
             DamagePopup.Create(transform.position, damage);
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
 
         if (other.gameObject.layer == 31)

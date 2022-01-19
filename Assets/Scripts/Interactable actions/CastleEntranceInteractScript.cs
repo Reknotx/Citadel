@@ -6,8 +6,6 @@
  * entrance interactions with the player 
  */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Interactables

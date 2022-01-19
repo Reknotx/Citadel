@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -34,7 +32,7 @@ namespace Interactables
                     given = true;
                     NewPlayer.Instance.inventory.compass = true;
                     NewPlayer.Instance.GetComponent<Inventory_UI>().AddItem(compassGameObject);
-                    Destroy(this.gameObject);
+                    Destroy(gameObject);
                 }
                
             }

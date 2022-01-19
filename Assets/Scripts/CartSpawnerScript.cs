@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CartSpawnerScript : MonoBehaviour
@@ -35,7 +33,7 @@ public class CartSpawnerScript : MonoBehaviour
 
     public void spawnCart()
     {
-        var mineCart = (GameObject)Instantiate(this.gameObject.GetComponent<CartSpawnerScript>().mineCartPrefab, pos.transform.position, pos.transform.rotation);
+        var mineCart = (GameObject)Instantiate(gameObject.GetComponent<CartSpawnerScript>().mineCartPrefab, pos.transform.position, pos.transform.rotation);
         pos.transform.position += new Vector3(0, 5, 0);
     }
 }

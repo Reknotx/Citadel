@@ -6,8 +6,6 @@
  *  the scene's buttons 
  */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SceneButtonControllerScript : MonoBehaviour

@@ -3,8 +3,6 @@
 //description: used to reset the permanent gold by deleting the key in PlayerPrefs
 // the key comes back when you start a new game, and it should theoretically not be stuck at 0 anymore
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ResetPlayerPrefGold : MonoBehaviour

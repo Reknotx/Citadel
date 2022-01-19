@@ -7,7 +7,6 @@
  * be updated to contain other information most likely.
  */
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;

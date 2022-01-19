@@ -8,8 +8,14 @@
  * work with different room types and to make it more flexible overall.
  *
  * Other factors of the overhaul include refractoring my code to make it more readable
- * as well as cleaner. Overhauling wasn't possible during development as we had more
+ * as well as cleaner.
+ *
+ * Overhauling wasn't possible during development as we had more
  * important items to attend to sadly.
+ *
+ * As of this date there is a bug in the code that is preventing the map generator
+ * from loading the map properly. HOWEVER, the generator does generate the branching paths correctly
+ * and, once said issue is resolved, will work almost flawlessly 
  */
 
 using System;
@@ -62,7 +68,7 @@ namespace Map
 
         private int rows;
 
-        public RoomContainer roomCont;
+        public RoomContainer roomContainer;
 
         private Vector2 SpawnRoomPos, SpawnRoomGridPos;
 
@@ -83,7 +89,7 @@ namespace Map
             else if (specialRooms.Count > 0 && specialRooms[0] == null)
                 specialRooms.Clear();
 
-            if (roomCont == null)
+            if (roomContainer == null)
                 Debug.LogError("Room Container is empty. Please insert the scriptable object.");
 
         }
@@ -132,7 +138,7 @@ namespace Map
                 {
                     if (map[y, x] != null && tempConceptGrid[y,x].roomType != (RoomType.Filled | RoomType.EMPTY)) continue;
 
-                    GameObject tempFilledRoom = SpawnRoom(roomCont.filledRoom, new Vector2(x, y), "Filled Room");
+                    GameObject tempFilledRoom = SpawnRoom(roomContainer.filledRoom, new Vector2(x, y), "Filled Room");
                     
                     tempFilledRoom.transform.parent = row.transform;
                 }
@@ -197,6 +203,7 @@ namespace Map
                             break;
                         }
 
+                        // TODO - There is a bug that is causing us to crash. Needs to be resolved
                         if (examinedRooms.Count == GetListCount(currNode.roomType))
                         {
                             Debug.LogError("Ran out of rooms of type " + currNode.roomType +
@@ -226,16 +233,16 @@ namespace Map
                         switch (type)
                         {
                             case RoomType.Normal:
-                                room = roomCont.RegularRooms[Random.Range(0, roomCont.RegularRooms.Count)];
+                                room = roomContainer.RegularRooms[Random.Range(0, roomContainer.RegularRooms.Count)];
                                 break;
                             case RoomType.Spawn:
-                                room = roomCont.SpawnRooms[Random.Range(0, roomCont.SpawnRooms.Count)];
+                                room = roomContainer.SpawnRooms[Random.Range(0, roomContainer.SpawnRooms.Count)];
                                 break;
                             case RoomType.Boss:
-                                room = roomCont.SpawnRooms[Random.Range(0, roomCont.BossRooms.Count)];
+                                room = roomContainer.SpawnRooms[Random.Range(0, roomContainer.BossRooms.Count)];
                                 break;
                             case RoomType.Shop:
-                                room = roomCont.ShopRooms[Random.Range(0, roomCont.ShopRooms.Count)];
+                                room = roomContainer.ShopRooms[Random.Range(0, roomContainer.ShopRooms.Count)];
                                 break;
                         }
                     //     
@@ -252,13 +259,13 @@ namespace Map
                     switch (type)
                     {
                         case RoomType.Spawn:
-                            return roomCont.SpawnRooms.Count;
+                            return roomContainer.SpawnRooms.Count;
                         case RoomType.Boss:
-                            return roomCont.BossRooms.Count;
+                            return roomContainer.BossRooms.Count;
                         case RoomType.Shop:
-                            return roomCont.BossRooms.Count;
+                            return roomContainer.BossRooms.Count;
                         default:
-                            return roomCont.RegularRooms.Count;
+                            return roomContainer.RegularRooms.Count;
                     }
                 }
 
@@ -410,8 +417,9 @@ namespace Map
 
             return spawnedRoom;
         }
-
-
+        
+        /// <summary> Adds a unique room to the private list. </summary>
+        /// <param name="roomObj"></param>
         private void AddSpecialRoomToList(GameObject roomObj) => specialRooms.Add(roomObj.GetComponent<Room>());
 
         public void ExposeSpecialRooms()

@@ -50,7 +50,7 @@ public class Orc : Enemy
 
         base.Update();
 
-        if (Vector2.Distance(transform.position, base.player.transform.position) <= orcMeleeRange)
+        if (Vector2.Distance(transform.position, player.transform.position) <= orcMeleeRange)
         {
             if (canAttack)
             {
