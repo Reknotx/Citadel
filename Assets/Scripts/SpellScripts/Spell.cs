@@ -1,3 +1,8 @@
+/*
+ *Author: Chase O'Connor
+ *
+ *Brief: The base class for all spells that the player can cast.
+ */
 using UnityEngine;
 
 public abstract class Spell : MonoBehaviour

@@ -1,3 +1,10 @@
+/*
+ *Author: Chase O'Connor
+ *
+ * Brief: A spell which deals damage to enemies.
+ * 
+ */
+
 using UnityEngine;
 
 public class IcicleSpell : Spell
